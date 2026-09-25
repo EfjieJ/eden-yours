@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="fr-CA">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Bibliothèque Eden Yours — écoute en continu pour la régénération et la Sensibilité Pure.">
+  <title>Bibliothèque — Eden Yours</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%23c084fc'/%3E%3Cstop offset='1' stop-color='%2367e8f9'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3C/svg%3E">
+</head>
+<body>
+  <header class="site-nav">
+    <div class="container">
+      <a class="logo" href="index.html">
+        <span class="logo-mark" aria-hidden="true"></span>
+        <span data-site-name>Eden Yours</span>
+      </a>
+      <button type="button" class="nav-toggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="nav-links" aria-label="Principal">
+        <a href="index.html">Accueil</a>
+        <a href="bibliotheque.html" class="active">Bibliothèque</a>
+        <a href="pratique.html">Pratique</a>
+        <a href="soutenir.html">Soutenir</a>
+        <a href="invitations.html">Invitations</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="page-hero">
+      <div class="container">
+        <p class="eyebrow" data-tagline>Écoute en continu. Ça régénère.</p>
+        <h1>Bibliothèque &amp; lecteur</h1>
+        <p>
+          Cette bibliothèque est faite pour être jouée d'un bout à l'autre.
+          Enchaîne les titres&nbsp;: plus tu restes en écoute continue, plus l'effet de régénération s'installe —
+          aligné sur la Sensibilité Pure et la Fonction avant la Structure.
+        </p>
+      </div>
+    </div>
+
+    <section class="section" style="padding-top:0">
+      <div class="container library-layout">
+        <article class="player-card" aria-label="Lecteur actuel">
+          <div class="player-card-cover">
+            <img src="assets/covers/f5bf8830-85bb-4a9b-9545-081800be485f.jpeg" alt="">
+          </div>
+          <div>
+            <p class="eyebrow" style="margin-bottom:0.5rem">En écoute</p>
+            <h2 data-player-title style="font-size:1.35rem;margin-bottom:0.25rem">La Sensibilité est la Fonction</h2>
+            <p data-player-artist style="color:var(--text-muted);margin-bottom:0.75rem">Eden Yours</p>
+            <p class="player-nudge">Astuce&nbsp;: laisse le lecteur enchaîner — le suivant démarre tout seul. C'est ainsi que la régénération se déploie.</p>
+            <div class="featured-actions">
+              <button type="button" class="btn btn-primary js-play-first">▶ Lire et enchaîner</button>
+              <a class="btn btn-suno js-suno-link" href="https://suno.com/s/zcIyAJuM0oB4E6sm" target="_blank" rel="noopener noreferrer">Écouter sur Suno</a>
+            </div>
+          </div>
+        </article>
+
+        <div>
+          <div class="section-header">
+            <div>
+              <h2>Tous les titres</h2>
+              <p>Clique un titre, puis enchaîne — la régénération passe par la suite.</p>
+            </div>
+          </div>
+          <div class="track-list" data-soon-slots="1"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p><span data-site-name>Eden Yours</span> · <span data-artist-name>Eden Yours</span></p>
+      <p class="footer-tagline" data-tagline>Écoute en continu. Ça régénère.</p>
+    </div>
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

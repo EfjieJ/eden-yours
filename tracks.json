@@ -1,0 +1,37 @@
+{
+  "tracks": [
+    {
+      "id": "f5bf8830-85bb-4a9b-9545-081800be485f",
+      "title": "La Sensibilité est la Fonction",
+      "artist": "Eden Yours",
+      "sunoArtist": "efjie8008",
+      "audio_url": "assets/audio/f5bf8830-85bb-4a9b-9545-081800be485f.m4a",
+      "cover_url": "assets/covers/f5bf8830-85bb-4a9b-9545-081800be485f.jpeg",
+      "suno_share": "https://suno.com/s/zcIyAJuM0oB4E6sm",
+      "duration": 187.2,
+      "featured": true
+    },
+    {
+      "id": "dead13bb-42bc-492e-83a1-87609f224734",
+      "title": "Particule Pure",
+      "artist": "Eden Yours",
+      "sunoArtist": "efjie8008",
+      "audio_url": "assets/audio/dead13bb-42bc-492e-83a1-87609f224734.m4a",
+      "cover_url": "assets/covers/dead13bb-42bc-492e-83a1-87609f224734.jpeg",
+      "suno_share": "https://suno.com/s/Z4eMjeQMXP7Wp613",
+      "duration": 244.24,
+      "featured": false
+    },
+    {
+      "id": "2c8a36c9-4207-41b9-80e9-bf78313c2099",
+      "title": "Tout ce que je demande l'univers me le donne",
+      "artist": "Eden Yours",
+      "sunoArtist": "efjie8008",
+      "audio_url": "assets/audio/2c8a36c9-4207-41b9-80e9-bf78313c2099.m4a",
+      "cover_url": "assets/covers/2c8a36c9-4207-41b9-80e9-bf78313c2099.jpeg",
+      "suno_share": "https://suno.com/s/xEWZPaMo5HSbXeMp",
+      "duration": 219.56,
+      "featured": false
+    }
+  ]
+}
