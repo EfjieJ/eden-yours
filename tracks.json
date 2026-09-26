@@ -143,6 +143,18 @@
       "duration": 304.2,
       "featured": false,
       "audio_url_aac": "assets/audio/2c1321b1-378d-47f3-be06-1ba9437edd30.m4a"
+    },
+    {
+      "id": "e9a0dfac-1925-49e4-aa3a-a2b8c20bc06c",
+      "title": "Commencer",
+      "artist": "Eden Yours",
+      "sunoArtist": "efjie8008",
+      "audio_url": "assets/audio/e9a0dfac-1925-49e4-aa3a-a2b8c20bc06c.mp3",
+      "cover_url": "assets/covers/e9a0dfac-1925-49e4-aa3a-a2b8c20bc06c.jpeg",
+      "suno_share": "https://suno.com/s/cz8rFM7r2qWNnXMx",
+      "duration": 272.8,
+      "featured": false,
+      "audio_url_aac": "assets/audio/e9a0dfac-1925-49e4-aa3a-a2b8c20bc06c.m4a"
     }
   ]
 }
