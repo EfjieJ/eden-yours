@@ -95,6 +95,18 @@
       "duration": 212.76,
       "featured": false,
       "audio_url_aac": "assets/audio/51d7f27c-2ed1-4de0-821a-83e21384ffd6.m4a"
+    },
+    {
+      "id": "a11c8f21-163b-4b53-8d3a-5353e809bb50",
+      "title": "Start - Continue - Finish",
+      "artist": "Eden Yours",
+      "sunoArtist": "efjie8008",
+      "audio_url": "assets/audio/a11c8f21-163b-4b53-8d3a-5353e809bb50.mp3",
+      "cover_url": "assets/covers/a11c8f21-163b-4b53-8d3a-5353e809bb50.jpeg",
+      "suno_share": "https://suno.com/s/lyclNUiPOPYuDzPo",
+      "duration": 234.8,
+      "featured": false,
+      "audio_url_aac": "assets/audio/a11c8f21-163b-4b53-8d3a-5353e809bb50.m4a"
     }
   ]
 }
