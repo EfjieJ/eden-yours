@@ -47,6 +47,18 @@
       "duration": 238.68,
       "featured": false,
       "audio_url_aac": "assets/audio/f95b9e6c-bc0b-4d6f-b2b6-8089d498c6ef.m4a"
+    },
+    {
+      "id": "ad12c762-07a4-4a0e-8c7e-a411b2419008",
+      "title": "La pensée",
+      "artist": "Eden Yours",
+      "sunoArtist": "efjie8008",
+      "audio_url": "assets/audio/ad12c762-07a4-4a0e-8c7e-a411b2419008.mp3",
+      "cover_url": "assets/covers/ad12c762-07a4-4a0e-8c7e-a411b2419008.jpeg",
+      "suno_share": "https://suno.com/s/e7ZBaLFfKb3576kP",
+      "duration": 316.6,
+      "featured": false,
+      "audio_url_aac": "assets/audio/ad12c762-07a4-4a0e-8c7e-a411b2419008.m4a"
     }
   ]
 }
