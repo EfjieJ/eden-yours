@@ -119,6 +119,18 @@
       "duration": 186.24,
       "featured": false,
       "audio_url_aac": "assets/audio/a5ba4262-22f6-4c9c-a6df-05bff2d5e713.m4a"
+    },
+    {
+      "id": "702aaf9e-cde4-4b51-900c-a790db4a2320",
+      "title": "Éternel sur Terre",
+      "artist": "Eden Yours",
+      "sunoArtist": "efjie8008",
+      "audio_url": "assets/audio/702aaf9e-cde4-4b51-900c-a790db4a2320.mp3",
+      "cover_url": "assets/covers/702aaf9e-cde4-4b51-900c-a790db4a2320.jpeg",
+      "suno_share": "https://suno.com/s/oRnEqpE4a1BAGDPM",
+      "duration": 223.44,
+      "featured": false,
+      "audio_url_aac": "assets/audio/702aaf9e-cde4-4b51-900c-a790db4a2320.m4a"
     }
   ]
 }
