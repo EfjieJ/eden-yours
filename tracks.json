@@ -107,6 +107,18 @@
       "duration": 234.8,
       "featured": false,
       "audio_url_aac": "assets/audio/a11c8f21-163b-4b53-8d3a-5353e809bb50.m4a"
+    },
+    {
+      "id": "a5ba4262-22f6-4c9c-a6df-05bff2d5e713",
+      "title": "The Body Is an Antenna",
+      "artist": "Eden Yours",
+      "sunoArtist": "efjie8008",
+      "audio_url": "assets/audio/a5ba4262-22f6-4c9c-a6df-05bff2d5e713.mp3",
+      "cover_url": "assets/covers/a5ba4262-22f6-4c9c-a6df-05bff2d5e713.jpeg",
+      "suno_share": "https://suno.com/s/1yb6CMDvvcr2hmCZ",
+      "duration": 186.24,
+      "featured": false,
+      "audio_url_aac": "assets/audio/a5ba4262-22f6-4c9c-a6df-05bff2d5e713.m4a"
     }
   ]
 }
