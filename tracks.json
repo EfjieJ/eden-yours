@@ -35,6 +35,18 @@
       "duration": 219.56,
       "featured": false,
       "audio_url_aac": "assets/audio/2c8a36c9-4207-41b9-80e9-bf78313c2099.m4a"
+    },
+    {
+      "id": "f95b9e6c-bc0b-4d6f-b2b6-8089d498c6ef",
+      "title": "Et que ce soit",
+      "artist": "Eden Yours",
+      "sunoArtist": "efjie8008",
+      "audio_url": "assets/audio/f95b9e6c-bc0b-4d6f-b2b6-8089d498c6ef.mp3",
+      "cover_url": "assets/covers/f95b9e6c-bc0b-4d6f-b2b6-8089d498c6ef.jpeg",
+      "suno_share": "https://suno.com/s/8mOJxJUOEu653pl7",
+      "duration": 238.68,
+      "featured": false,
+      "audio_url_aac": "assets/audio/f95b9e6c-bc0b-4d6f-b2b6-8089d498c6ef.m4a"
     }
   ]
 }
