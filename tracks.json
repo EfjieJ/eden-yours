@@ -59,6 +59,18 @@
       "duration": 316.6,
       "featured": false,
       "audio_url_aac": "assets/audio/ad12c762-07a4-4a0e-8c7e-a411b2419008.m4a"
+    },
+    {
+      "id": "5535b9e6-78f1-4a96-bfed-f0c5666a75c3",
+      "title": "La Mécanique du Jeu",
+      "artist": "Eden Yours",
+      "sunoArtist": "efjie8008",
+      "audio_url": "assets/audio/5535b9e6-78f1-4a96-bfed-f0c5666a75c3.mp3",
+      "cover_url": "assets/covers/5535b9e6-78f1-4a96-bfed-f0c5666a75c3.jpeg",
+      "suno_share": "https://suno.com/s/ripnQvDFpAKk13AX",
+      "duration": 151.6,
+      "featured": false,
+      "audio_url_aac": "assets/audio/5535b9e6-78f1-4a96-bfed-f0c5666a75c3.m4a"
     }
   ]
 }
