@@ -518,6 +518,194 @@ Entrez, découvrez, et ne l'oubliez plus.
     }
   }
 
+
+  // ---------- Song request (Demander une chanson) ----------
+  function initSongRequest() {
+    const form = $("#song-request-form");
+    if (!form) return;
+
+    const nameEl = $("#req-name");
+    const emailEl = $("#req-email");
+    const sunoEl = $("#req-suno");
+    const descEl = $("#req-desc");
+    const validation = $("#req-validation");
+    const after = $("#request-after");
+    const summaryBox = $(".js-request-summary");
+    const mailtoBtn = $(".js-mailto-request");
+    const paypalAgain = $(".js-paypal-again");
+    const payBtn = $(".js-request-paypal", form);
+
+    const contact = (cfg.contactEmail || "efjie8008@gmail.com").trim();
+    const paypalBase = (cfg.paypalUrl || "https://paypal.me/Francjul").replace(/\/$/, "");
+
+    function selectedCurrency() {
+      const checked = form.querySelector('input[name="currency"]:checked');
+      return checked ? checked.value : "EUR";
+    }
+
+    function amountLabel(cur) {
+      return cur === "USD" ? "10 $ US" : "10 €";
+    }
+
+    function paypalAmountUrl(cur) {
+      // paypal.me/<handle>/<amount><CURRENCY> — verified working
+      return cur === "USD"
+        ? paypalBase + "/10USD"
+        : paypalBase + "/10EUR";
+    }
+
+    function buildSummary() {
+      const name = (nameEl?.value || "").trim();
+      const email = (emailEl?.value || "").trim();
+      const suno = (sunoEl?.value || "").trim();
+      const desc = (descEl?.value || "").trim();
+      const cur = selectedCurrency();
+      const lines = [
+        "Demande de chanson — Eden Yours",
+        "",
+        "Nom : " + name,
+        "Courriel : " + email,
+        "Devise / montant : " + amountLabel(cur) + " (" + cur + ")",
+        "PayPal : " + paypalAmountUrl(cur),
+      ];
+      if (suno) lines.push("Lien Suno : " + suno);
+      if (desc) {
+        lines.push("");
+        lines.push("Description / intention :");
+        lines.push(desc);
+      }
+      lines.push("");
+      lines.push("(Résumé généré sur la page Demander une chanson)");
+      return lines.join("\n");
+    }
+
+    function validate() {
+      const name = (nameEl?.value || "").trim();
+      const email = (emailEl?.value || "").trim();
+      const suno = (sunoEl?.value || "").trim();
+      const desc = (descEl?.value || "").trim();
+      if (!name) return "Indiquez votre nom.";
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        return "Indiquez un courriel de contact valide.";
+      }
+      if (!suno && !desc) {
+        return "Ajoutez un lien Suno et/ou une description de votre demande.";
+      }
+      if (suno) {
+        try {
+          const u = new URL(suno);
+          if (!/^https?:$/.test(u.protocol)) return "Le lien Suno doit commencer par https://";
+        } catch {
+          return "Le lien Suno n'est pas une URL valide.";
+        }
+      }
+      return "";
+    }
+
+    function showValidation(msg) {
+      if (!validation) return;
+      if (msg) {
+        validation.hidden = false;
+        validation.textContent = msg;
+      } else {
+        validation.hidden = true;
+        validation.textContent = "";
+      }
+    }
+
+    function updatePayLabel() {
+      if (!payBtn) return;
+      const cur = selectedCurrency();
+      payBtn.textContent = cur === "USD"
+        ? "Payer 10 $ US via PayPal"
+        : "Payer 10 € via PayPal";
+    }
+
+    async function copySummary(text) {
+      try {
+        await navigator.clipboard.writeText(text);
+        toast("Résumé copié ✓ — collez-le dans la note PayPal");
+        return true;
+      } catch {
+        if (summaryBox) {
+          const range = document.createRange();
+          range.selectNodeContents(summaryBox);
+          const sel = window.getSelection();
+          sel.removeAllRanges();
+          sel.addRange(range);
+        }
+        toast("Sélectionnez et copiez le résumé (Ctrl+C)");
+        return false;
+      }
+    }
+
+    function revealAfter(summary, cur) {
+      if (summaryBox) summaryBox.textContent = summary;
+      if (mailtoBtn) {
+        const subject = encodeURIComponent("Demande de chanson — Eden Yours");
+        const body = encodeURIComponent(summary);
+        mailtoBtn.href = `mailto:${contact}?subject=${subject}&body=${body}`;
+      }
+      if (paypalAgain) {
+        paypalAgain.href = paypalAmountUrl(cur);
+      }
+      if (after) {
+        after.hidden = false;
+        after.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
+    }
+
+    form.querySelectorAll('input[name="currency"]').forEach((radio) => {
+      radio.addEventListener("change", updatePayLabel);
+    });
+    updatePayLabel();
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const err = validate();
+      if (err) {
+        showValidation(err);
+        toast(err);
+        return;
+      }
+      showValidation("");
+      const cur = selectedCurrency();
+      const summary = buildSummary();
+      await copySummary(summary);
+      revealAfter(summary, cur);
+      const url = paypalAmountUrl(cur);
+      window.open(url, "_blank", "noopener,noreferrer");
+    });
+
+    $$(".js-copy-request").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        const err = validate();
+        if (err) {
+          showValidation(err);
+          toast(err);
+          return;
+        }
+        showValidation("");
+        const summary = buildSummary();
+        if (summaryBox) summaryBox.textContent = summary;
+        await copySummary(summary);
+      });
+    });
+
+    $$(".js-copy-request-again").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        const text = summaryBox?.textContent || buildSummary();
+        await copySummary(text);
+      });
+    });
+
+    // Bind contact email display from config
+    $$("[data-contact-email]").forEach((el) => {
+      el.textContent = contact;
+      if (el.tagName === "A") el.href = "mailto:" + contact;
+    });
+  }
+
   // ---------- Public API for inline handlers ----------
   window.EdenPlayer = {
     play: playTrack,
@@ -538,6 +726,7 @@ Entrez, découvrez, et ne l'oubliez plus.
     updatePlayerCard(tracks.find((t) => t.featured) || tracks[0]);
     initPayPal();
     initInvitations();
+    initSongRequest();
 
     // Page-level play buttons that reference first track
     $$(".js-play-first").forEach((btn) => {
