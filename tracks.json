@@ -131,6 +131,18 @@
       "duration": 223.44,
       "featured": false,
       "audio_url_aac": "assets/audio/702aaf9e-cde4-4b51-900c-a790db4a2320.m4a"
+    },
+    {
+      "id": "2c1321b1-378d-47f3-be06-1ba9437edd30",
+      "title": "La Vraie Liberté",
+      "artist": "Eden Yours",
+      "sunoArtist": "efjie8008",
+      "audio_url": "assets/audio/2c1321b1-378d-47f3-be06-1ba9437edd30.mp3",
+      "cover_url": "assets/covers/2c1321b1-378d-47f3-be06-1ba9437edd30.jpeg",
+      "suno_share": "https://suno.com/s/yZ9rHqZqLYZ3PZum",
+      "duration": 304.2,
+      "featured": false,
+      "audio_url_aac": "assets/audio/2c1321b1-378d-47f3-be06-1ba9437edd30.m4a"
     }
   ]
 }
