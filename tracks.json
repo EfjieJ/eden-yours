@@ -71,6 +71,18 @@
       "duration": 151.6,
       "featured": false,
       "audio_url_aac": "assets/audio/5535b9e6-78f1-4a96-bfed-f0c5666a75c3.m4a"
+    },
+    {
+      "id": "a0b2b33d-66f6-4c6a-b933-cdb5977d920e",
+      "title": "Le Léger Futur",
+      "artist": "Eden Yours",
+      "sunoArtist": "efjie8008",
+      "audio_url": "assets/audio/a0b2b33d-66f6-4c6a-b933-cdb5977d920e.mp3",
+      "cover_url": "assets/covers/a0b2b33d-66f6-4c6a-b933-cdb5977d920e.jpeg",
+      "suno_share": "https://suno.com/s/7Bt6qCQP9NEkROGR",
+      "duration": 226.4,
+      "featured": false,
+      "audio_url_aac": "assets/audio/a0b2b33d-66f6-4c6a-b933-cdb5977d920e.m4a"
     }
   ]
 }
