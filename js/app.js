@@ -114,14 +114,27 @@
     const switching = currentIndex !== index;
     currentIndex = index;
 
+    const resolveUrl = (u) => {
+      try { return new URL(u, document.baseURI).href; } catch { return u; }
+    };
+
     if (switching || a.getAttribute("data-id") !== t.id) {
-      a.src = t.audio_url;
+      a.src = resolveUrl(t.audio_url);
       a.setAttribute("data-id", t.id);
+      a.onerror = () => {
+        if (t.audio_url_aac && !a.getAttribute("data-tried-aac")) {
+          a.setAttribute("data-tried-aac", "1");
+          a.src = resolveUrl(t.audio_url_aac);
+          a.play().catch(() => toast("Impossible de lire la musique"));
+        } else {
+          toast("Impossible de lire la musique");
+        }
+      };
     }
 
     a.play().catch((e) => {
       console.warn("Lecture bloquée:", e);
-      toast("Impossible de démarrer la lecture");
+      toast("Impossible de démarrer la lecture — tapez une fois pour autoriser le son");
     });
 
     showPlayerBar(t);
