@@ -203,6 +203,18 @@
       "duration": 187.2,
       "featured": false,
       "audio_url_aac": "assets/audio/b495fcd7-5db9-4de1-8fe5-4ba9a397e325.m4a"
+    },
+    {
+      "id": "bd31373d-709e-4a64-a7dd-7baed7ec7bb7",
+      "title": "the postulat",
+      "artist": "Eden Yours",
+      "sunoArtist": "efjie8008",
+      "audio_url": "assets/audio/bd31373d-709e-4a64-a7dd-7baed7ec7bb7.mp3",
+      "cover_url": "assets/covers/bd31373d-709e-4a64-a7dd-7baed7ec7bb7.jpeg",
+      "suno_share": "https://suno.com/s/n4fOJZWSat16GahA",
+      "duration": 159.48,
+      "featured": false,
+      "audio_url_aac": "assets/audio/bd31373d-709e-4a64-a7dd-7baed7ec7bb7.m4a"
     }
   ]
 }
