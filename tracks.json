@@ -215,6 +215,18 @@
       "duration": 159.48,
       "featured": false,
       "audio_url_aac": "assets/audio/bd31373d-709e-4a64-a7dd-7baed7ec7bb7.m4a"
+    },
+    {
+      "id": "b0eb0f76-f2d8-4e16-85a9-037fc3f32b01",
+      "title": "The slight future",
+      "artist": "Eden Yours",
+      "sunoArtist": "efjie8008",
+      "audio_url": "assets/audio/b0eb0f76-f2d8-4e16-85a9-037fc3f32b01.mp3",
+      "cover_url": "assets/covers/b0eb0f76-f2d8-4e16-85a9-037fc3f32b01.jpeg",
+      "suno_share": "https://suno.com/s/ZNfGvZdcStAKpdwr",
+      "duration": 269.16,
+      "featured": false,
+      "audio_url_aac": "assets/audio/b0eb0f76-f2d8-4e16-85a9-037fc3f32b01.m4a"
     }
   ]
 }
