@@ -191,6 +191,18 @@
       "duration": 151.56,
       "featured": false,
       "audio_url_aac": "assets/audio/d2d61703-a205-41ac-a670-6e5cf7c22911.m4a"
+    },
+    {
+      "id": "b495fcd7-5db9-4de1-8fe5-4ba9a397e325",
+      "title": "Sensitivity is Pure Function",
+      "artist": "Eden Yours",
+      "sunoArtist": "efjie8008",
+      "audio_url": "assets/audio/b495fcd7-5db9-4de1-8fe5-4ba9a397e325.mp3",
+      "cover_url": "assets/covers/b495fcd7-5db9-4de1-8fe5-4ba9a397e325.jpeg",
+      "suno_share": "https://suno.com/s/zsMTl0Hk6BltrvBi",
+      "duration": 187.2,
+      "featured": false,
+      "audio_url_aac": "assets/audio/b495fcd7-5db9-4de1-8fe5-4ba9a397e325.m4a"
     }
   ]
 }
