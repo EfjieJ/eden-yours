@@ -1,24 +1,24 @@
 <!DOCTYPE html>
-<html lang="fr-CA">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Bibliothèque — Eden Yours</title>
-  <meta name="description" content="Bibliothèque Eden Yours : écoute en continu pour la régénération et la Sensibilité Pure. Plus de 15 titres Suno.">
+  <title data-i18n-title="lib.title">Library — Eden Yours</title>
+  <meta name="description" data-i18n-content="lib.metaDesc" content="Eden Yours library: continuous listening for regeneration and Pure Sensitivity. 15+ Suno tracks.">
   <link rel="canonical" href="https://efjiej.github.io/eden-yours/bibliotheque.html">
   <meta property="og:type" content="website">
-  <meta property="og:locale" content="fr_CA">
+  <meta property="og:locale" content="en_US">
   <meta property="og:site_name" content="Eden Yours">
   <meta property="og:url" content="https://efjiej.github.io/eden-yours/bibliotheque.html">
-  <meta property="og:title" content="Bibliothèque — Eden Yours">
-  <meta property="og:description" content="Bibliothèque Eden Yours : écoute en continu pour la régénération et la Sensibilité Pure. Plus de 15 titres Suno.">
+  <meta property="og:title" data-i18n-content="lib.title" content="Library — Eden Yours">
+  <meta property="og:description" data-i18n-content="lib.metaDesc" content="Eden Yours library: continuous listening for regeneration and Pure Sensitivity. 15+ Suno tracks.">
   <meta property="og:image" content="https://efjiej.github.io/eden-yours/assets/og-share.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Eden Yours — Écoute en continu. Ça régénère.">
+  <meta property="og:image:alt" data-i18n-content="common.tagline" content="Eden Yours — Listen continuously. It regenerates.">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Bibliothèque — Eden Yours">
-  <meta name="twitter:description" content="Bibliothèque Eden Yours : écoute en continu pour la régénération et la Sensibilité Pure. Plus de 15 titres Suno.">
+  <meta name="twitter:title" data-i18n-content="lib.title" content="Library — Eden Yours">
+  <meta name="twitter:description" data-i18n-content="lib.metaDesc" content="Eden Yours library: continuous listening for regeneration and Pure Sensitivity. 15+ Suno tracks.">
   <meta name="twitter:image" content="https://efjiej.github.io/eden-yours/assets/og-share.jpg">
   <link rel="stylesheet" href="css/styles.css">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%23c084fc'/%3E%3Cstop offset='1' stop-color='%2367e8f9'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3C/svg%3E">
@@ -30,16 +30,21 @@
         <span class="logo-mark" aria-hidden="true"></span>
         <span data-site-name>Eden Yours</span>
       </a>
-      <button type="button" class="nav-toggle" aria-label="Menu">
+      <button type="button" class="nav-toggle" data-i18n-aria="common.menu" aria-label="Menu">
         <span></span><span></span><span></span>
       </button>
-      <nav class="nav-links" aria-label="Principal">
-        <a href="index.html">Accueil</a>
-        <a href="bibliotheque.html" class="active">Bibliothèque</a>
-        <a href="pratique.html">Pratique</a>
-        <a href="demander.html">Demander</a>
-        <a href="soutenir.html">Soutenir</a>
-        <a href="invitations.html">Invitations</a>
+            <nav class="nav-links" data-i18n-aria="common.navAria" aria-label="Main">
+        <a href="index.html" data-i18n="nav.home">Home</a>
+        <a href="bibliotheque.html" class="active" data-i18n="nav.library">Library</a>
+        <a href="pratique.html" data-i18n="nav.practice">Practice</a>
+        <a href="demander.html" data-i18n="nav.request">Request</a>
+        <a href="soutenir.html" data-i18n="nav.support">Support</a>
+        <a href="invitations.html" data-i18n="nav.invites">Invites</a>
+        <div class="lang-switch" role="group" data-i18n-aria="common.langAria" aria-label="Choose language">
+          <button type="button" class="lang-btn" data-set-lang="fr" aria-pressed="false">FR</button>
+          <span class="lang-sep" aria-hidden="true">|</span>
+          <button type="button" class="lang-btn" data-set-lang="en" aria-pressed="true">EN</button>
+        </div>
       </nav>
     </div>
   </header>
@@ -47,30 +52,30 @@
   <main>
     <div class="page-hero">
       <div class="container">
-        <p class="eyebrow" data-tagline>Écoute en continu. Ça régénère.</p>
-        <h1>Bibliothèque &amp; lecteur</h1>
-        <p>
-          Cette bibliothèque est faite pour être jouée d'un bout à l'autre.
-          Enchaîne les titres&nbsp;: plus tu restes en écoute continue, plus l'effet de régénération s'installe —
-          aligné sur la Sensibilité Pure et la Fonction avant la Structure.
+        <p class="eyebrow" data-tagline data-i18n="common.tagline">Listen continuously. It regenerates.</p>
+        <h1 data-i18n="lib.h1">Library &amp; player</h1>
+        <p data-i18n="lib.lead">
+          This library is meant to be played end to end.
+          Queue the tracks: the longer you stay in continuous listening, the more regeneration settles in —
+          aligned with Pure Sensitivity and Function before Structure.
         </p>
       </div>
     </div>
 
     <section class="section" style="padding-top:0">
       <div class="container library-layout">
-        <article class="player-card" aria-label="Lecteur actuel">
+        <article class="player-card" data-i18n-aria="lib.playerAria" aria-label="Now playing">
           <div class="player-card-cover">
             <img src="assets/covers/f5bf8830-85bb-4a9b-9545-081800be485f.jpeg" alt="">
           </div>
           <div>
-            <p class="eyebrow" style="margin-bottom:0.5rem">En écoute</p>
+            <p class="eyebrow" style="margin-bottom:0.5rem" data-i18n="lib.nowPlaying">Now playing</p>
             <h2 data-player-title style="font-size:1.35rem;margin-bottom:0.25rem">La Sensibilité est la Fonction</h2>
             <p data-player-artist style="color:var(--text-muted);margin-bottom:0.75rem">Eden Yours</p>
-            <p class="player-nudge">Astuce&nbsp;: laisse le lecteur enchaîner — le suivant démarre tout seul. C'est ainsi que la régénération se déploie.</p>
+            <p class="player-nudge" data-i18n="lib.nudge">Tip: let the player queue — the next track starts on its own. That is how regeneration unfolds.</p>
             <div class="featured-actions">
-              <button type="button" class="btn btn-primary js-play-first">▶ Lire et enchaîner</button>
-              <a class="btn btn-suno js-suno-link" href="https://suno.com/s/zcIyAJuM0oB4E6sm" target="_blank" rel="noopener noreferrer">Écouter sur Suno</a>
+              <button type="button" class="btn btn-primary js-play-first" data-i18n="lib.playChain">▶ Play and continue</button>
+              <a class="btn btn-suno js-suno-link" href="https://suno.com/s/zcIyAJuM0oB4E6sm" target="_blank" rel="noopener noreferrer" data-i18n="home.btnSuno">Listen on Suno</a>
             </div>
           </div>
         </article>
@@ -78,8 +83,8 @@
         <div>
           <div class="section-header">
             <div>
-              <h2>Tous les titres</h2>
-              <p>Clique un titre, puis enchaîne — la régénération passe par la suite.</p>
+              <h2 data-i18n="lib.allTracks">All tracks</h2>
+              <p data-i18n="lib.allTracksSub">Click a track, then keep going — regeneration rides the sequence.</p>
             </div>
           </div>
           <div class="track-list" data-soon-slots="1"></div>
@@ -91,11 +96,12 @@
   <footer class="site-footer">
     <div class="container">
       <p><span data-site-name>Eden Yours</span> · <span data-artist-name>Eden Yours</span></p>
-      <p class="footer-tagline" data-tagline>Écoute en continu. Ça régénère.</p>
+      <p class="footer-tagline" data-tagline data-i18n="common.tagline">Listen continuously. It regenerates.</p>
     </div>
   </footer>
 
   <script src="config.js"></script>
+  <script src="js/i18n.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>

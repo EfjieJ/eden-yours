@@ -1438,3 +1438,55 @@ code, .mono {
     font-size: 0.86rem;
   }
 }
+
+/* ---------- Language switcher ---------- */
+.lang-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-left: 0.5rem;
+  padding: 0.25rem 0.55rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgba(192, 132, 252, 0.08);
+}
+
+.lang-sep {
+  color: var(--text-dim);
+  font-size: 0.75rem;
+  user-select: none;
+}
+
+.lang-btn {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  padding: 0.2rem 0.35rem;
+  border-radius: 999px;
+  transition: color 0.2s, background 0.2s;
+}
+
+.lang-btn:hover {
+  color: var(--text);
+}
+
+.lang-btn.is-active {
+  color: var(--bg-deep);
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+}
+
+@media (max-width: 720px) {
+  .lang-switch {
+    margin: 0.75rem 0 0;
+    align-self: flex-start;
+  }
+}
+
+@media (max-width: 900px) and (min-width: 721px) {
+  .lang-switch {
+    margin-left: 0.25rem;
+    padding: 0.2rem 0.4rem;
+  }
+  .lang-btn { font-size: 0.72rem; }
+}

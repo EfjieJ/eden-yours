@@ -3,6 +3,11 @@
   "use strict";
 
   const cfg = window.EDEN_CONFIG || {};
+  function i18n(key, vars) {
+    return (window.EdenI18n && window.EdenI18n.t)
+      ? window.EdenI18n.t(key, vars)
+      : key;
+  }
   let tracks = [];
   let currentIndex = -1;
   let audio = null;
@@ -43,7 +48,8 @@
       el.textContent = cfg.siteUrl || "https://votresite.example.com";
     });
     $$("[data-tagline]").forEach((el) => {
-      el.textContent = cfg.tagline || "Écoute en continu. Ça régénère.";
+      if (el.hasAttribute("data-i18n")) return;
+      el.textContent = i18n("common.tagline");
     });
     document.title = document.title.replace(
       /\{\{siteName\}\}/g,
@@ -107,7 +113,7 @@
     if (index < 0 || index >= tracks.length) return;
     const t = tracks[index];
     if (!t.audio_url) {
-      toast("Audio local indisponible — ouvrez Sur Suno");
+      toast(i18n("toast.noAudio"));
       return;
     }
     const a = ensureAudio();
@@ -127,14 +133,14 @@
           a.src = resolveUrl(t.audio_url_aac);
           a.play().catch(() => toast("Impossible de lire la musique"));
         } else {
-          toast("Impossible de lire la musique");
+          toast(i18n("toast.cantPlay"));
         }
       };
     }
 
     a.play().catch((e) => {
       console.warn("Lecture bloquée:", e);
-      toast("Impossible de démarrer la lecture — tapez une fois pour autoriser le son");
+      toast(i18n("toast.playBlocked"));
     });
 
     showPlayerBar(t);
@@ -203,13 +209,13 @@
 
   function updatePlayButtons(playing) {
     $$(".ctrl-btn.play").forEach((btn) => {
-      btn.setAttribute("aria-label", playing ? "Pause" : "Lecture");
+      btn.setAttribute("aria-label", playing ? i18n("player.pause") : i18n("player.play"));
       btn.innerHTML = playing ? iconPause() : iconPlay();
     });
     $$("[data-play-label]").forEach((el) => {
       el.textContent = playing && currentIndex === Number(el.dataset.trackIndex)
-        ? "Pause"
-        : "Écouter";
+        ? i18n("player.pause")
+        : i18n("player.listen");
     });
   }
 
@@ -280,20 +286,20 @@
           </div>
           <div class="player-controls">
             <div class="player-btns">
-              <button type="button" class="ctrl-btn js-prev" aria-label="Précédent">${iconPrev()}</button>
-              <button type="button" class="ctrl-btn play js-toggle" aria-label="Lecture">${iconPlay()}</button>
-              <button type="button" class="ctrl-btn js-next" aria-label="Suivant">${iconNext()}</button>
+              <button type="button" class="ctrl-btn js-prev" aria-label="${i18n("player.prev")}">${iconPrev()}</button>
+              <button type="button" class="ctrl-btn play js-toggle" aria-label="${i18n("player.play")}">${iconPlay()}</button>
+              <button type="button" class="ctrl-btn js-next" aria-label="${i18n("player.next")}">${iconNext()}</button>
             </div>
             <div class="progress-row">
               <span class="time current">0:00</span>
-              <div class="progress" role="slider" aria-label="Progression" tabindex="0"><div class="progress-fill"></div></div>
+              <div class="progress" role="slider" aria-label="${i18n("player.progress")}" tabindex="0"><div class="progress-fill"></div></div>
               <span class="time end">0:00</span>
             </div>
           </div>
           <div class="player-extra">
-            <div class="volume-wrap" title="Volume">
+            <div class="volume-wrap" title="${i18n("player.volume")}">
               <span aria-hidden="true">♪</span>
-              <input type="range" min="0" max="1" step="0.01" value="1" class="js-volume" aria-label="Volume">
+              <input type="range" min="0" max="1" step="0.01" value="1" class="js-volume" aria-label="${i18n("player.volume")}">
             </div>
             <a class="btn btn-suno js-suno-link" href="#" target="_blank" rel="noopener" hidden style="padding:0.45rem 0.9rem;font-size:0.8rem;">Suno</a>
           </div>
@@ -321,7 +327,7 @@
     let html = "";
     tracks.forEach((t, i) => {
       html += `
-        <article class="track-row" data-index="${i}" role="button" tabindex="0" aria-label="Lire ${escapeHtml(t.title)}">
+        <article class="track-row" data-index="${i}" role="button" tabindex="0" aria-label="${escapeAttr(i18n("player.playTrack", { title: t.title }))}">
           <span class="track-num">${String(i + 1).padStart(2, "0")}</span>
           <div class="track-cover">
             ${t.cover_url
@@ -332,8 +338,8 @@
             <h3>${escapeHtml(t.title)}</h3>
             <div class="sub">${escapeHtml(t.artist || cfg.artistName || "")}</div>
           </div>
-          <span class="track-badge">Disponible</span>
-          <button type="button" class="track-play-btn" aria-label="Lire">${iconPlay()}</button>
+          <span class="track-badge">${escapeHtml(i18n("player.available"))}</span>
+          <button type="button" class="track-play-btn" aria-label="${escapeAttr(i18n("player.playAria"))}">${iconPlay()}</button>
         </article>`;
     });
 
@@ -344,16 +350,16 @@
             <span class="track-num">—</span>
             <div class="track-cover placeholder">◇</div>
             <div class="track-info">
-              <h3>Bientôt</h3>
-              <div class="sub">Nouveau titre à venir</div>
+              <h3>${escapeHtml(i18n("player.soon"))}</h3>
+              <div class="sub">${escapeHtml(i18n("player.soonSub"))}</div>
             </div>
-            <span class="track-badge soon">Bientôt</span>
+            <span class="track-badge soon">${escapeHtml(i18n("player.soon"))}</span>
             <button type="button" class="track-play-btn" disabled aria-hidden="true">${iconPlay()}</button>
           </article>`;
       }
     }
 
-    container.innerHTML = html || `<p class="hint">Aucun titre pour le moment.</p>`;
+    container.innerHTML = html || `<p class="hint">${escapeHtml(i18n("player.empty"))}</p>`;
 
     container.querySelectorAll(".track-row:not(.is-soon)").forEach((row) => {
       const play = () => playTrack(Number(row.dataset.index));
@@ -387,7 +393,7 @@
     if (!card) return;
     const featured = tracks.find((t) => t.featured) || tracks[0];
     if (!featured) {
-      card.innerHTML = `<div class="featured-inner"><p class="hint">Aucun titre en vedette.</p></div>`;
+      card.innerHTML = `<div class="featured-inner"><p class="hint">${escapeHtml(i18n("player.noFeatured"))}</p></div>`;
       return;
     }
     const idx = tracks.indexOf(featured);
@@ -430,7 +436,7 @@
     if (url) {
       if (status) {
         status.className = "paypal-status ready";
-        status.textContent = "● PayPal prêt";
+        status.textContent = i18n("support.paypalReady");
       }
       if (btn) {
         btn.classList.remove("is-disabled");
@@ -438,23 +444,34 @@
         btn.href = url;
         btn.target = "_blank";
         btn.rel = "noopener noreferrer";
-        btn.addEventListener("click", (e) => {
-          // allow default navigation
-        });
+        btn.textContent = i18n("support.paypalBtn");
+        // keep one listener via flag
+        if (!btn.dataset.paypalBound) {
+          btn.dataset.paypalBound = "1";
+          btn.addEventListener("click", () => {
+            // allow default navigation when configured
+          });
+        }
       }
     } else {
       if (status) {
         status.className = "paypal-status pending";
-        status.textContent = "● PayPal bientôt branché";
+        status.textContent = i18n("support.paypalPending");
       }
       if (btn) {
         btn.classList.add("is-disabled");
         btn.setAttribute("aria-disabled", "true");
         btn.href = "#";
-        btn.addEventListener("click", (e) => {
-          e.preventDefault();
-          toast("PayPal n'est pas encore configuré");
-        });
+        btn.textContent = i18n("support.paypalBtn");
+        if (!btn.dataset.paypalBound) {
+          btn.dataset.paypalBound = "1";
+          btn.addEventListener("click", (e) => {
+            if (btn.classList.contains("is-disabled")) {
+              e.preventDefault();
+              toast(i18n("toast.paypalMissing"));
+            }
+          });
+        }
       }
     }
   }
@@ -468,43 +485,40 @@
     const artist = cfg.artistName || "Eden Yours";
     const site = cfg.siteName || "Eden Yours";
     const featured = tracks.find((t) => t.featured) || tracks[0];
-    const songTitle = featured ? featured.title : "la bibliothèque";
+    const songTitle = featured ? featured.title : i18n("invite.libraryFallback");
     const suno = featured?.suno_share || "";
 
-    const tagline = cfg.tagline || "Écoute en continu. Ça régénère.";
-    const template = `Hey —
+    const tagline = i18n("common.tagline");
+    const songTitleSafe = featured ? featured.title : i18n("invite.libraryFallback");
+    let extra = "";
+    if (suno) {
+      extra = i18n("invite.extraSuno", { songTitle: songTitleSafe, suno });
+    } else if (featured) {
+      extra = i18n("invite.extraFeatured", { songTitle: songTitleSafe });
+    }
+    const template = i18n("invite.templateBody", {
+      site,
+      siteUrl,
+      artist,
+      extra: extra ? extra + "\n" : "",
+    }).replace(/\n\n\n+/g, "\n\n").trim();
 
-Bienvenue sur ${site}.
-
-Le retour à l'état d'Être, la reconnexion à la Cause Pure.
-Ce n'est pas un site Web ordinaire — c'est une plateforme vibratoire, un espace sacré pour ceux qui ont réalisé qu'ils ne sont pas leur corps, mais l'être spirituel créateur qui génère la réalité.
-
-Écoute en continu. Ça régénère.
-Laisse les titres s'enchaîner : la musique devient pratique de Sensibilité Pure et de Fonction avant Structure.
-
-→ ${siteUrl}
-${suno ? `→ « ${songTitle} » aussi sur Suno : ${suno}` : (featured ? `→ Titre en vedette : « ${songTitle} »` : "")}
-
-Entrez, découvrez, et ne l'oubliez plus.
-
-— ${artist}`;
-
-    box.textContent = template.trim();
+    box.textContent = template;
 
     const copyBtn = $(".js-copy-invite");
-    if (copyBtn) {
+    if (copyBtn && !copyBtn.dataset.bound) {
+      copyBtn.dataset.bound = "1";
       copyBtn.addEventListener("click", async () => {
         try {
           await navigator.clipboard.writeText(box.textContent);
-          toast("Modèle copié ✓");
+          toast(i18n("invite.copied"));
         } catch {
-          // fallback
           const range = document.createRange();
           range.selectNodeContents(box);
           const sel = window.getSelection();
           sel.removeAllRanges();
           sel.addRange(range);
-          toast("Sélectionnez et copiez (Ctrl+C)");
+          toast(i18n("invite.selectCopy"));
         }
       });
     }
@@ -512,7 +526,7 @@ Entrez, découvrez, et ne l'oubliez plus.
     const mailBtn = $(".js-mailto-invite");
     if (mailBtn) {
       const subject = encodeURIComponent(`${tagline} — ${site}`);
-      const body = encodeURIComponent(template.trim());
+      const body = encodeURIComponent(template);
       const to = (cfg.contactEmail || "").trim();
       mailBtn.href = `mailto:${to}?subject=${subject}&body=${body}`;
     }
@@ -544,7 +558,7 @@ Entrez, découvrez, et ne l'oubliez plus.
     }
 
     function amountLabel(cur) {
-      return cur === "USD" ? "10 $ US" : "10 €";
+      return cur === "USD" ? i18n("request.amountUsd") : i18n("request.amountEur");
     }
 
     function paypalAmountUrl(cur) {
@@ -561,21 +575,21 @@ Entrez, découvrez, et ne l'oubliez plus.
       const desc = (descEl?.value || "").trim();
       const cur = selectedCurrency();
       const lines = [
-        "Demande de chanson — Eden Yours",
+        i18n("request.summaryTitle"),
         "",
-        "Nom : " + name,
-        "Courriel : " + email,
-        "Devise / montant : " + amountLabel(cur) + " (" + cur + ")",
-        "PayPal : " + paypalAmountUrl(cur),
+        i18n("request.summaryName") + name,
+        i18n("request.summaryEmail") + email,
+        i18n("request.summaryCurrency") + amountLabel(cur) + " (" + cur + ")",
+        i18n("request.summaryPaypal") + paypalAmountUrl(cur),
       ];
-      if (suno) lines.push("Lien Suno : " + suno);
+      if (suno) lines.push(i18n("request.summarySuno") + suno);
       if (desc) {
         lines.push("");
-        lines.push("Description / intention :");
+        lines.push(i18n("request.summaryDesc"));
         lines.push(desc);
       }
       lines.push("");
-      lines.push("(Résumé généré sur la page Demander une chanson)");
+      lines.push(i18n("request.summaryFooter"));
       return lines.join("\n");
     }
 
@@ -584,19 +598,19 @@ Entrez, découvrez, et ne l'oubliez plus.
       const email = (emailEl?.value || "").trim();
       const suno = (sunoEl?.value || "").trim();
       const desc = (descEl?.value || "").trim();
-      if (!name) return "Indiquez votre nom.";
+      if (!name) return i18n("request.errName");
       if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        return "Indiquez un courriel de contact valide.";
+        return i18n("request.errEmail");
       }
       if (!suno && !desc) {
-        return "Ajoutez un lien Suno et/ou une description de votre demande.";
+        return i18n("request.errContent");
       }
       if (suno) {
         try {
           const u = new URL(suno);
-          if (!/^https?:$/.test(u.protocol)) return "Le lien Suno doit commencer par https://";
+          if (!/^https?:$/.test(u.protocol)) return i18n("request.errSunoProto");
         } catch {
-          return "Le lien Suno n'est pas une URL valide.";
+          return i18n("request.errSunoUrl");
         }
       }
       return "";
@@ -617,14 +631,14 @@ Entrez, découvrez, et ne l'oubliez plus.
       if (!payBtn) return;
       const cur = selectedCurrency();
       payBtn.textContent = cur === "USD"
-        ? "Payer 10 $ US via PayPal"
-        : "Payer 10 € via PayPal";
+        ? i18n("request.payUsd")
+        : i18n("request.payEur");
     }
 
     async function copySummary(text) {
       try {
         await navigator.clipboard.writeText(text);
-        toast("Résumé copié ✓ — collez-le dans la note PayPal");
+        toast(i18n("request.copied"));
         return true;
       } catch {
         if (summaryBox) {
@@ -634,7 +648,7 @@ Entrez, découvrez, et ne l'oubliez plus.
           sel.removeAllRanges();
           sel.addRange(range);
         }
-        toast("Sélectionnez et copiez le résumé (Ctrl+C)");
+        toast(i18n("request.selectCopy"));
         return false;
       }
     }
@@ -642,7 +656,7 @@ Entrez, découvrez, et ne l'oubliez plus.
     function revealAfter(summary, cur) {
       if (summaryBox) summaryBox.textContent = summary;
       if (mailtoBtn) {
-        const subject = encodeURIComponent("Demande de chanson — Eden Yours");
+        const subject = encodeURIComponent(i18n("request.summaryTitle"));
         const body = encodeURIComponent(summary);
         mailtoBtn.href = `mailto:${contact}?subject=${subject}&body=${body}`;
       }
@@ -655,30 +669,14 @@ Entrez, découvrez, et ne l'oubliez plus.
       }
     }
 
-    form.querySelectorAll('input[name="currency"]').forEach((radio) => {
-      radio.addEventListener("change", updatePayLabel);
-    });
-    updatePayLabel();
+    if (!form.dataset.edenBound) {
+      form.dataset.edenBound = "1";
+      form.querySelectorAll('input[name="currency"]').forEach((radio) => {
+        radio.addEventListener("change", updatePayLabel);
+      });
 
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const err = validate();
-      if (err) {
-        showValidation(err);
-        toast(err);
-        return;
-      }
-      showValidation("");
-      const cur = selectedCurrency();
-      const summary = buildSummary();
-      await copySummary(summary);
-      revealAfter(summary, cur);
-      const url = paypalAmountUrl(cur);
-      window.open(url, "_blank", "noopener,noreferrer");
-    });
-
-    $$(".js-copy-request").forEach((btn) => {
-      btn.addEventListener("click", async () => {
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
         const err = validate();
         if (err) {
           showValidation(err);
@@ -686,24 +684,43 @@ Entrez, découvrez, et ne l'oubliez plus.
           return;
         }
         showValidation("");
+        const cur = selectedCurrency();
         const summary = buildSummary();
-        if (summaryBox) summaryBox.textContent = summary;
         await copySummary(summary);
+        revealAfter(summary, cur);
+        const url = paypalAmountUrl(cur);
+        window.open(url, "_blank", "noopener,noreferrer");
       });
-    });
 
-    $$(".js-copy-request-again").forEach((btn) => {
-      btn.addEventListener("click", async () => {
-        const text = summaryBox?.textContent || buildSummary();
-        await copySummary(text);
+      $$(".js-copy-request").forEach((btn) => {
+        btn.addEventListener("click", async () => {
+          const err = validate();
+          if (err) {
+            showValidation(err);
+            toast(err);
+            return;
+          }
+          showValidation("");
+          const summary = buildSummary();
+          if (summaryBox) summaryBox.textContent = summary;
+          await copySummary(summary);
+        });
       });
-    });
+
+      $$(".js-copy-request-again").forEach((btn) => {
+        btn.addEventListener("click", async () => {
+          const textVal = summaryBox?.textContent || buildSummary();
+          await copySummary(textVal);
+        });
+      });
+    }
 
     // Bind contact email display from config
     $$("[data-contact-email]").forEach((el) => {
       el.textContent = contact;
       if (el.tagName === "A") el.href = "mailto:" + contact;
     });
+    updatePayLabel();
   }
 
   // ---------- Public API for inline handlers ----------
@@ -716,6 +733,25 @@ Entrez, découvrez, et ne l'oubliez plus.
   };
 
   // ---------- Boot ----------
+  function refreshLangUI() {
+    renderTrackList($(".track-list"));
+    highlightActiveRow();
+    updatePlayButtons(audio && !audio.paused);
+    initPayPal();
+    initInvitations();
+    initSongRequest();
+    // Re-apply static i18n after dynamic HTML rebuilds if needed
+    if (window.EdenI18n && window.EdenI18n.apply) {
+      // only refresh switcher pressed state; avoid listener loop by not calling apply here
+      document.querySelectorAll(".lang-btn").forEach((btn) => {
+        const l = btn.getAttribute("data-set-lang");
+        const active = l === window.EdenI18n.getLang();
+        btn.classList.toggle("is-active", active);
+        btn.setAttribute("aria-pressed", active ? "true" : "false");
+      });
+    }
+  }
+
   async function boot() {
     applyConfig();
     initNav();
@@ -730,11 +766,17 @@ Entrez, découvrez, et ne l'oubliez plus.
 
     // Page-level play buttons that reference first track
     $$(".js-play-first").forEach((btn) => {
+      if (btn.dataset.bound) return;
+      btn.dataset.bound = "1";
       btn.addEventListener("click", (e) => {
         e.preventDefault();
         if (tracks.length) playTrack(0);
       });
     });
+
+    if (window.EdenI18n && window.EdenI18n.onChange) {
+      window.EdenI18n.onChange(() => refreshLangUI());
+    }
   }
 
   if (document.readyState === "loading") {
