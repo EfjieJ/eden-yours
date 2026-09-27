@@ -179,6 +179,18 @@
       "duration": 189.96,
       "featured": false,
       "audio_url_aac": "assets/audio/04441f4e-8d4b-4831-a038-c5a602e09e25.m4a"
+    },
+    {
+      "id": "d2d61703-a205-41ac-a670-6e5cf7c22911",
+      "title": "The Postulate",
+      "artist": "Eden Yours",
+      "sunoArtist": "efjie8008",
+      "audio_url": "assets/audio/d2d61703-a205-41ac-a670-6e5cf7c22911.mp3",
+      "cover_url": "assets/covers/d2d61703-a205-41ac-a670-6e5cf7c22911.jpeg",
+      "suno_share": "https://suno.com/s/8ynJ9b91VJiECK0y",
+      "duration": 151.56,
+      "featured": false,
+      "audio_url_aac": "assets/audio/d2d61703-a205-41ac-a670-6e5cf7c22911.m4a"
     }
   ]
 }
