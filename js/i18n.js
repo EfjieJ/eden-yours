@@ -217,7 +217,12 @@
       "toast.noAudio": "Audio local indisponible — ouvrez Sur Suno",
       "toast.cantPlay": "Impossible de lire la musique",
       "toast.playBlocked": "Impossible de démarrer la lecture — tapez une fois pour autoriser le son",
-      "toast.paypalMissing": "PayPal n'est pas encore configuré"
+      "toast.paypalMissing": "PayPal n'est pas encore configuré",
+      "unlock.title": "L'extrait s'achève ici",
+      "unlock.body": "Tu as entendu les 30 secondes en offrande libre. Pour ouvrir toute la bibliothèque — un geste sacré de 1 $ US via PayPal — puis reviens et confirme que tu as déjà payé. Une fois déverrouillée, la bibliothèque reste ouverte sur cet appareil.",
+      "unlock.payCta": "Écouter la suite",
+      "unlock.alreadyPaid": "J'ai déjà payé",
+      "unlock.previewBadge": "Extrait 30 s"
     },
 
     en: {
@@ -432,7 +437,12 @@
       "toast.noAudio": "Local audio unavailable — open On Suno",
       "toast.cantPlay": "Unable to play the music",
       "toast.playBlocked": "Unable to start playback — tap once to allow sound",
-      "toast.paypalMissing": "PayPal is not configured yet"
+      "toast.paypalMissing": "PayPal is not configured yet",
+      "unlock.title": "The preview ends here",
+      "unlock.body": "You've heard the free 30-second offering. To open the full library — a sacred gesture of $1 USD via PayPal — then return and confirm you've already paid. Once unlocked, the library stays open on this device.",
+      "unlock.payCta": "Continue listening",
+      "unlock.alreadyPaid": "I've already paid",
+      "unlock.previewBadge": "30s preview"
     }
   };
 

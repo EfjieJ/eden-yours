@@ -36,6 +36,131 @@
     el._t = setTimeout(() => el.classList.remove("show"), 2200);
   }
 
+
+  // ---------- Freemium unlock ----------
+  function previewLimit() {
+    const n = Number(cfg.previewSeconds);
+    return Number.isFinite(n) && n > 0 ? n : 30;
+  }
+
+  function unlockKey() {
+    return cfg.unlockStorageKey || "eden-yours-unlocked";
+  }
+
+  function isUnlocked() {
+    try {
+      return localStorage.getItem(unlockKey()) === "1";
+    } catch {
+      return false;
+    }
+  }
+
+  function setUnlocked(on) {
+    try {
+      if (on) localStorage.setItem(unlockKey(), "1");
+      else localStorage.removeItem(unlockKey());
+    } catch (_) {}
+  }
+
+  function unlockPaypalHref() {
+    return (cfg.unlockPaypalUrl || cfg.paypalUrl || "https://paypal.me/Francjul").trim();
+  }
+
+  let unlockModalEl = null;
+
+  function refreshUnlockModalCopy() {
+    if (!unlockModalEl) return;
+    const title = unlockModalEl.querySelector("[data-unlock-title]");
+    const body = unlockModalEl.querySelector("[data-unlock-body]");
+    const pay = unlockModalEl.querySelector("[data-unlock-pay]");
+    const paid = unlockModalEl.querySelector("[data-unlock-paid]");
+    if (title) title.textContent = i18n("unlock.title");
+    if (body) body.textContent = i18n("unlock.body");
+    if (pay) pay.textContent = i18n("unlock.payCta");
+    if (paid) paid.textContent = i18n("unlock.alreadyPaid");
+  }
+
+  function ensureUnlockModal() {
+    if (unlockModalEl) return unlockModalEl;
+    const el = document.createElement("div");
+    el.id = "unlock-modal";
+    el.className = "unlock-modal";
+    el.setAttribute("role", "dialog");
+    el.setAttribute("aria-modal", "true");
+    el.hidden = true;
+    el.innerHTML = `
+      <div class="unlock-modal-backdrop" data-unlock-close tabindex="-1"></div>
+      <div class="unlock-modal-card">
+        <p class="unlock-modal-eyebrow">Eden Yours</p>
+        <h2 class="unlock-modal-title" data-unlock-title></h2>
+        <p class="unlock-modal-body" data-unlock-body></p>
+        <div class="unlock-modal-actions">
+          <button type="button" class="btn btn-primary" data-unlock-pay></button>
+          <button type="button" class="btn btn-ghost" data-unlock-paid></button>
+        </div>
+      </div>`;
+    document.body.appendChild(el);
+
+    el.querySelector("[data-unlock-pay]").addEventListener("click", () => {
+      const url = unlockPaypalHref();
+      if (url) window.open(url, "_blank", "noopener,noreferrer");
+    });
+    el.querySelector("[data-unlock-paid]").addEventListener("click", () => {
+      setUnlocked(true);
+      hideUnlockModal();
+      updatePreviewBadges();
+      const a = ensureAudio();
+      const limit = previewLimit();
+      if (a.currentTime >= limit - 0.35) a.currentTime = 0;
+      a.play().catch(() => {});
+    });
+    el.querySelector("[data-unlock-close]").addEventListener("click", () => {
+      hideUnlockModal();
+    });
+
+    unlockModalEl = el;
+    refreshUnlockModalCopy();
+    return el;
+  }
+
+  function showUnlockModal() {
+    const el = ensureUnlockModal();
+    refreshUnlockModalCopy();
+    el.hidden = false;
+    el.classList.add("is-open");
+    document.body.classList.add("unlock-modal-open");
+  }
+
+  function hideUnlockModal() {
+    if (!unlockModalEl) return;
+    unlockModalEl.hidden = true;
+    unlockModalEl.classList.remove("is-open");
+    document.body.classList.remove("unlock-modal-open");
+  }
+
+  function enforcePreviewGate() {
+    if (isUnlocked()) return;
+    const a = audio;
+    if (!a) return;
+    const limit = previewLimit();
+    if (a.currentTime >= limit) {
+      try { a.currentTime = limit; } catch (_) {}
+      if (!a.paused) a.pause();
+      showUnlockModal();
+    }
+  }
+
+  function updatePreviewBadges() {
+    const unlocked = isUnlocked();
+    $$(".track-row:not(.is-soon) .track-badge").forEach((badge) => {
+      if (badge.classList.contains("soon")) return;
+      badge.classList.toggle("preview", !unlocked);
+      badge.textContent = unlocked
+        ? i18n("player.available")
+        : i18n("unlock.previewBadge");
+    });
+  }
+
   // ---------- Config bind ----------
   function applyConfig() {
     $$("[data-site-name]").forEach((el) => {
@@ -96,8 +221,14 @@
     audio = new Audio();
     audio.preload = "metadata";
 
-    audio.addEventListener("timeupdate", syncProgress);
+    audio.addEventListener("timeupdate", () => {
+      enforcePreviewGate();
+      syncProgress();
+    });
+    audio.addEventListener("seeking", enforcePreviewGate);
+    audio.addEventListener("seeked", enforcePreviewGate);
     audio.addEventListener("loadedmetadata", syncProgress);
+    // Locked: still allow playNext so each track gets its own 30s preview
     audio.addEventListener("ended", () => playNext());
     audio.addEventListener("play", () => updatePlayButtons(true));
     audio.addEventListener("pause", () => updatePlayButtons(false));
@@ -190,8 +321,11 @@
     const a = ensureAudio();
     if (!a.duration) return;
     const rect = bar.getBoundingClientRect();
-    const ratio = Math.min(1, Math.max(0, (e.clientX - rect.left) / rect.width));
-    a.currentTime = ratio * a.duration;
+    const clientX = e.clientX != null ? e.clientX : (e.touches && e.touches[0] ? e.touches[0].clientX : 0);
+    const ratio = Math.min(1, Math.max(0, (clientX - rect.left) / rect.width));
+    let t = ratio * a.duration;
+    if (!isUnlocked()) t = Math.min(t, previewLimit());
+    a.currentTime = t;
   }
 
   function iconPlay() {
@@ -314,9 +448,28 @@
       ensureAudio().volume = Number(e.target.value);
     });
     const progress = bar.querySelector(".progress");
-    if (progress) {
-      progress.addEventListener("click", (e) => seekFromEvent(e, progress));
+    if (progress && !progress.dataset.seekBound) {
+      progress.dataset.seekBound = "1";
+      let dragging = false;
+      const onPointer = (e) => {
+        if (e.cancelable) e.preventDefault();
+        seekFromEvent(e, progress);
+      };
+      progress.addEventListener("click", onPointer);
+      progress.addEventListener("pointerdown", (e) => {
+        dragging = true;
+        progress.setPointerCapture?.(e.pointerId);
+        onPointer(e);
+      });
+      progress.addEventListener("pointermove", (e) => {
+        if (!dragging) return;
+        onPointer(e);
+      });
+      const endDrag = () => { dragging = false; };
+      progress.addEventListener("pointerup", endDrag);
+      progress.addEventListener("pointercancel", endDrag);
     }
+    ensureUnlockModal();
   }
 
   // ---------- Render track list ----------
@@ -338,7 +491,7 @@
             <h3>${escapeHtml(t.title)}</h3>
             <div class="sub">${escapeHtml(t.artist || cfg.artistName || "")}</div>
           </div>
-          <span class="track-badge">${escapeHtml(i18n("player.available"))}</span>
+          <span class="track-badge${isUnlocked() ? "" : " preview"}">${escapeHtml(isUnlocked() ? i18n("player.available") : i18n("unlock.previewBadge"))}</span>
           <button type="button" class="track-play-btn" aria-label="${escapeAttr(i18n("player.playAria"))}">${iconPlay()}</button>
         </article>`;
     });
@@ -730,6 +883,8 @@
     next: playNext,
     prev: playPrev,
     getTracks: () => tracks.slice(),
+    isUnlocked,
+    unlock: () => { setUnlocked(true); hideUnlockModal(); updatePreviewBadges(); },
   };
 
   // ---------- Boot ----------
@@ -737,6 +892,8 @@
     renderTrackList($(".track-list"));
     highlightActiveRow();
     updatePlayButtons(audio && !audio.paused);
+    refreshUnlockModalCopy();
+    updatePreviewBadges();
     initPayPal();
     initInvitations();
     initSongRequest();
