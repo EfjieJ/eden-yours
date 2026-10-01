@@ -7,7 +7,15 @@
   'use strict';
 
   const STORAGE_KEY = 'eden-rythme-compasse';
-  const AUDIO_URL = 'assets/audio/b0eb0f76-f2d8-4e16-85a9-037fc3f32b01.mp3';
+  const DEFAULT_SONG_ID = 'b0eb0f76-f2d8-4e16-85a9-037fc3f32b01';
+
+  const SONGS = [
+    { id: 'b0eb0f76-f2d8-4e16-85a9-037fc3f32b01', title: 'The slight future', duration: 269.16 },
+    { id: 'f5bf8830-85bb-4a9b-9545-081800be485f', title: 'La Sensibilité est la Fonction', duration: 187.2 },
+    { id: 'dead13bb-42bc-492e-83a1-87609f224734', title: 'Particule Pure', duration: 244.24 },
+    { id: 'a0b2b33d-66f6-4c6a-b933-cdb5977d920e', title: 'Le Léger Futur', duration: 226.4 },
+    { id: '5535b9e6-78f1-4a96-bfed-f0c5666a75c3', title: 'La Mécanique du Jeu', duration: 151.6 },
+  ];
 
   const STEP1_END = 33;
   const STEP2_START = 33;
@@ -66,6 +74,11 @@
   const btnStop = document.getElementById('btn-stop');
   const btnRetry = document.getElementById('btn-retry');
   const btnContinueStep2 = document.getElementById('btn-continue-step2');
+  const songPicker = document.getElementById('song-picker');
+
+  let selectedId = DEFAULT_SONG_ID;
+  let loadedSongId = null;
+  let songProgress = {};
 
   let audioCtx = null;
   let audioBuffer = null;
@@ -145,34 +158,175 @@
     });
   }
 
-  function loadStorage() {
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (!raw) return;
-      const data = JSON.parse(raw);
-      if (data && data.step1 === true) unlock.step1 = true;
-      if (data && data.step2 === true) unlock.step2 = true;
-    } catch (_) {}
+  function emptyProgress() {
+    return { step1: false, step2: false };
   }
 
-  function persistUnlock() {
+  function formatDuration(sec) {
+    const s = Math.max(0, Math.round(Number(sec) || 0));
+    const m = Math.floor(s / 60);
+    const r = s % 60;
+    return m + ':' + String(r).padStart(2, '0');
+  }
+
+  function songAudioUrl(id) {
+    return 'assets/audio/' + id + '.mp3';
+  }
+
+  function findSong(id) {
+    for (let i = 0; i < SONGS.length; i++) {
+      if (SONGS[i].id === id) return SONGS[i];
+    }
+    return SONGS[0];
+  }
+
+  function ensureSongProgress(id) {
+    if (!songProgress[id]) songProgress[id] = emptyProgress();
+    return songProgress[id];
+  }
+
+  function applyUnlockFromSelected() {
+    const p = ensureSongProgress(selectedId);
+    unlock.step1 = !!p.step1;
+    unlock.step2 = !!p.step2;
+  }
+
+  function loadStorage() {
+    songProgress = {};
+    selectedId = DEFAULT_SONG_ID;
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) {
+        applyUnlockFromSelected();
+        return;
+      }
+      const data = JSON.parse(raw);
+      if (!data || typeof data !== 'object') {
+        applyUnlockFromSelected();
+        return;
+      }
+      // Migrate legacy flat { step1, step2 } into The slight future
+      if (!data.songs && (data.step1 === true || data.step2 === true || 'step1' in data || 'step2' in data)) {
+        songProgress[DEFAULT_SONG_ID] = {
+          step1: data.step1 === true,
+          step2: data.step2 === true,
+        };
+        selectedId = DEFAULT_SONG_ID;
+        persistUnlock(true);
+        applyUnlockFromSelected();
+        return;
+      }
+      if (data.songs && typeof data.songs === 'object') {
+        Object.keys(data.songs).forEach(function (id) {
+          const sp = data.songs[id] || {};
+          songProgress[id] = {
+            step1: sp.step1 === true,
+            step2: sp.step2 === true,
+          };
+        });
+      }
+      if (data.selectedId && findSong(data.selectedId)) {
+        selectedId = data.selectedId;
+      } else {
+        selectedId = DEFAULT_SONG_ID;
+      }
+    } catch (_) {}
+    applyUnlockFromSelected();
+  }
+
+  function persistUnlock(silent) {
+    ensureSongProgress(selectedId);
+    songProgress[selectedId] = {
+      step1: !!unlock.step1,
+      step2: !!unlock.step2,
+    };
     try {
       localStorage.setItem(
         STORAGE_KEY,
         JSON.stringify({
-          step1: unlock.step1,
-          step2: unlock.step2,
+          songs: songProgress,
+          selectedId: selectedId,
           updatedAt: new Date().toISOString(),
         })
       );
     } catch (_) {}
-    updateBadges();
+    if (!silent) {
+      updateBadges();
+      renderSongPicker();
+    }
   }
 
   function updateBadges() {
     badge1.classList.toggle('visible', unlock.step1);
     badge2.classList.toggle('visible', unlock.step2);
     badge2.classList.add('step2');
+  }
+
+  function selectSong(id) {
+    if (!findSong(id)) return;
+    if (id === selectedId) return;
+    stopPlayback();
+    selectedId = id;
+    applyUnlockFromSelected();
+    // Force reload of audio buffer for the new track
+    if (loadedSongId !== selectedId) {
+      audioBuffer = null;
+      loadedSongId = null;
+    }
+    persistUnlock();
+    updateBadges();
+    refreshIntroListen();
+    // Reset intro copy for this song's progress
+    btnStart.textContent = 'Commencer';
+    btnStep2.hidden = true;
+    introSubtitle.textContent = 'Étape 1 — L\'illusion de fixité';
+    introHint.textContent = 'Touche le rythme. Choisis la cause. Scelle par Oui.';
+    if (unlock.step1 || unlock.step2) showUnlockedIntro();
+    renderSongPicker();
+  }
+
+  function renderSongPicker() {
+    if (!songPicker) return;
+    songPicker.innerHTML = '';
+    SONGS.forEach(function (song) {
+      const prog = ensureSongProgress(song.id);
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'rc-song-card interactive' + (song.id === selectedId ? ' selected' : '');
+      btn.setAttribute('role', 'option');
+      btn.setAttribute('aria-selected', song.id === selectedId ? 'true' : 'false');
+      btn.dataset.songId = song.id;
+
+      const title = document.createElement('span');
+      title.className = 'rc-song-title';
+      title.textContent = song.title;
+
+      const meta = document.createElement('span');
+      meta.className = 'rc-song-meta';
+
+      const dur = document.createElement('span');
+      dur.className = 'rc-song-dur';
+      dur.textContent = formatDuration(song.duration);
+
+      const dots = document.createElement('span');
+      dots.className = 'rc-song-progress';
+      dots.setAttribute('aria-hidden', 'true');
+      const d1 = document.createElement('span');
+      d1.className = 'rc-song-dot' + (prog.step1 ? ' on-1' : '');
+      const d2 = document.createElement('span');
+      d2.className = 'rc-song-dot' + (prog.step2 ? ' on-2' : '');
+      dots.appendChild(d1);
+      dots.appendChild(d2);
+
+      meta.appendChild(dur);
+      meta.appendChild(dots);
+      btn.appendChild(title);
+      btn.appendChild(meta);
+      btn.addEventListener('click', function () {
+        selectSong(song.id);
+      });
+      songPicker.appendChild(btn);
+    });
   }
 
   function showScreen(name) {
@@ -203,11 +357,13 @@
       audioCtx = new AC();
     }
     if (audioCtx.state === 'suspended') await audioCtx.resume();
-    if (audioBuffer) return;
-    const res = await fetch(AUDIO_URL);
+    if (audioBuffer && loadedSongId === selectedId) return;
+    const url = songAudioUrl(selectedId);
+    const res = await fetch(url);
     if (!res.ok) throw new Error('Audio fetch failed: ' + res.status);
     const arr = await res.arrayBuffer();
     audioBuffer = await audioCtx.decodeAudioData(arr);
+    loadedSongId = selectedId;
   }
 
   function stopPlayback() {
@@ -1127,6 +1283,7 @@
   window.addEventListener('resize', resize);
   resize();
   loadStorage();
+  renderSongPicker();
   updateBadges();
   if (unlock.step1 || unlock.step2) showUnlockedIntro();
   requestAnimationFrame(loop);
