@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Rythme-Compasse — Eden Yours</title>
-  <meta name="description" content="Rythme-Compasse · Étape 1 — L'illusion de fixité. Pose le cadre, écoute clairement.">
+  <meta name="description" content="Rythme-Compasse · Pose le cadre, écoute clairement. Étape 1 — L'illusion de fixité · Étape 2 — Les deux faces.">
   <link rel="canonical" href="https://efjiej.github.io/eden-yours/rythme-compasse.html">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Eden Yours">
   <meta property="og:url" content="https://efjiej.github.io/eden-yours/rythme-compasse.html">
   <meta property="og:title" content="Rythme-Compasse — Eden Yours">
-  <meta property="og:description" content="Étape 1 — L'illusion de fixité. Pose le cadre.">
+  <meta property="og:description" content="Étape 1 — L'illusion de fixité. Étape 2 — Les deux faces. Pose le cadre.">
   <meta property="og:image" content="https://efjiej.github.io/eden-yours/assets/og-share.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="css/rythme-compasse.css">
@@ -19,7 +19,10 @@
 <body>
   <div class="rc-wrap">
     <a class="rc-back" href="index.html">← Eden Yours</a>
-    <div class="rc-badge" id="rc-badge" aria-live="polite">Cadre 1 posé</div>
+    <div class="rc-badges" id="rc-badges" aria-live="polite">
+      <div class="rc-badge" id="rc-badge-1">Cadre 1</div>
+      <div class="rc-badge" id="rc-badge-2">Cadre 2</div>
+    </div>
 
     <canvas id="rc-canvas" aria-hidden="true"></canvas>
 
@@ -27,22 +30,31 @@
       <!-- Intro -->
       <div class="rc-screen active" id="screen-intro">
         <h1 class="rc-title">Rythme-Compasse</h1>
-        <p class="rc-subtitle">Étape 1 — L'illusion de fixité</p>
+        <p class="rc-subtitle" id="intro-subtitle">Étape 1 — L'illusion de fixité</p>
         <button type="button" class="rc-btn interactive" id="btn-start">Commencer</button>
+        <button type="button" class="rc-btn ghost interactive" id="btn-step2" hidden>Continuer étape 2</button>
         <p class="rc-hint" id="intro-hint">Touche le rythme. Choisis la cause. Scelle par Oui.</p>
+        <div class="rc-listen-bar" id="intro-listen"></div>
+      </div>
+
+      <!-- Transition step 1 → 2 -->
+      <div class="rc-screen" id="screen-transition">
+        <p class="rc-phase-label visible">Passage</p>
+        <h2 class="rc-trans-title">Étape 2 — Les deux faces</h2>
+        <p class="rc-hint">Analyser ou réagir. Trois pulses, un choix. Scelle par Oui.</p>
       </div>
 
       <!-- Reflex phase HUD -->
       <div class="rc-screen" id="screen-reflex">
-        <p class="rc-phase-label visible">Phase RÉFLEXE</p>
-        <p class="rc-hint">Tape au rythme des pulsations sur le Fil</p>
+        <p class="rc-phase-label visible" id="reflex-phase-label">Phase RÉFLEXE</p>
+        <p class="rc-hint" id="reflex-hint">Tape au rythme des pulsations sur le Fil</p>
         <p class="rc-score visible" id="reflex-score">0 / 0 · —%</p>
         <p class="rc-timer visible" id="reflex-timer">20 s</p>
       </div>
 
       <!-- Compass phase -->
       <div class="rc-screen" id="screen-compass">
-        <p class="rc-phase-label visible">Phase COMPAS</p>
+        <p class="rc-phase-label visible" id="compass-phase-label">Phase COMPAS</p>
         <p class="rc-hint" id="compass-hint">Choisis avant la fin de la mesure</p>
         <p class="rc-timer visible" id="compass-timer">2.0 s</p>
         <div class="rc-compass-opts visible" id="compass-opts" role="group" aria-label="Options du compas">
@@ -61,10 +73,11 @@
           <h2 id="outcome-title"></h2>
           <p id="outcome-msg"></p>
           <div class="rc-listen-bar" id="listen-bar">
-            <button type="button" class="rc-btn interactive" id="btn-listen">Écouter 0:00–0:33</button>
+            <button type="button" class="rc-btn interactive" id="btn-listen">Écouter</button>
             <button type="button" class="rc-btn ghost interactive" id="btn-stop" hidden>Stop</button>
           </div>
           <button type="button" class="rc-btn ghost interactive" id="btn-retry" hidden>Reposer le cadre</button>
+          <button type="button" class="rc-btn interactive" id="btn-continue-step2" hidden>Continuer étape 2</button>
         </div>
       </div>
     </div>
