@@ -10,5 +10,22 @@ window.EDEN_CONFIG = {
   previewSeconds: 30,
   unlockStorageKey: "eden-yours-unlocked",
   contactEmail: "efjie8008@gmail.com",
-  sunoArtist: "efjie8008"
+  sunoArtist: "efjie8008",
+
+  /* Offre « Une piste parlée sur mesure » — 25 $ CAD
+     testMode: true  → bouton sandbox (aucun argent réel)
+     testMode: false → vrai bouton paypal.me/Francjul/25CAD
+     Remplir sandboxBusinessEmail (compte Business sandbox) pour activer le lien de test.
+     Voir PAYPAL-SANDBOX-TEST.md */
+  spokenOffer: {
+    testMode: true,
+    amount: "25.00",
+    currency: "CAD",
+    itemName: "Eden Yours — Une piste parlée sur mesure",
+    liveUrl: "https://paypal.me/Francjul/25CAD",
+    /* Compte marchand sandbox (developer.paypal.com → Sandbox → Accounts → Business) */
+    sandboxBusinessEmail: "",
+    /* Ou collez ici l'URL complète d'un bouton hébergé sandbox (prioritaire si rempli) */
+    sandboxButtonUrl: ""
+  }
 };

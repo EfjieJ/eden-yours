@@ -155,6 +155,11 @@
       "request.spokenH2": "Une piste parlée sur mesure",
       "request.spokenBodyHtml": "Vous recevez une piste parlée Suno d&rsquo;environ <strong>deux minutes</strong>, créée sur votre thème — une voix, une intention, un moment d&rsquo;écoute. C&rsquo;est un geste simple et vivant, pas un produit de masse. Prix&nbsp;: <strong>25&nbsp;$&nbsp;CAD</strong>.",
       "request.spokenPay": "Payer 25 $ CAD via PayPal",
+      "request.spokenTestBadge": "MODE TEST",
+      "request.spokenTestHint": " — PayPal Sandbox, aucun argent réel. Voir PAYPAL-SANDBOX-TEST.md",
+      "request.spokenTestSetupHtml": "Le bouton sandbox n&rsquo;est pas encore branché&nbsp;: ajoutez l&rsquo;e-mail marchand sandbox (ou l&rsquo;URL du bouton) dans <code>config.js</code> → <code>spokenOffer</code>.",
+      "request.spokenPayTest": "Tester 25 $ CAD (PayPal Sandbox)",
+
       "request.spokenAfterHtml": "Après le paiement, envoyez votre thème (et votre courriel) à <a href=\"mailto:efjie8008@gmail.com\">efjie8008@gmail.com</a>.",
       "request.offerH2": "Ce que vous offrez",
       "request.offer1": "Votre nom et un courriel de contact",
@@ -379,6 +384,11 @@
       "request.spokenH2": "A custom spoken-word track",
       "request.spokenBodyHtml": "You receive a spoken-word Suno track of about <strong>two minutes</strong>, made on your theme — a voice, an intention, a moment of listening. A simple, living gesture, not a mass product. Price: <strong>25&nbsp;CAD</strong>.",
       "request.spokenPay": "Pay 25 CAD via PayPal",
+      "request.spokenTestBadge": "TEST MODE",
+      "request.spokenTestHint": " — PayPal Sandbox, no real money. See PAYPAL-SANDBOX-TEST.md",
+      "request.spokenTestSetupHtml": "Sandbox button not wired yet: add the sandbox business email (or button URL) in <code>config.js</code> → <code>spokenOffer</code>.",
+      "request.spokenPayTest": "Test 25 CAD (PayPal Sandbox)",
+
       "request.spokenAfterHtml": "After paying, send your theme (and your email) to <a href=\"mailto:efjie8008@gmail.com\">efjie8008@gmail.com</a>.",
       "request.offerH2": "What you offer",
       "request.offer1": "Your name and a contact email",
