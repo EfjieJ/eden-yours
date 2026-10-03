@@ -4,14 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Casse-tête — Eden Yours</title>
-  <meta name="description" content="Réunis la pochette. Quand l'image est entière, la chanson s'ouvre.">
+  <meta name="description" content="Prends les pièces une à une et reconstruis la pochette. Quand l'image est entière, la chanson s'ouvre.">
   <link rel="canonical" href="https://efjiej.github.io/eden-yours/casse-tete.html">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="fr_CA">
   <meta property="og:site_name" content="Eden Yours">
   <meta property="og:url" content="https://efjiej.github.io/eden-yours/casse-tete.html">
   <meta property="og:title" content="Casse-tête — Eden Yours">
-  <meta property="og:description" content="Réunis la pochette. Quand l'image est entière, la chanson s'ouvre.">
+  <meta property="og:description" content="Prends les pièces une à une et reconstruis la pochette. Quand l'image est entière, la chanson s'ouvre.">
   <meta property="og:image" content="https://efjiej.github.io/eden-yours/assets/og-share.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="css/styles.css">
@@ -50,7 +50,7 @@
       <div class="container">
         <p class="eyebrow">Jeu · vibration</p>
         <h1>Casse-tête</h1>
-        <p class="puzzle-lead">Choisis une chanson. Glisse les pièces jusqu'à réunir sa pochette. Quand l'image est entière, la chanson s'ouvre.</p>
+        <p class="puzzle-lead">Choisis une chanson. Prends les pièces dans le plateau, puis dépose-les une à une sur l'image fantôme. Quand la pochette est entière, la chanson s'ouvre.</p>
       </div>
     </section>
 
@@ -65,26 +65,32 @@
           <div class="puzzle-toolbar">
             <div>
               <p class="puzzle-now" id="now-title">—</p>
-              <p class="puzzle-moves" id="move-count">0 coup</p>
+              <p class="puzzle-moves" id="place-count">0 pièce placée</p>
             </div>
             <div class="puzzle-actions">
-              <div class="grid-switch" role="group" aria-label="Taille de la grille">
-                <button type="button" id="grid-3" class="is-active" aria-pressed="true">3 × 3</button>
-                <button type="button" id="grid-4" aria-pressed="false">4 × 4</button>
+              <div class="grid-switch" role="group" aria-label="Nombre de pièces">
+                <button type="button" id="grid-3" class="is-active" aria-pressed="true">9 pièces</button>
+                <button type="button" id="grid-4" aria-pressed="false">16 pièces</button>
               </div>
               <button type="button" class="btn btn-ghost" id="btn-shuffle">Mélanger</button>
             </div>
           </div>
 
-          <div class="board-row">
-            <div class="board" id="board" role="group" aria-label="Taquin"></div>
-            <div class="model">
-              <img id="model-img" alt="Modèle de la pochette">
-              <p>Le modèle</p>
+          <div class="play-area">
+            <div class="board-wrap">
+              <div class="board" id="board" role="group" aria-label="Plateau du casse-tête">
+                <img class="board-ghost" id="board-ghost" alt="" aria-hidden="true" draggable="false">
+                <div class="board-slots" id="board-slots"></div>
+              </div>
+            </div>
+
+            <div class="tray-panel">
+              <p class="tray-label" id="tray-label">Pièces à placer</p>
+              <div class="tray" id="tray" role="group" aria-labelledby="tray-label"></div>
             </div>
           </div>
 
-          <p class="hint" id="hint">Touche une pièce à côté du vide, ou glisse-la vers la case vide.</p>
+          <p class="hint" id="hint">Tire une pièce du plateau et dépose-la sur sa case.</p>
 
           <div class="win-panel" id="win-panel" aria-live="polite">
             <h2>L'image est réunie</h2>

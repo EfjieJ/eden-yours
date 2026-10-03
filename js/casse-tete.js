@@ -1,4 +1,4 @@
-/* Eden Yours — taquin : la pochette, puis la chanson. */
+/* Eden Yours — vrai casse-tête : pièces dans un plateau, à déposer sur l'image. */
 (function () {
   "use strict";
 
@@ -42,18 +42,22 @@
     }
   ];
 
+  var SNAP_RATIO = 0.45; /* fraction of slot size — phone-friendly */
+
   var n = 3;
   var songIndex = 0;
-  var tiles = [];
-  var blank = 0;
-  var moves = 0;
+  var placed = {}; /* pieceId -> true when locked in its slot */
+  var trayOrder = []; /* piece ids still in tray, display order */
   var locked = false;
+  var drag = null;
 
   var menu = document.getElementById("song-menu");
   var board = document.getElementById("board");
+  var boardSlots = document.getElementById("board-slots");
+  var boardGhost = document.getElementById("board-ghost");
+  var tray = document.getElementById("tray");
   var nowTitle = document.getElementById("now-title");
-  var moveCount = document.getElementById("move-count");
-  var modelImg = document.getElementById("model-img");
+  var placeCount = document.getElementById("place-count");
   var winPanel = document.getElementById("win-panel");
   var winLine = document.getElementById("win-line");
   var audio = document.getElementById("win-audio");
@@ -61,53 +65,65 @@
 
   function song() { return SONGS[songIndex]; }
 
-  function size() { return n * n; }
+  function totalPieces() { return n * n; }
 
-  function neighbors(index) {
-    var r = Math.floor(index / n);
-    var c = index % n;
-    var out = [];
-    if (r > 0) out.push(index - n);
-    if (r < n - 1) out.push(index + n);
-    if (c > 0) out.push(index - 1);
-    if (c < n - 1) out.push(index + 1);
-    return out;
+  function placedCount() {
+    var c = 0;
+    for (var k in placed) {
+      if (Object.prototype.hasOwnProperty.call(placed, k) && placed[k]) c += 1;
+    }
+    return c;
   }
 
   function isSolved() {
-    for (var i = 0; i < tiles.length; i++) {
-      if (tiles[i] !== i) return false;
-    }
-    return true;
+    return placedCount() === totalPieces();
   }
 
-  function shuffle() {
-    var total = size();
-    tiles = [];
-    for (var i = 0; i < total; i++) tiles.push(i);
-    blank = total - 1;
-    var last = -1;
-    var steps = n === 3 ? 48 : 90;
-    for (var s = 0; s < steps; s++) {
-      var opts = neighbors(blank).filter(function (p) { return p !== last; });
-      var pick = opts[Math.floor(Math.random() * opts.length)];
-      tiles[blank] = tiles[pick];
-      tiles[pick] = total - 1;
-      last = blank;
-      blank = pick;
-    }
-    if (isSolved()) {
-      var nudge = neighbors(blank)[0];
-      tiles[blank] = tiles[nudge];
-      tiles[nudge] = total - 1;
-      blank = nudge;
-    }
-    moves = 0;
-    locked = false;
+  function pieceBg(pieceId) {
+    var current = song();
+    var row = Math.floor(pieceId / n);
+    var col = pieceId % n;
+    var x = n === 1 ? 0 : (col * 100) / (n - 1);
+    var y = n === 1 ? 0 : (row * 100) / (n - 1);
+    var bgSize = (n * 100) + "% " + (n * 100) + "%";
+    return {
+      image: "url('" + current.cover + "')",
+      size: bgSize,
+      position: x + "% " + y + "%"
+    };
   }
 
-  function paintMoves() {
-    moveCount.textContent = moves + (moves === 1 ? " coup" : " coups");
+  function applyPieceStyle(el, pieceId) {
+    var bg = pieceBg(pieceId);
+    el.style.backgroundImage = bg.image;
+    el.style.backgroundSize = bg.size;
+    el.style.backgroundPosition = bg.position;
+  }
+
+  function shuffleIds(ids) {
+    for (var i = ids.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = ids[i];
+      ids[i] = ids[j];
+      ids[j] = tmp;
+    }
+    return ids;
+  }
+
+  function paintCount() {
+    var c = placedCount();
+    var total = totalPieces();
+    if (c === 0) placeCount.textContent = "0 pièce placée";
+    else if (c === 1) placeCount.textContent = "1 pièce placée / " + total;
+    else placeCount.textContent = c + " pièces placées / " + total;
+  }
+
+  function playHint() {
+    var coarse = window.matchMedia("(pointer: coarse)").matches;
+    if (coarse || "ontouchstart" in window) {
+      return "Tire une pièce du plateau avec le doigt et dépose-la sur sa case.";
+    }
+    return "Glisse une pièce du plateau et dépose-la sur sa case.";
   }
 
   function renderMenu() {
@@ -125,41 +141,53 @@
     });
   }
 
+  function clearSlotsHighlight() {
+    var slots = boardSlots.querySelectorAll(".slot");
+    for (var i = 0; i < slots.length; i++) slots[i].classList.remove("is-target");
+  }
+
   function renderBoard() {
-    var current = song();
     board.style.setProperty("--n", String(n));
     board.classList.toggle("is-solved", locked);
-    board.innerHTML = "";
-    var bgSize = (n * 100) + "% " + (n * 100) + "%";
-    tiles.forEach(function (tileId, pos) {
-      var btn = document.createElement("button");
-      btn.type = "button";
-      var isBlank = tileId === size() - 1;
-      btn.className = "tile" + (isBlank ? " tile-blank" : "");
-      if (isBlank) {
-        btn.tabIndex = -1;
-        btn.setAttribute("aria-label", "Case vide");
-        btn.setAttribute("aria-disabled", "true");
-      } else {
-        var srcRow = Math.floor(tileId / n);
-        var srcCol = tileId % n;
-        var x = n === 1 ? 0 : (srcCol * 100) / (n - 1);
-        var y = n === 1 ? 0 : (srcRow * 100) / (n - 1);
-        btn.style.backgroundImage = "url('" + current.cover + "')";
-        btn.style.backgroundSize = bgSize;
-        btn.style.backgroundPosition = x + "% " + y + "%";
-        btn.setAttribute("aria-label", "Pièce " + (tileId + 1));
-        btn.addEventListener("click", function (ev) {
-          if (swallowClick) {
-            swallowClick = false;
-            ev.preventDefault();
-            return;
-          }
-          tryMove(pos);
-        });
+    boardSlots.innerHTML = "";
+    var total = totalPieces();
+    for (var i = 0; i < total; i++) {
+      var slot = document.createElement("div");
+      slot.className = "slot";
+      slot.dataset.slot = String(i);
+      if (placed[i]) {
+        slot.classList.add("is-filled");
+        var piece = document.createElement("div");
+        piece.className = "piece is-placed is-locked";
+        piece.dataset.piece = String(i);
+        applyPieceStyle(piece, i);
+        piece.setAttribute("aria-label", "Pièce " + (i + 1) + " placée");
+        slot.appendChild(piece);
       }
-      board.appendChild(btn);
+      boardSlots.appendChild(slot);
+    }
+  }
+
+  function makeTrayPiece(pieceId) {
+    var piece = document.createElement("button");
+    piece.type = "button";
+    piece.className = "piece";
+    piece.dataset.piece = String(pieceId);
+    applyPieceStyle(piece, pieceId);
+    piece.setAttribute("aria-label", "Pièce " + (pieceId + 1) + " — à placer");
+    piece.addEventListener("pointerdown", onPiecePointerDown);
+    return piece;
+  }
+
+  function renderTray() {
+    tray.innerHTML = "";
+    trayOrder.forEach(function (pieceId) {
+      if (!placed[pieceId]) tray.appendChild(makeTrayPiece(pieceId));
     });
+  }
+
+  function removeFromTrayOrder(pieceId) {
+    trayOrder = trayOrder.filter(function (id) { return id !== pieceId; });
   }
 
   function stopAudio() {
@@ -179,7 +207,7 @@
     winLine.textContent = "Écoute « " + current.title + " ».";
     winPanel.classList.add("is-open");
     hint.textContent = "La pochette est entière. La chanson peut jouer.";
-    renderBoard();
+    board.classList.add("is-solved");
     audio.src = current.audio;
     var playPromise = audio.play();
     if (playPromise && typeof playPromise.catch === "function") {
@@ -189,42 +217,186 @@
     }
   }
 
-  function tryMove(pos) {
-    if (locked) return;
-    if (neighbors(blank).indexOf(pos) === -1) return;
-    tiles[blank] = tiles[pos];
-    tiles[pos] = size() - 1;
-    blank = pos;
-    moves += 1;
-    paintMoves();
-    if (isSolved()) showWin();
-    else renderBoard();
+  function getPoint(e) {
+    return { x: e.clientX, y: e.clientY };
   }
 
-  function moveByKey(key) {
+  function slotAtPoint(x, y) {
+    var slots = boardSlots.querySelectorAll(".slot");
+    var best = null;
+    var bestDist = Infinity;
+    for (var i = 0; i < slots.length; i++) {
+      var slot = slots[i];
+      var rect = slot.getBoundingClientRect();
+      var cx = rect.left + rect.width / 2;
+      var cy = rect.top + rect.height / 2;
+      var dx = x - cx;
+      var dy = y - cy;
+      var dist = Math.sqrt(dx * dx + dy * dy);
+      var threshold = Math.min(rect.width, rect.height) * SNAP_RATIO;
+      if (dist <= threshold && dist < bestDist) {
+        bestDist = dist;
+        best = { el: slot, index: Number(slot.dataset.slot), dist: dist };
+      }
+    }
+    return best;
+  }
+
+  function highlightTarget(pieceId, x, y) {
+    clearSlotsHighlight();
+    var hit = slotAtPoint(x, y);
+    if (hit && hit.index === pieceId && !placed[pieceId]) {
+      hit.el.classList.add("is-target");
+      return hit;
+    }
+    return null;
+  }
+
+  function liftPiece(piece, point) {
+    var rect = piece.getBoundingClientRect();
+    var offsetX = point.x - rect.left;
+    var offsetY = point.y - rect.top;
+    piece.classList.add("is-dragging");
+    piece.style.position = "fixed";
+    piece.style.left = (point.x - offsetX) + "px";
+    piece.style.top = (point.y - offsetY) + "px";
+    piece.style.width = rect.width + "px";
+    piece.style.height = rect.height + "px";
+    piece.style.margin = "0";
+    piece.style.zIndex = "50";
+    document.body.appendChild(piece);
+    return { offsetX: offsetX, offsetY: offsetY, w: rect.width, h: rect.height };
+  }
+
+  function moveLifted(piece, point, offsets) {
+    piece.style.left = (point.x - offsets.offsetX) + "px";
+    piece.style.top = (point.y - offsets.offsetY) + "px";
+  }
+
+  function resetPieceInline(pieceEl) {
+    pieceEl.classList.remove("is-dragging");
+    pieceEl.style.position = "";
+    pieceEl.style.left = "";
+    pieceEl.style.top = "";
+    pieceEl.style.width = "";
+    pieceEl.style.height = "";
+    pieceEl.style.margin = "";
+    pieceEl.style.zIndex = "";
+  }
+
+  function placeInSlot(pieceId, pieceEl) {
+    placed[pieceId] = true;
+    removeFromTrayOrder(pieceId);
+    if (pieceEl && pieceEl.parentNode) pieceEl.parentNode.removeChild(pieceEl);
+    renderBoard();
+    renderTray();
+    paintCount();
+    if (isSolved()) showWin();
+    else hint.textContent = playHint();
+  }
+
+  function returnToTray(pieceId, pieceEl) {
+    resetPieceInline(pieceEl);
+    if (trayOrder.indexOf(pieceId) === -1) trayOrder.push(pieceId);
+    if (pieceEl.parentNode !== tray) {
+      if (pieceEl.parentNode) pieceEl.parentNode.removeChild(pieceEl);
+      tray.appendChild(pieceEl);
+    }
+  }
+
+  function endDrag(successSlot) {
+    if (!drag) return;
+    var pieceId = drag.pieceId;
+    var pieceEl = drag.el;
+    var pointerId = drag.pointerId;
+    try {
+      if (pieceEl.releasePointerCapture) pieceEl.releasePointerCapture(pointerId);
+    } catch (err) { /* ignore */ }
+    clearSlotsHighlight();
+
+    if (successSlot) {
+      placeInSlot(pieceId, pieceEl);
+    } else {
+      returnToTray(pieceId, pieceEl);
+      hint.textContent = "Pas la bonne case — la pièce revient au plateau.";
+    }
+    drag = null;
+  }
+
+  function onPiecePointerDown(e) {
     if (locked) return;
-    var r = Math.floor(blank / n);
-    var c = blank % n;
-    var target = -1;
-    if (key === "ArrowLeft" && c < n - 1) target = blank + 1;
-    if (key === "ArrowRight" && c > 0) target = blank - 1;
-    if (key === "ArrowUp" && r < n - 1) target = blank + n;
-    if (key === "ArrowDown" && r > 0) target = blank - n;
-    if (target >= 0) tryMove(target);
+    if (e.button != null && e.button !== 0) return;
+    var piece = e.currentTarget;
+    if (!piece || !piece.classList.contains("piece") || piece.classList.contains("is-locked")) return;
+    if (drag) return;
+
+    var pieceId = Number(piece.dataset.piece);
+    if (placed[pieceId]) return;
+
+    e.preventDefault();
+    var point = getPoint(e);
+    var offsets = liftPiece(piece, point);
+    drag = {
+      el: piece,
+      pieceId: pieceId,
+      pointerId: e.pointerId,
+      offsets: offsets
+    };
+    try {
+      piece.setPointerCapture(e.pointerId);
+    } catch (err) { /* ignore */ }
+    highlightTarget(pieceId, point.x, point.y);
+  }
+
+  function onPointerMove(e) {
+    if (!drag || e.pointerId !== drag.pointerId) return;
+    e.preventDefault();
+    var point = getPoint(e);
+    moveLifted(drag.el, point, drag.offsets);
+    highlightTarget(drag.pieceId, point.x, point.y);
+  }
+
+  function onPointerUp(e) {
+    if (!drag || e.pointerId !== drag.pointerId) return;
+    e.preventDefault();
+    var point = getPoint(e);
+    var hit = highlightTarget(drag.pieceId, point.x, point.y);
+    var ok = !!(hit && hit.index === drag.pieceId);
+    endDrag(ok);
+  }
+
+  function onPointerCancel(e) {
+    if (!drag || e.pointerId !== drag.pointerId) return;
+    endDrag(false);
+  }
+
+  document.addEventListener("pointermove", onPointerMove, { passive: false });
+  document.addEventListener("pointerup", onPointerUp, { passive: false });
+  document.addEventListener("pointercancel", onPointerCancel);
+
+  function dealTray() {
+    var ids = [];
+    var total = totalPieces();
+    for (var i = 0; i < total; i++) ids.push(i);
+    trayOrder = shuffleIds(ids);
   }
 
   function start() {
     var current = song();
     hideWin();
+    placed = {};
+    locked = false;
+    drag = null;
     nowTitle.textContent = current.title;
-    modelImg.src = current.cover;
-    modelImg.alt = "Pochette — " + current.title;
+    boardGhost.src = current.cover;
+    boardGhost.alt = "";
     hint.textContent = playHint();
-    shuffle();
-    paintMoves();
+    dealTray();
     paintGridButtons();
     renderMenu();
     renderBoard();
+    renderTray();
+    paintCount();
   }
 
   function selectSong(i) {
@@ -233,18 +405,9 @@
   }
 
   var phoneQuery = window.matchMedia("(max-width: 700px)");
-  var swallowClick = false;
 
   function isPhone() {
     return phoneQuery.matches;
-  }
-
-  function playHint() {
-    var coarse = window.matchMedia("(pointer: coarse)").matches;
-    if (coarse || "ontouchstart" in window) {
-      return "Touche une pièce à côté du vide, ou glisse-la vers la case vide.";
-    }
-    return "Clique une pièce à côté du vide, ou utilise les flèches.";
   }
 
   function paintGridButtons() {
@@ -278,89 +441,10 @@
 
   function onPhoneChange() {
     paintGridButtons();
-    if (isPhone() && n !== 3) setGrid(3);
+    if (isPhone() && n === 4) setGrid(3);
   }
   if (phoneQuery.addEventListener) phoneQuery.addEventListener("change", onPhoneChange);
   else if (phoneQuery.addListener) phoneQuery.addListener(onPhoneChange);
-
-  var swipe = null;
-  var SWIPE_MIN = 28;
-
-  function tilePosFromEvent(e) {
-    var node = e.target;
-    if (!node || !node.closest) return -1;
-    var tile = node.closest(".tile");
-    if (!tile || !board.contains(tile)) return -1;
-    var all = board.querySelectorAll(".tile");
-    for (var i = 0; i < all.length; i++) {
-      if (all[i] === tile) return i;
-    }
-    return -1;
-  }
-
-  function swipeDirection(dx, dy) {
-    if (Math.max(Math.abs(dx), Math.abs(dy)) < SWIPE_MIN) return null;
-    if (Math.abs(dx) >= Math.abs(dy)) return dx < 0 ? "ArrowLeft" : "ArrowRight";
-    return dy < 0 ? "ArrowUp" : "ArrowDown";
-  }
-
-  function directionTowardBlank(pos) {
-    var dr = Math.floor(blank / n) - Math.floor(pos / n);
-    var dc = (blank % n) - (pos % n);
-    if (dr === -1 && dc === 0) return "ArrowUp";
-    if (dr === 1 && dc === 0) return "ArrowDown";
-    if (dc === -1 && dr === 0) return "ArrowLeft";
-    if (dc === 1 && dr === 0) return "ArrowRight";
-    return null;
-  }
-
-  function armSwallowClick() {
-    swallowClick = true;
-    window.setTimeout(function () { swallowClick = false; }, 450);
-  }
-
-  board.addEventListener("touchstart", function (e) {
-    if (locked || !e.touches || e.touches.length !== 1) {
-      swipe = null;
-      return;
-    }
-    var t = e.touches[0];
-    swipe = { x: t.clientX, y: t.clientY, pos: tilePosFromEvent(e) };
-  }, { passive: true });
-
-  board.addEventListener("touchmove", function (e) {
-    if (!swipe || !e.touches || e.touches.length !== 1) return;
-    var dx = e.touches[0].clientX - swipe.x;
-    var dy = e.touches[0].clientY - swipe.y;
-    if (Math.max(Math.abs(dx), Math.abs(dy)) > 10) e.preventDefault();
-  }, { passive: false });
-
-  board.addEventListener("touchend", function (e) {
-    if (!swipe) return;
-    var startTouch = swipe;
-    swipe = null;
-    var t = e.changedTouches && e.changedTouches[0];
-    if (!t || locked) return;
-    var dir = swipeDirection(t.clientX - startTouch.x, t.clientY - startTouch.y);
-    if (!dir) return;
-    armSwallowClick();
-    var onTile = startTouch.pos;
-    if (onTile >= 0 && neighbors(blank).indexOf(onTile) !== -1) {
-      if (directionTowardBlank(onTile) === dir) tryMove(onTile);
-      return;
-    }
-    moveByKey(dir);
-  }, { passive: true });
-
-  board.addEventListener("touchcancel", function () { swipe = null; });
-
-  document.addEventListener("keydown", function (e) {
-    if (["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].indexOf(e.key) === -1) return;
-    var tag = (e.target && e.target.tagName) || "";
-    if (tag === "INPUT" || tag === "TEXTAREA") return;
-    e.preventDefault();
-    moveByKey(e.key);
-  });
 
   var toggle = document.getElementById("nav-toggle");
   var links = document.getElementById("nav-links");
