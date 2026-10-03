@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Casse-tête — Eden Yours</title>
+  <meta name="description" content="Réunis la pochette. Quand l'image est entière, la chanson s'ouvre.">
+  <link rel="canonical" href="https://efjiej.github.io/eden-yours/casse-tete.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="fr_CA">
+  <meta property="og:site_name" content="Eden Yours">
+  <meta property="og:url" content="https://efjiej.github.io/eden-yours/casse-tete.html">
+  <meta property="og:title" content="Casse-tête — Eden Yours">
+  <meta property="og:description" content="Réunis la pochette. Quand l'image est entière, la chanson s'ouvre.">
+  <meta property="og:image" content="https://efjiej.github.io/eden-yours/assets/og-share.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/casse-tete.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%23c084fc'/%3E%3Cstop offset='1' stop-color='%2367e8f9'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3C/svg%3E">
+</head>
+<body class="page-casse">
+  <header class="site-nav">
+    <div class="container">
+      <a class="logo" href="index.html">
+        <span class="logo-mark" aria-hidden="true"></span>
+        <span data-site-name>Eden Yours</span>
+      </a>
+      <button type="button" class="nav-toggle" data-i18n-aria="common.menu" aria-label="Menu" id="nav-toggle">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="nav-links" id="nav-links" data-i18n-aria="common.navAria" aria-label="Navigation">
+        <a href="index.html" data-i18n="nav.home">Accueil</a>
+        <a href="bibliotheque.html" data-i18n="nav.library">Bibliothèque</a>
+        <a href="pratique.html" data-i18n="nav.practice">Pratique</a>
+        <a href="demander.html" data-i18n="nav.request">Demander</a>
+        <a href="soutenir.html" data-i18n="nav.support">Soutenir</a>
+        <a href="invitations.html" data-i18n="nav.invites">Invitations</a>
+        <a href="casse-tete.html" class="active">Casse-tête</a>
+        <div class="lang-switch" role="group" data-i18n-aria="common.langAria" aria-label="Choisir la langue">
+          <button type="button" class="lang-btn" data-set-lang="fr" aria-pressed="true">FR</button>
+          <span class="lang-sep" aria-hidden="true">|</span>
+          <button type="button" class="lang-btn" data-set-lang="en" aria-pressed="false">EN</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="puzzle-hero">
+      <div class="container">
+        <p class="eyebrow">Jeu · vibration</p>
+        <h1>Casse-tête</h1>
+        <p class="puzzle-lead">Choisis une chanson. Glisse les pièces jusqu'à réunir sa pochette. Quand l'image est entière, la chanson s'ouvre.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="container puzzle-layout">
+        <div>
+          <p class="song-menu-label" id="menu-label">Choisir une chanson</p>
+          <div class="song-menu" id="song-menu" role="listbox" aria-labelledby="menu-label"></div>
+        </div>
+
+        <div class="puzzle-stage">
+          <div class="puzzle-toolbar">
+            <div>
+              <p class="puzzle-now" id="now-title">—</p>
+              <p class="puzzle-moves" id="move-count">0 coup</p>
+            </div>
+            <div class="puzzle-actions">
+              <div class="grid-switch" role="group" aria-label="Taille de la grille">
+                <button type="button" id="grid-3" class="is-active" aria-pressed="true">3 × 3</button>
+                <button type="button" id="grid-4" aria-pressed="false">4 × 4</button>
+              </div>
+              <button type="button" class="btn btn-ghost" id="btn-shuffle">Mélanger</button>
+            </div>
+          </div>
+
+          <div class="board-row">
+            <div class="board" id="board" role="group" aria-label="Taquin"></div>
+            <div class="model">
+              <img id="model-img" alt="Modèle de la pochette">
+              <p>Le modèle</p>
+            </div>
+          </div>
+
+          <p class="hint" id="hint">Clique une pièce à côté du vide, ou utilise les flèches.</p>
+
+          <div class="win-panel" id="win-panel" aria-live="polite">
+            <h2>L'image est réunie</h2>
+            <p id="win-line">Écoute la chanson.</p>
+            <audio id="win-audio" controls preload="none"></audio>
+            <div class="win-actions">
+              <button type="button" class="btn btn-primary" id="btn-replay">Rejouer</button>
+              <button type="button" class="btn btn-ghost" id="btn-stop">Pause</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p><span data-site-name>Eden Yours</span> · Casse-tête</p>
+      <p class="footer-tagline">Écoute sans t'arrêter. Ça régénère.</p>
+      <p>
+        <a href="index.html">Accueil</a> ·
+        <a href="rythme-compasse.html">Jeu</a> ·
+        <a href="creation-demain.html">Création-Demain</a>
+      </p>
+    </div>
+  </footer>
+
+  <script src="js/i18n.js"></script>
+  <script src="js/casse-tete.js"></script>
+</body>
+</html>
