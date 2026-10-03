@@ -127,7 +127,7 @@
 
   function renderBoard() {
     var current = song();
-    board.style.gridTemplateColumns = "repeat(" + n + ", 1fr)";
+    board.style.setProperty("--n", String(n));
     board.classList.toggle("is-solved", locked);
     board.innerHTML = "";
     var bgSize = (n * 100) + "% " + (n * 100) + "%";
@@ -139,7 +139,7 @@
       if (isBlank) {
         btn.tabIndex = -1;
         btn.setAttribute("aria-label", "Case vide");
-        btn.disabled = true;
+        btn.setAttribute("aria-disabled", "true");
       } else {
         var srcRow = Math.floor(tileId / n);
         var srcCol = tileId % n;
@@ -149,7 +149,14 @@
         btn.style.backgroundSize = bgSize;
         btn.style.backgroundPosition = x + "% " + y + "%";
         btn.setAttribute("aria-label", "Pièce " + (tileId + 1));
-        btn.addEventListener("click", function () { tryMove(pos); });
+        btn.addEventListener("click", function (ev) {
+          if (swallowClick) {
+            swallowClick = false;
+            ev.preventDefault();
+            return;
+          }
+          tryMove(pos);
+        });
       }
       board.appendChild(btn);
     });
@@ -212,9 +219,10 @@
     nowTitle.textContent = current.title;
     modelImg.src = current.cover;
     modelImg.alt = "Pochette — " + current.title;
-    hint.textContent = "Clique une pièce à côté du vide, ou utilise les flèches.";
+    hint.textContent = playHint();
     shuffle();
     paintMoves();
+    paintGridButtons();
     renderMenu();
     renderBoard();
   }
@@ -224,12 +232,38 @@
     start();
   }
 
+  var phoneQuery = window.matchMedia("(max-width: 700px)");
+  var swallowClick = false;
+
+  function isPhone() {
+    return phoneQuery.matches;
+  }
+
+  function playHint() {
+    var coarse = window.matchMedia("(pointer: coarse)").matches;
+    if (coarse || "ontouchstart" in window) {
+      return "Touche une pièce à côté du vide, ou glisse-la vers la case vide.";
+    }
+    return "Clique une pièce à côté du vide, ou utilise les flèches.";
+  }
+
+  function paintGridButtons() {
+    var g3 = document.getElementById("grid-3");
+    var g4 = document.getElementById("grid-4");
+    var phone = isPhone();
+    g3.classList.toggle("is-active", n === 3);
+    g4.classList.toggle("is-active", n === 4);
+    g3.setAttribute("aria-pressed", n === 3 ? "true" : "false");
+    g4.setAttribute("aria-pressed", n === 4 ? "true" : "false");
+    g4.hidden = phone;
+    if (phone) g4.setAttribute("aria-hidden", "true");
+    else g4.removeAttribute("aria-hidden");
+  }
+
   function setGrid(next) {
-    n = next;
-    document.getElementById("grid-3").classList.toggle("is-active", n === 3);
-    document.getElementById("grid-4").classList.toggle("is-active", n === 4);
-    document.getElementById("grid-3").setAttribute("aria-pressed", n === 3 ? "true" : "false");
-    document.getElementById("grid-4").setAttribute("aria-pressed", n === 4 ? "true" : "false");
+    if (isPhone()) next = 3;
+    n = next === 4 ? 4 : 3;
+    paintGridButtons();
     start();
   }
 
@@ -241,6 +275,84 @@
   });
   document.getElementById("grid-3").addEventListener("click", function () { setGrid(3); });
   document.getElementById("grid-4").addEventListener("click", function () { setGrid(4); });
+
+  function onPhoneChange() {
+    paintGridButtons();
+    if (isPhone() && n !== 3) setGrid(3);
+  }
+  if (phoneQuery.addEventListener) phoneQuery.addEventListener("change", onPhoneChange);
+  else if (phoneQuery.addListener) phoneQuery.addListener(onPhoneChange);
+
+  var swipe = null;
+  var SWIPE_MIN = 28;
+
+  function tilePosFromEvent(e) {
+    var node = e.target;
+    if (!node || !node.closest) return -1;
+    var tile = node.closest(".tile");
+    if (!tile || !board.contains(tile)) return -1;
+    var all = board.querySelectorAll(".tile");
+    for (var i = 0; i < all.length; i++) {
+      if (all[i] === tile) return i;
+    }
+    return -1;
+  }
+
+  function swipeDirection(dx, dy) {
+    if (Math.max(Math.abs(dx), Math.abs(dy)) < SWIPE_MIN) return null;
+    if (Math.abs(dx) >= Math.abs(dy)) return dx < 0 ? "ArrowLeft" : "ArrowRight";
+    return dy < 0 ? "ArrowUp" : "ArrowDown";
+  }
+
+  function directionTowardBlank(pos) {
+    var dr = Math.floor(blank / n) - Math.floor(pos / n);
+    var dc = (blank % n) - (pos % n);
+    if (dr === -1 && dc === 0) return "ArrowUp";
+    if (dr === 1 && dc === 0) return "ArrowDown";
+    if (dc === -1 && dr === 0) return "ArrowLeft";
+    if (dc === 1 && dr === 0) return "ArrowRight";
+    return null;
+  }
+
+  function armSwallowClick() {
+    swallowClick = true;
+    window.setTimeout(function () { swallowClick = false; }, 450);
+  }
+
+  board.addEventListener("touchstart", function (e) {
+    if (locked || !e.touches || e.touches.length !== 1) {
+      swipe = null;
+      return;
+    }
+    var t = e.touches[0];
+    swipe = { x: t.clientX, y: t.clientY, pos: tilePosFromEvent(e) };
+  }, { passive: true });
+
+  board.addEventListener("touchmove", function (e) {
+    if (!swipe || !e.touches || e.touches.length !== 1) return;
+    var dx = e.touches[0].clientX - swipe.x;
+    var dy = e.touches[0].clientY - swipe.y;
+    if (Math.max(Math.abs(dx), Math.abs(dy)) > 10) e.preventDefault();
+  }, { passive: false });
+
+  board.addEventListener("touchend", function (e) {
+    if (!swipe) return;
+    var startTouch = swipe;
+    swipe = null;
+    var t = e.changedTouches && e.changedTouches[0];
+    if (!t || locked) return;
+    var dir = swipeDirection(t.clientX - startTouch.x, t.clientY - startTouch.y);
+    if (!dir) return;
+    armSwallowClick();
+    var onTile = startTouch.pos;
+    if (onTile >= 0 && neighbors(blank).indexOf(onTile) !== -1) {
+      if (directionTowardBlank(onTile) === dir) tryMove(onTile);
+      return;
+    }
+    moveByKey(dir);
+  }, { passive: true });
+
+  board.addEventListener("touchcancel", function () { swipe = null; });
 
   document.addEventListener("keydown", function (e) {
     if (["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].indexOf(e.key) === -1) return;
