@@ -1,5 +1,5 @@
 /* Eden Yours — vrai casse-tête : pièces dans un plateau, à déposer sur l'image.
-   Langue de session : seules les chansons FR ou EN (cover + mp3 locaux) sont proposées. */
+   Langue du site (FR | EN, localStorage eden-lang) : seules les chansons de cette langue sont proposées. */
 (function () {
   "use strict";
 
@@ -27,7 +27,7 @@
     { id: "b0eb0f76-f2d8-4e16-85a9-037fc3f32b01", lang: "en", title: "The slight future", cover: "assets/covers/b0eb0f76-f2d8-4e16-85a9-037fc3f32b01.jpeg", audio: "assets/audio/b0eb0f76-f2d8-4e16-85a9-037fc3f32b01.mp3" }
   ];
 
-  var SESSION_KEY = "eden-puzzle-lang";
+  /* Langue des chansons = langue du site (localStorage eden-lang, bouton FR | EN). */
   var COPY = {
     fr: {
       docTitle: "Casse-tête — Eden Yours",
@@ -581,18 +581,6 @@
   if (phoneQuery.addEventListener) phoneQuery.addEventListener("change", onPhoneChange);
   else if (phoneQuery.addListener) phoneQuery.addListener(onPhoneChange);
 
-  function readSession() {
-    try {
-      var stored = sessionStorage.getItem(SESSION_KEY);
-      if (stored === "fr" || stored === "en") return stored;
-    } catch (err) { /* ignore */ }
-    return null;
-  }
-
-  function writeSession(value) {
-    try { sessionStorage.setItem(SESSION_KEY, value); } catch (err) { /* ignore */ }
-  }
-
   function readQuery() {
     try {
       var q = new URLSearchParams(window.location.search).get("lang");
@@ -611,10 +599,10 @@
     if (nowTitle) nowTitle.textContent = "—";
   }
 
-  function chooseLang(next) {
+  function applyPuzzleLang(next) {
     if (next !== "fr" && next !== "en") return;
+    if (puzzleLang === next && layout && !layout.hidden) return;
     puzzleLang = next;
-    writeSession(next);
     songIndex = 0;
     paintLangButtons();
     applyCopy();
@@ -625,6 +613,15 @@
     emptyBox.hidden = true;
     layout.hidden = false;
     start();
+  }
+
+  function chooseLang(next) {
+    if (next !== "fr" && next !== "en") return;
+    if (window.EdenI18n && window.EdenI18n.setLang) {
+      window.EdenI18n.setLang(next);
+      return;
+    }
+    applyPuzzleLang(next);
   }
 
   document.getElementById("choose-fr").addEventListener("click", function () { chooseLang("fr"); });
@@ -640,7 +637,15 @@
   }
 
   paintLangButtons();
+  if (window.EdenI18n && window.EdenI18n.onChange) {
+    window.EdenI18n.onChange(function (l) { applyPuzzleLang(l); });
+  }
   var fromQuery = readQuery();
-  var initial = fromQuery || readSession();
-  if (initial) chooseLang(initial);
+  if (fromQuery && window.EdenI18n && window.EdenI18n.setLang) {
+    window.EdenI18n.setLang(fromQuery);
+  } else if (window.EdenI18n && window.EdenI18n.getLang) {
+    applyPuzzleLang(window.EdenI18n.getLang());
+  } else {
+    applyPuzzleLang(fromQuery || "en");
+  }
 })();

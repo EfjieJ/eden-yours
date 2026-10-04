@@ -19,6 +19,11 @@
 <body>
   <div class="rc-wrap">
     <a class="rc-back" href="index.html">← Eden Yours</a>
+    <div class="rc-lang lang-switch" role="group" aria-label="Language">
+      <button type="button" class="lang-btn" data-set-lang="fr">FR</button>
+      <span class="lang-sep" aria-hidden="true">|</span>
+      <button type="button" class="lang-btn" data-set-lang="en">EN</button>
+    </div>
     <div class="rc-badges" id="rc-badges" aria-live="polite" aria-label="Cadres débloqués"></div>
 
     <canvas id="rc-canvas" aria-hidden="true"></canvas>
@@ -137,6 +142,7 @@
     </div>
   </div>
 
+  <script src="js/i18n.js"></script>
   <script src="js/rythme-compasse.js"></script>
 </body>
 </html>

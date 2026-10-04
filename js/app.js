@@ -8,9 +8,12 @@
       ? window.EdenI18n.t(key, vars)
       : key;
   }
+  let allTracks = [];
   let tracks = [];
   let currentIndex = -1;
+  let currentId = null;
   let audio = null;
+  let featuredTemplate = null;
 
   // ---------- Helpers ----------
   const $ = (sel, root = document) => root.querySelector(sel);
@@ -202,16 +205,42 @@
   }
 
   // ---------- Load tracks ----------
+  function siteLang() {
+    const l = window.EdenI18n && window.EdenI18n.getLang && window.EdenI18n.getLang();
+    return l === "fr" || l === "en" ? l : "en";
+  }
+
+  function applyLangFilter() {
+    const lang = siteLang();
+    tracks = allTracks.filter((t) => t && t.lang === lang);
+    if (currentId && tracks.some((t) => t.id === currentId)) {
+      currentIndex = tracks.findIndex((t) => t.id === currentId);
+      return;
+    }
+    if (audio && currentId) {
+      audio.pause();
+      try {
+        audio.removeAttribute("src");
+        audio.load();
+      } catch (_) {}
+    }
+    currentIndex = -1;
+    currentId = null;
+    const bar = $(".player-bar");
+    if (bar) bar.classList.remove("visible");
+  }
+
   async function loadTracks() {
     try {
       const res = await fetch("tracks.json", { cache: "no-store" });
       if (!res.ok) throw new Error("tracks.json introuvable");
       const data = await res.json();
-      tracks = Array.isArray(data.tracks) ? data.tracks : [];
+      allTracks = Array.isArray(data.tracks) ? data.tracks : [];
     } catch (err) {
       console.error(err);
-      tracks = [];
+      allTracks = [];
     }
+    applyLangFilter();
     return tracks;
   }
 
@@ -250,6 +279,7 @@
     const a = ensureAudio();
     const switching = currentIndex !== index;
     currentIndex = index;
+    currentId = t.id;
 
     const resolveUrl = (u) => {
       try { return new URL(u, document.baseURI).href; } catch { return u; }
@@ -387,7 +417,14 @@
 
   function updatePlayerCard(t) {
     const card = $(".player-card");
-    if (!card || !t) return;
+    if (!card) return;
+    if (!t) {
+      const title = $("[data-player-title]", card);
+      const artist = $("[data-player-artist]", card);
+      if (title) title.textContent = i18n("player.noFeatured");
+      if (artist) artist.textContent = "";
+      return;
+    }
     const img = $(".player-card-cover img", card);
     const ph = $(".player-card-cover", card);
     if (img && t.cover_url) {
@@ -541,13 +578,35 @@
   }
 
   // ---------- Featured / home ----------
+  function bindPlayIndex(btn, idx) {
+    if (!btn) return;
+    btn.dataset.trackIndex = String(idx);
+    if (btn.dataset.bound) return;
+    btn.dataset.bound = "1";
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      const i = Number(btn.dataset.trackIndex);
+      if (Number.isFinite(i) && i >= 0) playTrack(i);
+    });
+  }
+
   function renderFeatured() {
     const card = $(".featured-card");
     if (!card) return;
+    if (featuredTemplate == null) featuredTemplate = card.innerHTML;
     const featured = tracks.find((t) => t.featured) || tracks[0];
     if (!featured) {
       card.innerHTML = `<div class="featured-inner"><p class="hint">${escapeHtml(i18n("player.noFeatured"))}</p></div>`;
+      $$(".js-play-featured").forEach((btn) => {
+        btn.dataset.trackIndex = "-1";
+      });
       return;
+    }
+    if (!$("[data-featured-title]", card)) {
+      card.innerHTML = featuredTemplate;
+      card.querySelectorAll("[data-i18n]").forEach((el) => {
+        el.textContent = i18n(el.getAttribute("data-i18n"));
+      });
     }
     const idx = tracks.indexOf(featured);
     const cover = $(".featured-cover img", card);
@@ -562,20 +621,13 @@
     }
     if (title) title.textContent = featured.title;
     if (artist) artist.textContent = featured.artist || cfg.artistName || "";
-    if (playBtn) {
-      playBtn.addEventListener("click", () => playTrack(idx));
-    }
+    bindPlayIndex(playBtn, idx);
     if (sunoBtn && featured.suno_share) {
       sunoBtn.href = featured.suno_share;
+      sunoBtn.hidden = false;
     }
 
-    // Also wire hero primary CTA
-    $$(".js-play-featured").forEach((btn) => {
-      btn.addEventListener("click", (e) => {
-        e.preventDefault();
-        playTrack(idx);
-      });
-    });
+    $$(".js-play-featured").forEach((btn) => bindPlayIndex(btn, idx));
   }
 
   // ---------- PayPal ----------
@@ -889,9 +941,13 @@
 
   // ---------- Boot ----------
   function refreshLangUI() {
+    applyLangFilter();
+    renderFeatured();
     renderTrackList($(".track-list"));
+    const head = tracks.find((t) => t.featured) || tracks[0] || null;
+    updatePlayerCard(currentIndex >= 0 ? tracks[currentIndex] : head);
     highlightActiveRow();
-    updatePlayButtons(audio && !audio.paused);
+    updatePlayButtons(audio && !audio.paused && currentIndex >= 0);
     refreshUnlockModalCopy();
     updatePreviewBadges();
     initPayPal();

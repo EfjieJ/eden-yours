@@ -21,11 +21,11 @@
   const VEIL_DETUNE_CENTS = 30;
 
   const SONGS = [
-    { id: 'b0eb0f76-f2d8-4e16-85a9-037fc3f32b01', title: 'The slight future', duration: 269.16 },
-    { id: 'f5bf8830-85bb-4a9b-9545-081800be485f', title: 'La Sensibilité est la Fonction', duration: 187.2 },
-    { id: 'dead13bb-42bc-492e-83a1-87609f224734', title: 'Particule Pure', duration: 244.24 },
-    { id: 'a0b2b33d-66f6-4c6a-b933-cdb5977d920e', title: 'Le Léger Futur', duration: 226.4 },
-    { id: '5535b9e6-78f1-4a96-bfed-f0c5666a75c3', title: 'La Mécanique du Jeu', duration: 151.6 },
+    { id: 'b0eb0f76-f2d8-4e16-85a9-037fc3f32b01', title: 'The slight future', duration: 269.16, lang: 'en' },
+    { id: 'f5bf8830-85bb-4a9b-9545-081800be485f', title: 'La Sensibilité est la Fonction', duration: 187.2, lang: 'fr' },
+    { id: 'dead13bb-42bc-492e-83a1-87609f224734', title: 'Particule Pure', duration: 244.24, lang: 'fr' },
+    { id: 'a0b2b33d-66f6-4c6a-b933-cdb5977d920e', title: 'Le Léger Futur', duration: 226.4, lang: 'fr' },
+    { id: '5535b9e6-78f1-4a96-bfed-f0c5666a75c3', title: 'La Mécanique du Jeu', duration: 151.6, lang: 'fr' },
   ];
 
   const STEPS = [
@@ -328,11 +328,44 @@
     return 'assets/audio/' + id + '.mp3';
   }
 
-  function findSong(id) {
+  function siteLang() {
+    const l = window.EdenI18n && window.EdenI18n.getLang && window.EdenI18n.getLang();
+    if (l === 'fr' || l === 'en') return l;
+    try {
+      const stored = localStorage.getItem('eden-lang');
+      if (stored === 'fr' || stored === 'en') return stored;
+    } catch (_) {}
+    return 'en';
+  }
+
+  function visibleSongs() {
+    const lang = siteLang();
+    return SONGS.filter(function (song) { return song.lang === lang; });
+  }
+
+  function songById(id) {
     for (let i = 0; i < SONGS.length; i++) {
       if (SONGS[i].id === id) return SONGS[i];
     }
-    return SONGS[0];
+    return null;
+  }
+
+  function findSong(id) {
+    const song = songById(id);
+    if (!song || song.lang !== siteLang()) return null;
+    return song;
+  }
+
+  function alignSelection() {
+    const list = visibleSongs();
+    if (!list.length) {
+      selectedId = null;
+      return;
+    }
+    if (!list.some(function (song) { return song.id === selectedId; })) {
+      const preferred = list.find(function (song) { return song.id === DEFAULT_SONG_ID; });
+      selectedId = (preferred || list[0]).id;
+    }
   }
 
   function stepById(n) {
@@ -382,10 +415,11 @@
 
   function getSegment(stepNum) {
     const song = findSong(selectedId);
-    const dur =
-      audioBuffer && loadedSongId === selectedId
+    const dur = song
+      ? (audioBuffer && loadedSongId === selectedId
         ? audioBuffer.duration
-        : song.duration;
+        : song.duration)
+      : 1;
     const step = stepById(stepNum);
     const start = Math.max(0, step.startFrac * dur);
     const end = Math.min(dur, step.endFrac * dur);
@@ -411,30 +445,30 @@
     selectedId = DEFAULT_SONG_ID;
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
-      if (!raw) return;
-      const data = JSON.parse(raw);
-      if (!data || typeof data !== 'object') return;
-
-      if (!data.songs && ('step1' in data || 'step2' in data)) {
-        songProgress[DEFAULT_SONG_ID] = { steps: migrateLegacySteps(data) };
-        selectedId = DEFAULT_SONG_ID;
-        persist(true);
-        return;
-      }
-
-      if (data.songs && typeof data.songs === 'object') {
-        Object.keys(data.songs).forEach(function (id) {
-          songProgress[id] = { steps: migrateLegacySteps(data.songs[id]) };
-        });
-      }
-      if (data.selectedId && findSong(data.selectedId)) {
-        selectedId = data.selectedId;
+      if (raw) {
+        const data = JSON.parse(raw);
+        if (data && typeof data === 'object') {
+          if (!data.songs && ('step1' in data || 'step2' in data)) {
+            songProgress[DEFAULT_SONG_ID] = { steps: migrateLegacySteps(data) };
+            selectedId = DEFAULT_SONG_ID;
+          } else {
+            if (data.songs && typeof data.songs === 'object') {
+              Object.keys(data.songs).forEach(function (id) {
+                songProgress[id] = { steps: migrateLegacySteps(data.songs[id]) };
+              });
+            }
+            if (data.selectedId && songById(data.selectedId)) {
+              selectedId = data.selectedId;
+            }
+          }
+        }
       }
     } catch (_) {}
+    alignSelection();
   }
 
   function persist(silent) {
-    ensureSongProgress(selectedId);
+    if (selectedId) ensureSongProgress(selectedId);
     try {
       localStorage.setItem(
         STORAGE_KEY,
@@ -494,7 +528,19 @@
 
   function renderSongPicker() {
     songPicker.innerHTML = '';
-    SONGS.forEach(function (song) {
+    const list = visibleSongs();
+    if (!list.length) {
+      const empty = document.createElement('p');
+      empty.className = 'rc-hint';
+      empty.textContent = siteLang() === 'fr'
+        ? 'Aucune chanson française pour le moment.'
+        : 'No English songs for now.';
+      songPicker.appendChild(empty);
+      if (btnStart) btnStart.disabled = true;
+      return;
+    }
+    if (btnStart) btnStart.disabled = false;
+    list.forEach(function (song) {
       const prog = ensureSongProgress(song.id);
       const btn = document.createElement('button');
       btn.type = 'button';
@@ -674,6 +720,7 @@
   }
 
   async function initAudio() {
+    if (!findSong(selectedId)) throw new Error('No song for this language');
     if (!audioCtx) {
       const AC = window.AudioContext || window.webkitAudioContext;
       audioCtx = new AC();
@@ -1818,7 +1865,7 @@
     updateBadges();
     finaleHint.textContent =
       'Les huit cadres sont posés sur « ' +
-      findSong(selectedId).title +
+      (findSong(selectedId) ? findSong(selectedId).title : '') +
       ' ». Le Fil est clair.';
     showScreen('finale');
   }
@@ -2129,6 +2176,7 @@
   }
 
   btnStart.addEventListener('click', async function () {
+    if (!findSong(selectedId)) return;
     btnStart.disabled = true;
     btnStart.textContent = 'Chargement…';
     try {
@@ -2204,5 +2252,16 @@
   persist(true);
   renderSongPicker();
   refreshIntro();
+  if (window.EdenI18n && window.EdenI18n.onChange) {
+    window.EdenI18n.onChange(function () {
+      stopPlayback();
+      audioBuffer = null;
+      loadedSongId = null;
+      alignSelection();
+      if (phase !== 'intro') showScreen('intro');
+      renderSongPicker();
+      refreshIntro();
+    });
+  }
   requestAnimationFrame(loop);
 })();

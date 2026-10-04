@@ -614,3 +614,26 @@ body.rc-veiled {
   }
   .rc-float-layer { height: 10rem; }
 }
+
+.rc-lang {
+  position: absolute;
+  top: 2.35rem;
+  left: 1rem;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+}
+.rc-lang .lang-btn {
+  background: transparent;
+  border: 0;
+  color: var(--rc-muted);
+  font: inherit;
+  letter-spacing: inherit;
+  cursor: pointer;
+  padding: 0.15rem 0.1rem;
+}
+.rc-lang .lang-btn.is-active { color: var(--rc-cyan); }
+.rc-lang .lang-sep { color: var(--rc-dim); }
