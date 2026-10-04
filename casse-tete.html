@@ -35,7 +35,7 @@
         <a href="demander.html" data-i18n="nav.request">Demander</a>
         <a href="soutenir.html" data-i18n="nav.support">Soutenir</a>
         <a href="invitations.html" data-i18n="nav.invites">Invitations</a>
-        <a href="casse-tete.html" class="active">Casse-tête</a>
+        <a href="casse-tete.html" class="active" id="nav-puzzle">Casse-tête</a>
         <div class="lang-switch" role="group" data-i18n-aria="common.langAria" aria-label="Choisir la langue">
           <button type="button" class="lang-btn" data-set-lang="fr" aria-pressed="true">FR</button>
           <span class="lang-sep" aria-hidden="true">|</span>
@@ -48,14 +48,28 @@
   <main>
     <section class="puzzle-hero">
       <div class="container">
-        <p class="eyebrow">Jeu · vibration</p>
-        <h1>Casse-tête</h1>
-        <p class="puzzle-lead">Choisis une chanson. Prends les pièces dans le plateau, puis dépose-les une à une sur l'image fantôme. Quand la pochette est entière, la chanson s'ouvre.</p>
+        <p class="eyebrow" id="puzzle-eyebrow">Jeu · vibration</p>
+        <h1 id="puzzle-h1">Casse-tête</h1>
+        <p class="puzzle-lead" id="puzzle-lead">Choisis français ou anglais. Seules les chansons de cette langue sont proposées. Prends les pièces dans le plateau, puis dépose-les une à une sur l'image fantôme. Quand la pochette est entière, la chanson s'ouvre.</p>
       </div>
     </section>
 
     <section>
-      <div class="container puzzle-layout">
+      <div class="container puzzle-shell">
+        <div class="lang-gate" id="lang-gate">
+          <p class="song-menu-label" id="lang-gate-label">Langue des chansons · Song language</p>
+          <div class="lang-choice" role="group" aria-labelledby="lang-gate-label">
+            <button type="button" class="lang-choice-btn" id="choose-fr" aria-pressed="false">Français</button>
+            <button type="button" class="lang-choice-btn" id="choose-en" aria-pressed="false">English</button>
+          </div>
+        </div>
+
+        <div class="empty-songs" id="empty-songs" hidden>
+          <p id="empty-line-fr">Pas encore de chanson anglaise</p>
+          <p id="empty-line-en">No English song yet</p>
+        </div>
+
+        <div class="puzzle-layout" id="puzzle-layout" hidden>
         <div>
           <p class="song-menu-label" id="menu-label">Choisir une chanson</p>
           <div class="song-menu" id="song-menu" role="listbox" aria-labelledby="menu-label"></div>
@@ -93,7 +107,7 @@
           <p class="hint" id="hint">Tire une pièce du plateau et dépose-la sur sa case.</p>
 
           <div class="win-panel" id="win-panel" aria-live="polite">
-            <h2>L'image est réunie</h2>
+            <h2 id="win-title">L'image est réunie</h2>
             <p id="win-line">Écoute la chanson.</p>
             <audio id="win-audio" controls preload="none"></audio>
             <div class="win-actions">
@@ -102,14 +116,15 @@
             </div>
           </div>
         </div>
+        </div>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="container">
-      <p><span data-site-name>Eden Yours</span> · Casse-tête</p>
-      <p class="footer-tagline">Écoute sans t'arrêter. Ça régénère.</p>
+      <p><span data-site-name>Eden Yours</span> · <span id="foot-puzzle">Casse-tête</span></p>
+      <p class="footer-tagline" id="foot-tagline">Écoute sans t'arrêter. Ça régénère.</p>
       <p>
         <a href="index.html">Accueil</a> ·
         <a href="rythme-compasse.html">Jeu</a> ·

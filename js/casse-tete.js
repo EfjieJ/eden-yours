@@ -1,53 +1,107 @@
-/* Eden Yours — vrai casse-tête : pièces dans un plateau, à déposer sur l'image. */
+/* Eden Yours — vrai casse-tête : pièces dans un plateau, à déposer sur l'image.
+   Langue de session : seules les chansons FR ou EN (cover + mp3 locaux) sont proposées. */
 (function () {
   "use strict";
 
-  /* Paires vérifiées sur disque : cover jpeg + mp3 local (tracks.json). */
+  /* Paires vérifiées sur disque : cover jpeg + mp3 local (tracks.json).
+     lang : titre français resté français ; anglais d'après le titre et les paroles. */
   var SONGS = [
-    {
-      id: "f5bf8830-85bb-4a9b-9545-081800be485f",
-      title: "La Sensibilité est la Fonction",
-      cover: "assets/covers/f5bf8830-85bb-4a9b-9545-081800be485f.jpeg",
-      audio: "assets/audio/f5bf8830-85bb-4a9b-9545-081800be485f.mp3"
-    },
-    {
-      id: "dead13bb-42bc-492e-83a1-87609f224734",
-      title: "Particule Pure",
-      cover: "assets/covers/dead13bb-42bc-492e-83a1-87609f224734.jpeg",
-      audio: "assets/audio/dead13bb-42bc-492e-83a1-87609f224734.mp3"
-    },
-    {
-      id: "2c8a36c9-4207-41b9-80e9-bf78313c2099",
-      title: "Tout ce que je demande l'univers me le donne",
-      cover: "assets/covers/2c8a36c9-4207-41b9-80e9-bf78313c2099.jpeg",
-      audio: "assets/audio/2c8a36c9-4207-41b9-80e9-bf78313c2099.mp3"
-    },
-    {
-      id: "f95b9e6c-bc0b-4d6f-b2b6-8089d498c6ef",
-      title: "Et que ce soit",
-      cover: "assets/covers/f95b9e6c-bc0b-4d6f-b2b6-8089d498c6ef.jpeg",
-      audio: "assets/audio/f95b9e6c-bc0b-4d6f-b2b6-8089d498c6ef.mp3"
-    },
-    {
-      id: "ad12c762-07a4-4a0e-8c7e-a411b2419008",
-      title: "La pensée",
-      cover: "assets/covers/ad12c762-07a4-4a0e-8c7e-a411b2419008.jpeg",
-      audio: "assets/audio/ad12c762-07a4-4a0e-8c7e-a411b2419008.mp3"
-    },
-    {
-      id: "5535b9e6-78f1-4a96-bfed-f0c5666a75c3",
-      title: "La Mécanique du Jeu",
-      cover: "assets/covers/5535b9e6-78f1-4a96-bfed-f0c5666a75c3.jpeg",
-      audio: "assets/audio/5535b9e6-78f1-4a96-bfed-f0c5666a75c3.mp3"
-    }
+    { id: "f5bf8830-85bb-4a9b-9545-081800be485f", lang: "fr", title: "La Sensibilité est la Fonction", cover: "assets/covers/f5bf8830-85bb-4a9b-9545-081800be485f.jpeg", audio: "assets/audio/f5bf8830-85bb-4a9b-9545-081800be485f.mp3" },
+    { id: "dead13bb-42bc-492e-83a1-87609f224734", lang: "fr", title: "Particule Pure", cover: "assets/covers/dead13bb-42bc-492e-83a1-87609f224734.jpeg", audio: "assets/audio/dead13bb-42bc-492e-83a1-87609f224734.mp3" },
+    { id: "2c8a36c9-4207-41b9-80e9-bf78313c2099", lang: "fr", title: "Tout ce que je demande l'univers me le donne", cover: "assets/covers/2c8a36c9-4207-41b9-80e9-bf78313c2099.jpeg", audio: "assets/audio/2c8a36c9-4207-41b9-80e9-bf78313c2099.mp3" },
+    { id: "f95b9e6c-bc0b-4d6f-b2b6-8089d498c6ef", lang: "fr", title: "Et que ce soit", cover: "assets/covers/f95b9e6c-bc0b-4d6f-b2b6-8089d498c6ef.jpeg", audio: "assets/audio/f95b9e6c-bc0b-4d6f-b2b6-8089d498c6ef.mp3" },
+    { id: "ad12c762-07a4-4a0e-8c7e-a411b2419008", lang: "fr", title: "La pensée", cover: "assets/covers/ad12c762-07a4-4a0e-8c7e-a411b2419008.jpeg", audio: "assets/audio/ad12c762-07a4-4a0e-8c7e-a411b2419008.mp3" },
+    { id: "5535b9e6-78f1-4a96-bfed-f0c5666a75c3", lang: "fr", title: "La Mécanique du Jeu", cover: "assets/covers/5535b9e6-78f1-4a96-bfed-f0c5666a75c3.jpeg", audio: "assets/audio/5535b9e6-78f1-4a96-bfed-f0c5666a75c3.mp3" },
+    { id: "a0b2b33d-66f6-4c6a-b933-cdb5977d920e", lang: "fr", title: "Le Léger Futur", cover: "assets/covers/a0b2b33d-66f6-4c6a-b933-cdb5977d920e.jpeg", audio: "assets/audio/a0b2b33d-66f6-4c6a-b933-cdb5977d920e.mp3" },
+    { id: "51d7f27c-2ed1-4de0-821a-83e21384ffd6", lang: "fr", title: "Commencer", cover: "assets/covers/51d7f27c-2ed1-4de0-821a-83e21384ffd6.jpeg", audio: "assets/audio/51d7f27c-2ed1-4de0-821a-83e21384ffd6.mp3" },
+    { id: "702aaf9e-cde4-4b51-900c-a790db4a2320", lang: "fr", title: "Éternel sur Terre", cover: "assets/covers/702aaf9e-cde4-4b51-900c-a790db4a2320.jpeg", audio: "assets/audio/702aaf9e-cde4-4b51-900c-a790db4a2320.mp3" },
+    { id: "2c1321b1-378d-47f3-be06-1ba9437edd30", lang: "fr", title: "La Vraie Liberté", cover: "assets/covers/2c1321b1-378d-47f3-be06-1ba9437edd30.jpeg", audio: "assets/audio/2c1321b1-378d-47f3-be06-1ba9437edd30.mp3" },
+    { id: "e9a0dfac-1925-49e4-aa3a-a2b8c20bc06c", lang: "fr", title: "Commencer", cover: "assets/covers/e9a0dfac-1925-49e4-aa3a-a2b8c20bc06c.jpeg", audio: "assets/audio/e9a0dfac-1925-49e4-aa3a-a2b8c20bc06c.mp3" },
+    { id: "04441f4e-8d4b-4831-a038-c5a602e09e25", lang: "fr", title: "Le postulat", cover: "assets/covers/04441f4e-8d4b-4831-a038-c5a602e09e25.jpeg", audio: "assets/audio/04441f4e-8d4b-4831-a038-c5a602e09e25.mp3" },
+    { id: "a11c8f21-163b-4b53-8d3a-5353e809bb50", lang: "en", title: "Start - Continue - Finish", cover: "assets/covers/a11c8f21-163b-4b53-8d3a-5353e809bb50.jpeg", audio: "assets/audio/a11c8f21-163b-4b53-8d3a-5353e809bb50.mp3" },
+    { id: "a5ba4262-22f6-4c9c-a6df-05bff2d5e713", lang: "en", title: "The Body Is an Antenna", cover: "assets/covers/a5ba4262-22f6-4c9c-a6df-05bff2d5e713.jpeg", audio: "assets/audio/a5ba4262-22f6-4c9c-a6df-05bff2d5e713.mp3" },
+    { id: "18a2266c-70b1-4e80-94e5-144a5ccd29fc", lang: "en", title: "Start", cover: "assets/covers/18a2266c-70b1-4e80-94e5-144a5ccd29fc.jpeg", audio: "assets/audio/18a2266c-70b1-4e80-94e5-144a5ccd29fc.mp3" },
+    { id: "d2d61703-a205-41ac-a670-6e5cf7c22911", lang: "en", title: "The Postulate", cover: "assets/covers/d2d61703-a205-41ac-a670-6e5cf7c22911.jpeg", audio: "assets/audio/d2d61703-a205-41ac-a670-6e5cf7c22911.mp3" },
+    { id: "b495fcd7-5db9-4de1-8fe5-4ba9a397e325", lang: "en", title: "Sensitivity is Pure Function", cover: "assets/covers/b495fcd7-5db9-4de1-8fe5-4ba9a397e325.jpeg", audio: "assets/audio/b495fcd7-5db9-4de1-8fe5-4ba9a397e325.mp3" },
+    { id: "bd31373d-709e-4a64-a7dd-7baed7ec7bb7", lang: "en", title: "the postulat", cover: "assets/covers/bd31373d-709e-4a64-a7dd-7baed7ec7bb7.jpeg", audio: "assets/audio/bd31373d-709e-4a64-a7dd-7baed7ec7bb7.mp3" },
+    { id: "b0eb0f76-f2d8-4e16-85a9-037fc3f32b01", lang: "en", title: "The slight future", cover: "assets/covers/b0eb0f76-f2d8-4e16-85a9-037fc3f32b01.jpeg", audio: "assets/audio/b0eb0f76-f2d8-4e16-85a9-037fc3f32b01.mp3" }
   ];
 
-  var SNAP_RATIO = 0.45; /* fraction of slot size — phone-friendly */
+  var SESSION_KEY = "eden-puzzle-lang";
+  var COPY = {
+    fr: {
+      docTitle: "Casse-tête — Eden Yours",
+      eyebrow: "Jeu · vibration",
+      h1: "Casse-tête",
+      lead: "Choisis une chanson française. Prends les pièces dans le plateau, puis dépose-les une à une sur l'image fantôme. Quand la pochette est entière, la chanson s'ouvre.",
+      menu: "Chansons françaises",
+      tray: "Pièces à placer",
+      hintFinger: "Tire une pièce du plateau avec le doigt et dépose-la sur sa case.",
+      hintMouse: "Glisse une pièce du plateau et dépose-la sur sa case.",
+      wrong: "Pas la bonne case — la pièce revient au plateau.",
+      zero: "0 pièce placée",
+      one: function (total) { return "1 pièce placée / " + total; },
+      many: function (c, total) { return c + " pièces placées / " + total; },
+      winTitle: "L'image est réunie",
+      winLine: function (title) { return "Écoute « " + title + " »."; },
+      solved: "La pochette est entière. La chanson peut jouer.",
+      blocked: "Appuie sur lecture si le son ne part pas tout seul.",
+      shuffle: "Mélanger",
+      replay: "Rejouer",
+      pause: "Pause",
+      grid3: "9 pièces",
+      grid4: "16 pièces",
+      gridAria: "Nombre de pièces",
+      boardAria: "Plateau du casse-tête",
+      placed: function (n) { return "Pièce " + n + " placée"; },
+      todo: function (n) { return "Pièce " + n + " — à placer"; },
+      nav: "Casse-tête",
+      footName: "Casse-tête",
+      tagline: "Écoute sans t'arrêter. Ça régénère.",
+      emptyFr: "Pas encore de chanson française",
+      emptyEn: "No French song yet"
+    },
+    en: {
+      docTitle: "Jigsaw — Eden Yours",
+      eyebrow: "Game · vibration",
+      h1: "Jigsaw",
+      lead: "Choose an English song. Take the pieces from the tray and drop them one by one onto the ghost image. When the cover is whole, the song opens.",
+      menu: "English songs",
+      tray: "Pieces to place",
+      hintFinger: "Drag a piece with your finger and drop it on its square.",
+      hintMouse: "Drag a piece from the tray and drop it on its square.",
+      wrong: "Not the right square — the piece goes back to the tray.",
+      zero: "0 pieces placed",
+      one: function (total) { return "1 piece placed / " + total; },
+      many: function (c, total) { return c + " pieces placed / " + total; },
+      winTitle: "The picture is whole",
+      winLine: function (title) { return "Listen to “" + title + "”."; },
+      solved: "The cover is complete. The song can play.",
+      blocked: "Press play if the sound does not start on its own.",
+      shuffle: "Shuffle",
+      replay: "Play again",
+      pause: "Pause",
+      grid3: "9 pieces",
+      grid4: "16 pieces",
+      gridAria: "Number of pieces",
+      boardAria: "Jigsaw board",
+      placed: function (n) { return "Piece " + n + " placed"; },
+      todo: function (n) { return "Piece " + n + " — to place"; },
+      nav: "Jigsaw",
+      footName: "Jigsaw",
+      tagline: "Listen without stopping. It regenerates.",
+      emptyFr: "Pas encore de chanson anglaise",
+      emptyEn: "No English song yet"
+    }
+  };
+
+  var SNAP_RATIO = 0.45;
 
   var n = 3;
+  var puzzleLang = null;
   var songIndex = 0;
-  var placed = {}; /* pieceId -> true when locked in its slot */
-  var trayOrder = []; /* piece ids still in tray, display order */
+  var placed = {};
+  var trayOrder = [];
   var locked = false;
   var drag = null;
 
@@ -62,8 +116,24 @@
   var winLine = document.getElementById("win-line");
   var audio = document.getElementById("win-audio");
   var hint = document.getElementById("hint");
+  var layout = document.getElementById("puzzle-layout");
+  var emptyBox = document.getElementById("empty-songs");
 
-  function song() { return SONGS[songIndex]; }
+  function copy() {
+    return COPY[puzzleLang] || COPY.fr;
+  }
+
+  function songs() {
+    if (puzzleLang !== "fr" && puzzleLang !== "en") return [];
+    return SONGS.filter(function (item) { return item.lang === puzzleLang; });
+  }
+
+  function song() {
+    var list = songs();
+    if (!list.length) return null;
+    if (songIndex < 0 || songIndex >= list.length) songIndex = 0;
+    return list[songIndex];
+  }
 
   function totalPieces() { return n * n; }
 
@@ -113,22 +183,78 @@
   function paintCount() {
     var c = placedCount();
     var total = totalPieces();
-    if (c === 0) placeCount.textContent = "0 pièce placée";
-    else if (c === 1) placeCount.textContent = "1 pièce placée / " + total;
-    else placeCount.textContent = c + " pièces placées / " + total;
+    var text = copy();
+    if (c === 0) placeCount.textContent = text.zero;
+    else if (c === 1) placeCount.textContent = text.one(total);
+    else placeCount.textContent = text.many(c, total);
   }
 
   function playHint() {
+    var text = copy();
     var coarse = window.matchMedia("(pointer: coarse)").matches;
-    if (coarse || "ontouchstart" in window) {
-      return "Tire une pièce du plateau avec le doigt et dépose-la sur sa case.";
+    if (coarse || "ontouchstart" in window) return text.hintFinger;
+    return text.hintMouse;
+  }
+
+  function applyCopy() {
+    var text = copy();
+    document.title = text.docTitle;
+    var eyebrow = document.getElementById("puzzle-eyebrow");
+    var h1 = document.getElementById("puzzle-h1");
+    var lead = document.getElementById("puzzle-lead");
+    var menuLabel = document.getElementById("menu-label");
+    var trayLabel = document.getElementById("tray-label");
+    var winTitle = document.getElementById("win-title");
+    var navPuzzle = document.getElementById("nav-puzzle");
+    var footName = document.getElementById("foot-puzzle");
+    var footTag = document.getElementById("foot-tagline");
+    if (eyebrow) eyebrow.textContent = text.eyebrow;
+    if (h1) h1.textContent = text.h1;
+    if (lead) lead.textContent = text.lead;
+    if (menuLabel) menuLabel.textContent = text.menu;
+    if (trayLabel) trayLabel.textContent = text.tray;
+    if (winTitle) winTitle.textContent = text.winTitle;
+    if (navPuzzle) navPuzzle.textContent = text.nav;
+    if (footName) footName.textContent = text.footName;
+    if (footTag) footTag.textContent = text.tagline;
+    var shuffle = document.getElementById("btn-shuffle");
+    var replay = document.getElementById("btn-replay");
+    var stop = document.getElementById("btn-stop");
+    var g3 = document.getElementById("grid-3");
+    var g4 = document.getElementById("grid-4");
+    var grid = document.querySelector(".grid-switch");
+    if (shuffle) shuffle.textContent = text.shuffle;
+    if (replay) replay.textContent = text.replay;
+    if (stop) stop.textContent = text.pause;
+    if (g3) g3.textContent = text.grid3;
+    if (g4) g4.textContent = text.grid4;
+    if (grid) grid.setAttribute("aria-label", text.gridAria);
+    if (board) board.setAttribute("aria-label", text.boardAria);
+    var emptyFr = document.getElementById("empty-line-fr");
+    var emptyEn = document.getElementById("empty-line-en");
+    if (emptyFr) emptyFr.textContent = text.emptyFr;
+    if (emptyEn) emptyEn.textContent = text.emptyEn;
+  }
+
+  function paintLangButtons() {
+    var fr = document.getElementById("choose-fr");
+    var en = document.getElementById("choose-en");
+    if (fr) {
+      var on = puzzleLang === "fr";
+      fr.classList.toggle("is-active", on);
+      fr.setAttribute("aria-pressed", on ? "true" : "false");
     }
-    return "Glisse une pièce du plateau et dépose-la sur sa case.";
+    if (en) {
+      var onEn = puzzleLang === "en";
+      en.classList.toggle("is-active", onEn);
+      en.setAttribute("aria-pressed", onEn ? "true" : "false");
+    }
   }
 
   function renderMenu() {
     menu.innerHTML = "";
-    SONGS.forEach(function (item, i) {
+    var list = songs();
+    list.forEach(function (item, i) {
       var btn = document.createElement("button");
       btn.type = "button";
       btn.className = "song-pick" + (i === songIndex ? " is-active" : "");
@@ -151,6 +277,7 @@
     board.classList.toggle("is-solved", locked);
     boardSlots.innerHTML = "";
     var total = totalPieces();
+    var text = copy();
     for (var i = 0; i < total; i++) {
       var slot = document.createElement("div");
       slot.className = "slot";
@@ -161,7 +288,7 @@
         piece.className = "piece is-placed is-locked";
         piece.dataset.piece = String(i);
         applyPieceStyle(piece, i);
-        piece.setAttribute("aria-label", "Pièce " + (i + 1) + " placée");
+        piece.setAttribute("aria-label", text.placed(i + 1));
         slot.appendChild(piece);
       }
       boardSlots.appendChild(slot);
@@ -174,7 +301,7 @@
     piece.className = "piece";
     piece.dataset.piece = String(pieceId);
     applyPieceStyle(piece, pieceId);
-    piece.setAttribute("aria-label", "Pièce " + (pieceId + 1) + " — à placer");
+    piece.setAttribute("aria-label", copy().todo(pieceId + 1));
     piece.addEventListener("pointerdown", onPiecePointerDown);
     return piece;
   }
@@ -204,15 +331,17 @@
   function showWin() {
     locked = true;
     var current = song();
-    winLine.textContent = "Écoute « " + current.title + " ».";
+    if (!current) return;
+    var text = copy();
+    winLine.textContent = text.winLine(current.title);
     winPanel.classList.add("is-open");
-    hint.textContent = "La pochette est entière. La chanson peut jouer.";
+    hint.textContent = text.solved;
     board.classList.add("is-solved");
     audio.src = current.audio;
     var playPromise = audio.play();
     if (playPromise && typeof playPromise.catch === "function") {
       playPromise.catch(function () {
-        hint.textContent = "Appuie sur lecture si le son ne part pas tout seul.";
+        hint.textContent = text.blocked;
       });
     }
   }
@@ -318,7 +447,7 @@
       placeInSlot(pieceId, pieceEl);
     } else {
       returnToTray(pieceId, pieceEl);
-      hint.textContent = "Pas la bonne case — la pièce revient au plateau.";
+      hint.textContent = copy().wrong;
     }
     drag = null;
   }
@@ -383,6 +512,7 @@
 
   function start() {
     var current = song();
+    if (!current) return;
     hideWin();
     placed = {};
     locked = false;
@@ -424,14 +554,19 @@
   }
 
   function setGrid(next) {
+    if (!song()) return;
     if (isPhone()) next = 3;
     n = next === 4 ? 4 : 3;
     paintGridButtons();
     start();
   }
 
-  document.getElementById("btn-shuffle").addEventListener("click", start);
-  document.getElementById("btn-replay").addEventListener("click", start);
+  document.getElementById("btn-shuffle").addEventListener("click", function () {
+    if (song()) start();
+  });
+  document.getElementById("btn-replay").addEventListener("click", function () {
+    if (song()) start();
+  });
   document.getElementById("btn-stop").addEventListener("click", function () {
     if (audio.paused) audio.play();
     else audio.pause();
@@ -441,10 +576,59 @@
 
   function onPhoneChange() {
     paintGridButtons();
-    if (isPhone() && n === 4) setGrid(3);
+    if (isPhone() && n === 4 && song()) setGrid(3);
   }
   if (phoneQuery.addEventListener) phoneQuery.addEventListener("change", onPhoneChange);
   else if (phoneQuery.addListener) phoneQuery.addListener(onPhoneChange);
+
+  function readSession() {
+    try {
+      var stored = sessionStorage.getItem(SESSION_KEY);
+      if (stored === "fr" || stored === "en") return stored;
+    } catch (err) { /* ignore */ }
+    return null;
+  }
+
+  function writeSession(value) {
+    try { sessionStorage.setItem(SESSION_KEY, value); } catch (err) { /* ignore */ }
+  }
+
+  function readQuery() {
+    try {
+      var q = new URLSearchParams(window.location.search).get("lang");
+      if (q === "fr" || q === "en") return q;
+    } catch (err) { /* ignore */ }
+    return null;
+  }
+
+  function showEmpty() {
+    hideWin();
+    if (drag && drag.el && drag.el.parentNode) drag.el.parentNode.removeChild(drag.el);
+    drag = null;
+    layout.hidden = true;
+    emptyBox.hidden = false;
+    menu.innerHTML = "";
+    if (nowTitle) nowTitle.textContent = "—";
+  }
+
+  function chooseLang(next) {
+    if (next !== "fr" && next !== "en") return;
+    puzzleLang = next;
+    writeSession(next);
+    songIndex = 0;
+    paintLangButtons();
+    applyCopy();
+    if (!songs().length) {
+      showEmpty();
+      return;
+    }
+    emptyBox.hidden = true;
+    layout.hidden = false;
+    start();
+  }
+
+  document.getElementById("choose-fr").addEventListener("click", function () { chooseLang("fr"); });
+  document.getElementById("choose-en").addEventListener("click", function () { chooseLang("en"); });
 
   var toggle = document.getElementById("nav-toggle");
   var links = document.getElementById("nav-links");
@@ -455,5 +639,8 @@
     });
   }
 
-  start();
+  paintLangButtons();
+  var fromQuery = readQuery();
+  var initial = fromQuery || readSession();
+  if (initial) chooseLang(initial);
 })();

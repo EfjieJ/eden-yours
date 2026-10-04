@@ -10,7 +10,8 @@
       "suno_share": "https://suno.com/s/zcIyAJuM0oB4E6sm",
       "duration": 187.2,
       "featured": true,
-      "audio_url_aac": "assets/audio/f5bf8830-85bb-4a9b-9545-081800be485f.m4a"
+      "audio_url_aac": "assets/audio/f5bf8830-85bb-4a9b-9545-081800be485f.m4a",
+      "lang": "fr"
     },
     {
       "id": "dead13bb-42bc-492e-83a1-87609f224734",
@@ -22,7 +23,8 @@
       "suno_share": "https://suno.com/s/Z4eMjeQMXP7Wp613",
       "duration": 244.24,
       "featured": false,
-      "audio_url_aac": "assets/audio/dead13bb-42bc-492e-83a1-87609f224734.m4a"
+      "audio_url_aac": "assets/audio/dead13bb-42bc-492e-83a1-87609f224734.m4a",
+      "lang": "fr"
     },
     {
       "id": "2c8a36c9-4207-41b9-80e9-bf78313c2099",
@@ -34,7 +36,8 @@
       "suno_share": "https://suno.com/s/xEWZPaMo5HSbXeMp",
       "duration": 219.56,
       "featured": false,
-      "audio_url_aac": "assets/audio/2c8a36c9-4207-41b9-80e9-bf78313c2099.m4a"
+      "audio_url_aac": "assets/audio/2c8a36c9-4207-41b9-80e9-bf78313c2099.m4a",
+      "lang": "fr"
     },
     {
       "id": "f95b9e6c-bc0b-4d6f-b2b6-8089d498c6ef",
@@ -46,7 +49,8 @@
       "suno_share": "https://suno.com/s/8mOJxJUOEu653pl7",
       "duration": 238.68,
       "featured": false,
-      "audio_url_aac": "assets/audio/f95b9e6c-bc0b-4d6f-b2b6-8089d498c6ef.m4a"
+      "audio_url_aac": "assets/audio/f95b9e6c-bc0b-4d6f-b2b6-8089d498c6ef.m4a",
+      "lang": "fr"
     },
     {
       "id": "ad12c762-07a4-4a0e-8c7e-a411b2419008",
@@ -58,7 +62,8 @@
       "suno_share": "https://suno.com/s/e7ZBaLFfKb3576kP",
       "duration": 316.6,
       "featured": false,
-      "audio_url_aac": "assets/audio/ad12c762-07a4-4a0e-8c7e-a411b2419008.m4a"
+      "audio_url_aac": "assets/audio/ad12c762-07a4-4a0e-8c7e-a411b2419008.m4a",
+      "lang": "fr"
     },
     {
       "id": "5535b9e6-78f1-4a96-bfed-f0c5666a75c3",
@@ -70,7 +75,8 @@
       "suno_share": "https://suno.com/s/ripnQvDFpAKk13AX",
       "duration": 151.6,
       "featured": false,
-      "audio_url_aac": "assets/audio/5535b9e6-78f1-4a96-bfed-f0c5666a75c3.m4a"
+      "audio_url_aac": "assets/audio/5535b9e6-78f1-4a96-bfed-f0c5666a75c3.m4a",
+      "lang": "fr"
     },
     {
       "id": "a0b2b33d-66f6-4c6a-b933-cdb5977d920e",
@@ -82,7 +88,8 @@
       "suno_share": "https://suno.com/s/7Bt6qCQP9NEkROGR",
       "duration": 226.4,
       "featured": false,
-      "audio_url_aac": "assets/audio/a0b2b33d-66f6-4c6a-b933-cdb5977d920e.m4a"
+      "audio_url_aac": "assets/audio/a0b2b33d-66f6-4c6a-b933-cdb5977d920e.m4a",
+      "lang": "fr"
     },
     {
       "id": "51d7f27c-2ed1-4de0-821a-83e21384ffd6",
@@ -94,7 +101,8 @@
       "suno_share": "https://suno.com/s/8y2J6ymed3JaMCrI",
       "duration": 212.76,
       "featured": false,
-      "audio_url_aac": "assets/audio/51d7f27c-2ed1-4de0-821a-83e21384ffd6.m4a"
+      "audio_url_aac": "assets/audio/51d7f27c-2ed1-4de0-821a-83e21384ffd6.m4a",
+      "lang": "fr"
     },
     {
       "id": "a11c8f21-163b-4b53-8d3a-5353e809bb50",
@@ -106,7 +114,8 @@
       "suno_share": "https://suno.com/s/lyclNUiPOPYuDzPo",
       "duration": 234.8,
       "featured": false,
-      "audio_url_aac": "assets/audio/a11c8f21-163b-4b53-8d3a-5353e809bb50.m4a"
+      "audio_url_aac": "assets/audio/a11c8f21-163b-4b53-8d3a-5353e809bb50.m4a",
+      "lang": "en"
     },
     {
       "id": "a5ba4262-22f6-4c9c-a6df-05bff2d5e713",
@@ -118,7 +127,8 @@
       "suno_share": "https://suno.com/s/1yb6CMDvvcr2hmCZ",
       "duration": 186.24,
       "featured": false,
-      "audio_url_aac": "assets/audio/a5ba4262-22f6-4c9c-a6df-05bff2d5e713.m4a"
+      "audio_url_aac": "assets/audio/a5ba4262-22f6-4c9c-a6df-05bff2d5e713.m4a",
+      "lang": "en"
     },
     {
       "id": "702aaf9e-cde4-4b51-900c-a790db4a2320",
@@ -130,7 +140,8 @@
       "suno_share": "https://suno.com/s/oRnEqpE4a1BAGDPM",
       "duration": 223.44,
       "featured": false,
-      "audio_url_aac": "assets/audio/702aaf9e-cde4-4b51-900c-a790db4a2320.m4a"
+      "audio_url_aac": "assets/audio/702aaf9e-cde4-4b51-900c-a790db4a2320.m4a",
+      "lang": "fr"
     },
     {
       "id": "2c1321b1-378d-47f3-be06-1ba9437edd30",
@@ -142,7 +153,8 @@
       "suno_share": "https://suno.com/s/yZ9rHqZqLYZ3PZum",
       "duration": 304.2,
       "featured": false,
-      "audio_url_aac": "assets/audio/2c1321b1-378d-47f3-be06-1ba9437edd30.m4a"
+      "audio_url_aac": "assets/audio/2c1321b1-378d-47f3-be06-1ba9437edd30.m4a",
+      "lang": "fr"
     },
     {
       "id": "e9a0dfac-1925-49e4-aa3a-a2b8c20bc06c",
@@ -154,7 +166,8 @@
       "suno_share": "https://suno.com/s/cz8rFM7r2qWNnXMx",
       "duration": 272.8,
       "featured": false,
-      "audio_url_aac": "assets/audio/e9a0dfac-1925-49e4-aa3a-a2b8c20bc06c.m4a"
+      "audio_url_aac": "assets/audio/e9a0dfac-1925-49e4-aa3a-a2b8c20bc06c.m4a",
+      "lang": "fr"
     },
     {
       "id": "18a2266c-70b1-4e80-94e5-144a5ccd29fc",
@@ -166,7 +179,8 @@
       "suno_share": "https://suno.com/s/TW9DlLsso7l8JY0r",
       "duration": 272.8,
       "featured": false,
-      "audio_url_aac": "assets/audio/18a2266c-70b1-4e80-94e5-144a5ccd29fc.m4a"
+      "audio_url_aac": "assets/audio/18a2266c-70b1-4e80-94e5-144a5ccd29fc.m4a",
+      "lang": "en"
     },
     {
       "id": "04441f4e-8d4b-4831-a038-c5a602e09e25",
@@ -178,7 +192,8 @@
       "suno_share": "https://suno.com/s/uIyyPHxcEW2fAgOf",
       "duration": 189.96,
       "featured": false,
-      "audio_url_aac": "assets/audio/04441f4e-8d4b-4831-a038-c5a602e09e25.m4a"
+      "audio_url_aac": "assets/audio/04441f4e-8d4b-4831-a038-c5a602e09e25.m4a",
+      "lang": "fr"
     },
     {
       "id": "d2d61703-a205-41ac-a670-6e5cf7c22911",
@@ -190,7 +205,8 @@
       "suno_share": "https://suno.com/s/8ynJ9b91VJiECK0y",
       "duration": 151.56,
       "featured": false,
-      "audio_url_aac": "assets/audio/d2d61703-a205-41ac-a670-6e5cf7c22911.m4a"
+      "audio_url_aac": "assets/audio/d2d61703-a205-41ac-a670-6e5cf7c22911.m4a",
+      "lang": "en"
     },
     {
       "id": "b495fcd7-5db9-4de1-8fe5-4ba9a397e325",
@@ -202,7 +218,8 @@
       "suno_share": "https://suno.com/s/zsMTl0Hk6BltrvBi",
       "duration": 187.2,
       "featured": false,
-      "audio_url_aac": "assets/audio/b495fcd7-5db9-4de1-8fe5-4ba9a397e325.m4a"
+      "audio_url_aac": "assets/audio/b495fcd7-5db9-4de1-8fe5-4ba9a397e325.m4a",
+      "lang": "en"
     },
     {
       "id": "bd31373d-709e-4a64-a7dd-7baed7ec7bb7",
@@ -214,7 +231,8 @@
       "suno_share": "https://suno.com/s/n4fOJZWSat16GahA",
       "duration": 159.48,
       "featured": false,
-      "audio_url_aac": "assets/audio/bd31373d-709e-4a64-a7dd-7baed7ec7bb7.m4a"
+      "audio_url_aac": "assets/audio/bd31373d-709e-4a64-a7dd-7baed7ec7bb7.m4a",
+      "lang": "en"
     },
     {
       "id": "b0eb0f76-f2d8-4e16-85a9-037fc3f32b01",
@@ -226,7 +244,8 @@
       "suno_share": "https://suno.com/s/ZNfGvZdcStAKpdwr",
       "duration": 269.16,
       "featured": false,
-      "audio_url_aac": "assets/audio/b0eb0f76-f2d8-4e16-85a9-037fc3f32b01.m4a"
+      "audio_url_aac": "assets/audio/b0eb0f76-f2d8-4e16-85a9-037fc3f32b01.m4a",
+      "lang": "en"
     }
   ]
 }

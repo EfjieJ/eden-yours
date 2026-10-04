@@ -40,7 +40,12 @@
         <a href="demander.html" data-i18n="nav.request">Request</a>
         <a href="soutenir.html" data-i18n="nav.support">Support</a>
         <a href="invitations.html" data-i18n="nav.invites">Invites</a>
-        <a href="casse-tete.html">Casse-tête</a>
+        <span class="nav-puzzle" role="group" data-i18n-aria="home.puzzleEntryAria" aria-label="Casse-tête : chansons en français ou en anglais">
+          <a href="casse-tete.html">Casse-tête</a>
+          <a href="casse-tete.html?lang=fr">FR</a>
+          <span class="lang-sep" aria-hidden="true">|</span>
+          <a href="casse-tete.html?lang=en">EN</a>
+        </span>
         <div class="lang-switch" role="group" data-i18n-aria="common.langAria" aria-label="Choose language">
           <button type="button" class="lang-btn" data-set-lang="fr" aria-pressed="false">FR</button>
           <span class="lang-sep" aria-hidden="true">|</span>
@@ -71,6 +76,12 @@
             <a class="btn btn-ghost" href="pratique.html" data-i18n="home.ctaPractice">Discover the practice</a>
             <a class="btn btn-ghost" href="bibliotheque.html" data-i18n="home.ctaLibrary">Library</a>
             <a class="btn btn-ghost" href="casse-tete.html">Casse-tête</a>
+            <div class="home-puzzle-entry" role="group" data-i18n-aria="home.puzzleEntryAria" aria-label="Casse-tête : chansons en français ou en anglais">
+              <span class="home-puzzle-kicker" data-i18n="home.puzzleEntryLabel">Casse-tête</span>
+              <a href="casse-tete.html?lang=fr">FR</a>
+              <span class="lang-sep" aria-hidden="true">|</span>
+              <a href="casse-tete.html?lang=en">EN</a>
+            </div>
           </div>
         </div>
 
@@ -230,6 +241,11 @@
         <a href="rythme-compasse.html">Jeu</a> ·
         <a href="creation-demain.html">Création-Demain</a> ·
         <a href="casse-tete.html">Casse-tête</a>
+        <span class="home-puzzle-entry" role="group" data-i18n-aria="home.puzzleEntryAria" aria-label="Casse-tête : chansons en français ou en anglais">
+          <a href="casse-tete.html?lang=fr">FR</a>
+          <span class="lang-sep" aria-hidden="true">|</span>
+          <a href="casse-tete.html?lang=en">EN</a>
+        </span>
       </p>
     </div>
   </footer>
