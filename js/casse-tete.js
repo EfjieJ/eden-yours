@@ -117,6 +117,10 @@
   var trayOrder = [];
   var locked = false;
   var drag = null;
+  var wrongDrops = 0;   // pièces lâchées sur une mauvaise case (pour les étoiles)
+  var startedAt = 0;    // chrono : part au premier geste sur une pièce
+  var songTimer = null; // la chanson démarre après le motif de victoire
+  var lastResult = null;
 
   var menu = document.getElementById("song-menu");
   var board = document.getElementById("board");
@@ -131,6 +135,7 @@
   var hint = document.getElementById("hint");
   var layout = document.getElementById("puzzle-layout");
   var emptyBox = document.getElementById("empty-songs");
+  var starsBox = document.getElementById("win-stars");
 
   function copy() {
     return COPY[puzzleLang] || COPY.fr;
@@ -370,11 +375,33 @@
   }
 
   function hideWin() {
+    clearTimeout(songTimer);
+    if (window.EdenStars) window.EdenStars.clear(starsBox);
     winPanel.classList.remove("is-open");
     stopAudio();
+    audio.muted = false;
     audio.removeAttribute("src");
     audio.load();
     clearEmbed();
+  }
+
+  /* Étoiles : 1 à 3 selon les mauvais dépôts et le temps (règles dans js/stars.js),
+     trois étoiles qui se remplissent + une note par étoile, puis la chanson. */
+  function awardStars() {
+    var S = window.EdenStars;
+    if (!S) return 0;
+    var seconds = startedAt ? (Date.now() - startedAt) / 1000 : 0;
+    var stars = S.puzzleStars(totalPieces(), wrongDrops, seconds);
+    var session = S.record("puzzle", stars);
+    lastResult = { stars: stars, wrong: wrongDrops, seconds: seconds, pieces: totalPieces(), session: session };
+    var t = window.EdenI18n && window.EdenI18n.t ? window.EdenI18n.t : function (k) { return k; };
+    S.render(starsBox, stars, {
+      line: t("stars.puzzle" + stars),
+      detail: t("stars.puzzleDetail", { wrong: wrongDrops, time: S.formatTime(seconds) }),
+      session: session
+    });
+    S.play(stars);
+    return S.motifMs(stars);
   }
 
   function showWin() {
@@ -386,18 +413,29 @@
     winPanel.classList.add("is-open");
     hint.textContent = text.solved;
     board.classList.add("is-solved");
+    var delay = awardStars();
     if (current.embed && !current.audio) {
       showEmbed(current);
       hint.textContent = text.embedTap;
       return;
     }
     audio.src = current.audio;
-    var playPromise = audio.play();
-    if (playPromise && typeof playPromise.catch === "function") {
-      playPromise.catch(function () {
-        hint.textContent = text.blocked;
-      });
-    }
+    // On « débloque » le lecteur pendant le geste (muet), puis la chanson part après le motif.
+    audio.muted = true;
+    var prime = audio.play();
+    if (prime && typeof prime.catch === "function") prime.catch(function () { /* on réessaie plus bas */ });
+    clearTimeout(songTimer);
+    songTimer = setTimeout(function () {
+      if (!winPanel.classList.contains("is-open")) return;
+      try { audio.currentTime = 0; } catch (e) { /* ignore */ }
+      audio.muted = false;
+      var playPromise = audio.play();
+      if (playPromise && typeof playPromise.catch === "function") {
+        playPromise.catch(function () {
+          hint.textContent = text.blocked;
+        });
+      }
+    }, delay);
   }
 
   function getPoint(e) {
@@ -515,6 +553,8 @@
 
     var pieceId = Number(piece.dataset.piece);
     if (placed[pieceId]) return;
+    if (!startedAt) startedAt = Date.now();
+    if (window.EdenStars) window.EdenStars.unlock(); // Web Audio prêt pour le motif de fin
 
     e.preventDefault();
     var point = getPoint(e);
@@ -545,6 +585,10 @@
     var point = getPoint(e);
     var hit = highlightTarget(drag.pieceId, point.x, point.y);
     var ok = !!(hit && hit.index === drag.pieceId);
+    if (!ok) {
+      var over = slotAtPoint(point.x, point.y);
+      if (over && over.index !== drag.pieceId) wrongDrops += 1;
+    }
     endDrag(ok);
   }
 
@@ -571,6 +615,9 @@
     placed = {};
     locked = false;
     drag = null;
+    wrongDrops = 0;
+    startedAt = 0;
+    lastResult = null;
     nowTitle.textContent = current.title;
     boardGhost.src = current.cover;
     boardGhost.alt = "";
@@ -621,6 +668,14 @@
   document.getElementById("btn-replay").addEventListener("click", function () {
     if (song()) start();
   });
+  var nextSongBtn = document.getElementById("btn-next-song");
+  if (nextSongBtn) {
+    nextSongBtn.addEventListener("click", function () {
+      var list = songs();
+      if (!list.length) return;
+      selectSong((songIndex + 1) % list.length);
+    });
+  }
   document.getElementById("btn-stop").addEventListener("click", function () {
     if (!audio.getAttribute("src")) return;
     if (audio.paused) audio.play();
@@ -703,4 +758,7 @@
   } else {
     applyPuzzleLang(fromQuery || "en");
   }
+  window.EdenPuzzle = {
+    state: function () { return { pieces: totalPieces(), wrong: wrongDrops, startedAt: startedAt, locked: locked, result: lastResult }; }
+  };
 })();

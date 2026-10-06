@@ -30,28 +30,22 @@
         <span class="logo-mark" aria-hidden="true"></span>
         <span data-site-name>Eden Yours</span>
       </a>
+      <a class="nav-games-quick" href="index.html#jeux" data-i18n="games.quick">🎮 Jeux</a>
       <button type="button" class="nav-toggle" data-i18n-aria="common.menu" aria-label="Menu">
         <span></span><span></span><span></span>
       </button>
             <nav class="nav-links" data-i18n-aria="common.navAria" aria-label="Main">
+        <span class="nav-games" role="group" data-i18n-aria="games.navAria" aria-label="Jeux : casse-tête et blind test">
+          <a class="nav-games-kicker" href="index.html#jeux" data-i18n="games.nav">Jeux</a>
+          <a href="casse-tete.html" data-lang-href="casse-tete.html" data-i18n="home.puzzleEntryLabel">Casse-tête</a>
+          <a href="blind-test.html" data-lang-href="blind-test.html" data-i18n="home.blindEntryLabel">Blind test</a>
+        </span>
         <a href="index.html" class="active" data-i18n="nav.home">Home</a>
         <a href="bibliotheque.html" data-i18n="nav.library">Library</a>
         <a href="pratique.html" data-i18n="nav.practice">Practice</a>
         <a href="demander.html" data-i18n="nav.request">Request</a>
         <a href="soutenir.html" data-i18n="nav.support">Support</a>
         <a href="invitations.html" data-i18n="nav.invites">Invites</a>
-        <span class="nav-puzzle" role="group" data-i18n-aria="home.puzzleEntryAria" aria-label="Casse-tête : chansons en français ou en anglais">
-          <a href="casse-tete.html">Casse-tête</a>
-          <a href="casse-tete.html?lang=fr">FR</a>
-          <span class="lang-sep" aria-hidden="true">|</span>
-          <a href="casse-tete.html?lang=en">EN</a>
-        </span>
-        <span class="nav-puzzle" role="group" data-i18n-aria="home.blindEntryAria" aria-label="Blind test : chansons en français ou en anglais">
-          <a href="blind-test.html" data-i18n="home.blindEntryLabel">Blind test</a>
-          <a href="blind-test.html?lang=fr">FR</a>
-          <span class="lang-sep" aria-hidden="true">|</span>
-          <a href="blind-test.html?lang=en">EN</a>
-        </span>
         <div class="lang-switch" role="group" data-i18n-aria="common.langAria" aria-label="Choose language">
           <button type="button" class="lang-btn" data-set-lang="fr" aria-pressed="false">FR</button>
           <span class="lang-sep" aria-hidden="true">|</span>
@@ -62,6 +56,37 @@
   </header>
 
   <main>
+    <section class="games-hero" id="jeux" data-i18n-aria="games.sectionAria" aria-label="Jeux">
+      <div class="container">
+        <div class="games-head">
+          <p class="eyebrow" data-i18n="games.eyebrow">Jeux musicaux</p>
+          <h2 class="games-title" data-i18n="games.title">Joue avec les chansons</h2>
+          <p class="games-lead" data-i18n="games.lead">Deux façons de vivre les chansons autrement : reconstruis une pochette, ou devine la chanson à l'oreille.</p>
+        </div>
+        <div class="games-grid">
+          <a class="game-card game-card--puzzle" href="casse-tete.html" data-lang-href="casse-tete.html" data-i18n-aria="games.playPuzzle" aria-label="Jouer au casse-tête">
+            <div class="game-visual gm-mosaic" aria-hidden="true"><span class="gm-tile" style="--i:0"></span><span class="gm-tile" style="--i:1"></span><span class="gm-tile" style="--i:2"></span><span class="gm-tile" style="--i:3"></span><span class="gm-tile" style="--i:4"></span><span class="gm-tile is-lifted" style="--i:5"></span><span class="gm-tile" style="--i:6"></span><span class="gm-tile" style="--i:7"></span><span class="gm-tile" style="--i:8"></span></div>
+            <div class="game-body">
+              <h3 data-i18n="games.puzzleTitle">Casse-tête</h3>
+              <p data-i18n="games.puzzleLine">Replace les pièces de la pochette. Quand l'image est entière, la chanson s'ouvre.</p>
+              <span class="btn btn-primary game-cta" data-i18n="games.play">▶ Jouer</span>
+            </div>
+          </a>
+          <a class="game-card game-card--blind" href="blind-test.html" data-lang-href="blind-test.html" data-i18n-aria="games.playBlind" aria-label="Jouer au blind test">
+            <div class="game-visual gm-blind" aria-hidden="true">
+              <span class="gm-q">?</span>
+              <span class="gm-wave"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+            </div>
+            <div class="game-body">
+              <h3 data-i18n="games.blindTitle">Blind test</h3>
+              <p data-i18n="games.blindLine">Un court extrait, quatre titres. Trouve la bonne chanson et elle joue au complet.</p>
+              <span class="btn btn-primary game-cta" data-i18n="games.play">▶ Jouer</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
     <section class="hero manifesto-hero">
       <div class="container hero-grid">
         <div>
@@ -81,20 +106,7 @@
             <a class="btn btn-primary" href="#musique" data-i18n="home.ctaOui">▶ Activate your Pure Yes</a>
             <a class="btn btn-ghost" href="pratique.html" data-i18n="home.ctaPractice">Discover the practice</a>
             <a class="btn btn-ghost" href="bibliotheque.html" data-i18n="home.ctaLibrary">Library</a>
-            <a class="btn btn-ghost" href="casse-tete.html">Casse-tête</a>
-            <div class="home-puzzle-entry" role="group" data-i18n-aria="home.puzzleEntryAria" aria-label="Casse-tête : chansons en français ou en anglais">
-              <span class="home-puzzle-kicker" data-i18n="home.puzzleEntryLabel">Casse-tête</span>
-              <a href="casse-tete.html?lang=fr">FR</a>
-              <span class="lang-sep" aria-hidden="true">|</span>
-              <a href="casse-tete.html?lang=en">EN</a>
-            </div>
-            <a class="btn btn-ghost" href="blind-test.html" data-i18n="home.blindEntryLabel">Blind test</a>
-            <div class="home-puzzle-entry" role="group" data-i18n-aria="home.blindEntryAria" aria-label="Blind test : chansons en français ou en anglais">
-              <span class="home-puzzle-kicker" data-i18n="home.blindEntryLabel">Blind test</span>
-              <a href="blind-test.html?lang=fr">FR</a>
-              <span class="lang-sep" aria-hidden="true">|</span>
-              <a href="blind-test.html?lang=en">EN</a>
-            </div>
+            <a class="btn btn-ghost btn-games" href="#jeux" data-i18n="games.heroCta">Jouer aux jeux</a>
           </div>
         </div>
 

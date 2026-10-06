@@ -1,7 +1,7 @@
 /* Eden Yours — Blind test : un court extrait d'une chanson cachée, quatre titres, trouve le bon.
    Chansons lues dans tracks.json (les nouvelles apparaissent toutes seules), langue = langue du site
    (localStorage eden-lang, boutons Français / English, ?lang=fr|en comme le casse-tête).
-   Bonne réponse : éclat lumineux + carillon, puis pochette + titre et chanson complète
+   Bonne réponse : éclat lumineux + étoiles (1 à 3) et leur motif, puis pochette + titre et chanson complète
    (comme la fin du casse-tête : pas de limite de 30 s). Titres sans MP3 (embed_url Suno) :
    lecteur Suno intégré avec caches opaques sur la pochette et le titre. */
 (function () {
@@ -31,6 +31,10 @@
   var excerptEnd = 0;
   var celebrateTimer = null;
   var audioCtx = null;
+  var revealTimer = null;
+  var starsTimer = null;
+  var lastStars = 0;
+  var starPlays = 0;
 
   var $ = function (id) { return document.getElementById(id); };
   var card = $("bt-card");
@@ -50,6 +54,7 @@
   var nextBtn = $("bt-next");
   var celebrateEl = $("bt-celebrate");
   var progressFill = $("bt-progress-fill");
+  var starsBox = $("bt-stars");
 
   function setProgress(ratio) {
     if (!progressFill) return;
@@ -93,33 +98,8 @@
     } catch (e) { return null; }
   }
 
-  /* Carillon doux : arpège majeur (do-mi-sol aigus), attaque douce, décroissance exponentielle. */
-  function chime() {
-    try {
-      var c = ctx();
-      if (!c) return;
-      var now = c.currentTime + 0.02;
-      var master = c.createGain();
-      master.gain.value = 0.3;
-      master.connect(c.destination);
-      [1046.5, 1318.51, 1567.98].forEach(function (f, i) {
-        var start = now + i * 0.11;
-        [[f, 1], [f * 2, 0.18]].forEach(function (partial) {
-          var osc = c.createOscillator();
-          var g = c.createGain();
-          osc.type = "sine";
-          osc.frequency.value = partial[0];
-          g.gain.setValueAtTime(0.0001, start);
-          g.gain.exponentialRampToValueAtTime(0.5 * partial[1], start + 0.02);
-          g.gain.exponentialRampToValueAtTime(0.0001, start + 0.95);
-          osc.connect(g);
-          g.connect(master);
-          osc.start(start);
-          osc.stop(start + 1);
-        });
-      });
-    } catch (e) { /* silencieux */ }
-  }
+  /* Bonne réponse : le carillon est remplacé par le motif des étoiles (js/stars.js) :
+     une note douce par étoile (arpège majeur montant) + scintillement pour 3 étoiles. */
 
   /* Petit bourdon doux : deux ondes graves légèrement désaccordées, filtre passe-bas, fondu rapide. */
   function buzz() {
@@ -434,7 +414,7 @@
   }
 
   // ---------- Éclat lumineux ----------
-  function celebrate(done) {
+  function celebrate(done, holdMs) {
     var gentle = reducedMotion();
     var html = '<div class="bt-burst"></div>';
     if (!gentle) {
@@ -460,7 +440,7 @@
       celebrateEl.hidden = true;
       celebrateEl.innerHTML = "";
       done();
-    }, gentle ? CELEBRATE_GENTLE_MS : CELEBRATE_MS);
+    }, Math.max(gentle ? CELEBRATE_GENTLE_MS : CELEBRATE_MS, holdMs || 0));
   }
 
   // ---------- Manche ----------
@@ -485,7 +465,23 @@
     }
   }
 
+  /* Étoiles : 3 = bon titre au 1er choix, 2 = au 2e, 1 = chanson révélée. Renvoie la durée du motif (ms). */
+  function awardStars(stars) {
+    var S = window.EdenStars;
+    lastStars = stars;
+    if (cur) cur.stars = stars;
+    if (!S) return 0;
+    var session = S.record("blind", stars);
+    S.render(starsBox, stars, { line: t("stars.blind" + stars), session: session });
+    S.play(stars);
+    starPlays += 1;
+    return S.motifMs(stars);
+  }
+
   function startRound(autoPlay) {
+    clearTimeout(revealTimer);
+    clearTimeout(starsTimer);
+    if (window.EdenStars) window.EdenStars.clear(starsBox);
     clearTimeout(celebrateTimer);
     celebrateEl.hidden = true;
     celebrateEl.classList.remove("is-on");
@@ -531,7 +527,7 @@
     }
   }
 
-  function reveal(foundIt) {
+  function reveal(foundIt, fullDelay) {
     var song = cur.song;
     disc.hidden = true;
     if (song.cover) {
@@ -549,7 +545,12 @@
       setHint(foundIt ? "blind.embedReveal" : "blind.revealGentle");
     } else {
       setHint(foundIt ? "blind.right" : "blind.revealGentle");
-      playFull(song);
+      clearTimeout(revealTimer);
+      if (fullDelay > 0) {
+        revealTimer = setTimeout(function () { if (cur && cur.song === song) playFull(song); }, fullDelay);
+      } else {
+        playFull(song);
+      }
     }
   }
 
@@ -563,11 +564,11 @@
       stopAudio();
       lockChoices();
       paintScore();
-      chime();
+      var hold = awardStars(window.EdenStars ? window.EdenStars.blindStars(cur.wrong + 1, false) : 3);
       celebrate(function () {
         cur.celebrating = false;
         reveal(true);
-      });
+      }, hold);
       return;
     }
     buzz();
@@ -580,7 +581,12 @@
       stopAudio();
       lockChoices();
       paintScore();
-      reveal(false);
+      // Le petit bourdon d'abord, puis une étoile et sa note, puis la chanson.
+      var BUZZ_GAP = 420;
+      var oneMs = window.EdenStars ? window.EdenStars.motifMs(1) : 0;
+      clearTimeout(starsTimer);
+      starsTimer = setTimeout(function () { awardStars(window.EdenStars ? window.EdenStars.blindStars(cur.wrong + 1, true) : 1); }, BUZZ_GAP);
+      reveal(false, BUZZ_GAP + oneMs);
     } else {
       setHint("blind.wrong");
     }
@@ -617,6 +623,7 @@
     emptyBox.hidden = true;
     card.hidden = false;
     startRound(false);
+    paintTexts(); // libellés (dont « Chanson suivante » / « Next song ») dans la langue choisie
   }
 
   function chooseLang(next) {
@@ -660,6 +667,6 @@
   });
 
   window.EdenBlindTest = {
-    state: function () { return { lang: lang, round: round, found: found, played: played, answer: cur && cur.song && cur.song.title, mode: mode }; }
+    state: function () { return { lang: lang, round: round, found: found, played: played, answer: cur && cur.song && cur.song.title, mode: mode, stars: lastStars, starPlays: starPlays }; }
   };
 })();

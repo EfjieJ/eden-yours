@@ -259,7 +259,38 @@
       "blind.playBlocked": "Appuie sur lecture si le son ne part pas tout seul.",
       "blind.empty": "Pas encore assez de chansons dans cette langue",
       "home.blindEntryAria": "Blind test : chansons en français ou en anglais",
-      "home.blindEntryLabel": "Blind test"
+      "home.blindEntryLabel": "Blind test",
+      "games.nav": "Jeux",
+      "games.navAria": "Jeux : casse-tête et blind test",
+      "games.quick": "🎮 Jeux",
+      "games.eyebrow": "Jeux musicaux",
+      "games.title": "Joue avec les chansons",
+      "games.lead": "Deux façons de vivre les chansons autrement : reconstruis une pochette, ou devine la chanson à l'oreille.",
+      "games.sectionAria": "Jeux",
+      "games.puzzleTitle": "Casse-tête",
+      "games.puzzleLine": "Replace les pièces de la pochette. Quand l'image est entière, la chanson s'ouvre.",
+      "games.blindTitle": "Blind test",
+      "games.blindLine": "Un court extrait, quatre titres. Trouve la bonne chanson et elle joue au complet.",
+      "games.play": "▶ Jouer",
+      "games.playPuzzle": "Jouer au casse-tête",
+      "games.playBlind": "Jouer au blind test",
+      "games.heroCta": "Jouer aux jeux",
+      "games.libBanner": "Envie de jouer ? Les chansons se vivent aussi en jeu.",
+      "games.other": "Autre jeu",
+      "games.tryBlind": "Essaie le blind test : un court extrait, devine la chanson à l'oreille.",
+      "games.tryPuzzle": "Essaie le casse-tête : reconstruis la pochette et la chanson s'ouvre.",
+      "stars.aria1": "1 étoile sur 3",
+      "stars.ariaN": "{{n}} étoiles sur 3",
+      "stars.puzzle3": "Trois étoiles ! Main sûre, œil vif : bravo.",
+      "stars.puzzle2": "Deux étoiles, beau travail ! Encore un petit effort pour la troisième.",
+      "stars.puzzle1": "Une étoile : l'image est là, la chanson aussi. On s'en fait une autre ?",
+      "stars.blind3": "Du premier coup ! Trois étoiles, t'as l'oreille.",
+      "stars.blind2": "Au deuxième essai : deux étoiles, bien joué !",
+      "stars.blind1": "Une étoile pour l'écoute. La prochaine, tu l'as !",
+      "stars.puzzleDetail": "Mauvais dépôts : {{wrong}} · Temps : {{time}}",
+      "stars.session": "Cette session : {{n}} ★ · Record : {{best}} ★",
+      "stars.newBest": "Nouveau record !",
+      "stars.nextSong": "Chanson suivante"
     },
 
     en: {
@@ -516,7 +547,38 @@
       "blind.playBlocked": "Press play if the sound does not start on its own.",
       "blind.empty": "Not enough songs in this language yet",
       "home.blindEntryAria": "Blind test: French or English songs",
-      "home.blindEntryLabel": "Blind test"
+      "home.blindEntryLabel": "Blind test",
+      "games.nav": "Games",
+      "games.navAria": "Games: jigsaw and blind test",
+      "games.quick": "🎮 Games",
+      "games.eyebrow": "Music games",
+      "games.title": "Play with the songs",
+      "games.lead": "Two ways to live the songs differently: rebuild a cover, or guess the song by ear.",
+      "games.sectionAria": "Games",
+      "games.puzzleTitle": "Jigsaw",
+      "games.puzzleLine": "Put the cover pieces back. When the picture is whole, the song opens.",
+      "games.blindTitle": "Blind test",
+      "games.blindLine": "A short excerpt, four titles. Find the right song and it plays in full.",
+      "games.play": "▶ Play",
+      "games.playPuzzle": "Play the jigsaw",
+      "games.playBlind": "Play the blind test",
+      "games.heroCta": "Play the games",
+      "games.libBanner": "Feel like playing? The songs come alive as games too.",
+      "games.other": "Another game",
+      "games.tryBlind": "Try the blind test: hear a short excerpt and guess the song by ear.",
+      "games.tryPuzzle": "Try the jigsaw: rebuild the cover and the song opens.",
+      "stars.aria1": "1 star out of 3",
+      "stars.ariaN": "{{n}} stars out of 3",
+      "stars.puzzle3": "Three stars! Steady hand, sharp eye — beautifully done.",
+      "stars.puzzle2": "Two stars, nice work! One more push for the third.",
+      "stars.puzzle1": "One star: the picture's whole and the song is yours. Another one?",
+      "stars.blind3": "First try! Three stars — you've got the ear.",
+      "stars.blind2": "Second try: two stars, well played!",
+      "stars.blind1": "One star for listening. You'll get the next one!",
+      "stars.puzzleDetail": "Wrong drops: {{wrong}} · Time: {{time}}",
+      "stars.session": "This session: {{n}} ★ · Best: {{best}} ★",
+      "stars.newBest": "New best!",
+      "stars.nextSong": "Next song"
     }
   };
 
@@ -590,6 +652,15 @@
     // Taglines from config override only if no data-i18n; we prefer i18n
     document.querySelectorAll("[data-tagline]").forEach(function (el) {
       if (!el.hasAttribute("data-i18n")) el.textContent = t("common.tagline");
+    });
+
+    // Liens vers les jeux : on garde la langue choisie (?lang=fr|en)
+    document.querySelectorAll("[data-lang-href]").forEach(function (el) {
+      var base = el.getAttribute("data-lang-href");
+      var hash = "";
+      var h = base.indexOf("#");
+      if (h !== -1) { hash = base.slice(h); base = base.slice(0, h); }
+      el.setAttribute("href", base + (base.indexOf("?") === -1 ? "?" : "&") + "lang=" + lang + hash);
     });
 
     document.querySelectorAll(".lang-btn").forEach(function (btn) {

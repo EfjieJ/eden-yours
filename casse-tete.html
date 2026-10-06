@@ -25,17 +25,22 @@
         <span class="logo-mark" aria-hidden="true"></span>
         <span data-site-name>Eden Yours</span>
       </a>
+      <a class="nav-games-quick" href="index.html#jeux" data-i18n="games.quick">🎮 Jeux</a>
       <button type="button" class="nav-toggle" data-i18n-aria="common.menu" aria-label="Menu" id="nav-toggle">
         <span></span><span></span><span></span>
       </button>
       <nav class="nav-links" id="nav-links" data-i18n-aria="common.navAria" aria-label="Navigation">
+        <span class="nav-games" role="group" data-i18n-aria="games.navAria" aria-label="Jeux : casse-tête et blind test">
+          <a class="nav-games-kicker" href="index.html#jeux" data-i18n="games.nav">Jeux</a>
+          <a href="casse-tete.html" class="active" id="nav-puzzle" data-lang-href="casse-tete.html" data-i18n="home.puzzleEntryLabel">Casse-tête</a>
+          <a href="blind-test.html" data-lang-href="blind-test.html" data-i18n="home.blindEntryLabel">Blind test</a>
+        </span>
         <a href="index.html" data-i18n="nav.home">Accueil</a>
         <a href="bibliotheque.html" data-i18n="nav.library">Bibliothèque</a>
         <a href="pratique.html" data-i18n="nav.practice">Pratique</a>
         <a href="demander.html" data-i18n="nav.request">Demander</a>
         <a href="soutenir.html" data-i18n="nav.support">Soutenir</a>
         <a href="invitations.html" data-i18n="nav.invites">Invitations</a>
-        <a href="casse-tete.html" class="active" id="nav-puzzle">Casse-tête</a>
         <div class="lang-switch" role="group" data-i18n-aria="common.langAria" aria-label="Choisir la langue">
           <button type="button" class="lang-btn" data-set-lang="fr" aria-pressed="true">FR</button>
           <span class="lang-sep" aria-hidden="true">|</span>
@@ -109,14 +114,24 @@
           <div class="win-panel" id="win-panel" aria-live="polite">
             <h2 id="win-title">L'image est réunie</h2>
             <p id="win-line">Écoute la chanson.</p>
+            <div class="stars-panel" id="win-stars" aria-live="polite" hidden></div>
             <audio id="win-audio" controls preload="none"></audio>
             <div class="win-actions">
+              <button type="button" class="btn btn-primary stars-cta" id="btn-next-song" data-i18n="stars.nextSong">Chanson suivante</button>
               <button type="button" class="btn btn-primary" id="btn-replay">Rejouer</button>
               <button type="button" class="btn btn-ghost" id="btn-stop">Pause</button>
+              <a class="btn btn-ghost" href="blind-test.html" data-lang-href="blind-test.html"><span data-i18n="games.blindTitle">Blind test</span>&nbsp;→</a>
             </div>
           </div>
         </div>
         </div>
+
+        <a class="other-game" id="other-game" href="blind-test.html" data-lang-href="blind-test.html">
+          <span class="other-game-icon" aria-hidden="true">?</span>
+          <span class="other-game-kicker" data-i18n="games.other">Autre jeu</span>
+          <span class="other-game-text"><strong data-i18n="games.blindTitle">Blind test</strong><span data-i18n="games.tryBlind">Essaie le blind test : un court extrait, devine la chanson à l'oreille.</span></span>
+          <span class="other-game-go" aria-hidden="true">→</span>
+        </a>
       </div>
     </section>
   </main>
@@ -135,6 +150,7 @@
   </footer>
 
   <script src="js/i18n.js"></script>
+  <script src="js/stars.js"></script>
   <script src="js/casse-tete.js"></script>
 </body>
 </html>
