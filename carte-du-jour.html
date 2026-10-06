@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title data-i18n-title="memoire.title">Mémoire des pochettes — Eden Yours</title>
-  <meta name="description" data-i18n-content="memoire.metaDesc" content="Mémoire des pochettes : retourne les cartes, retrouve les paires de chansons Eden Yours. Un jeu doux de mémoire et de lumière.">
-  <link rel="canonical" href="https://efjiej.github.io/eden-yours/memoire-pochettes.html">
+  <title data-i18n-title="carte.title">Carte du jour — Eden Yours</title>
+  <meta name="description" data-i18n-content="carte.metaDesc" content="Carte du jour : une vraie phrase des chansons Eden Yours, tirée chaque jour. Écoute un extrait, laisse la lumière parler.">
+  <link rel="canonical" href="https://efjiej.github.io/eden-yours/carte-du-jour.html">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="fr_CA">
   <meta property="og:locale:alternate" content="en_US">
   <meta property="og:site_name" content="Eden Yours">
-  <meta property="og:url" content="https://efjiej.github.io/eden-yours/memoire-pochettes.html">
-  <meta property="og:title" data-i18n-content="memoire.title" content="Mémoire des pochettes — Eden Yours">
-  <meta property="og:description" data-i18n-content="memoire.metaDesc" content="Mémoire des pochettes : retourne les cartes, retrouve les paires de chansons Eden Yours. Un jeu doux de mémoire et de lumière.">
+  <meta property="og:url" content="https://efjiej.github.io/eden-yours/carte-du-jour.html">
+  <meta property="og:title" data-i18n-content="carte.title" content="Carte du jour — Eden Yours">
+  <meta property="og:description" data-i18n-content="carte.metaDesc" content="Carte du jour : une vraie phrase des chansons Eden Yours, tirée chaque jour. Écoute un extrait, laisse la lumière parler.">
   <meta property="og:image" content="https://efjiej.github.io/eden-yours/assets/og-share-v2.jpg">
   <meta property="og:image:secure_url" content="https://efjiej.github.io/eden-yours/assets/og-share-v2.jpg">
   <meta property="og:image:type" content="image/jpeg">
@@ -20,16 +20,16 @@
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" data-i18n-content="common.ogAlt" content="Eden Yours — Écoute en continu. Ça régénère. 29 chansons · Casse-tête · Blind test">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" data-i18n-content="memoire.title" content="Mémoire des pochettes — Eden Yours">
-  <meta name="twitter:description" data-i18n-content="memoire.metaDesc" content="Mémoire des pochettes : retourne les cartes, retrouve les paires de chansons Eden Yours. Un jeu doux de mémoire et de lumière.">
+  <meta name="twitter:title" data-i18n-content="carte.title" content="Carte du jour — Eden Yours">
+  <meta name="twitter:description" data-i18n-content="carte.metaDesc" content="Carte du jour : une vraie phrase des chansons Eden Yours, tirée chaque jour. Écoute un extrait, laisse la lumière parler.">
   <meta name="twitter:image" content="https://efjiej.github.io/eden-yours/assets/og-share-v2.jpg">
   <meta name="twitter:image:alt" data-i18n-content="common.ogAlt" content="Eden Yours — Écoute en continu. Ça régénère. 29 chansons · Casse-tête · Blind test">
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/casse-tete.css">
-  <link rel="stylesheet" href="css/memoire-pochettes.css">
+  <link rel="stylesheet" href="css/carte-du-jour.css">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%23c084fc'/%3E%3Cstop offset='1' stop-color='%2367e8f9'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3C/svg%3E">
 </head>
-<body class="page-casse page-memoire">
+<body class="page-casse page-carte">
   <header class="site-nav">
     <div class="container">
       <a class="logo" href="index.html">
@@ -49,8 +49,8 @@
           <a href="quiz-paroles.html" data-lang-href="quiz-paroles.html" data-i18n="home.quizEntryLabel">Quiz paroles</a>
           <a href="rythme-compasse.html" data-lang-href="rythme-compasse.html" data-i18n="home.rythmeEntryLabel">Rythme-Compasse</a>
           <a href="eclats-de-rire.html" data-lang-href="eclats-de-rire.html" data-i18n="home.eclatsEntryLabel">Éclats de rire</a>
-          <a href="memoire-pochettes.html" class="active" data-lang-href="memoire-pochettes.html" data-i18n="home.memoireEntryLabel">Mémoire des pochettes</a>
-          <a href="carte-du-jour.html" data-lang-href="carte-du-jour.html" data-i18n="home.carteEntryLabel">Carte du jour</a>
+          <a href="memoire-pochettes.html" data-lang-href="memoire-pochettes.html" data-i18n="home.memoireEntryLabel">Mémoire des pochettes</a>
+          <a href="carte-du-jour.html" class="active" data-lang-href="carte-du-jour.html" data-i18n="home.carteEntryLabel">Carte du jour</a>
         </span>
         <a href="index.html" data-i18n="nav.home">Accueil</a>
         <a href="bibliotheque.html" data-i18n="nav.library">Bibliothèque</a>
@@ -70,52 +70,53 @@
   <main>
     <section class="puzzle-hero">
       <div class="container">
-        <p class="eyebrow" data-i18n="memoire.eyebrow">Jeu · mémoire</p>
-        <h1 data-i18n="memoire.h1">Mémoire des pochettes</h1>
-        <p class="puzzle-lead" data-i18n="memoire.lead">Retourne les cartes, retrouve les paires. Chaque pochette cache une chanson — quand les deux se rejoignent, un peu de musique s’ouvre.</p>
+        <p class="eyebrow" data-i18n="carte.eyebrow">Jeu · parole du jour</p>
+        <h1 data-i18n="carte.h1">Carte du jour</h1>
+        <p class="puzzle-lead" data-i18n="carte.lead">Chaque jour, une vraie phrase des chansons Eden Yours. Pas d’invention — seulement ce qui a déjà été chanté. Écoute un souffle, laisse-le rayonner.</p>
       </div>
     </section>
 
     <section>
-      <div class="container puzzle-shell mp-shell">
-        <div class="mp-card" id="mp-card">
-          <div class="mp-top">
-            <p class="puzzle-now" id="mp-status" data-i18n="memoire.ready">Prêt·e ?</p>
-            <p class="puzzle-moves" id="mp-score" aria-live="polite">0 / 6</p>
-          </div>
+      <div class="container puzzle-shell cdj-shell">
+        <div class="cdj-frame" id="cdj-frame">
+          <p class="cdj-date" id="cdj-date" aria-live="polite"></p>
 
-          <div class="mp-stage" id="mp-stage">
-            <div class="mp-overlay" id="mp-overlay">
-              <p class="mp-overlay-kicker" id="mp-overlay-kicker" data-i18n="memoire.welcomeKicker">Pochettes de lumière</p>
-              <h2 class="mp-overlay-title" id="mp-overlay-title" data-i18n="memoire.welcomeTitle">Mémoire des pochettes</h2>
-              <p class="mp-overlay-text" id="mp-overlay-text" data-i18n="memoire.welcomeText">Des pochettes se cachent face cachée. Retourne-en deux : si elles s’accordent, elles restent. Toutes les paires trouvées — une chanson s’ouvre.</p>
-              <button type="button" class="btn btn-primary bt-big stars-cta" id="mp-start" data-i18n="memoire.start">Commencer</button>
+          <article class="cdj-card" id="cdj-card" data-i18n-aria="carte.cardAria" aria-label="Carte du jour">
+            <div class="cdj-cover-wrap" id="cdj-cover-wrap" hidden>
+              <img class="cdj-cover" id="cdj-cover" alt="" width="120" height="120" loading="lazy">
             </div>
-            <div class="mp-board" id="mp-board" role="grid" data-i18n-aria="memoire.boardAria" aria-label="Grille de pochettes à retourner" hidden></div>
-          </div>
+            <p class="cdj-kicker" data-i18n="carte.kicker">Parole vraie</p>
+            <blockquote class="cdj-quote" id="cdj-quote">
+              <p id="cdj-text"></p>
+            </blockquote>
+            <p class="cdj-song" id="cdj-song"></p>
 
-          <p class="hint mp-hint" id="mp-hint" aria-live="polite" data-i18n="memoire.hintIdle">Appuie pour commencer. Les cartes sont grandes — parfait pour le doigt.</p>
-          <div class="stars-panel mp-stars" id="mp-stars" aria-live="polite" hidden></div>
+            <div class="cdj-actions">
+              <button type="button" class="btn btn-primary bt-big stars-cta cdj-play" id="cdj-play" data-i18n="carte.play">▶ Écouter l’extrait</button>
+              <button type="button" class="btn btn-ghost cdj-reshuffle" id="cdj-reshuffle" data-i18n="carte.another">Une autre carte</button>
+            </div>
 
-          <div class="mp-player" id="mp-player" hidden>
-            <p class="mp-now-playing" id="mp-now-playing"></p>
-            <div class="mp-embed" id="mp-embed" hidden></div>
-            <audio id="mp-audio" preload="none" controls></audio>
-          </div>
+            <div class="cdj-player" id="cdj-player" hidden>
+              <p class="cdj-now" id="cdj-now"></p>
+              <audio id="cdj-audio" preload="none" controls></audio>
+              <div class="cdj-embed" id="cdj-embed" hidden></div>
+              <p class="cdj-fallback" id="cdj-fallback" hidden>
+                <a id="cdj-link" href="#" target="_blank" rel="noopener noreferrer"></a>
+              </p>
+            </div>
+          </article>
 
-          <div class="mp-next-row">
-            <button type="button" class="btn btn-primary bt-big stars-cta" id="mp-again" hidden data-i18n="memoire.again">Rejouer</button>
-          </div>
+          <p class="hint cdj-hint" id="cdj-hint" aria-live="polite" data-i18n="carte.hint">Une carte par jour (fuseau Toronto). Tu peux en tirer une autre pour cette visite — toujours une phrase réelle.</p>
         </div>
 
-        <div class="empty-songs" id="mp-empty" hidden>
-          <p data-i18n="memoire.empty">Pas encore assez de pochettes dans cette langue</p>
+        <div class="empty-songs" id="cdj-empty" hidden>
+          <p data-i18n="carte.empty">Pas encore de cartes dans cette langue</p>
         </div>
 
-        <a class="other-game" href="eclats-de-rire.html" data-lang-href="eclats-de-rire.html">
-          <span class="other-game-icon" aria-hidden="true">☺</span>
+        <a class="other-game" href="memoire-pochettes.html" data-lang-href="memoire-pochettes.html">
+          <span class="other-game-icon" aria-hidden="true">◇</span>
           <span class="other-game-kicker" data-i18n="games.other">Autre jeu</span>
-          <span class="other-game-text"><strong data-i18n="games.eclatsTitle">Éclats de rire</strong><span data-i18n="games.tryEclats">Essaie Éclats de rire : touche les sourires de lumière et laisse la douceur grandir.</span></span>
+          <span class="other-game-text"><strong data-i18n="games.memoireTitle">Mémoire des pochettes</strong><span data-i18n="games.tryMemoire">Essaie Mémoire des pochettes : retrouve les paires et laisse une chanson s’ouvrir.</span></span>
           <span class="other-game-go" aria-hidden="true">→</span>
         </a>
       </div>
@@ -124,20 +125,19 @@
 
   <footer class="site-footer">
     <div class="container">
-      <p><span data-site-name>Eden Yours</span> · <span data-i18n="home.memoireEntryLabel">Mémoire des pochettes</span></p>
+      <p><span data-site-name>Eden Yours</span> · <span data-i18n="home.carteEntryLabel">Carte du jour</span></p>
       <p class="footer-tagline" data-i18n="common.tagline">Écoute en continu. Ça régénère.</p>
       <p>
         <a href="index.html" data-i18n="nav.home">Accueil</a> ·
         <a href="casse-tete.html" data-i18n="home.puzzleEntryLabel">Casse-tête</a> ·
-        <a href="blind-test.html" data-i18n="home.blindEntryLabel">Blind test</a> ·
+        <a href="memoire-pochettes.html" data-i18n="home.memoireEntryLabel">Mémoire des pochettes</a> ·
         <a href="eclats-de-rire.html" data-i18n="home.eclatsEntryLabel">Éclats de rire</a>
       </p>
     </div>
   </footer>
 
   <script src="js/i18n.js"></script>
-  <script src="js/stars.js"></script>
-  <script src="js/memoire-pochettes.js"></script>
+  <script src="js/carte-du-jour.js"></script>
   <script src="js/ambiance.js"></script>
 </body>
 </html>
