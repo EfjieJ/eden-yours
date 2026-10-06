@@ -170,6 +170,7 @@
             audio: x.audio_url || null,
             aac: x.audio_url_aac || null,
             embed: x.embed_url || null,
+            sunoTitle: x.sunoTitle || x.title,
             duration: Number(x.duration) || 0
           };
         });
@@ -249,33 +250,41 @@
     });
   }
 
-  // ---------- Lecteur Suno masqué (titre sans MP3) ----------
-  /* L'iframe garde sa vraie taille (largeur du bloc × 240 px, aucune mise à l'échelle).
-     Les caches suivent la mise en page responsive du lecteur Suno (mesurée oct. 2026) :
-       < 320 px   : pas de pochette ; titre y 79-101 ; lecture x 8, y 110-162
-       320-479 px : pochette à gauche (côté = min((L-16)/2, L-180, 224)) ; titre y 67-113 ;
-                    lecture x = 16 + côté, y 122-174
-       >= 480 px  : pochette x 16-160 ; titre y 79-101 ; lecture x 176, y 110-162
-     Seuls le titre, la pochette, le lien et le logo sont cachés : le bouton lecture et la
-     ligne de progression restent visibles et utilisables. */
-  function maskLayout(w) {
-    if (w < 320) return { top: 106, bottom: 166, left: 0 };
-    if (w < 480) {
-      var side = Math.min((w - 16) / 2, w - 180, 224);
-      return { top: 118, bottom: 178, left: Math.floor(16 + side - 5) };
-    }
-    return { top: 106, bottom: 166, left: 171 };
+  // ---------- Lecteur Suno masqué (titres sans MP3, générique pour tout embed_url) ----------
+  /* L'iframe garde sa vraie taille (240 px de haut, aucune mise à l'échelle). Mise en page
+     responsive du lecteur Suno (mesurée oct. 2026 sur les 10 titres intégrés) :
+       < 320 px   : pas de pochette ; titre sur 1 ligne y 79-101 ; lecture x 8, y 110-162
+       320-479 px : pochette à gauche ; le titre passe sur 2 lignes selon sa longueur, ce qui
+                    décale le bouton lecture (y 110-162 ou 122-174) → imprévisible, on l'évite
+       >= 480 px  : pochette x 16-160 ; titre sur 1 ligne y 79-101 ; lecture x 176, y 110-162
+     On choisit donc la largeur de l'iframe : 480-520 px si le bloc le permet, sinon 319 px
+     (pas de pochette du tout). Le titre Suno tient alors sur une ligne (mesuré jusqu'à
+     ~250 px de texte) et les caches sont fixes. Si le titre Suno est très long (risque de
+     2 lignes), on prend des caches de compromis qui couvrent les deux mises en page. */
+  var LONG_TITLE_CHARS = 30;
+
+  function embedWidth(box) {
+    if (box >= 480) return Math.min(box, EMBED_W);
+    return Math.min(box, 319);
+  }
+
+  function maskLayout(w, title) {
+    var long = String(title || "").length > (w >= 480 ? Math.floor((w - 200) / 10) : LONG_TITLE_CHARS);
+    var top = long ? 116 : 106;
+    var bottom = 166;
+    return { top: top, bottom: bottom, left: w >= 480 ? 171 : 0 };
   }
 
   function fitEmbed() {
-    var frame = embedBox.querySelector("iframe");
-    if (!frame || embedBox.hidden) return;
-    var w = Math.round(embedBox.clientWidth || EMBED_W);
-    var m = maskLayout(w);
-    var top = embedBox.querySelector(".bt-mask-top");
-    var bottom = embedBox.querySelector(".bt-mask-bottom");
-    var left = embedBox.querySelector(".bt-mask-left");
-    var win = embedBox.querySelector(".bt-window");
+    var inner = embedBox.querySelector(".bt-embed-inner");
+    if (!inner || embedBox.hidden) return;
+    var w = embedWidth(Math.round(embedBox.clientWidth || EMBED_W));
+    inner.style.width = w + "px";
+    var m = maskLayout(w, cur && cur.song ? cur.song.sunoTitle : "");
+    var top = inner.querySelector(".bt-mask-top");
+    var bottom = inner.querySelector(".bt-mask-bottom");
+    var left = inner.querySelector(".bt-mask-left");
+    var win = inner.querySelector(".bt-window");
     if (top) top.style.height = m.top + "px";
     if (bottom) { bottom.style.top = m.bottom + "px"; bottom.style.height = (EMBED_H - m.bottom) + "px"; }
     if (left) {
@@ -293,11 +302,13 @@
 
   function showEmbed(song) {
     embedBox.innerHTML =
+      '<div class="bt-embed-inner">' +
       '<iframe height="' + EMBED_H + '" frameborder="0" allow="autoplay; clipboard-write; encrypted-media"></iframe>' +
       '<div class="bt-mask bt-mask-top" aria-hidden="true"><span class="bt-mask-label"></span></div>' +
       '<div class="bt-mask bt-mask-left" aria-hidden="true"><span>?</span></div>' +
       '<div class="bt-mask bt-mask-bottom" aria-hidden="true"></div>' +
-      '<div class="bt-window" aria-hidden="true"></div>';
+      '<div class="bt-window" aria-hidden="true"></div>' +
+      "</div>";
     var frame = embedBox.querySelector("iframe");
     frame.setAttribute("title", t("blind.mystery") + " — Suno");
     frame.setAttribute("width", "100%");

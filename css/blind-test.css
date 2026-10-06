@@ -163,6 +163,13 @@
   box-shadow: 0 0 0 1px rgba(103, 232, 249, 0.25), 0 0 26px rgba(99, 102, 241, 0.25);
 }
 
+.bt-embed-inner {
+  position: relative;
+  height: 240px;
+  margin-inline: auto;
+  max-width: 100%;
+}
+
 .bt-embed iframe {
   position: absolute;
   inset: 0;

@@ -20,13 +20,22 @@
     { id: "04441f4e-8d4b-4831-a038-c5a602e09e25", lang: "fr", title: "Le postulat", cover: "assets/covers/04441f4e-8d4b-4831-a038-c5a602e09e25.jpeg", audio: "assets/audio/04441f4e-8d4b-4831-a038-c5a602e09e25.mp3" },
     /* Pas de MP3 local : lecteur Suno intégré (iframe) à la fin du casse-tête. */
     { id: "3fa852e8-50d1-4b6f-a02d-84a7d3a0575a", lang: "fr", title: "Accompagner la régénération", cover: "assets/covers/3fa852e8-50d1-4b6f-a02d-84a7d3a0575a.jpeg", embed: "https://suno.com/embed/3fa852e8-50d1-4b6f-a02d-84a7d3a0575a" },
+    { id: "b51d4773-9849-4bb8-9def-06b99c2a8dc2", lang: "fr", title: "Optim Us Le Double Cœur", cover: "assets/covers/b51d4773-9849-4bb8-9def-06b99c2a8dc2.jpeg", embed: "https://suno.com/embed/b51d4773-9849-4bb8-9def-06b99c2a8dc2" },
+    { id: "c8c1762f-a285-45c2-909d-77fbd4ddd395", lang: "fr", title: "Ç'a main", cover: "assets/covers/c8c1762f-a285-45c2-909d-77fbd4ddd395.jpeg", embed: "https://suno.com/embed/c8c1762f-a285-45c2-909d-77fbd4ddd395" },
+    { id: "2a9f903f-cc96-4649-922b-4e8ec1339c5c", lang: "fr", title: "Le souffle et la main", cover: "assets/covers/2a9f903f-cc96-4649-922b-4e8ec1339c5c.jpeg", embed: "https://suno.com/embed/2a9f903f-cc96-4649-922b-4e8ec1339c5c" },
+    { id: "d34adae3-fd22-4ac7-80c3-6978b0457546", lang: "fr", title: "La beauté vénère", cover: "assets/covers/d34adae3-fd22-4ac7-80c3-6978b0457546.jpeg", embed: "https://suno.com/embed/d34adae3-fd22-4ac7-80c3-6978b0457546" },
+    { id: "8e360ed6-fb4a-43fa-962f-55020c20ce05", lang: "fr", title: "Regarde avec le cœur", cover: "assets/covers/8e360ed6-fb4a-43fa-962f-55020c20ce05.jpeg", embed: "https://suno.com/embed/8e360ed6-fb4a-43fa-962f-55020c20ce05" },
+    { id: "f40bcbea-d8a7-448c-9e3b-fe6f7556f176", lang: "fr", title: "Le Grand Jeu", cover: "assets/covers/f40bcbea-d8a7-448c-9e3b-fe6f7556f176.jpeg", embed: "https://suno.com/embed/f40bcbea-d8a7-448c-9e3b-fe6f7556f176" },
+    { id: "6d91a0bb-d51e-4dd7-b69e-19be51580fc6", lang: "fr", title: "Présence au centre", cover: "assets/covers/6d91a0bb-d51e-4dd7-b69e-19be51580fc6.jpeg", embed: "https://suno.com/embed/6d91a0bb-d51e-4dd7-b69e-19be51580fc6" },
+    { id: "6f66fa1b-ee30-428e-823d-d62524debf08", lang: "fr", title: "Présence en Chœur", cover: "assets/covers/6f66fa1b-ee30-428e-823d-d62524debf08.jpeg", embed: "https://suno.com/embed/6f66fa1b-ee30-428e-823d-d62524debf08" },
     { id: "a11c8f21-163b-4b53-8d3a-5353e809bb50", lang: "en", title: "Start - Continue - Finish", cover: "assets/covers/a11c8f21-163b-4b53-8d3a-5353e809bb50.jpeg", audio: "assets/audio/a11c8f21-163b-4b53-8d3a-5353e809bb50.mp3" },
     { id: "a5ba4262-22f6-4c9c-a6df-05bff2d5e713", lang: "en", title: "The Body Is an Antenna", cover: "assets/covers/a5ba4262-22f6-4c9c-a6df-05bff2d5e713.jpeg", audio: "assets/audio/a5ba4262-22f6-4c9c-a6df-05bff2d5e713.mp3" },
     { id: "18a2266c-70b1-4e80-94e5-144a5ccd29fc", lang: "en", title: "Start", cover: "assets/covers/18a2266c-70b1-4e80-94e5-144a5ccd29fc.jpeg", audio: "assets/audio/18a2266c-70b1-4e80-94e5-144a5ccd29fc.mp3" },
     { id: "d2d61703-a205-41ac-a670-6e5cf7c22911", lang: "en", title: "The Postulate", cover: "assets/covers/d2d61703-a205-41ac-a670-6e5cf7c22911.jpeg", audio: "assets/audio/d2d61703-a205-41ac-a670-6e5cf7c22911.mp3" },
     { id: "b495fcd7-5db9-4de1-8fe5-4ba9a397e325", lang: "en", title: "Sensitivity is Pure Function", cover: "assets/covers/b495fcd7-5db9-4de1-8fe5-4ba9a397e325.jpeg", audio: "assets/audio/b495fcd7-5db9-4de1-8fe5-4ba9a397e325.mp3" },
     { id: "bd31373d-709e-4a64-a7dd-7baed7ec7bb7", lang: "en", title: "the postulat", cover: "assets/covers/bd31373d-709e-4a64-a7dd-7baed7ec7bb7.jpeg", audio: "assets/audio/bd31373d-709e-4a64-a7dd-7baed7ec7bb7.mp3" },
-    { id: "b0eb0f76-f2d8-4e16-85a9-037fc3f32b01", lang: "en", title: "The slight future", cover: "assets/covers/b0eb0f76-f2d8-4e16-85a9-037fc3f32b01.jpeg", audio: "assets/audio/b0eb0f76-f2d8-4e16-85a9-037fc3f32b01.mp3" }
+    { id: "b0eb0f76-f2d8-4e16-85a9-037fc3f32b01", lang: "en", title: "The slight future", cover: "assets/covers/b0eb0f76-f2d8-4e16-85a9-037fc3f32b01.jpeg", audio: "assets/audio/b0eb0f76-f2d8-4e16-85a9-037fc3f32b01.mp3" },
+    { id: "d8d9dfd9-223c-4a2b-b72c-3bf1424b7b9d", lang: "en", title: "The Lightest Particle", cover: "assets/covers/d8d9dfd9-223c-4a2b-b72c-3bf1424b7b9d.jpeg", embed: "https://suno.com/embed/d8d9dfd9-223c-4a2b-b72c-3bf1424b7b9d" }
   ];
 
   /* Langue des chansons = langue du site (localStorage eden-lang, bouton FR | EN). */

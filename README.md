@@ -105,6 +105,9 @@ le casse-tête affichent alors l'iframe Suno (pas de limite de 30 s : c'est Suno
 la lecture). Ces titres ne sont pas proposés dans Rythme-Compasse / Création-Demain
 (qui ont besoin de segments audio locaux). Pour le casse-tête, ajoutez aussi l'entrée
 dans `SONGS` de `js/casse-tete.js` avec `embed:` au lieu de `audio:`.
+Gardez `sunoTitle` (titre affiché par le lecteur Suno) : le blind test s'en sert pour
+cacher le titre. Pour passer plus tard à un MP3, gardez le même `id` (UUID du clip),
+remplissez `audio_url` / `audio_url_aac` et retirez `embed_url` (et `embed:` dans le casse-tête).
 
 ---
 
