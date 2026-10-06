@@ -2780,3 +2780,82 @@ html.eden-pass-reduced::after { animation: eden-pass-fade 0.4s linear forwards !
   .gm-etres-being { width: 40px; height: 54px; }
   .gm-etres-core { width: 12px; height: 12px; }
 }
+
+
+/* Éclats de rire — portail sourire / ondes (accueil) */
+.game-card--eclats::before { animation-delay: -5.5s; }
+.gm-eclats {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 118px;
+  padding: 18px 12px 10px;
+  background:
+    radial-gradient(ellipse at 50% 55%, rgba(246, 201, 106, 0.14), rgba(14, 8, 30, 0.55));
+  border-radius: 999px 999px 18px 18px;
+  overflow: hidden;
+}
+.gm-eclats-face {
+  position: relative;
+  z-index: 2;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 35% 32%, rgba(255, 248, 230, 0.95), rgba(246, 201, 106, 0.55) 45%, rgba(192, 132, 252, 0.45));
+  box-shadow:
+    0 0 22px rgba(246, 201, 106, 0.55),
+    0 0 40px rgba(192, 132, 252, 0.35);
+  animation: edr-face-breathe 4.2s ease-in-out infinite;
+}
+.gm-eclats-face::before,
+.gm-eclats-face::after {
+  content: "";
+  position: absolute;
+  top: 38%;
+  width: 6px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(60, 30, 90, 0.55);
+}
+.gm-eclats-face::before { left: 30%; }
+.gm-eclats-face::after { right: 30%; }
+.gm-eclats-smile {
+  position: absolute;
+  left: 50%;
+  bottom: 28%;
+  width: 18px;
+  height: 9px;
+  margin-left: -9px;
+  border: 2px solid rgba(60, 30, 90, 0.5);
+  border-top: 0;
+  border-radius: 0 0 12px 12px;
+}
+.gm-eclats-wave {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 70px;
+  height: 70px;
+  margin: -35px 0 0 -35px;
+  border-radius: 50%;
+  border: 2px solid rgba(246, 201, 106, 0.35);
+  animation: edr-chuckle-wave 2.8s ease-out infinite;
+  pointer-events: none;
+}
+.gm-eclats-wave:nth-child(2) { animation-delay: -0.9s; width: 96px; height: 96px; margin: -48px 0 0 -48px; }
+.gm-eclats-wave:nth-child(3) { animation-delay: -1.8s; width: 122px; height: 122px; margin: -61px 0 0 -61px; border-color: rgba(192, 132, 252, 0.28); }
+@keyframes edr-face-breathe {
+  0%, 100% { transform: scale(0.96); box-shadow: 0 0 18px rgba(246, 201, 106, 0.4), 0 0 32px rgba(192, 132, 252, 0.28); }
+  50% { transform: scale(1.04); box-shadow: 0 0 28px rgba(246, 201, 106, 0.65), 0 0 48px rgba(192, 132, 252, 0.4); }
+}
+@keyframes edr-chuckle-wave {
+  0% { opacity: 0.55; transform: scale(0.55); }
+  70% { opacity: 0.15; }
+  100% { opacity: 0; transform: scale(1.25); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gm-eclats-face { animation: none; }
+  .gm-eclats-wave { animation: none; opacity: 0.25; }
+}
