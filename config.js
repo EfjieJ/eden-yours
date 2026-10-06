@@ -18,7 +18,7 @@ window.EDEN_CONFIG = {
      Remplir sandboxBusinessEmail (compte Business sandbox) pour activer le lien de test.
      Voir PAYPAL-SANDBOX-TEST.md */
   spokenOffer: {
-    testMode: true,
+    testMode: false,
     amount: "25.00",
     currency: "CAD",
     itemName: "Eden Yours — Une piste parlée sur mesure",
