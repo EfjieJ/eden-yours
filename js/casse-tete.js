@@ -35,7 +35,9 @@
     { id: "b495fcd7-5db9-4de1-8fe5-4ba9a397e325", lang: "en", title: "Sensitivity is Pure Function", cover: "assets/covers/b495fcd7-5db9-4de1-8fe5-4ba9a397e325.jpeg", audio: "assets/audio/b495fcd7-5db9-4de1-8fe5-4ba9a397e325.mp3" },
     { id: "bd31373d-709e-4a64-a7dd-7baed7ec7bb7", lang: "en", title: "the postulat", cover: "assets/covers/bd31373d-709e-4a64-a7dd-7baed7ec7bb7.jpeg", audio: "assets/audio/bd31373d-709e-4a64-a7dd-7baed7ec7bb7.mp3" },
     { id: "b0eb0f76-f2d8-4e16-85a9-037fc3f32b01", lang: "en", title: "The slight future", cover: "assets/covers/b0eb0f76-f2d8-4e16-85a9-037fc3f32b01.jpeg", audio: "assets/audio/b0eb0f76-f2d8-4e16-85a9-037fc3f32b01.mp3" },
-    { id: "d8d9dfd9-223c-4a2b-b72c-3bf1424b7b9d", lang: "en", title: "The Lightest Particle", cover: "assets/covers/d8d9dfd9-223c-4a2b-b72c-3bf1424b7b9d.jpeg", embed: "https://suno.com/embed/d8d9dfd9-223c-4a2b-b72c-3bf1424b7b9d" }
+    { id: "d8d9dfd9-223c-4a2b-b72c-3bf1424b7b9d", lang: "en", title: "The Lightest Particle", cover: "assets/covers/d8d9dfd9-223c-4a2b-b72c-3bf1424b7b9d.jpeg", embed: "https://suno.com/embed/d8d9dfd9-223c-4a2b-b72c-3bf1424b7b9d" },
+    { id: "4f9514ec-7ad0-4d80-9f7e-120179145eab", lang: "en", title: "The Sacredness of Emotions", cover: "assets/covers/4f9514ec-7ad0-4d80-9f7e-120179145eab.jpeg", embed: "https://suno.com/embed/4f9514ec-7ad0-4d80-9f7e-120179145eab" },
+    { id: "c188685c-c903-4d4a-a47f-15a4a1a9a599", lang: "en", title: "The Sacredness of Emotions", cover: "assets/covers/c188685c-c903-4d4a-a47f-15a4a1a9a599.jpeg", embed: "https://suno.com/embed/c188685c-c903-4d4a-a47f-15a4a1a9a599" }
   ];
 
   /* Langue des chansons = langue du site (localStorage eden-lang, bouton FR | EN). */

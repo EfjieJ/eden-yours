@@ -396,6 +396,36 @@
       "featured": false,
       "audio_url_aac": null,
       "lang": "fr"
+    },
+    {
+      "id": "4f9514ec-7ad0-4d80-9f7e-120179145eab",
+      "title": "The Sacredness of Emotions",
+      "artist": "Eden Yours",
+      "sunoArtist": "efjie8008",
+      "sunoTitle": "The Sacredness of Emotions",
+      "audio_url": null,
+      "embed_url": "https://suno.com/embed/4f9514ec-7ad0-4d80-9f7e-120179145eab",
+      "cover_url": "assets/covers/4f9514ec-7ad0-4d80-9f7e-120179145eab.jpeg",
+      "suno_share": "https://suno.com/s/CGlhoyPxZNq0GI6c",
+      "duration": null,
+      "featured": false,
+      "audio_url_aac": null,
+      "lang": "en"
+    },
+    {
+      "id": "c188685c-c903-4d4a-a47f-15a4a1a9a599",
+      "title": "The Sacredness of Emotions",
+      "artist": "Eden Yours",
+      "sunoArtist": "efjie8008",
+      "sunoTitle": "The Sacredness of Emotions",
+      "audio_url": null,
+      "embed_url": "https://suno.com/embed/c188685c-c903-4d4a-a47f-15a4a1a9a599",
+      "cover_url": "assets/covers/c188685c-c903-4d4a-a47f-15a4a1a9a599.jpeg",
+      "suno_share": "https://suno.com/s/LJfnTu3axfaFhQIe",
+      "duration": null,
+      "featured": false,
+      "audio_url_aac": null,
+      "lang": "en"
     }
   ]
 }
