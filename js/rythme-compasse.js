@@ -335,7 +335,8 @@
       const stored = localStorage.getItem('eden-lang');
       if (stored === 'fr' || stored === 'en') return stored;
     } catch (_) {}
-    return 'en';
+    const nav = String((navigator.languages && navigator.languages[0]) || navigator.language || '').toLowerCase();
+    return nav.indexOf('fr') === 0 ? 'fr' : 'en';
   }
 
   function visibleSongs() {

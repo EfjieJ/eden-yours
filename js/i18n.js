@@ -589,7 +589,17 @@
       var stored = localStorage.getItem(STORAGE_KEY);
       if (stored === "fr" || stored === "en") return stored;
     } catch (e) {}
-    // First visit / no preference: default to English (FR available via selector)
+    // First visit / no preference: follow the visitor's phone/browser language
+    // (French if any preferred language is French, otherwise English).
+    try {
+      var prefs = (navigator.languages && navigator.languages.length)
+        ? navigator.languages : [navigator.language || navigator.userLanguage || ""];
+      for (var i = 0; i < prefs.length; i++) {
+        var code = String(prefs[i] || "").toLowerCase();
+        if (code.indexOf("fr") === 0) return "fr";
+        if (code.indexOf("en") === 0) return "en";
+      }
+    } catch (e) {}
     return "en";
   }
 
