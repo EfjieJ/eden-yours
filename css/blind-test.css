@@ -146,64 +146,98 @@
 
 .bt-choice:disabled:not(.is-right):not(.is-wrong) { opacity: 0.55; }
 
-/* Lecteur Suno masqué : iframe à taille fixe, mis à l'échelle ; caches opaques sur pochette + titre */
+/* Lecteur Suno masqué : iframe à sa vraie taille (100 % × 240 px), caches opaques
+   positionnés en JS sur le titre, la pochette, le lien et le logo seulement. */
 .bt-embed[hidden] { display: none; }
 
 .bt-embed {
   position: relative;
   width: 100%;
   max-width: 520px;
-  margin-inline: auto;
   height: 240px;
+  margin-inline: auto;
   overflow: hidden;
   border-radius: 14px;
+  /* même bleu que le lecteur Suno, visible pendant son chargement */
+  background: linear-gradient(180deg, #1e2a6e 0%, #18184a 55%, #141226 100%);
+  box-shadow: 0 0 0 1px rgba(103, 232, 249, 0.25), 0 0 26px rgba(99, 102, 241, 0.25);
 }
 
-.bt-embed-stage {
+.bt-embed iframe {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 520px;
-  height: 240px;
-  transform-origin: 0 0;
-}
-
-.bt-embed-stage iframe {
+  inset: 0;
   display: block;
-  width: 520px;
+  width: 100%;
   height: 240px;
   border: 0;
 }
 
 .bt-mask {
   position: absolute;
-  background: linear-gradient(180deg, #1b1940, #141226);
+  background: linear-gradient(180deg, #1a1838, #141226);
   transition: opacity 0.6s var(--ease);
 }
 
-.bt-mask-left { left: 0; top: 0; width: 170px; height: 240px; display: grid; place-items: center; }
-.bt-mask-top { left: 170px; top: 0; width: 350px; height: 105px; }
-.bt-mask-bottom { left: 170px; top: 168px; width: 350px; height: 72px; }
+.bt-mask-top { left: 0; right: 0; top: 0; height: 106px; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 0.7rem; }
+.bt-mask-bottom { left: 0; right: 0; top: 166px; height: 74px; }
+.bt-mask-left { left: 0; top: 106px; width: 171px; height: 60px; display: grid; place-items: center; }
+.bt-mask-left[hidden] { display: none; }
+
+.bt-mask-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
 
 .bt-mask-left span {
   display: grid;
   place-items: center;
-  width: 120px;
-  height: 120px;
-  border-radius: 16px;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
   border: 1px solid var(--border-strong);
   background:
     radial-gradient(circle at 30% 25%, rgba(240, 171, 252, 0.35), transparent 55%),
     radial-gradient(circle at 75% 80%, rgba(103, 232, 249, 0.3), transparent 55%),
     var(--bg-elevated);
-  font-size: 2.6rem;
+  font-size: 1.4rem;
   font-weight: 800;
   color: var(--accent-3);
 }
 
-.bt-embed.is-revealed .bt-mask {
+/* cadre lumineux autour de la bande visible (lecture + ligne de progression) */
+.bt-window {
+  position: absolute;
+  right: 0;
+  border-radius: 10px;
+  box-shadow: inset 0 0 0 1px rgba(103, 232, 249, 0.45);
+  pointer-events: none;
+  transition: opacity 0.6s var(--ease);
+}
+
+.bt-embed.is-revealed .bt-mask,
+.bt-embed.is-revealed .bt-window {
   opacity: 0;
   pointer-events: none;
+}
+
+/* Fine ligne de progression de l'extrait (manches MP3) */
+.bt-progress {
+  width: 100%;
+  height: 6px;
+  margin-top: 0.7rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.bt-progress-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  transition: width 0.25s linear;
 }
 
 /* Éclat lumineux de la bonne réponse */

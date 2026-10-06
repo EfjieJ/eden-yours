@@ -12,7 +12,7 @@
   var MAX_WRONG = 2;
   var CELEBRATE_MS = 1300;
   var CELEBRATE_GENTLE_MS = 700;
-  var EMBED_W = 520;
+  var EMBED_W = 520; // largeur de repli si le bloc n'est pas encore mesuré
   var EMBED_H = 240;
 
   var allSongs = [];
@@ -49,6 +49,13 @@
   var choicesEl = $("bt-choices");
   var nextBtn = $("bt-next");
   var celebrateEl = $("bt-celebrate");
+  var progressFill = $("bt-progress-fill");
+
+  function setProgress(ratio) {
+    if (!progressFill) return;
+    var pct = Math.max(0, Math.min(1, ratio || 0)) * 100;
+    progressFill.style.width = pct.toFixed(1) + "%";
+  }
 
   function t(key, vars) {
     return window.EdenI18n && window.EdenI18n.t ? window.EdenI18n.t(key, vars) : key;
@@ -181,7 +188,23 @@
     });
   }
 
+  /* ?force=<début d'id> : la première manche utilise cette chanson (débogage, sans effet sinon). */
+  var forceId = (function () {
+    try { return (new URLSearchParams(window.location.search).get("force") || "").toLowerCase(); } catch (e) { return ""; }
+  })();
+
   function nextSong() {
+    if (forceId) {
+      var wanted = forceId;
+      forceId = "";
+      for (var i = 0; i < pool.length; i++) {
+        if (pool[i].id.toLowerCase().indexOf(wanted) === 0) {
+          var forced = pool[i];
+          queue = shuffle(pool.filter(function (s) { return s !== forced; }));
+          return forced;
+        }
+      }
+    }
     if (!queue.length) {
       queue = shuffle(pool.slice());
       // évite de rejouer tout de suite la même chanson au changement de cycle
@@ -227,36 +250,68 @@
   }
 
   // ---------- Lecteur Suno masqué (titre sans MP3) ----------
+  /* L'iframe garde sa vraie taille (largeur du bloc × 240 px, aucune mise à l'échelle).
+     Les caches suivent la mise en page responsive du lecteur Suno (mesurée oct. 2026) :
+       < 320 px   : pas de pochette ; titre y 79-101 ; lecture x 8, y 110-162
+       320-479 px : pochette à gauche (côté = min((L-16)/2, L-180, 224)) ; titre y 67-113 ;
+                    lecture x = 16 + côté, y 122-174
+       >= 480 px  : pochette x 16-160 ; titre y 79-101 ; lecture x 176, y 110-162
+     Seuls le titre, la pochette, le lien et le logo sont cachés : le bouton lecture et la
+     ligne de progression restent visibles et utilisables. */
+  function maskLayout(w) {
+    if (w < 320) return { top: 106, bottom: 166, left: 0 };
+    if (w < 480) {
+      var side = Math.min((w - 16) / 2, w - 180, 224);
+      return { top: 118, bottom: 178, left: Math.floor(16 + side - 5) };
+    }
+    return { top: 106, bottom: 166, left: 171 };
+  }
+
   function fitEmbed() {
-    var stage = embedBox.querySelector(".bt-embed-stage");
-    if (!stage) return;
-    var w = embedBox.clientWidth || EMBED_W;
-    var s = Math.min(1, w / EMBED_W);
-    stage.style.transform = "scale(" + s + ")";
-    embedBox.style.height = Math.round(EMBED_H * s) + "px";
+    var frame = embedBox.querySelector("iframe");
+    if (!frame || embedBox.hidden) return;
+    var w = Math.round(embedBox.clientWidth || EMBED_W);
+    var m = maskLayout(w);
+    var top = embedBox.querySelector(".bt-mask-top");
+    var bottom = embedBox.querySelector(".bt-mask-bottom");
+    var left = embedBox.querySelector(".bt-mask-left");
+    var win = embedBox.querySelector(".bt-window");
+    if (top) top.style.height = m.top + "px";
+    if (bottom) { bottom.style.top = m.bottom + "px"; bottom.style.height = (EMBED_H - m.bottom) + "px"; }
+    if (left) {
+      left.hidden = m.left <= 0;
+      left.style.top = m.top + "px";
+      left.style.height = (m.bottom - m.top) + "px";
+      left.style.width = m.left + "px";
+    }
+    if (win) {
+      win.style.top = m.top + "px";
+      win.style.height = (m.bottom - m.top) + "px";
+      win.style.left = m.left + "px";
+    }
   }
 
   function showEmbed(song) {
     embedBox.innerHTML =
-      '<div class="bt-embed-stage">' +
-      '<iframe width="' + EMBED_W + '" height="' + EMBED_H + '" frameborder="0" allow="autoplay; clipboard-write; encrypted-media"></iframe>' +
+      '<iframe height="' + EMBED_H + '" frameborder="0" allow="autoplay; clipboard-write; encrypted-media"></iframe>' +
+      '<div class="bt-mask bt-mask-top" aria-hidden="true"><span class="bt-mask-label"></span></div>' +
       '<div class="bt-mask bt-mask-left" aria-hidden="true"><span>?</span></div>' +
-      '<div class="bt-mask bt-mask-top" aria-hidden="true"></div>' +
       '<div class="bt-mask bt-mask-bottom" aria-hidden="true"></div>' +
-      "</div>";
+      '<div class="bt-window" aria-hidden="true"></div>';
     var frame = embedBox.querySelector("iframe");
     frame.setAttribute("title", t("blind.mystery") + " — Suno");
-    frame.src = song.embed;
+    frame.setAttribute("width", "100%");
+    embedBox.querySelector(".bt-mask-label").textContent = t("blind.embedMask");
     embedBox.classList.remove("is-revealed");
     embedBox.hidden = false;
     fitEmbed();
+    frame.src = song.embed;
   }
 
   function clearEmbed() {
     embedBox.innerHTML = "";
     embedBox.hidden = true;
     embedBox.classList.remove("is-revealed");
-    embedBox.style.height = "";
   }
 
   window.addEventListener("resize", fitEmbed);
@@ -309,6 +364,8 @@
     }
     audio.volume = 1;
     mode = "excerpt";
+    excerptPlayedFrom = null;
+    setProgress(0);
     cur.heard = true;
     setListenLabel();
     var p = audio.play();
@@ -326,8 +383,20 @@
       try { audio.currentTime = excerptStart; } catch (e) { /* ignore */ }
     }
   });
+  /* Si le serveur refuse le saut (#t=), la lecture part de 0 : on compte alors le temps
+     réellement joué pour arrêter l'extrait après EXCERPT_SECONDS quand même. */
+  var excerptPlayedFrom = null;
+  audio.addEventListener("playing", function () {
+    if (mode === "excerpt" && excerptPlayedFrom === null) excerptPlayedFrom = audio.currentTime;
+  });
   audio.addEventListener("timeupdate", function () {
-    if (mode === "excerpt" && audio.currentTime >= excerptEnd) {
+    if (mode !== "excerpt") return;
+    var seekOk = audio.currentTime >= excerptStart - 1;
+    var elapsed = seekOk ? audio.currentTime - excerptStart
+      : audio.currentTime - (excerptPlayedFrom === null ? 0 : excerptPlayedFrom);
+    setProgress(elapsed / EXCERPT_SECONDS);
+    if (elapsed >= EXCERPT_SECONDS) {
+      setProgress(1);
       stopAudio();
       setListenLabel();
     }
@@ -428,6 +497,7 @@
       hintKey: null
     };
     pickExcerptWindow(song);
+    setProgress(0);
 
     disc.hidden = false;
     coverEl.hidden = true;
