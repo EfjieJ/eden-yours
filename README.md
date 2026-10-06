@@ -38,6 +38,7 @@ eden-music-platform/
 ├── tracks.json             # Catalogue des titres
 ├── css/styles.css
 ├── js/app.js               # Lecteur audio + UI
+├── js/ambiance.js          # Ciel aurore + particules, lumière et carillon d'accueil, portails
 ├── assets/
 │   ├── audio/              # Fichiers .m4a locaux
 │   └── covers/             # Pochettes
@@ -45,6 +46,13 @@ eden-music-platform/
 ```
 
 **Navigation :** Accueil · Bibliothèque · Pratique · Soutenir · Invitations
+
+**Ambiance immersive (`js/ambiance.js` + fin de `css/styles.css`) :** fond violet → or avec aurores
+qui respirent (CSS, transform/opacity), canvas de ~40–60 points lumineux et deux ondes lentes
+(pointer-events:none, 30–40 i/s, pause onglet caché, image fixe si mouvement réduit), lumière
+d'accueil + carillon Web Audio doux une seule fois par visite (`sessionStorage` « eden-welcome »),
+jeux présentés en portails lumineux avec transition « traverser ». Chargé en fin de `<body>`
+sur toutes les pages qui utilisent `css/styles.css`.
 
 ---
 

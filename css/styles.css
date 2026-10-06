@@ -2002,3 +2002,416 @@ body.has-embed-player {
   .star:nth-child(2) { width: 44px; height: 44px; }
   .stars-line { font-size: 0.96rem; }
 }
+
+/* ============================================================
+   Immersif — ciel violet → or qui respire, particules, portails, lumière d'accueil
+   (couches fixes derrière le contenu ; animations en transform/opacity seulement)
+   ============================================================ */
+:root {
+  --gold: #f6c96a;
+  --gold-soft: rgba(246, 201, 106, 0.55);
+  --rose: #f4a6d7;
+  --violet-deep: #120a26;
+  /* textes secondaires un peu plus clairs : contraste AA (≥ 4,5:1) même sur la lueur dorée du bas */
+  --text-muted: #b8acd6;
+  --text-dim: #8f84ac;
+}
+
+/* Fond de base (aussi sans JavaScript) : violet profond en haut, or sombre en bas */
+body::before {
+  background:
+    radial-gradient(ellipse 90% 60% at 18% -8%, rgba(124, 58, 237, 0.42), transparent 60%),
+    radial-gradient(ellipse 70% 45% at 92% 6%, rgba(168, 85, 247, 0.22), transparent 55%),
+    radial-gradient(ellipse 85% 55% at 50% 112%, rgba(217, 140, 40, 0.20), transparent 62%),
+    radial-gradient(ellipse 60% 40% at 8% 96%, rgba(236, 72, 153, 0.14), transparent 60%),
+    linear-gradient(180deg, #0a0618 0%, #120a26 38%, #1a0f2c 66%, #1f1420 86%, #22170f 100%);
+}
+html.eden-sky-on body::after { display: none; }
+
+.eden-sky {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  contain: strict;
+}
+.eden-aurora {
+  position: absolute;
+  inset: -12%;
+  pointer-events: none;
+  will-change: transform, opacity;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+.eden-aurora--violet {
+  background:
+    radial-gradient(ellipse 48% 36% at 28% 22%, rgba(139, 92, 246, 0.34), transparent 70%),
+    radial-gradient(ellipse 36% 30% at 78% 34%, rgba(192, 132, 252, 0.20), transparent 70%);
+  animation-name: eden-breathe-a;
+  animation-duration: 34s;
+}
+.eden-aurora--gold {
+  background:
+    radial-gradient(ellipse 55% 34% at 60% 92%, rgba(246, 180, 70, 0.16), transparent 70%),
+    radial-gradient(ellipse 34% 26% at 22% 78%, rgba(251, 191, 36, 0.09), transparent 70%);
+  animation-name: eden-breathe-b;
+  animation-duration: 27s;
+}
+.eden-aurora--rose {
+  background:
+    conic-gradient(from 210deg at 50% 55%, transparent 0deg, rgba(236, 72, 153, 0.10) 60deg, transparent 120deg,
+      rgba(103, 232, 249, 0.06) 200deg, transparent 260deg, rgba(246, 201, 106, 0.08) 320deg, transparent 360deg);
+  animation-name: eden-breathe-c;
+  animation-duration: 40s;
+}
+@keyframes eden-breathe-a {
+  0% { transform: translate3d(-4%, -2%, 0) scale(1); opacity: 0.75; }
+  50% { transform: translate3d(3%, 2%, 0) scale(1.08); opacity: 1; }
+  100% { transform: translate3d(6%, -3%, 0) scale(1.02); opacity: 0.7; }
+}
+@keyframes eden-breathe-b {
+  0% { transform: translate3d(3%, 2%, 0) scale(1.04); opacity: 0.55; }
+  50% { transform: translate3d(-3%, -1%, 0) scale(1); opacity: 0.95; }
+  100% { transform: translate3d(-6%, 1%, 0) scale(1.1); opacity: 0.6; }
+}
+@keyframes eden-breathe-c {
+  0% { transform: rotate(-6deg) scale(1.1); opacity: 0.5; }
+  100% { transform: rotate(8deg) scale(1.2); opacity: 0.95; }
+}
+html.eden-aurora-canvas .eden-aurora { display: none; }
+.eden-motes {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* Nav et barre du lecteur : verre légèrement teinté pour garder le texte lisible */
+.site-nav { background: rgba(10, 6, 22, 0.74); }
+
+/* ---------- Portails de jeux (accueil) ---------- */
+.games-hero { position: relative; }
+.games-head { text-align: center; margin-inline: auto; }
+.games-lead { margin-inline: auto; color: #c9bde3; }
+.games-title {
+  background: linear-gradient(100deg, #fff7e6 10%, #f6d48f 45%, #e9c4ff 85%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: none;
+}
+.games-grid {
+  grid-template-columns: repeat(2, minmax(0, 360px));
+  justify-content: center;
+  gap: 2.4rem;
+}
+.game-card {
+  position: relative;
+  isolation: isolate;
+  align-items: center;
+  text-align: center;
+  overflow: visible;
+  padding: 14px 14px 1.2rem;
+  border-radius: 999px 999px 28px 28px;
+  border: 1px solid rgba(246, 201, 106, 0.32);
+  background:
+    radial-gradient(ellipse 80% 45% at 50% 0%, rgba(246, 201, 106, 0.10), transparent 70%),
+    linear-gradient(180deg, rgba(36, 22, 66, 0.72), rgba(16, 10, 34, 0.86));
+  box-shadow:
+    0 0 0 1px rgba(192, 132, 252, 0.16),
+    0 0 34px rgba(192, 132, 252, 0.22),
+    0 18px 50px rgba(5, 2, 14, 0.55);
+  transition: transform 0.45s var(--ease), box-shadow 0.45s var(--ease), border-color 0.45s;
+}
+/* halo qui pulse doucement autour de l'arche */
+.game-card::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: 50%;
+  top: -6%;
+  width: 118%;
+  aspect-ratio: 1;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(246, 201, 106, 0.22) 0%, rgba(192, 132, 252, 0.16) 38%, transparent 66%);
+  pointer-events: none;
+  opacity: 0.6;
+  animation: portal-halo 6s ease-in-out infinite;
+}
+.game-card--blind::before { animation-delay: -3s; }
+@keyframes portal-halo {
+  0%, 100% { opacity: 0.45; transform: translateX(-50%) scale(0.96); }
+  50% { opacity: 0.85; transform: translateX(-50%) scale(1.04); }
+}
+.game-card:hover,
+.game-card:focus-visible {
+  transform: translateY(-4px);
+  border-color: rgba(246, 201, 106, 0.6);
+  box-shadow:
+    0 0 0 1px rgba(246, 201, 106, 0.3),
+    0 0 46px rgba(246, 201, 106, 0.28),
+    0 0 90px rgba(192, 132, 252, 0.3),
+    0 18px 50px rgba(5, 2, 14, 0.55);
+}
+.game-card:focus-visible { outline: 3px solid #fde68a; outline-offset: 6px; }
+.game-card:hover::before,
+.game-card:focus-visible::before { opacity: 1; }
+.game-card:active { transform: scale(0.985); }
+
+/* l'arche lumineuse : intérieur tourbillonnant */
+.game-visual {
+  width: 100%;
+  height: 250px;
+  isolation: isolate;
+  border-radius: 999px 999px 18px 18px;
+  border: 1.5px solid rgba(253, 230, 170, 0.6);
+  box-shadow:
+    0 0 0 4px rgba(246, 201, 106, 0.08),
+    0 0 24px rgba(246, 201, 106, 0.35),
+    0 0 60px rgba(192, 132, 252, 0.3),
+    inset 0 0 36px rgba(255, 220, 160, 0.28),
+    inset 0 -30px 60px rgba(124, 58, 237, 0.35);
+  transition: transform 0.5s var(--ease), filter 0.5s var(--ease), box-shadow 0.5s;
+}
+.game-visual::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -40%;
+  background: conic-gradient(from 0deg,
+    rgba(124, 58, 237, 0.15), rgba(192, 132, 252, 0.7), rgba(246, 201, 106, 0.6), rgba(244, 166, 215, 0.45),
+    rgba(103, 232, 249, 0.3), rgba(124, 58, 237, 0.6), rgba(124, 58, 237, 0.15));
+  animation: portal-swirl 22s linear infinite;
+  pointer-events: none;
+}
+.game-visual::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 55% 45% at 50% 52%, rgba(255, 240, 210, 0.42), rgba(246, 201, 106, 0.12) 55%, transparent 75%),
+    radial-gradient(ellipse 90% 70% at 50% 50%, rgba(18, 10, 38, 0.05), rgba(18, 10, 38, 0.5) 100%);
+  animation: portal-light 7s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes portal-swirl { to { transform: rotate(360deg); } }
+@keyframes portal-light {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 1; }
+}
+.game-card:hover .game-visual,
+.game-card:focus-visible .game-visual {
+  filter: brightness(1.15) saturate(1.1);
+  box-shadow:
+    0 0 0 4px rgba(246, 201, 106, 0.16),
+    0 0 34px rgba(246, 201, 106, 0.5),
+    0 0 80px rgba(192, 132, 252, 0.42),
+    inset 0 0 46px rgba(255, 220, 160, 0.4),
+    inset 0 -30px 60px rgba(124, 58, 237, 0.35);
+}
+.gm-mosaic, .gm-blind { background: radial-gradient(ellipse at 50% 60%, rgba(20, 12, 44, 0.2), rgba(14, 8, 30, 0.55)); }
+.gm-mosaic { --t: 58px; padding-top: 34px; }
+.gm-tile { position: relative; z-index: 1; box-shadow: 0 0 10px rgba(246, 201, 106, 0.25), 0 2px 8px rgba(0, 0, 0, 0.4); }
+.gm-blind { padding-top: 26px; }
+.gm-q, .gm-wave { position: relative; z-index: 1; }
+.gm-q {
+  background: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.28), rgba(246, 201, 106, 0.22) 50%, rgba(20, 12, 44, 0.55));
+  box-shadow: 0 0 0 2px rgba(253, 230, 170, 0.65), 0 0 34px rgba(246, 201, 106, 0.5), 0 0 70px rgba(192, 132, 252, 0.35);
+}
+.gm-wave i { background: linear-gradient(180deg, #fde68a, var(--accent)); }
+
+.game-body { align-items: center; padding: 1rem 0.6rem 0.2rem; }
+.game-body h3 {
+  font-size: 1.5rem;
+  color: #fff7e6;
+  text-shadow: 0 0 18px rgba(246, 201, 106, 0.35);
+}
+.game-body p { color: #cfc4e6; }
+.game-cta {
+  align-self: center;
+  min-width: 11rem;
+  justify-content: center;
+  color: #1c0f2e;
+  background: linear-gradient(120deg, #fde68a, #f6c96a 45%, #e9b8ff);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.25), 0 0 24px rgba(246, 201, 106, 0.4);
+  font-weight: 750;
+}
+.game-card:hover .game-cta { box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.35), 0 0 34px rgba(246, 201, 106, 0.6); }
+
+/* traverser le portail */
+.game-card.is-entering { transform: scale(1.04); }
+.game-card.is-entering .game-visual { transform: scale(1.08); filter: brightness(1.5) saturate(1.2); }
+.other-game.is-entering, .portal-mini.is-entering { transform: scale(1.03); filter: brightness(1.25); }
+.eden-step {
+  position: fixed;
+  inset: 0;
+  z-index: 950;
+  pointer-events: none;
+  background: radial-gradient(circle at var(--x, 50%) var(--y, 50%),
+    rgba(255, 244, 220, 0.92) 0%, rgba(246, 201, 106, 0.75) 14%, rgba(168, 85, 247, 0.7) 38%, rgba(18, 10, 38, 0.96) 70%);
+  clip-path: circle(0 at var(--x, 50%) var(--y, 50%));
+  animation: eden-step 0.5s cubic-bezier(0.55, 0, 0.35, 1) forwards;
+}
+@keyframes eden-step {
+  0% { clip-path: circle(0 at var(--x, 50%) var(--y, 50%)); opacity: 0.6; }
+  100% { clip-path: circle(150vmax at var(--x, 50%) var(--y, 50%)); opacity: 1; }
+}
+
+/* Téléphone : les portails côte à côte, au-dessus de la ligne de flottaison */
+@media (max-width: 640px) {
+  .games-grid { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+  .game-card { flex-direction: column; padding: 8px 8px 0.85rem; border-radius: 999px 999px 22px 22px; }
+  .game-visual { width: 100%; height: 168px; min-height: 0; }
+  .gm-mosaic { --t: 34px; gap: 2px; padding-top: 22px; }
+  .gm-blind { padding-top: 18px; gap: 0.6rem; }
+  .gm-q { width: 58px; height: 58px; font-size: 2rem; }
+  .game-body { padding: 0.65rem 0.15rem 0; gap: 0.3rem; }
+  .game-body h3 { font-size: 1.12rem; }
+  .game-body p { font-size: 0.8rem; line-height: 1.35; }
+  .game-cta { min-width: 0; width: 100%; min-height: 46px; padding: 0.5rem 0.6rem; font-size: 0.95rem; }
+}
+@media (max-width: 340px) {
+  .game-body p { display: none; }
+}
+
+/* ---------- « Autre jeu » : petit portail ---------- */
+.other-game {
+  position: relative;
+  border-color: rgba(246, 201, 106, 0.38);
+  background:
+    radial-gradient(ellipse 40% 120% at 0% 50%, rgba(246, 201, 106, 0.14), transparent 70%),
+    linear-gradient(90deg, rgba(40, 24, 72, 0.85), rgba(18, 10, 36, 0.88));
+  box-shadow: 0 0 0 1px rgba(192, 132, 252, 0.16), 0 0 30px rgba(192, 132, 252, 0.22);
+  transition: border-color 0.3s, transform 0.3s var(--ease), box-shadow 0.3s, filter 0.3s;
+}
+.other-game:hover, .other-game:focus-visible {
+  border-color: rgba(246, 201, 106, 0.7);
+  box-shadow: 0 0 0 1px rgba(246, 201, 106, 0.3), 0 0 40px rgba(246, 201, 106, 0.28);
+}
+.other-game-icon,
+.portal-mini-gate {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  border-radius: 999px 999px 10px 10px;
+  border: 1.5px solid rgba(253, 230, 170, 0.65);
+  background: rgba(18, 10, 38, 0.6);
+  box-shadow: 0 0 18px rgba(246, 201, 106, 0.4), inset 0 0 14px rgba(255, 220, 160, 0.3);
+  color: #fff7e0;
+  text-shadow: 0 0 12px rgba(255, 236, 170, 0.8);
+}
+.other-game-icon { width: 50px; height: 62px; }
+.other-game-icon::before,
+.portal-mini-gate::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -50%;
+  background: conic-gradient(from 0deg, rgba(124, 58, 237, 0.1), rgba(192, 132, 252, 0.6), rgba(246, 201, 106, 0.55), rgba(244, 166, 215, 0.4), rgba(124, 58, 237, 0.1));
+  animation: portal-swirl 16s linear infinite;
+}
+.other-game-kicker { color: #f6d48f; }
+.other-game-go { color: #f6d48f; }
+
+/* ---------- Bannière bibliothèque : deux mini-portails ---------- */
+.games-banner {
+  border-color: rgba(246, 201, 106, 0.38);
+  background:
+    radial-gradient(ellipse 50% 140% at 100% 50%, rgba(246, 201, 106, 0.12), transparent 70%),
+    linear-gradient(90deg, rgba(40, 24, 72, 0.8), rgba(18, 10, 36, 0.85));
+  box-shadow: 0 0 30px rgba(192, 132, 252, 0.18);
+}
+.games-banner-actions .portal-mini {
+  gap: 0.55rem;
+  padding: 0.35rem 1.05rem 0.35rem 0.4rem;
+  color: #1c0f2e;
+  background: linear-gradient(120deg, #fde68a, #f6c96a 45%, #e9b8ff);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.25), 0 0 20px rgba(246, 201, 106, 0.35);
+  font-weight: 750;
+  transition: transform 0.3s var(--ease), box-shadow 0.3s, filter 0.3s;
+}
+.games-banner-actions .portal-mini:hover,
+.games-banner-actions .portal-mini:focus-visible { box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.35), 0 0 32px rgba(246, 201, 106, 0.6); transform: translateY(-2px); }
+.portal-mini-gate {
+  display: inline-grid;
+  place-items: center;
+  width: 30px;
+  height: 36px;
+  font-size: 1rem;
+  font-weight: 800;
+  border-color: rgba(28, 15, 46, 0.55);
+}
+
+/* ---------- Lumière d'accueil (une fois par visite) ---------- */
+.eden-welcome {
+  position: fixed;
+  inset: 0;
+  z-index: 900;
+  pointer-events: none;
+  overflow: hidden;
+}
+.eden-welcome-veil,
+.eden-welcome-bloom { position: absolute; pointer-events: none; opacity: 0; will-change: transform, opacity; }
+.eden-welcome-veil {
+  inset: 0;
+  background: radial-gradient(ellipse 120% 90% at 50% 100%, rgba(255, 196, 140, 0.30), rgba(236, 140, 190, 0.14) 45%, rgba(124, 58, 237, 0.06) 75%, transparent 100%);
+  animation: eden-welcome-veil 2.5s ease-in-out forwards;
+}
+.eden-welcome-bloom {
+  left: 50%;
+  bottom: -35vmax;
+  width: 110vmax;
+  height: 110vmax;
+  margin-left: -55vmax;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 228, 170, 0.55) 0%, rgba(250, 190, 150, 0.36) 22%, rgba(240, 150, 200, 0.18) 42%, rgba(168, 85, 247, 0.06) 60%, transparent 70%);
+  animation: eden-welcome-bloom 2.5s cubic-bezier(0.33, 0, 0.25, 1) forwards;
+}
+/* montée douce, puis trois respirations lentes (≈1,4 Hz max, faible contraste), puis fondu vers l'aurore */
+@keyframes eden-welcome-bloom {
+  0% { opacity: 0; transform: translate3d(0, 22%, 0) scale(0.55); }
+  28% { opacity: 0.62; transform: translate3d(0, 6%, 0) scale(0.95); }
+  46% { opacity: 0.44; transform: translate3d(0, 2%, 0) scale(1.02); }
+  62% { opacity: 0.56; transform: translate3d(0, 0, 0) scale(1.08); }
+  78% { opacity: 0.36; transform: translate3d(0, -3%, 0) scale(1.14); }
+  100% { opacity: 0; transform: translate3d(0, -8%, 0) scale(1.25); }
+}
+@keyframes eden-welcome-veil {
+  0% { opacity: 0; }
+  30% { opacity: 0.7; }
+  48% { opacity: 0.5; }
+  64% { opacity: 0.62; }
+  100% { opacity: 0; }
+}
+.eden-welcome.is-light .eden-welcome-bloom { animation-name: eden-welcome-bloom-light; animation-duration: 1.8s; }
+.eden-welcome.is-light .eden-welcome-veil { animation-duration: 1.8s; animation-name: eden-welcome-veil-light; }
+@keyframes eden-welcome-bloom-light {
+  0% { opacity: 0; transform: translate3d(0, 18%, 0) scale(0.7); }
+  40% { opacity: 0.38; transform: translate3d(0, 4%, 0) scale(1); }
+  100% { opacity: 0; transform: translate3d(0, -6%, 0) scale(1.18); }
+}
+@keyframes eden-welcome-veil-light {
+  0% { opacity: 0; }
+  40% { opacity: 0.4; }
+  100% { opacity: 0; }
+}
+/* mouvement réduit : simple fondu doux, sans pulsation ni déplacement */
+.eden-welcome.is-reduced .eden-welcome-bloom { display: none; }
+.eden-welcome.is-reduced .eden-welcome-veil { animation: eden-welcome-fade 1.4s ease-out forwards; }
+@keyframes eden-welcome-fade {
+  0% { opacity: 0.35; }
+  100% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eden-aurora, .game-card::before, .game-visual::before, .game-visual::after,
+  .other-game-icon::before, .portal-mini-gate::before { animation: none !important; }
+  .eden-step { display: none; }
+  .game-card, .game-visual, .other-game { transition: none; }
+}
+
