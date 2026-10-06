@@ -15,17 +15,7 @@
     { duration: 45, spawnMs: 720, maxBeings: 6, speed: 0.95, size: 0.9 }
   ];
 
-  /* Pistes légères préférées (FR / EN) pour la victoire */
-  var LIGHT_FR = [
-    "a0b2b33d-66f6-4c6a-b933-cdb5977d920e", /* Le Léger Futur */
-    "5535b9e6-78f1-4a96-bfed-f0c5666a75c3", /* La Mécanique du Jeu */
-    "c8c1762f" /* Ç'a main — prefix match */
-  ];
-  var LIGHT_EN = [
-    "b0eb0f76-f2d8-4e16-85a9-037fc3f32b01", /* The slight future */
-    "d8d9dfd9", /* The Lightest Particle */
-    "a11c8f21" /* Start - Continue - Finish */
-  ];
+  var LAST_VICTORY_KEY = "eden-eclats-last-victory";
 
   var audioCtx = null;
   var beings = [];
@@ -44,7 +34,10 @@
   var tracksCache = null;
   var sessionStars = 0;
   var reduced = false;
-  var lastVictoryId = null;
+  var lastVictoryId = (function () {
+    try { return sessionStorage.getItem(LAST_VICTORY_KEY); } catch (e) { return null; }
+  })();
+
 
   var $ = function (id) { return document.getElementById(id); };
   var canvas = $("edr-canvas");
@@ -452,20 +445,32 @@
     overlay.classList.toggle("is-hidden", !show);
   }
 
+  function clearVictoryEmbed() {
+    var box = $("edr-embed");
+    if (!box) return;
+    box.innerHTML = "";
+    box.hidden = true;
+  }
+
   function stopAudioClip() {
     try {
-      if (audio) { audio.pause(); audio.removeAttribute("src"); audio.load(); }
+      if (audio) {
+        audio.pause();
+        audio.removeAttribute("src");
+        audio.load();
+        audio.hidden = false;
+      }
     } catch (e) {}
+    clearVictoryEmbed();
     if (playerBox) playerBox.hidden = true;
   }
 
-  function idMatchesPrefer(id, prefer) {
-    if (!id) return false;
-    for (var i = 0; i < prefer.length; i++) {
-      var p = prefer[i];
-      if (id === p || id.indexOf(p) === 0) return true;
-    }
-    return false;
+  function rememberVictoryId(id) {
+    lastVictoryId = id || null;
+    try {
+      if (lastVictoryId) sessionStorage.setItem(LAST_VICTORY_KEY, lastVictoryId);
+      else sessionStorage.removeItem(LAST_VICTORY_KEY);
+    } catch (e) {}
   }
 
   function pickRandom(arr) {
@@ -473,54 +478,74 @@
     return arr[Math.floor(Math.random() * arr.length)];
   }
 
-  /* Victoire : piste aléatoire dans la langue du site (audio local).
-     Préfère le pool LIGHT_* s'il a des MP3 ; sinon toute piste lang+audio.
-     Évite de rejouer la dernière id quand d'autres candidats existent. */
+  /* Victoire : toute piste de la langue du site (MP3 local ou embed Suno).
+     Évite de rejouer la dernière id (sessionStorage) quand d'autres candidats existent. */
   function pickLightTrack(list) {
     if (!list || !list.length) return null;
     var lang = siteLang();
-    var prefer = lang === "en" ? LIGHT_EN : LIGHT_FR;
-    var withAudio = [];
-    var lightAudio = [];
+    var pool = [];
     var i, tr;
     for (i = 0; i < list.length; i++) {
       tr = list[i];
-      if (!tr.audio) continue;
+      if (!tr.audio && !tr.embed) continue;
       if (tr.lang && tr.lang !== lang) continue;
-      withAudio.push(tr);
-      if (idMatchesPrefer(tr.id, prefer)) lightAudio.push(tr);
+      pool.push(tr);
     }
-    var pool = lightAudio.length ? lightAudio : withAudio;
     if (!pool.length) return null;
     if (pool.length > 1 && lastVictoryId) {
-      var others = pool.filter(function (t) { return t.id !== lastVictoryId; });
+      var others = pool.filter(function (item) { return item.id !== lastVictoryId; });
       if (others.length) pool = others;
     }
     return pickRandom(pool);
   }
 
+  function showVictoryEmbed(song) {
+    var box = $("edr-embed");
+    if (!box || !song || !song.embed) return false;
+    box.innerHTML = "";
+    var frame = document.createElement("iframe");
+    frame.src = song.embed;
+    frame.width = "100%";
+    frame.height = "180";
+    frame.setAttribute("frameborder", "0");
+    frame.setAttribute("allow", "autoplay; clipboard-write; encrypted-media");
+    frame.setAttribute("title", (song.title || "Suno") + " — Suno");
+    frame.className = "edr-suno-embed";
+    box.appendChild(frame);
+    box.hidden = false;
+    if (audio) audio.hidden = true;
+    return true;
+  }
+
   function playVictoryTrack() {
     var list = tracksCache || [];
     var song = pickLightTrack(list);
-    if (!song || !song.audio || !audio) return false;
+    if (!song) return false;
     try {
-      lastVictoryId = song.id || null;
       stopAudioClip();
-      audio.src = song.audio;
-      audio.currentTime = 0;
-      var stopAt = VICTORY_PLAY_S;
-      var onTime = function () {
-        if (audio.currentTime >= stopAt) {
-          audio.pause();
-          audio.removeEventListener("timeupdate", onTime);
-        }
-      };
-      audio.addEventListener("timeupdate", onTime);
+      rememberVictoryId(song.id || null);
       if (nowPlaying) nowPlaying.textContent = t("eclats.playing", { title: song.title });
       if (playerBox) playerBox.hidden = false;
-      var p = audio.play();
-      if (p && p.catch) p.catch(function () {});
-      return true;
+
+      if (song.audio && audio) {
+        if (audio) audio.hidden = false;
+        audio.src = song.audio;
+        audio.currentTime = 0;
+        var stopAt = VICTORY_PLAY_S;
+        var onTime = function () {
+          if (audio.currentTime >= stopAt) {
+            audio.pause();
+            audio.removeEventListener("timeupdate", onTime);
+          }
+        };
+        audio.addEventListener("timeupdate", onTime);
+        var p = audio.play();
+        if (p && p.catch) p.catch(function () {});
+        return true;
+      }
+
+      if (song.embed) return showVictoryEmbed(song);
+      return false;
     } catch (e) { return false; }
   }
 
@@ -616,6 +641,7 @@
   }
 
   function startSession() {
+    stopAudioClip();
     ctxAudio();
     if (window.EdenStars) window.EdenStars.unlock && window.EdenStars.unlock();
     beginRound(0);
@@ -631,10 +657,11 @@
             id: tr.id,
             title: tr.title,
             lang: tr.lang,
-            audio: tr.audio_url || tr.audio,
-            aac: tr.audio_url_aac
+            audio: tr.audio_url || tr.audio || null,
+            aac: tr.audio_url_aac || null,
+            embed: tr.embed_url || tr.embed || null
           };
-        }).filter(function (tr) { return tr.audio; });
+        }).filter(function (tr) { return tr.audio || tr.embed; });
       })
       .catch(function () { tracksCache = []; });
   }

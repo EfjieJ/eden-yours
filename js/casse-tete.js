@@ -158,6 +158,30 @@
     return list[songIndex];
   }
 
+  var LAST_SONG_KEY = "eden-casse-last-song";
+
+  function pickStartSongIndex(list) {
+    if (!list || !list.length) return 0;
+    if (list.length === 1) return 0;
+    var last = null;
+    try { last = sessionStorage.getItem(LAST_SONG_KEY); } catch (e) {}
+    var candidates = [];
+    var i;
+    for (i = 0; i < list.length; i++) {
+      if (!last || list[i].id !== last) candidates.push(i);
+    }
+    if (!candidates.length) {
+      for (i = 0; i < list.length; i++) candidates.push(i);
+    }
+    return candidates[Math.floor(Math.random() * candidates.length)];
+  }
+
+  function rememberSongId(id) {
+    try {
+      if (id) sessionStorage.setItem(LAST_SONG_KEY, id);
+    } catch (e) {}
+  }
+
   function totalPieces() { return n * n; }
 
   function placedCount() {
@@ -616,6 +640,7 @@
   function start() {
     var current = song();
     if (!current) return;
+    rememberSongId(current.id);
     hideWin();
     placed = {};
     locked = false;
@@ -718,10 +743,11 @@
     if (next !== "fr" && next !== "en") return;
     if (puzzleLang === next && layout && !layout.hidden) return;
     puzzleLang = next;
-    songIndex = 0;
+    var list = songs();
+    songIndex = pickStartSongIndex(list);
     paintLangButtons();
     applyCopy();
-    if (!songs().length) {
+    if (!list.length) {
       showEmpty();
       return;
     }
