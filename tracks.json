@@ -456,6 +456,21 @@
       "featured": false,
       "audio_url_aac": null,
       "lang": "fr"
+    },
+    {
+      "id": "e2f896d7-cdbe-470b-b414-3cb5988695a7",
+      "title": "Le Oui",
+      "artist": "Eden Yours",
+      "sunoArtist": "efjie8008",
+      "sunoTitle": "Le Oui",
+      "audio_url": null,
+      "embed_url": "https://suno.com/embed/e2f896d7-cdbe-470b-b414-3cb5988695a7",
+      "cover_url": "assets/covers/e2f896d7-cdbe-470b-b414-3cb5988695a7.jpeg",
+      "suno_share": "https://suno.com/s/FFe1KUbQNq6o9NvN",
+      "duration": null,
+      "featured": false,
+      "audio_url_aac": null,
+      "lang": "fr"
     }
   ]
 }
