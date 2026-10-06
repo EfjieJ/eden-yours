@@ -2859,3 +2859,62 @@ html.eden-pass-reduced::after { animation: eden-pass-fade 0.4s linear forwards !
   .gm-eclats-face { animation: none; }
   .gm-eclats-wave { animation: none; opacity: 0.25; }
 }
+
+
+/* Mémoire des pochettes — portail cartes / flip (accueil) */
+.game-card--memoire::before { animation-delay: -6.2s; }
+.gm-memoire {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 118px;
+  padding: 18px 12px 10px;
+  background:
+    radial-gradient(ellipse at 50% 55%, rgba(246, 201, 106, 0.12), rgba(14, 8, 30, 0.55));
+  border-radius: 999px 999px 18px 18px;
+  overflow: hidden;
+}
+.gm-memoire-card {
+  position: relative;
+  z-index: 2;
+  width: 34px;
+  height: 44px;
+  border-radius: 8px;
+  border: 1px solid rgba(246, 201, 106, 0.4);
+  background:
+    linear-gradient(145deg, rgba(88, 48, 140, 0.95), rgba(28, 14, 55, 0.98));
+  box-shadow: 0 4px 12px rgba(5, 2, 14, 0.4);
+}
+.gm-memoire-card--a { transform: rotate(-12deg) translateY(4px); }
+.gm-memoire-card--b { transform: rotate(4deg); }
+.gm-memoire-card--c {
+  transform: rotate(14deg) translateY(2px);
+  background:
+    radial-gradient(circle at 40% 35%, rgba(255, 248, 230, 0.85), rgba(246, 201, 106, 0.55) 50%, rgba(192, 132, 252, 0.4));
+  animation: mp-portal-flip 3.6s ease-in-out infinite;
+}
+.gm-memoire-spark {
+  position: absolute;
+  left: 50%;
+  top: 28%;
+  width: 8px;
+  height: 8px;
+  margin-left: -4px;
+  border-radius: 50%;
+  background: rgba(253, 230, 138, 0.95);
+  box-shadow: 0 0 14px rgba(246, 201, 106, 0.8);
+  animation: mp-portal-spark 2.4s ease-in-out infinite;
+}
+@keyframes mp-portal-flip {
+  0%, 100% { transform: rotate(14deg) translateY(2px) scale(1); box-shadow: 0 0 10px rgba(246, 201, 106, 0.35); }
+  50% { transform: rotate(10deg) translateY(-2px) scale(1.06); box-shadow: 0 0 22px rgba(246, 201, 106, 0.7); }
+}
+@keyframes mp-portal-spark {
+  0%, 100% { opacity: 0.35; transform: scale(0.7); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gm-memoire-card--c, .gm-memoire-spark { animation: none; }
+}
