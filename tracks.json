@@ -441,6 +441,21 @@
       "featured": false,
       "audio_url_aac": null,
       "lang": "fr"
+    },
+    {
+      "id": "7599f004-7393-4e31-883c-70a3cfc3acfc",
+      "title": "Le Reset du Jeu",
+      "artist": "Eden Yours",
+      "sunoArtist": "efjie8008",
+      "sunoTitle": "Le Reset du Jeu",
+      "audio_url": null,
+      "embed_url": "https://suno.com/embed/7599f004-7393-4e31-883c-70a3cfc3acfc",
+      "cover_url": "assets/covers/7599f004-7393-4e31-883c-70a3cfc3acfc.jpeg",
+      "suno_share": "https://suno.com/s/GtuS7Vmk77TAswdQ",
+      "duration": null,
+      "featured": false,
+      "audio_url_aac": null,
+      "lang": "fr"
     }
   ]
 }

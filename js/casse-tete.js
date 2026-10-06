@@ -29,6 +29,7 @@
     { id: "6d91a0bb-d51e-4dd7-b69e-19be51580fc6", lang: "fr", title: "Présence au centre", cover: "assets/covers/6d91a0bb-d51e-4dd7-b69e-19be51580fc6.jpeg", embed: "https://suno.com/embed/6d91a0bb-d51e-4dd7-b69e-19be51580fc6" },
     { id: "6f66fa1b-ee30-428e-823d-d62524debf08", lang: "fr", title: "Présence en Chœur", cover: "assets/covers/6f66fa1b-ee30-428e-823d-d62524debf08.jpeg", embed: "https://suno.com/embed/6f66fa1b-ee30-428e-823d-d62524debf08" },
     { id: "a4b34a64-99f0-4c63-8ab0-df1431649e79", lang: "fr", title: "Le Rêveur", cover: "assets/covers/a4b34a64-99f0-4c63-8ab0-df1431649e79.jpeg", embed: "https://suno.com/embed/a4b34a64-99f0-4c63-8ab0-df1431649e79" },
+    { id: "7599f004-7393-4e31-883c-70a3cfc3acfc", lang: "fr", title: "Le Reset du Jeu", cover: "assets/covers/7599f004-7393-4e31-883c-70a3cfc3acfc.jpeg", embed: "https://suno.com/embed/7599f004-7393-4e31-883c-70a3cfc3acfc" },
     { id: "a11c8f21-163b-4b53-8d3a-5353e809bb50", lang: "en", title: "Start - Continue - Finish", cover: "assets/covers/a11c8f21-163b-4b53-8d3a-5353e809bb50.jpeg", audio: "assets/audio/a11c8f21-163b-4b53-8d3a-5353e809bb50.mp3" },
     { id: "a5ba4262-22f6-4c9c-a6df-05bff2d5e713", lang: "en", title: "The Body Is an Antenna", cover: "assets/covers/a5ba4262-22f6-4c9c-a6df-05bff2d5e713.jpeg", audio: "assets/audio/a5ba4262-22f6-4c9c-a6df-05bff2d5e713.mp3" },
     { id: "18a2266c-70b1-4e80-94e5-144a5ccd29fc", lang: "en", title: "Start", cover: "assets/covers/18a2266c-70b1-4e80-94e5-144a5ccd29fc.jpeg", audio: "assets/audio/18a2266c-70b1-4e80-94e5-144a5ccd29fc.mp3" },
