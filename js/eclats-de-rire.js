@@ -44,6 +44,7 @@
   var tracksCache = null;
   var sessionStars = 0;
   var reduced = false;
+  var lastVictoryId = null;
 
   var $ = function (id) { return document.getElementById(id); };
   var canvas = $("edr-canvas");
@@ -458,31 +459,44 @@
     if (playerBox) playerBox.hidden = true;
   }
 
+  function idMatchesPrefer(id, prefer) {
+    if (!id) return false;
+    for (var i = 0; i < prefer.length; i++) {
+      var p = prefer[i];
+      if (id === p || id.indexOf(p) === 0) return true;
+    }
+    return false;
+  }
+
+  function pickRandom(arr) {
+    if (!arr || !arr.length) return null;
+    return arr[Math.floor(Math.random() * arr.length)];
+  }
+
+  /* Victoire : piste aléatoire dans la langue du site (audio local).
+     Préfère le pool LIGHT_* s'il a des MP3 ; sinon toute piste lang+audio.
+     Évite de rejouer la dernière id quand d'autres candidats existent. */
   function pickLightTrack(list) {
-    if (!tracksCache || !tracksCache.length) return null;
+    if (!list || !list.length) return null;
     var lang = siteLang();
     var prefer = lang === "en" ? LIGHT_EN : LIGHT_FR;
-    var i, tr, id;
-    for (i = 0; i < prefer.length; i++) {
-      id = prefer[i];
-      for (var j = 0; j < list.length; j++) {
-        tr = list[j];
-        if (tr.id === id || (tr.id && tr.id.indexOf(id) === 0)) {
-          if (!lang || tr.lang === lang || !tr.lang) return tr;
-        }
-      }
-    }
-    /* fallback: any track in site language with "léger/light/jeu/slight" in title */
-    var re = /l[eé]ger|light|slight|jeu|gai|joy|rire|sourire|start/i;
+    var withAudio = [];
+    var lightAudio = [];
+    var i, tr;
     for (i = 0; i < list.length; i++) {
       tr = list[i];
+      if (!tr.audio) continue;
       if (tr.lang && tr.lang !== lang) continue;
-      if (re.test(tr.title || "")) return tr;
+      withAudio.push(tr);
+      if (idMatchesPrefer(tr.id, prefer)) lightAudio.push(tr);
     }
-    for (i = 0; i < list.length; i++) {
-      if (!list[i].lang || list[i].lang === lang) return list[i];
+    var pool = lightAudio.length ? lightAudio : withAudio;
+    if (!pool.length) return null;
+    if (pool.length > 1 && lastVictoryId) {
+      var others = pool.filter(function (t) { return t.id !== lastVictoryId; });
+      if (others.length) pool = others;
     }
-    return list[0] || null;
+    return pickRandom(pool);
   }
 
   function playVictoryTrack() {
@@ -490,6 +504,7 @@
     var song = pickLightTrack(list);
     if (!song || !song.audio || !audio) return false;
     try {
+      lastVictoryId = song.id || null;
       stopAudioClip();
       audio.src = song.audio;
       audio.currentTime = 0;
