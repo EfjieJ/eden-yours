@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#140a2e">
+  <title>Les Êtres de Lumière — Eden Yours</title>
+  <meta name="description" content="Prototype : un voyage méditatif de planète en planète, avec le souffle.">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/etres-de-lumiere.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3CradialGradient id='g'%3E%3Cstop stop-color='%23fff'/%3E%3Cstop offset='.5' stop-color='%23fde68a'/%3E%3Cstop offset='1' stop-color='%23a855f7'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='%23140a2e'/%3E%3Ccircle cx='16' cy='16' r='9' fill='url(%23g)'/%3E%3C/svg%3E">
+</head>
+<body class="etres">
+  <canvas id="el-canvas" aria-hidden="true"></canvas>
+
+  <header class="el-top">
+    <a class="el-back" href="index.html" data-t="back">← Eden Yours</a>
+    <div class="el-progress" id="el-progress" role="img" aria-label="Lumières reçues : 0 sur 5"></div>
+    <div class="el-actions">
+      <button type="button" class="el-icon-btn el-finale-btn" id="el-finale-btn" data-t-aria="finaleBtn" aria-label="Finale" hidden>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.4 6.6L21 11l-6.6 2.4L12 20l-2.4-6.6L3 11l6.6-2.4z"/></svg>
+      </button>
+      <button type="button" class="el-icon-btn" id="el-restart" data-t-aria="restart" aria-label="Recommencer">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5a7 7 0 1 1-6.6 4.7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M4 4v5h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button type="button" class="el-icon-btn el-mute" id="el-mute" aria-label="Couper le son" aria-pressed="false">
+        <svg class="i-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <svg class="i-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16.5 9.5l5 5m0-5l-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <p class="el-hint" id="el-hint" aria-live="polite">Touche ou glisse pour voyager</p>
+
+  <section class="el-card" id="el-card" aria-live="polite" aria-hidden="true">
+    <p class="el-kicker" data-t="planetKicker">Planète</p>
+    <h2 class="el-card-name" id="el-card-name"></h2>
+    <p class="el-card-line" id="el-card-line"></p>
+    <p class="el-card-visited" id="el-card-visited" data-t="visited" hidden>Lumière reçue ✓</p>
+    <button type="button" class="el-btn el-btn-primary" id="el-incarnate" data-t="incarnate">S’incarner</button>
+  </section>
+
+  <section class="el-start" id="el-start" hidden>
+    <div class="el-start-inner">
+      <p class="el-kicker">Eden Yours</p>
+      <h1 data-t="title">Les Êtres de Lumière</h1>
+      <p class="el-start-sub" data-t="subtitle">Tu es un être de lumière. Cinq planètes t’attendent, chacune avec un corps à habiter le temps de trente secondes de souffle.</p>
+      <button type="button" class="el-btn el-btn-primary el-btn-big" id="el-start-btn" data-t="start">Commencer le voyage</button>
+      <p class="el-start-note" id="el-start-note">Avec le son, c’est plus doux. Rien à réussir, rien à perdre.</p>
+    </div>
+  </section>
+
+  <section class="el-inc" id="el-inc" hidden>
+    <p class="el-inc-title" id="el-inc-title"></p>
+    <p class="el-inc-phrase" id="el-inc-phrase" aria-live="polite"></p>
+    <p class="el-inc-breath" id="el-inc-breath" aria-live="off"></p>
+    <button type="button" class="el-btn el-btn-ghost el-leave" id="el-leave" data-t="leave">Quitter ce corps</button>
+  </section>
+
+  <section class="el-finale" id="el-finale" hidden>
+    <div class="el-finale-inner">
+      <p class="el-finale-line" id="el-finale-l1" data-t="finaleLine1">Je suis autour.</p>
+      <p class="el-finale-line" id="el-finale-l2" data-t="finaleLine2">Je suis déjà dans le Vrai pur.</p>
+      <p class="el-finale-sub" id="el-finale-sub" data-t="finaleSub">Cinq lumières, un seul être.</p>
+      <div class="el-song" id="el-song" hidden>
+        <img class="el-song-cover" id="el-song-cover" alt="" width="88" height="88">
+        <div class="el-song-meta">
+          <p class="el-kicker" data-t="songKicker">Chanson Eden Yours</p>
+          <h3 class="el-song-title" id="el-song-title"></h3>
+          <p class="el-song-artist" id="el-song-artist">Eden Yours</p>
+        </div>
+        <audio class="el-song-audio" id="el-song-audio" controls preload="none"></audio>
+        <div class="el-song-embed" id="el-song-embed" hidden></div>
+        <button type="button" class="el-btn el-btn-primary" id="el-song-play" data-t="songPlay" hidden>▶ Écouter la chanson</button>
+        <p class="el-song-note" id="el-song-note" hidden></p>
+      </div>
+      <div class="el-finale-actions" id="el-finale-actions">
+        <a class="el-btn el-btn-primary" href="bibliotheque.html" data-t="library">Aller à la bibliothèque</a>
+        <button type="button" class="el-btn el-btn-ghost" id="el-finale-close" data-t="backToStars">Retour aux étoiles</button>
+        <button type="button" class="el-btn el-btn-ghost" id="el-finale-restart" data-t="restart">Recommencer</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="el-toast" id="el-toast" role="status" aria-live="polite"></div>
+  <noscript><p class="el-noscript">Ce voyage a besoin de JavaScript.</p></noscript>
+
+  <script src="js/etres/core.js" defer></script>
+  <script src="js/etres/strings.js" defer></script>
+  <script src="js/etres/audio.js" defer></script>
+  <script src="js/etres/planets.js" defer></script>
+  <script src="js/etres/incarnation.js" defer></script>
+  <script src="js/etres/finale.js" defer></script>
+  <script src="js/etres-de-lumiere.js" defer></script>
+</body>
+</html>
