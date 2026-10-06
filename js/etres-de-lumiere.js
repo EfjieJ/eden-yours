@@ -22,7 +22,10 @@
   var restartArmed = 0, toastTimer = null;
   var WORLD_R = 2400, MAXS = 520, FONT = "system-ui, sans-serif";
 
-  var BASE_SKY = [[20, 9, 46], [86, 38, 132], [232, 166, 88]];
+  /* même ciel que le site : violet profond (#120a26) en haut, or chaud en bas */
+  var BASE_SKY = [[18, 10, 38], [84, 40, 132], [236, 170, 92]];
+  /* aurores du site (js/ambiance.js, partagées via js/eden-passage.js) peintes dans le ciel basse résolution */
+  var AURORA = (window.EdenPassage && window.EdenPassage.AURORA) || [], auroraSprites = null;
 
   var ui = {
     start: $("el-start"), startBtn: $("el-start-btn"), startNote: $("el-start-note"),
@@ -219,6 +222,28 @@
     return s;
   }
 
+  /* aurores qui respirent (mêmes nappes, teintes et périodes que le site) ; figées si mouvement réduit.
+     Elles s'effacent un peu près d'une planète pour laisser son ciel propre s'exprimer. */
+  function drawAurora(b) {
+    if (!AURORA.length) return;
+    if (!auroraSprites) auroraSprites = AURORA.map(function (a) {
+      var n = 64, c = U.canvas(n, n), g = c.getContext("2d"), gr = g.createRadialGradient(n / 2, n / 2, 0, n / 2, n / 2, n / 2);
+      gr.addColorStop(0, "rgba(" + a[4] + ",1)"); gr.addColorStop(0.35, "rgba(" + a[4] + ",0.72)");
+      gr.addColorStop(0.7, "rgba(" + a[4] + ",0.22)"); gr.addColorStop(1, "rgba(" + a[4] + ",0)");
+      g.fillStyle = gr; g.fillRect(0, 0, n, n);
+      return c;
+    });
+    var t = EL.reduced ? 0 : T, near = Math.max.apply(null, prox), fade = 1 - 0.45 * near * near;
+    for (var i = 0; i < AURORA.length; i++) {
+      var a = AURORA[i], ph = (t / a[6]) * TAU + i * 1.7;
+      var cx = (a[0] + Math.sin(ph) * a[7]) * W, cy = (a[1] + Math.cos(ph * 0.8) * a[7] * 0.6) * H;
+      var sc = 1 + Math.sin(ph * 0.5) * 0.05, rx = a[2] * W * sc, ry = a[3] * H * sc;
+      b.globalAlpha = fade * a[5] * (1 - a[8] / 2 + (a[8] / 2) * Math.sin(ph + 0.6));
+      b.drawImage(auroraSprites[i], cx - rx, cy - ry, rx * 2, ry * 2);
+    }
+    b.globalAlpha = 1;
+  }
+
   /* ciel + nébuleuses : rendus en basse résolution (doux par nature) puis agrandis — économise le remplissage */
   var bgCv = null;
   function drawBackground() {
@@ -235,6 +260,7 @@
     b.fillRect(0, 0, W, H);
     b.globalCompositeOperation = "lighter";
     var i, k, n;
+    drawAurora(b);
     for (i = 0; i < nebulae.length; i++) {
       n = nebulae[i];
       var nx = (((n.x - cam.x * ZOOM * 0.06) % (W * 2)) + W * 2) % (W * 2) - W * 0.5;

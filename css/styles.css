@@ -2415,3 +2415,135 @@ html.eden-aurora-canvas .eden-aurora { display: none; }
   .game-card, .game-visual, .other-game { transition: none; }
 }
 
+
+/* ============================================================
+   Passage doux — étoile secrète de l'accueil ↔ Êtres de Lumière (js/eden-passage.js)
+   ============================================================ */
+/* arrivée : l'écran commence blanc doré puis se dissout dans le ciel (aucun flash : classe posée dans <head>) */
+html.eden-pass-in::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 2147483000;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 45%, #fffaf0 0%, #fff1d2 38%, #fbdc9e 72%, #f2c779 100%);
+  animation: eden-pass-in 1s ease-out forwards;
+}
+html.eden-pass-in--etres::after { animation-duration: 1.4s; animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1); }
+html.eden-pass-reduced::after { animation: eden-pass-fade 0.4s linear forwards !important; }
+@keyframes eden-pass-in {
+  0%, 14% { opacity: 1; }
+  100% { opacity: 0; }
+}
+@keyframes eden-pass-fade { from { opacity: 1; } to { opacity: 0; } }
+
+/* départ : éclosion depuis l'étoile (violet → or → blanc doré), ou repli du ciel dans la lumière */
+.eden-passage {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483000;
+  pointer-events: none;
+  overflow: hidden;
+}
+.eden-passage-bloom,
+.eden-passage-light { position: absolute; inset: 0; pointer-events: none; }
+.eden-passage-bloom {
+  background: radial-gradient(circle at var(--x, 50%) var(--y, 50%),
+    #fffaf0 0%, #fff1d2 10%, rgba(246, 201, 106, 0.95) 24%, rgba(192, 132, 252, 0.85) 46%, rgba(124, 58, 237, 0.7) 70%);
+  clip-path: circle(0 at var(--x, 50%) var(--y, 50%));
+  animation: eden-passage-bloom 1.2s cubic-bezier(0.5, 0, 0.3, 1) forwards;
+}
+.eden-passage-light {
+  background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), #fffaf0 0%, #fff1d2 38%, #fbdc9e 72%, #f2c779 100%);
+  opacity: 0;
+  animation: eden-passage-light 1.2s ease-in forwards;
+}
+@keyframes eden-passage-bloom {
+  0% { clip-path: circle(0 at var(--x, 50%) var(--y, 50%)); opacity: 0.7; }
+  100% { clip-path: circle(160vmax at var(--x, 50%) var(--y, 50%)); opacity: 1; }
+}
+@keyframes eden-passage-light {
+  0%, 35% { opacity: 0; }
+  100% { opacity: 1; }
+}
+.eden-passage--fold .eden-passage-bloom { animation-duration: 0.9s; }
+.eden-passage--fold .eden-passage-light { animation-duration: 0.9s; }
+.eden-passage--reduced .eden-passage-bloom { display: none; }
+.eden-passage--reduced .eden-passage-light { animation: eden-pass-fade 0.4s linear reverse forwards; }
+
+/* étoile secrète : petite étoile dorée qui scintille dans le ciel de l'accueil (cible tactile 44 px) */
+.eden-secret-star {
+  position: absolute;
+  top: 0.35rem;
+  right: max(0.5rem, calc(50% - 34rem));
+  z-index: 2;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.eden-secret-star-core,
+.eden-secret-star-core::before,
+.eden-secret-star-core::after { position: absolute; left: 50%; top: 50%; pointer-events: none; }
+.eden-secret-star-core {
+  width: 5px;
+  height: 5px;
+  margin: -2.5px 0 0 -2.5px;
+  border-radius: 50%;
+  background: #fff6dc;
+  box-shadow: 0 0 4px 1px rgba(255, 230, 170, 0.9), 0 0 10px 3px rgba(246, 201, 106, 0.45);
+  animation: eden-star-twinkle 3.8s ease-in-out infinite;
+}
+/* rayons fins (étoile à quatre branches) */
+.eden-secret-star-core::before,
+.eden-secret-star-core::after {
+  content: "";
+  width: 1.5px;
+  height: 14px;
+  margin: -7px 0 0 -0.75px;
+  border-radius: 1px;
+  background: linear-gradient(to bottom, transparent, rgba(255, 236, 190, 0.95), transparent);
+}
+.eden-secret-star-core::after { transform: rotate(90deg); }
+/* halo qui s'éveille environ toutes les 20 s */
+.eden-secret-star::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 30px;
+  height: 30px;
+  margin: -15px 0 0 -15px;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(255, 236, 190, 0.85) 0%, rgba(246, 201, 106, 0.4) 35%, rgba(192, 132, 252, 0.12) 60%, transparent 72%);
+  opacity: 0;
+  transform: scale(0.4);
+  animation: eden-star-pulse 20s ease-in-out 6s infinite;
+}
+.eden-secret-star:hover,
+.eden-secret-star:focus-visible { filter: brightness(1.3) drop-shadow(0 0 6px rgba(255, 226, 160, 0.7)); }
+.eden-secret-star:focus-visible { outline: 2px solid var(--gold); outline-offset: -4px; }
+.eden-secret-star.is-opening::after { animation: none; opacity: 1; transform: scale(1.6); transition: transform 0.5s, opacity 0.5s; }
+@keyframes eden-star-twinkle {
+  0%, 100% { opacity: 0.62; transform: scale(0.85) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1.1) rotate(12deg); }
+}
+@keyframes eden-star-pulse {
+  0%, 88%, 100% { opacity: 0; transform: scale(0.4); }
+  92% { opacity: 1; transform: scale(1.25); }
+  96% { opacity: 0.25; transform: scale(0.9); }
+}
+@media (max-width: 640px) {
+  .eden-secret-star { top: 0.1rem; right: 0.35rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .eden-secret-star-core { animation: none; opacity: 0.9; }
+  .eden-secret-star::after { animation: none; opacity: 0.35; transform: scale(0.7); }
+  .eden-passage-bloom { display: none; }
+}

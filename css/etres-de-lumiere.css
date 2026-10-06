@@ -8,7 +8,7 @@ body.etres {
   margin: 0;
   padding: 0;
   min-height: 0;
-  background: #140a2e;
+  background: #120a26;
   color: #fff8f0;
   -webkit-tap-highlight-color: transparent;
   -webkit-user-select: none;
@@ -163,6 +163,9 @@ body.etres::before, body.etres::after { display: none !important; content: none 
 }
 .el-start.is-on { opacity: 1; }
 .el-start.is-off { opacity: 0; pointer-events: none; }
+/* le voile d'accueil laisse passer les touches vers « ← Eden Yours » (barre du haut, z-index 20) */
+.el-start { pointer-events: none; }
+.el-start.is-on .el-start-inner { pointer-events: auto; }
 .el-start-inner { max-width: 560px; text-align: center; }
 .el-start h1 {
   margin: 8px 0 12px;
