@@ -255,6 +255,7 @@
     var ui = this.ui, A = EL.Audio;
     if (ph === "forming") {
       this.setText("title", this.txt.name, EL.t("forming"));
+      startDiscovery();
     } else if (ph === "breathing") {
       ui.title.classList.remove("is-on");
       ui.breath.classList.add("is-on");
