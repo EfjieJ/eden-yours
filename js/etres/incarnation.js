@@ -15,6 +15,65 @@
   };
   var BASE = [0.6, 0.66, 0.73, 0.8];
 
+  /* Chanson de découverte (tirée au hasard parmi les 29) : Particule Pure.
+     Démarre à l'arrivée sur la surface de la planète (« forming »). */
+  var DISCOVERY = {
+    id: "dead13bb-42bc-492e-83a1-87609f224734",
+    title: "Particule Pure",
+    src: "assets/audio/dead13bb-42bc-492e-83a1-87609f224734.mp3"
+  };
+  var discoveryAudio = null;
+  var discoveryFade = null;
+
+  function stopDiscovery(fast) {
+    if (discoveryFade) { clearInterval(discoveryFade); discoveryFade = null; }
+    var a = discoveryAudio;
+    if (!a) return;
+    if (fast) {
+      try { a.pause(); } catch (e) {}
+      a.removeAttribute("src");
+      try { a.load(); } catch (e2) {}
+      discoveryAudio = null;
+      return;
+    }
+    var v = a.volume;
+    discoveryFade = setInterval(function () {
+      v = Math.max(0, v - 0.06);
+      a.volume = v;
+      if (v <= 0.01) {
+        clearInterval(discoveryFade); discoveryFade = null;
+        try { a.pause(); } catch (e) {}
+        a.removeAttribute("src");
+        try { a.load(); } catch (e2) {}
+        discoveryAudio = null;
+      }
+    }, 80);
+  }
+
+  function startDiscovery() {
+    stopDiscovery(true);
+    var a = discoveryAudio = new Audio(DISCOVERY.src);
+    a.preload = "auto";
+    a.loop = false;
+    a.volume = 0;
+    a.muted = !!(EL.Audio && EL.Audio.muted);
+    discoveryAudio = a;
+    if (EL.Audio && EL.Audio.fadeOutAll) EL.Audio.fadeOutAll(2.5);
+    var tryPlay = function () {
+      var pr = a.play();
+      if (pr && pr.catch) pr.catch(function () {});
+    };
+    tryPlay();
+    var v = 0;
+    discoveryFade = setInterval(function () {
+      if (!discoveryAudio) { clearInterval(discoveryFade); discoveryFade = null; return; }
+      v = Math.min(0.72, v + 0.04);
+      a.volume = v;
+      if (v >= 0.72) { clearInterval(discoveryFade); discoveryFade = null; }
+    }, 100);
+  }
+
+
   /* ---------- silhouettes : une posture par planète (unités : hauteur du corps = 100) ---------- */
   function drawPose(g, i) {
     g.fillStyle = g.strokeStyle = "#fff";
@@ -205,6 +264,7 @@
       ui.breath.classList.remove("is-on");
       ui.title.classList.remove("is-on");
       if (ui.leave) ui.leave.hidden = true;
+      stopDiscovery(false);
       if (this.audioOn) { A.breathEnd(); A.whoosh(true, ph === "quit" ? 1.6 : 2.8); }
       if (ph === "dissolve") {
         this.success = true;
@@ -220,6 +280,7 @@
       if (this.audioOn) A.whoosh(true, 2.2);
     } else if (ph === "done") {
       ui.phrase.classList.remove("is-on", "is-gift");
+      stopDiscovery(true);
       if (this.onExit) this.onExit(this.success);
     }
   };
@@ -666,4 +727,7 @@
   };
 
   EL.Incarnation = Incarnation;
+  EL.setDiscoveryMuted = function (m) { if (discoveryAudio) discoveryAudio.muted = !!m; };
+  EL.stopDiscoverySong = stopDiscovery;
+  EL.DISCOVERY_SONG = DISCOVERY;
 })();

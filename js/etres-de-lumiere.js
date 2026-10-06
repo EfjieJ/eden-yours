@@ -528,7 +528,7 @@
     }
     restartArmed = 0; ui.restart.classList.remove("is-armed");
     if (finale) closeFinale();
-    if (inc) { inc = null; ui.inc.classList.remove("is-on"); ui.inc.hidden = true; document.body.classList.remove("is-incarnated"); EL.Audio.unfocus(); }
+    if (inc) { inc = null; ui.inc.classList.remove("is-on"); ui.inc.hidden = true; document.body.classList.remove("is-incarnated"); EL.Audio.unfocus(); if (EL.stopDiscoverySong) EL.stopDiscoverySong(true); }
     state = { done: [], finaleSeen: false };
     EL.store.clear();
     shards = []; bursts = []; trail = [];
@@ -609,6 +609,7 @@
   ui.mute.addEventListener("click", function () {
     EL.Audio.setMuted(!EL.Audio.muted);
     if (finale) finale.setMuted(EL.Audio.muted);
+    if (EL.setDiscoveryMuted) EL.setDiscoveryMuted(EL.Audio.muted);
     updateMuteBtn();
   });
   ui.restart.addEventListener("click", restart);
