@@ -1623,3 +1623,35 @@ body.unlock-modal-open {
     justify-content: center;
   }
 }
+
+/* ---------- Suno embed tracks (embed_url, no local MP3) ---------- */
+.player-embed {
+  grid-column: 1 / -1;
+  width: 100%;
+}
+.player-embed[hidden] { display: none; }
+.player-embed iframe {
+  display: block;
+  width: 100%;
+  height: 240px;
+  border: 0;
+  border-radius: var(--radius-xs);
+}
+.player-bar.is-embed {
+  height: auto;
+  padding-top: 0.6rem;
+  padding-bottom: 0.6rem;
+}
+.player-bar.is-embed .progress-row,
+.player-bar.is-embed .volume-wrap,
+.player-bar.is-embed .js-toggle { display: none; }
+body.has-embed-player {
+  padding-bottom: calc(var(--player-h) + 280px);
+}
+.track-badge.suno-embed-badge {
+  color: var(--accent-2);
+  border-color: currentColor;
+}
+@media (max-width: 720px) {
+  .player-bar.is-embed .player-now { display: none; }
+}

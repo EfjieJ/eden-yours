@@ -95,6 +95,16 @@ window.EDEN_CONFIG = {
 - `audio_url` : chemin **local relatif** (préféré).
 - `suno_share` : lien secondaire « Écouter sur Suno ».
 - `featured: true` : titre mis en avant sur l'accueil (un seul recommandé).
+- `lang` : `"fr"` ou `"en"` — seule la langue choisie sur le site est affichée.
+
+### Titre sans MP3 : lecteur Suno intégré
+
+Pour une chanson sans fichier audio local, mettez `"audio_url": null` et ajoutez
+`"embed_url": "https://suno.com/embed/<uuid-du-clip>"`. Le lecteur, la bibliothèque et
+le casse-tête affichent alors l'iframe Suno (pas de limite de 30 s : c'est Suno qui gère
+la lecture). Ces titres ne sont pas proposés dans Rythme-Compasse / Création-Demain
+(qui ont besoin de segments audio locaux). Pour le casse-tête, ajoutez aussi l'entrée
+dans `SONGS` de `js/casse-tete.js` avec `embed:` au lieu de `audio:`.
 
 ---
 

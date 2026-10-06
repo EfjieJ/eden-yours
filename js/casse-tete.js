@@ -18,6 +18,8 @@
     { id: "2c1321b1-378d-47f3-be06-1ba9437edd30", lang: "fr", title: "La Vraie Liberté", cover: "assets/covers/2c1321b1-378d-47f3-be06-1ba9437edd30.jpeg", audio: "assets/audio/2c1321b1-378d-47f3-be06-1ba9437edd30.mp3" },
     { id: "e9a0dfac-1925-49e4-aa3a-a2b8c20bc06c", lang: "fr", title: "Commencer", cover: "assets/covers/e9a0dfac-1925-49e4-aa3a-a2b8c20bc06c.jpeg", audio: "assets/audio/e9a0dfac-1925-49e4-aa3a-a2b8c20bc06c.mp3" },
     { id: "04441f4e-8d4b-4831-a038-c5a602e09e25", lang: "fr", title: "Le postulat", cover: "assets/covers/04441f4e-8d4b-4831-a038-c5a602e09e25.jpeg", audio: "assets/audio/04441f4e-8d4b-4831-a038-c5a602e09e25.mp3" },
+    /* Pas de MP3 local : lecteur Suno intégré (iframe) à la fin du casse-tête. */
+    { id: "3fa852e8-50d1-4b6f-a02d-84a7d3a0575a", lang: "fr", title: "Accompagner la régénération", cover: "assets/covers/3fa852e8-50d1-4b6f-a02d-84a7d3a0575a.jpeg", embed: "https://suno.com/embed/3fa852e8-50d1-4b6f-a02d-84a7d3a0575a" },
     { id: "a11c8f21-163b-4b53-8d3a-5353e809bb50", lang: "en", title: "Start - Continue - Finish", cover: "assets/covers/a11c8f21-163b-4b53-8d3a-5353e809bb50.jpeg", audio: "assets/audio/a11c8f21-163b-4b53-8d3a-5353e809bb50.mp3" },
     { id: "a5ba4262-22f6-4c9c-a6df-05bff2d5e713", lang: "en", title: "The Body Is an Antenna", cover: "assets/covers/a5ba4262-22f6-4c9c-a6df-05bff2d5e713.jpeg", audio: "assets/audio/a5ba4262-22f6-4c9c-a6df-05bff2d5e713.mp3" },
     { id: "18a2266c-70b1-4e80-94e5-144a5ccd29fc", lang: "en", title: "Start", cover: "assets/covers/18a2266c-70b1-4e80-94e5-144a5ccd29fc.jpeg", audio: "assets/audio/18a2266c-70b1-4e80-94e5-144a5ccd29fc.mp3" },
@@ -46,6 +48,7 @@
       winLine: function (title) { return "Écoute « " + title + " »."; },
       solved: "La pochette est entière. La chanson peut jouer.",
       blocked: "Appuie sur lecture si le son ne part pas tout seul.",
+      embedTap: "La pochette est entière. Appuie sur lecture dans le lecteur Suno.",
       shuffle: "Mélanger",
       replay: "Rejouer",
       pause: "Pause",
@@ -78,6 +81,7 @@
       winLine: function (title) { return "Listen to “" + title + "”."; },
       solved: "The cover is complete. The song can play.",
       blocked: "Press play if the sound does not start on its own.",
+      embedTap: "The cover is complete. Press play in the Suno player.",
       shuffle: "Shuffle",
       replay: "Play again",
       pause: "Pause",
@@ -321,11 +325,47 @@
     audio.pause();
   }
 
+  /* Chansons sans MP3 (champ embed) : lecteur Suno en iframe à la place de <audio>. */
+  var embedBox = null;
+  var stopBtn = document.getElementById("btn-stop");
+
+  function clearEmbed() {
+    if (embedBox) {
+      embedBox.innerHTML = "";
+      embedBox.hidden = true;
+    }
+    audio.hidden = false;
+    if (stopBtn) stopBtn.hidden = false;
+  }
+
+  function showEmbed(current) {
+    if (!embedBox) {
+      embedBox = document.createElement("div");
+      embedBox.className = "win-embed";
+      embedBox.id = "win-embed";
+      audio.parentNode.insertBefore(embedBox, audio);
+    }
+    embedBox.innerHTML = "";
+    var frame = document.createElement("iframe");
+    frame.src = current.embed;
+    frame.width = "100%";
+    frame.height = "240";
+    frame.setAttribute("frameborder", "0");
+    frame.setAttribute("allow", "autoplay; clipboard-write; encrypted-media");
+    frame.setAttribute("title", current.title + " — Suno");
+    frame.className = "suno-embed";
+    embedBox.appendChild(frame);
+    embedBox.hidden = false;
+    audio.hidden = true;
+    if (stopBtn) stopBtn.hidden = true;
+  }
+
   function hideWin() {
     winPanel.classList.remove("is-open");
     stopAudio();
     audio.removeAttribute("src");
     audio.load();
+    clearEmbed();
   }
 
   function showWin() {
@@ -337,6 +377,11 @@
     winPanel.classList.add("is-open");
     hint.textContent = text.solved;
     board.classList.add("is-solved");
+    if (current.embed && !current.audio) {
+      showEmbed(current);
+      hint.textContent = text.embedTap;
+      return;
+    }
     audio.src = current.audio;
     var playPromise = audio.play();
     if (playPromise && typeof playPromise.catch === "function") {
@@ -568,6 +613,7 @@
     if (song()) start();
   });
   document.getElementById("btn-stop").addEventListener("click", function () {
+    if (!audio.getAttribute("src")) return;
     if (audio.paused) audio.play();
     else audio.pause();
   });

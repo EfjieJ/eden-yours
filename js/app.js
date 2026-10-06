@@ -112,6 +112,7 @@
       setUnlocked(true);
       hideUnlockModal();
       updatePreviewBadges();
+      if (isEmbedTrack(tracks[currentIndex])) return;
       const a = ensureAudio();
       const limit = previewLimit();
       if (a.currentTime >= limit - 0.35) a.currentTime = 0;
@@ -155,7 +156,7 @@
 
   function updatePreviewBadges() {
     const unlocked = isUnlocked();
-    $$(".track-row:not(.is-soon) .track-badge").forEach((badge) => {
+    $$(".track-row:not(.is-soon):not(.is-embed) .track-badge").forEach((badge) => {
       if (badge.classList.contains("soon")) return;
       badge.classList.toggle("preview", !unlocked);
       badge.textContent = unlocked
@@ -224,6 +225,7 @@
         audio.load();
       } catch (_) {}
     }
+    clearEmbed();
     currentIndex = -1;
     currentId = null;
     const bar = $(".player-bar");
@@ -269,13 +271,84 @@
     return tracks[i] || null;
   }
 
+  // ---------- Suno embed tracks (embed_url, no local audio) ----------
+  // Suno's own player handles playback: no 30 s freemium gate, no <audio>.
+  function isEmbedTrack(t) {
+    return !!(t && t.embed_url && !t.audio_url);
+  }
+
+  function embedSlot() {
+    return $(".player-bar .player-embed");
+  }
+
+  function clearEmbed() {
+    const slot = embedSlot();
+    if (slot) {
+      slot.innerHTML = "";
+      slot.hidden = true;
+    }
+    const bar = $(".player-bar");
+    if (bar) bar.classList.remove("is-embed");
+    document.body.classList.remove("has-embed-player");
+  }
+
+  function showEmbed(t) {
+    const bar = $(".player-bar");
+    const slot = embedSlot();
+    if (!bar || !slot) return;
+    const current = slot.querySelector("iframe");
+    if (!current || current.getAttribute("data-id") !== t.id) {
+      slot.innerHTML = "";
+      const frame = document.createElement("iframe");
+      frame.src = t.embed_url;
+      frame.width = "100%";
+      frame.height = "240";
+      frame.setAttribute("frameborder", "0");
+      frame.setAttribute("allow", "autoplay; clipboard-write; encrypted-media");
+      frame.setAttribute("title", (t.title || "Suno") + " — Suno");
+      frame.setAttribute("data-id", t.id);
+      frame.className = "suno-embed";
+      slot.appendChild(frame);
+    }
+    slot.hidden = false;
+    bar.classList.add("is-embed");
+    document.body.classList.add("has-embed-player");
+  }
+
+  function playEmbedTrack(index) {
+    const t = tracks[index];
+    if (audio) {
+      audio.onerror = null;
+      audio.pause();
+      try {
+        audio.removeAttribute("src");
+        audio.removeAttribute("data-id");
+        audio.removeAttribute("data-tried-aac");
+        audio.load();
+      } catch (_) {}
+    }
+    hideUnlockModal();
+    currentIndex = index;
+    currentId = t.id;
+    showPlayerBar(t);
+    showEmbed(t);
+    highlightActiveRow();
+    updatePlayerCard(t);
+    updatePlayButtons(false);
+  }
+
   function playTrack(index) {
     if (index < 0 || index >= tracks.length) return;
     const t = tracks[index];
+    if (isEmbedTrack(t)) {
+      playEmbedTrack(index);
+      return;
+    }
     if (!t.audio_url) {
       toast(i18n("toast.noAudio"));
       return;
     }
+    clearEmbed();
     const a = ensureAudio();
     const switching = currentIndex !== index;
     currentIndex = index;
@@ -314,6 +387,7 @@
       if (tracks.length) playTrack(0);
       return;
     }
+    if (isEmbedTrack(tracks[currentIndex])) return;
     const a = ensureAudio();
     if (a.paused) a.play().catch(() => {});
     else a.pause();
@@ -328,7 +402,7 @@
   function playPrev() {
     if (!tracks.length) return;
     const a = ensureAudio();
-    if (a.currentTime > 3) {
+    if (!isEmbedTrack(tracks[currentIndex]) && a.currentTime > 3) {
       a.currentTime = 0;
       return;
     }
@@ -348,6 +422,7 @@
   }
 
   function seekFromEvent(e, bar) {
+    if (isEmbedTrack(tracks[currentIndex])) return;
     const a = ensureAudio();
     if (!a.duration) return;
     const rect = bar.getBoundingClientRect();
@@ -474,6 +549,7 @@
             </div>
             <a class="btn btn-suno js-suno-link" href="#" target="_blank" rel="noopener" hidden style="padding:0.45rem 0.9rem;font-size:0.8rem;">Suno</a>
           </div>
+          <div class="player-embed" hidden></div>
         </div>`;
       document.body.appendChild(bar);
     }
@@ -516,8 +592,12 @@
 
     let html = "";
     tracks.forEach((t, i) => {
+      const embed = isEmbedTrack(t);
+      const badge = embed
+        ? `<span class="track-badge suno-embed-badge">Suno</span>`
+        : `<span class="track-badge${isUnlocked() ? "" : " preview"}">${escapeHtml(isUnlocked() ? i18n("player.available") : i18n("unlock.previewBadge"))}</span>`;
       html += `
-        <article class="track-row" data-index="${i}" role="button" tabindex="0" aria-label="${escapeAttr(i18n("player.playTrack", { title: t.title }))}">
+        <article class="track-row${embed ? " is-embed" : ""}" data-index="${i}" role="button" tabindex="0" aria-label="${escapeAttr(i18n("player.playTrack", { title: t.title }))}">
           <span class="track-num">${String(i + 1).padStart(2, "0")}</span>
           <div class="track-cover">
             ${t.cover_url
@@ -528,7 +608,7 @@
             <h3>${escapeHtml(t.title)}</h3>
             <div class="sub">${escapeHtml(t.artist || cfg.artistName || "")}</div>
           </div>
-          <span class="track-badge${isUnlocked() ? "" : " preview"}">${escapeHtml(isUnlocked() ? i18n("player.available") : i18n("unlock.previewBadge"))}</span>
+          ${badge}
           <button type="button" class="track-play-btn" aria-label="${escapeAttr(i18n("player.playAria"))}">${iconPlay()}</button>
         </article>`;
     });

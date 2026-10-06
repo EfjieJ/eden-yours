@@ -483,3 +483,18 @@ body.page-casse {
     font-size: 1.2rem;
   }
 }
+
+/* Chanson sans MP3 : lecteur Suno intégré */
+.win-embed {
+  width: 100%;
+  margin-bottom: 0.75rem;
+}
+.win-embed[hidden] { display: none; }
+.win-embed iframe {
+  display: block;
+  width: 100%;
+  height: 240px;
+  border: 0;
+  border-radius: 10px;
+}
+.win-actions .btn[hidden] { display: none; }

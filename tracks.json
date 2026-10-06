@@ -246,6 +246,21 @@
       "featured": false,
       "audio_url_aac": "assets/audio/b0eb0f76-f2d8-4e16-85a9-037fc3f32b01.m4a",
       "lang": "en"
+    },
+    {
+      "id": "3fa852e8-50d1-4b6f-a02d-84a7d3a0575a",
+      "title": "Accompagner la régénération",
+      "artist": "Eden Yours",
+      "sunoArtist": "efjie8008",
+      "sunoTitle": "Régénération instant présence",
+      "audio_url": null,
+      "embed_url": "https://suno.com/embed/3fa852e8-50d1-4b6f-a02d-84a7d3a0575a",
+      "cover_url": "assets/covers/3fa852e8-50d1-4b6f-a02d-84a7d3a0575a.jpeg",
+      "suno_share": "https://suno.com/s/S3cCsh0GTMe1CkB7",
+      "duration": 250.2,
+      "featured": false,
+      "audio_url_aac": null,
+      "lang": "fr"
     }
   ]
 }
