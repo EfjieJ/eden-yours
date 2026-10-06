@@ -2975,6 +2975,85 @@ html.eden-pass-reduced::after { animation: eden-pass-fade 0.4s linear forwards !
   .gm-carte-glow { animation: none; }
 }
 
+/* Danse des Êtres de Lumière — portail (accueil) */
+.game-card--scene3d::before { animation-delay: -8.3s; }
+.gm-scene3d {
+  position: relative;
+  min-height: 118px;
+  padding: 18px 12px 10px;
+  background:
+    radial-gradient(ellipse 80% 55% at 50% 95%, rgba(233, 161, 90, 0.55), transparent 70%),
+    linear-gradient(180deg, #0d2a4a 0%, #2a4f7a 55%, #c9875a 100%);
+  border-radius: 999px 999px 18px 18px;
+  overflow: hidden;
+}
+.gm-scene3d-sun {
+  position: absolute;
+  right: 22%;
+  bottom: 30px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff3d1, #ffc27a 60%, rgba(255, 194, 122, 0));
+  box-shadow: 0 0 26px rgba(255, 194, 122, 0.8);
+}
+.gm-scene3d-hill {
+  position: absolute;
+  left: -10%;
+  right: -10%;
+  bottom: -38px;
+  height: 70px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at 50% 0%, #4f9a8a, #2d5b6b 70%);
+}
+.gm-scene3d-being {
+  position: absolute;
+  left: 50%;
+  bottom: 22px;
+  width: 38px;
+  height: 38px;
+  margin-left: -19px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 36% 32%, #ffffff, #8BB8E8 50%, #5a8cc4);
+  box-shadow: 0 0 18px rgba(139, 184, 232, 0.75);
+  animation: s3d-portal-dance 1.6s ease-in-out infinite;
+}
+.gm-scene3d-halo {
+  position: absolute;
+  left: 50%;
+  top: -10px;
+  width: 24px;
+  height: 7px;
+  margin-left: -12px;
+  border-radius: 50%;
+  border: 2px solid #F6C66A;
+  box-shadow: 0 0 10px rgba(246, 198, 106, 0.85);
+}
+.gm-scene3d-spark {
+  position: absolute;
+  left: calc(32% + var(--i) * 17%);
+  bottom: 40px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #fde68a;
+  box-shadow: 0 0 10px rgba(253, 230, 138, 0.9);
+  animation: s3d-portal-spark 3s ease-in-out infinite;
+  animation-delay: calc(var(--i) * -1s);
+}
+@keyframes s3d-portal-dance {
+  0%, 100% { transform: translateY(0) scale(1.04, 0.96); }
+  50% { transform: translateY(-10px) scale(0.97, 1.03) rotate(4deg); }
+}
+@keyframes s3d-portal-spark {
+  0% { opacity: 0; transform: translateY(10px) scale(0.6); }
+  40% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-40px) scale(1.1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gm-scene3d-being, .gm-scene3d-spark { animation: none; }
+}
+
 /* ---------- Coureurs cartoon (ambiance accueil) ---------- */
 .eden-runners {
   position: fixed;

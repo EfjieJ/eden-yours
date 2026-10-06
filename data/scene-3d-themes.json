@@ -1,0 +1,436 @@
+{
+ "version": 1,
+ "default": "lumiere",
+ "note": "Thèmes de la scène 3D. Associations basées uniquement sur le titre réel et les paroles réelles disponibles dans le dépôt (data/lyrics-sources.json, specs). Les extraits sont copiés mot pour mot; jamais inventés.",
+ "themes": {
+  "lumiere": {
+   "label": {
+    "fr": "Être de lumière",
+    "en": "Light being"
+   },
+   "character": {
+    "fr": "un petit être de lumière qui danse",
+    "en": "a little light being dancing"
+   },
+   "sky": [
+    "#0d2a4a",
+    "#e9a15a",
+    "#3a2a3a"
+   ],
+   "sun": "#ffc27a",
+   "cool": "#7EB6D9",
+   "warm": "#F6C66A",
+   "accent": "#FDE68A",
+   "ground": "#2d5b6b",
+   "night": 0.35
+  },
+  "reveur": {
+   "label": {
+    "fr": "Le Rêveur",
+    "en": "The Dreamer"
+   },
+   "character": {
+    "fr": "un nuage dormeur dont les rêves s'allument en lumières dorées",
+    "en": "a cloud sleeper whose dreams light up as golden lights"
+   },
+   "sky": [
+    "#050b26",
+    "#22306a",
+    "#0b1236"
+   ],
+   "sun": "#ffcf8a",
+   "cool": "#C9D6FF",
+   "warm": "#FFD27A",
+   "accent": "#FFE7A3",
+   "ground": "#141c46",
+   "night": 1.0
+  },
+  "oui": {
+   "label": {
+    "fr": "Le Oui",
+    "en": "The Yes"
+   },
+   "character": {
+    "fr": "une petite plante-étoile qui fait oui à chaque battement",
+    "en": "a little star-plant nodding yes on every beat"
+   },
+   "sky": [
+    "#123a5a",
+    "#f2a65e",
+    "#4a3346"
+   ],
+   "sun": "#ffbf6b",
+   "cool": "#5FC9C2",
+   "warm": "#FFC94D",
+   "accent": "#FFE08A",
+   "ground": "#6fbf7a",
+   "night": 0.15
+  },
+  "particule": {
+   "label": {
+    "fr": "La particule de lumière",
+    "en": "The light particle"
+   },
+   "character": {
+    "fr": "une particule de lumière qui réveille les autres jusqu'à former une galaxie",
+    "en": "a light particle waking other lights until they form a galaxy"
+   },
+   "sky": [
+    "#01040c",
+    "#071a2e",
+    "#010309"
+   ],
+   "sun": "#ffd08a",
+   "cool": "#5ED6E6",
+   "warm": "#FFC46B",
+   "accent": "#FFF3D1",
+   "ground": "#030a14",
+   "night": 0.8
+  },
+  "coeur": {
+   "label": {
+    "fr": "Le Double Cœur",
+    "en": "The Double Heart"
+   },
+   "character": {
+    "fr": "un cœur et son cœur jumeau qui tourne autour de lui",
+    "en": "a heart and its twin heart orbiting around it"
+   },
+   "sky": [
+    "#1a1546",
+    "#e48a6a",
+    "#3a1f45"
+   ],
+   "sun": "#ffb27a",
+   "cool": "#6FA8E8",
+   "warm": "#FF9EB5",
+   "accent": "#FFD08A",
+   "ground": "#3d4f8a",
+   "night": 0.4
+  },
+  "souffle": {
+   "label": {
+    "fr": "Le Souffle et la Main",
+    "en": "The Breath and the Hand"
+   },
+   "character": {
+    "fr": "un souffle doré qui fait fleurir les fleurs là où la main se pose",
+    "en": "a golden breath making flowers bloom where the hand rests"
+   },
+   "sky": [
+    "#0c3a52",
+    "#f0b46a",
+    "#2a3a44"
+   ],
+   "sun": "#ffc27a",
+   "cool": "#4FC3C9",
+   "warm": "#FFC860",
+   "accent": "#FFE3A0",
+   "ground": "#3f8f7a",
+   "night": 0.2
+  },
+  "creation": {
+   "label": {
+    "fr": "Création",
+    "en": "Creation"
+   },
+   "character": {
+    "fr": "un être de lumière qui bâtit une tour de blocs lumineux",
+    "en": "a light being building a tower of glowing blocks"
+   },
+   "sky": [
+    "#1a1a4e",
+    "#e99a5c",
+    "#352441"
+   ],
+   "sun": "#ffb86b",
+   "cool": "#8F9BFF",
+   "warm": "#FFC15E",
+   "accent": "#FDE68A",
+   "ground": "#4b4a86",
+   "night": 0.4
+  },
+  "regeneration": {
+   "label": {
+    "fr": "Régénération",
+    "en": "Regeneration"
+   },
+   "character": {
+    "fr": "une graine qui fait pousser un petit jardin",
+    "en": "a seed growing a little garden"
+   },
+   "sky": [
+    "#0f3a48",
+    "#f2b76a",
+    "#2b3b33"
+   ],
+   "sun": "#ffc879",
+   "cool": "#46C2A8",
+   "warm": "#FFC85C",
+   "accent": "#FFF0A8",
+   "ground": "#4f9a5e",
+   "night": 0.15
+  },
+  "jeu": {
+   "label": {
+    "fr": "Rire & jeu",
+    "en": "Laughter & play"
+   },
+   "character": {
+    "fr": "une petite boule rieuse qui rebondit",
+    "en": "a giggly little ball that bounces"
+   },
+   "sky": [
+    "#123e6a",
+    "#f29a62",
+    "#3d2a4a"
+   ],
+   "sun": "#ffb36b",
+   "cool": "#3FC6D9",
+   "warm": "#FF9F43",
+   "accent": "#FFE08A",
+   "ground": "#3e7fa0",
+   "night": 0.25
+  }
+ },
+ "tracks": {
+  "f5bf8830-85bb-4a9b-9545-081800be485f": {
+   "title": "La Sensibilité est la Fonction",
+   "lang": "fr",
+   "theme": "souffle",
+   "basis": "lyrics",
+   "excerpt": "Écoute la différence entre la cage et le souffle...",
+   "excerptSource": "data/lyrics-sources.json"
+  },
+  "dead13bb-42bc-492e-83a1-87609f224734": {
+   "title": "Particule Pure",
+   "lang": "fr",
+   "theme": "particule",
+   "basis": "title"
+  },
+  "2c8a36c9-4207-41b9-80e9-bf78313c2099": {
+   "title": "Tout ce que je demande l'univers me le donne",
+   "lang": "fr",
+   "theme": "regeneration",
+   "basis": "lyrics",
+   "excerpt": "Je plonge mes mains dans la terre froide, je ressens le futur qui naît",
+   "excerptSource": "data/lyrics-sources.json"
+  },
+  "f95b9e6c-bc0b-4d6f-b2b6-8089d498c6ef": {
+   "title": "Et que ce soit",
+   "lang": "fr",
+   "theme": "oui",
+   "basis": "title+lyrics",
+   "excerpt": "Décider de voir un commencement.\nEt que ce soit.",
+   "excerptSource": "data/lyrics-sources.json"
+  },
+  "ad12c762-07a4-4a0e-8c7e-a411b2419008": {
+   "title": "La pensée",
+   "lang": "fr",
+   "theme": "lumiere",
+   "basis": "default (title only, no lyrics in repo)"
+  },
+  "5535b9e6-78f1-4a96-bfed-f0c5666a75c3": {
+   "title": "La Mécanique du Jeu",
+   "lang": "fr",
+   "theme": "jeu",
+   "basis": "title"
+  },
+  "a0b2b33d-66f6-4c6a-b933-cdb5977d920e": {
+   "title": "Le Léger Futur",
+   "lang": "fr",
+   "theme": "particule",
+   "basis": "title (léger)"
+  },
+  "51d7f27c-2ed1-4de0-821a-83e21384ffd6": {
+   "title": "Commencer",
+   "lang": "fr",
+   "theme": "souffle",
+   "basis": "lyrics",
+   "excerpt": "Prends une respiration normale.\nSens l’air qui entre.",
+   "excerptSource": "data/lyrics-sources.json"
+  },
+  "a11c8f21-163b-4b53-8d3a-5353e809bb50": {
+   "title": "Start - Continue - Finish",
+   "lang": "en",
+   "theme": "souffle",
+   "basis": "lyrics",
+   "excerpt": "Take normal breathing.\nFeel the air coming in.",
+   "excerptSource": "data/lyrics-sources.json"
+  },
+  "a5ba4262-22f6-4c9c-a6df-05bff2d5e713": {
+   "title": "The Body Is an Antenna",
+   "lang": "en",
+   "theme": "particule",
+   "basis": "lyrics",
+   "excerpt": "The movement unfolds under the brightness of the heavens!",
+   "excerptSource": "data/lyrics-sources.json"
+  },
+  "702aaf9e-cde4-4b51-900c-a790db4a2320": {
+   "title": "Éternel sur Terre",
+   "lang": "fr",
+   "theme": "creation",
+   "basis": "lyrics",
+   "excerpt": "Chaque instant est un fil.\nNous sommes les tisserands conscients.",
+   "excerptSource": "data/lyrics-sources.json"
+  },
+  "2c1321b1-378d-47f3-be06-1ba9437edd30": {
+   "title": "La Vraie Liberté",
+   "lang": "fr",
+   "theme": "souffle",
+   "basis": "title (liberté → vent libre)"
+  },
+  "e9a0dfac-1925-49e4-aa3a-a2b8c20bc06c": {
+   "title": "Commencer",
+   "lang": "fr",
+   "theme": "souffle",
+   "basis": "title (même titre que « Commencer » guidé par la respiration)"
+  },
+  "18a2266c-70b1-4e80-94e5-144a5ccd29fc": {
+   "title": "Start",
+   "lang": "en",
+   "theme": "souffle",
+   "basis": "title (Start, cf. Start - Continue - Finish)"
+  },
+  "04441f4e-8d4b-4831-a038-c5a602e09e25": {
+   "title": "Le postulat",
+   "lang": "fr",
+   "theme": "creation",
+   "basis": "title (postuler = créer)"
+  },
+  "d2d61703-a205-41ac-a670-6e5cf7c22911": {
+   "title": "The Postulate",
+   "lang": "en",
+   "theme": "creation",
+   "basis": "title (postulate = create)"
+  },
+  "b495fcd7-5db9-4de1-8fe5-4ba9a397e325": {
+   "title": "Sensitivity is Pure Function",
+   "lang": "en",
+   "theme": "souffle",
+   "basis": "lyrics",
+   "excerpt": "Listen to the difference between the cage and the breath...",
+   "excerptSource": "data/lyrics-sources.json"
+  },
+  "bd31373d-709e-4a64-a7dd-7baed7ec7bb7": {
+   "title": "the postulat",
+   "lang": "en",
+   "theme": "creation",
+   "basis": "title (postulate = create)"
+  },
+  "b0eb0f76-f2d8-4e16-85a9-037fc3f32b01": {
+   "title": "The slight future",
+   "lang": "en",
+   "theme": "particule",
+   "basis": "title (slight/light)"
+  },
+  "3fa852e8-50d1-4b6f-a02d-84a7d3a0575a": {
+   "title": "Accompagner la régénération",
+   "lang": "fr",
+   "theme": "regeneration",
+   "basis": "title"
+  },
+  "b51d4773-9849-4bb8-9def-06b99c2a8dc2": {
+   "title": "Optim Us Le Double Cœur",
+   "lang": "fr",
+   "theme": "coeur",
+   "basis": "title+lyrics",
+   "excerpt": "Optim Us, planète jumelle, aussi grosse, aussi belle",
+   "excerptSource": "data/lyrics-sources.json"
+  },
+  "c8c1762f-a285-45c2-909d-77fbd4ddd395": {
+   "title": "Ç'a main",
+   "lang": "fr",
+   "theme": "creation",
+   "basis": "title+lyrics",
+   "excerpt": "Ç’a main fabrique.",
+   "excerptSource": "data/lyrics-sources.json"
+  },
+  "2a9f903f-cc96-4649-922b-4e8ec1339c5c": {
+   "title": "Le souffle et la main",
+   "lang": "fr",
+   "theme": "souffle",
+   "basis": "title"
+  },
+  "d34adae3-fd22-4ac7-80c3-6978b0457546": {
+   "title": "La beauté vénère",
+   "lang": "fr",
+   "theme": "coeur",
+   "basis": "lyrics",
+   "excerpt": "Chaque regard, c’est une lumière qui touche l’autre.",
+   "excerptSource": "data/lyrics-sources.json"
+  },
+  "8e360ed6-fb4a-43fa-962f-55020c20ce05": {
+   "title": "Regarde avec le cœur",
+   "lang": "fr",
+   "theme": "coeur",
+   "basis": "title+lyrics",
+   "excerpt": "Regarde avec le cœur, pas avec la raison,",
+   "excerptSource": "data/lyrics-sources.json"
+  },
+  "f40bcbea-d8a7-448c-9e3b-fe6f7556f176": {
+   "title": "Le Grand Jeu",
+   "lang": "fr",
+   "theme": "jeu",
+   "basis": "title+lyrics",
+   "excerpt": "La vie est un grand jeu.",
+   "excerptSource": "data/lyrics-sources.json"
+  },
+  "d8d9dfd9-223c-4a2b-b72c-3bf1424b7b9d": {
+   "title": "The Lightest Particle",
+   "lang": "en",
+   "theme": "particule",
+   "basis": "title+lyrics",
+   "excerpt": "The lightest particle\nIt's the admiration",
+   "excerptSource": "data/lyrics-sources.json"
+  },
+  "6d91a0bb-d51e-4dd7-b69e-19be51580fc6": {
+   "title": "Présence au centre",
+   "lang": "fr",
+   "theme": "lumiere",
+   "basis": "default (title only: présence au centre → cercle autour de la lumière)"
+  },
+  "6f66fa1b-ee30-428e-823d-d62524debf08": {
+   "title": "Présence en Chœur",
+   "lang": "fr",
+   "theme": "jeu",
+   "basis": "lyrics",
+   "excerpt": "À tout point de vue, de mieux en mieux, plus dense et en danse.",
+   "excerptSource": "data/lyrics-sources.json"
+  },
+  "4f9514ec-7ad0-4d80-9f7e-120179145eab": {
+   "title": "The Sacredness of Emotions",
+   "lang": "en",
+   "theme": "coeur",
+   "basis": "title (emotions)"
+  },
+  "c188685c-c903-4d4a-a47f-15a4a1a9a599": {
+   "title": "The Sacredness of Emotions",
+   "lang": "en",
+   "theme": "coeur",
+   "basis": "title (emotions)"
+  },
+  "a4b34a64-99f0-4c63-8ab0-df1431649e79": {
+   "title": "Le Rêveur",
+   "lang": "fr",
+   "theme": "reveur",
+   "basis": "title+lyrics",
+   "excerpt": "Je me réveille, je me souviens\nJe suis le joueur, pas le pion",
+   "excerptSource": "specs/le-reveur-lyrics.md"
+  },
+  "7599f004-7393-4e31-883c-70a3cfc3acfc": {
+   "title": "Le Reset du Jeu",
+   "lang": "fr",
+   "theme": "jeu",
+   "basis": "title"
+  },
+  "e2f896d7-cdbe-470b-b414-3cb5988695a7": {
+   "title": "Le Oui",
+   "lang": "fr",
+   "theme": "oui",
+   "basis": "title+lyrics",
+   "excerpt": "Le oui, c'est pas un mot, c'est un geste\nC'est l'être qui dit : que ce soit",
+   "excerptSource": "specs/le-oui-lyrics.md"
+  }
+ }
+}
