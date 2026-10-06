@@ -7,6 +7,7 @@
   var dict = {
     fr: {
       "common.tagline": "Écoute en continu. Ça régénère.",
+      "common.ogAlt": "Eden Yours — Écoute en continu. Ça régénère. 29 chansons · Casse-tête · Blind test",
       "common.menu": "Menu",
       "common.navAria": "Principal",
       "common.langAria": "Choisir la langue",
@@ -17,8 +18,8 @@
       "nav.support": "Soutenir",
       "nav.invites": "Invitations",
 
-      "home.title": "Eden Yours — Écoute en continu. Ça régénère.",
-      "home.metaDesc": "Plateforme vibratoire sacrée : 15+ titres Suno pour la Sensibilité Pure. Écoute en continu. Ça régénère. Demande une chanson (10€/10$).",
+      "home.title": "Eden Yours — Écoute en continu, casse-tête et blind test musical",
+      "home.metaDesc": "Plateforme vibratoire : 29 chansons pour la Sensibilité Pure. Joue au casse-tête et au blind test. Chanson sur demande 10 € / 10 $, piste parlée sur mesure 25 $ CAD. Ça régénère.",
       "home.eyebrow": "Plateforme vibratoire",
       "home.heroH1": "Bienvenue sur",
       "home.heroSubtitle": "Le retour à l'état d'Être, la reconnexion à la Cause Pure.",
@@ -66,7 +67,7 @@
       "home.footerInvite": "Inviter un ami",
 
       "lib.title": "Bibliothèque — Eden Yours",
-      "lib.metaDesc": "Bibliothèque Eden Yours : écoute en continu pour la régénération et la Sensibilité Pure. Plus de 15 titres Suno.",
+      "lib.metaDesc": "Bibliothèque Eden Yours : 29 chansons (21 en français, 8 en anglais) pour la régénération et la Sensibilité Pure. Écoute en continu. Ça régénère.",
       "lib.h1": "Bibliothèque & lecteur",
       "lib.lead": "Cette bibliothèque est faite pour être jouée d'un bout à l'autre. Enchaîne les titres : plus tu restes en écoute continue, plus l'effet de régénération s'installe — aligné sur la Sensibilité Pure et la Fonction avant la Structure.",
       "lib.playerAria": "Lecteur actuel",
@@ -150,7 +151,7 @@
       "invite.libraryFallback": "la bibliothèque",
 
       "request.title": "Demander une chanson — Eden Yours",
-      "request.metaDesc": "Demande une chanson sur Eden Yours (10€ / 10$). Propose un titre Suno ou une intention pour la bibliothèque d'écoute continue.",
+      "request.metaDesc": "Demande une chanson sur Eden Yours (10 € / 10 $) ou offre-toi une piste parlée sur mesure (25 $ CAD). Propose un titre Suno ou une intention pour la bibliothèque.",
       "request.eyebrow": "Offrande musicale",
       "request.h1": "Demander une chanson",
       "request.leadHtml": "Vous avez un titre Suno, une intention, ou une mélodie qui résonne&nbsp;? Pour <strong>10&nbsp;€</strong> ou <strong>10&nbsp;$&nbsp;US</strong>, François considère d'ajouter votre piste (ou votre demande) à la bibliothèque d'écoute continue d'Eden Yours — un geste sacré, pas une garantie commerciale.",
@@ -295,6 +296,7 @@
 
     en: {
       "common.tagline": "Listen continuously. It regenerates.",
+      "common.ogAlt": "Eden Yours — Listen continuously. It regenerates. 29 songs · Puzzle · Blind test",
       "common.menu": "Menu",
       "common.navAria": "Main",
       "common.langAria": "Choose language",
@@ -305,8 +307,8 @@
       "nav.support": "Support",
       "nav.invites": "Invites",
 
-      "home.title": "Eden Yours — Listen continuously. It regenerates.",
-      "home.metaDesc": "Sacred vibrational platform: 15+ Suno tracks for Pure Sensitivity. Listen continuously. It regenerates. Request a song (10€/10$).",
+      "home.title": "Eden Yours — Continuous listening, puzzle and music blind test",
+      "home.metaDesc": "Vibrational platform: 29 songs for Pure Sensitivity. Play the puzzle and the blind test. Song on request €10 / $10, custom spoken track $25 CAD. It regenerates.",
       "home.eyebrow": "Vibrational platform",
       "home.heroH1": "Welcome to",
       "home.heroSubtitle": "Return to the state of Being, reconnect to the Pure Cause.",
@@ -354,7 +356,7 @@
       "home.footerInvite": "Invite a friend",
 
       "lib.title": "Library — Eden Yours",
-      "lib.metaDesc": "Eden Yours library: continuous listening for regeneration and Pure Sensitivity. 15+ Suno tracks.",
+      "lib.metaDesc": "Eden Yours library: 29 songs (21 in French, 8 in English) for regeneration and Pure Sensitivity. Listen continuously. It regenerates.",
       "lib.h1": "Library & player",
       "lib.lead": "This library is meant to be played end to end. Queue the tracks: the longer you stay in continuous listening, the more regeneration settles in — aligned with Pure Sensitivity and Function before Structure.",
       "lib.playerAria": "Now playing",
@@ -438,7 +440,7 @@
       "invite.libraryFallback": "the library",
 
       "request.title": "Request a song — Eden Yours",
-      "request.metaDesc": "Request a song on Eden Yours (10€ / 10$). Propose a Suno track or an intention for the continuous-listening library.",
+      "request.metaDesc": "Request a song on Eden Yours (€10 / $10) or treat yourself to a custom spoken track ($25 CAD). Propose a Suno track or an intention for the library.",
       "request.eyebrow": "Musical offering",
       "request.h1": "Request a song",
       "request.leadHtml": "Do you have a Suno track, an intention, or a melody that resonates? For <strong>10&nbsp;€</strong> or <strong>10&nbsp;USD</strong>, François considers adding your track (or your request) to the Eden Yours continuous-listening library — a sacred gesture, not a commercial guarantee.",
@@ -643,7 +645,7 @@
     document.querySelectorAll('meta[name="description"][data-i18n-content]').forEach(function (el) {
       el.setAttribute("content", t(el.getAttribute("data-i18n-content")));
     });
-    document.querySelectorAll('meta[property="og:title"][data-i18n-content], meta[property="og:description"][data-i18n-content], meta[name="twitter:title"][data-i18n-content], meta[name="twitter:description"][data-i18n-content], meta[property="og:image:alt"][data-i18n-content]').forEach(function (el) {
+    document.querySelectorAll('meta[property="og:title"][data-i18n-content], meta[property="og:description"][data-i18n-content], meta[name="twitter:title"][data-i18n-content], meta[name="twitter:description"][data-i18n-content], meta[property="og:image:alt"][data-i18n-content], meta[name="twitter:image:alt"][data-i18n-content]').forEach(function (el) {
       el.setAttribute("content", t(el.getAttribute("data-i18n-content")));
     });
     var ogLocale = document.querySelector('meta[property="og:locale"]');
