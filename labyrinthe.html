@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Labyrinthe sonore — Eden Yours</title>
+  <meta name="description" content="Labyrinthe sonore Eden Yours : laisse ton oreille te guider vers des sources de son cachées, comme une méditation guidée. Sons synthétisés en direct. Jusqu'à 3 étoiles.">
+  <link rel="canonical" href="https://efjiej.github.io/eden-yours/labyrinthe.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="fr_CA">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:site_name" content="Eden Yours">
+  <meta property="og:url" content="https://efjiej.github.io/eden-yours/labyrinthe.html">
+  <meta property="og:title" content="Labyrinthe sonore — Eden Yours">
+  <meta property="og:description" content="Labyrinthe sonore Eden Yours : laisse ton oreille te guider vers des sources de son cachées, comme une méditation guidée. Sons synthétisés en direct. Jusqu'à 3 étoiles.">
+  <meta property="og:image" content="https://efjiej.github.io/eden-yours/assets/og-share-v2.jpg">
+  <meta property="og:image:secure_url" content="https://efjiej.github.io/eden-yours/assets/og-share-v2.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Eden Yours — Écoute en continu. Ça régénère. 29 chansons · Casse-tête · Blind test">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Labyrinthe sonore — Eden Yours">
+  <meta name="twitter:description" content="Labyrinthe sonore Eden Yours : laisse ton oreille te guider vers des sources de son cachées, comme une méditation guidée. Sons synthétisés en direct. Jusqu'à 3 étoiles.">
+  <meta name="twitter:image" content="https://efjiej.github.io/eden-yours/assets/og-share-v2.jpg">
+  <meta name="twitter:image:alt" content="Eden Yours — Écoute en continu. Ça régénère. 29 chansons · Casse-tête · Blind test">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/labyrinthe.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%23c084fc'/%3E%3Cstop offset='1' stop-color='%2367e8f9'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3C/svg%3E">
+</head>
+<body class="page-lab">
+  <header class="site-nav">
+    <div class="container">
+      <a class="logo" href="index.html">
+        <span class="logo-mark" aria-hidden="true"></span>
+        <span data-site-name>Eden Yours</span>
+      </a>
+      <a class="nav-games-quick" href="index.html#jeux" data-i18n="games.quick">🎮 Jeux</a>
+      <button type="button" class="nav-toggle" data-i18n-aria="common.menu" aria-label="Menu" id="nav-toggle">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="nav-links" id="nav-links" data-i18n-aria="common.navAria" aria-label="Navigation">
+        <span class="nav-games" role="group" data-i18n-aria="games.navAria" aria-label="Jeux : casse-tête et blind test">
+          <a class="nav-games-kicker" href="index.html#jeux" data-i18n="games.nav">Jeux</a>
+          <a href="casse-tete.html" id="nav-puzzle" data-lang-href="casse-tete.html" data-i18n="home.puzzleEntryLabel">Casse-tête</a>
+          <a href="blind-test.html" data-lang-href="blind-test.html" data-i18n="home.blindEntryLabel">Blind test</a>
+          <a href="labyrinthe.html" class="active" data-lang-href="labyrinthe.html" data-i18n="lab.navLabel">Labyrinthe</a>
+        </span>
+        <a href="index.html" data-i18n="nav.home">Accueil</a>
+        <a href="bibliotheque.html" data-i18n="nav.library">Bibliothèque</a>
+        <a href="pratique.html" data-i18n="nav.practice">Pratique</a>
+        <a href="demander.html" data-i18n="nav.request">Demander</a>
+        <a href="soutenir.html" data-i18n="nav.support">Soutenir</a>
+        <a href="invitations.html" data-i18n="nav.invites">Invitations</a>
+        <div class="lang-switch" role="group" data-i18n-aria="common.langAria" aria-label="Choisir la langue">
+          <button type="button" class="lang-btn" data-set-lang="fr" aria-pressed="true">FR</button>
+          <span class="lang-sep" aria-hidden="true">|</span>
+          <button type="button" class="lang-btn" data-set-lang="en" aria-pressed="false">EN</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="lab-hero">
+      <div class="container">
+        <p class="eyebrow" data-i18n="lab.eyebrow">Jeu · écoute</p>
+        <h1 data-i18n="lab.title">Labyrinthe sonore</h1>
+        <p class="lab-lead" data-i18n="lab.lead">Des sources de son se cachent dans le labyrinthe. Laisse ton oreille te guider vers elles, une respiration à la fois.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="container lab-shell">
+        <div class="lab-hud" aria-live="polite">
+          <span class="lab-pill" id="lab-level">Niveau 1 / 3</span>
+          <span class="lab-pill" id="lab-sources">Sources : 0 / 3</span>
+          <span class="lab-pill" id="lab-moves">0 pas</span>
+          <span class="lab-hud-actions">
+            <button type="button" class="lab-icon-btn" id="lab-mute" aria-pressed="false" aria-label="Couper le son">🔊</button>
+            <button type="button" class="lab-icon-btn" id="lab-restart" data-i18n-aria="lab.restart" aria-label="Recommencer le niveau">↺</button>
+          </span>
+        </div>
+
+        <div class="lab-board" id="lab-board">
+          <canvas id="lab-canvas" role="img" data-i18n-aria="lab.canvasAria" aria-label="Labyrinthe lumineux"></canvas>
+
+          <div class="lab-overlay" id="lab-intro">
+            <h2 data-i18n="lab.title">Labyrinthe sonore</h2>
+            <p data-i18n="lab.intro">Pose tes écouteurs, adoucis ton souffle. Des sources de son se cachent dans le labyrinthe : plus tu t'approches, plus elles chantent, à gauche ou à droite. Trouve-les toutes et la sortie dorée s'illumine.</p>
+            <p class="lab-small" data-i18n="lab.headphones">🎧 Avec écouteurs, c'est encore plus doux.</p>
+            <button type="button" class="btn btn-primary lab-start" id="lab-start" data-i18n="lab.start">Commencer</button>
+            <p class="lab-small" id="lab-noaudio" hidden data-i18n="lab.noAudio">Le son n'est pas disponible sur cet appareil.</p>
+          </div>
+
+          <div class="lab-overlay lab-win" id="lab-win" hidden aria-live="polite">
+            <h2 id="lab-win-title" data-i18n="lab.win">Tu as traversé le labyrinthe.</h2>
+            <div class="stars-panel" id="lab-stars" hidden></div>
+            <button type="button" class="btn btn-primary" id="lab-next" data-i18n="lab.next">Niveau suivant</button>
+          </div>
+        </div>
+
+        <p class="lab-hint" id="lab-hint" aria-live="polite" data-i18n="lab.hint">Écoute : plus le son est fort, plus tu es proche.</p>
+
+        <div class="lab-pad" role="group" data-i18n-aria="lab.padAria" aria-label="Déplacements">
+          <button type="button" class="lab-arrow lab-up" data-dir="up" data-i18n-aria="lab.up" aria-label="Haut">▲</button>
+          <button type="button" class="lab-arrow lab-left" data-dir="left" data-i18n-aria="lab.left" aria-label="Gauche">◀</button>
+          <button type="button" class="lab-arrow lab-down" data-dir="down" data-i18n-aria="lab.down" aria-label="Bas">▼</button>
+          <button type="button" class="lab-arrow lab-right" data-dir="right" data-i18n-aria="lab.right" aria-label="Droite">▶</button>
+        </div>
+        <p class="lab-keys" data-i18n="lab.keys">Flèches ou W A S D pour avancer.</p>
+
+        <a class="other-game" href="casse-tete.html" data-lang-href="casse-tete.html">
+          <span class="other-game-icon" aria-hidden="true">✦</span>
+          <span class="other-game-kicker" data-i18n="games.other">Autre jeu</span>
+          <span class="other-game-text"><strong data-i18n="games.puzzleTitle">Casse-tête</strong><span data-i18n="games.tryPuzzle">Essaie le casse-tête : reconstruis la pochette et la chanson s'ouvre.</span></span>
+          <span class="other-game-go" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p><span data-site-name>Eden Yours</span> · <span data-i18n="lab.title">Labyrinthe sonore</span></p>
+      <p class="footer-tagline" data-i18n="common.tagline">Écoute en continu. Ça régénère.</p>
+      <p>
+        <a href="index.html">Accueil</a> ·
+        <a href="casse-tete.html">Casse-tête</a> ·
+        <a href="blind-test.html">Blind test</a> ·
+        <a href="creation-demain.html">Création-Demain</a>
+      </p>
+    </div>
+  </footer>
+
+  <script src="js/i18n.js"></script>
+  <script src="js/stars.js"></script>
+  <script src="js/labyrinthe.js"></script>
+</body>
+</html>

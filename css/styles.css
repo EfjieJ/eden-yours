@@ -2002,3 +2002,22 @@ body.has-embed-player {
   .star:nth-child(2) { width: 44px; height: 44px; }
   .stars-line { font-size: 0.96rem; }
 }
+
+/* Labyrinthe sonore : 3e carte de jeu (accueil) */
+@media (min-width: 900px) { .games-grid { grid-template-columns: repeat(3, 1fr); } }
+.gm-maze {
+  position: relative;
+  background:
+    radial-gradient(circle at 78% 78%, rgba(251, 191, 36, 0.45), transparent 22%),
+    repeating-linear-gradient(90deg, transparent 0 22px, rgba(216, 160, 255, 0.55) 22px 25px),
+    repeating-linear-gradient(0deg, transparent 0 30px, rgba(251, 191, 36, 0.35) 30px 33px),
+    radial-gradient(circle at 50% 40%, #2a1155, #0b0620);
+}
+.gm-maze-orb {
+  position: absolute; left: 22%; top: 26%; width: 22px; height: 22px; border-radius: 50%;
+  background: radial-gradient(circle, #fffbea, #fde68a 45%, rgba(251, 191, 36, 0));
+  box-shadow: 0 0 22px rgba(251, 191, 36, 0.8);
+  animation: gm-orb 6s ease-in-out infinite;
+}
+@keyframes gm-orb { 0%, 100% { transform: translate(0, 0); } 33% { transform: translate(40px, 0); } 66% { transform: translate(40px, 36px); } }
+@media (prefers-reduced-motion: reduce) { .gm-maze-orb { animation: none; } }

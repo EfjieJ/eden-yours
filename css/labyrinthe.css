@@ -1,0 +1,86 @@
+/* Eden Yours — Labyrinthe sonore : violet profond, halo doré */
+.page-lab {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(126, 34, 206, 0.28), transparent 60%),
+    radial-gradient(ellipse at 80% 100%, rgba(251, 191, 36, 0.08), transparent 55%),
+    var(--bg-deep);
+}
+.lab-hero { padding: 2.2rem 0 0.6rem; text-align: center; }
+.lab-hero h1 {
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  letter-spacing: -0.02em; line-height: 1.15; margin: 0.35rem 0 0.6rem;
+  background: linear-gradient(120deg, #e9d5ff, #f0abfc 45%, #fde68a);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.lab-lead { color: var(--text-muted); max-width: 36rem; margin: 0 auto; }
+
+.lab-shell { max-width: 600px; margin: 0 auto; padding-bottom: 2.5rem; display: flex; flex-direction: column; align-items: center; gap: 0.8rem; }
+
+.lab-hud { width: 100%; display: flex; flex-wrap: wrap; align-items: center; gap: 0.45rem; justify-content: center; }
+.lab-pill {
+  padding: 0.32rem 0.75rem; border-radius: 999px; font-size: 0.85rem;
+  background: rgba(40, 20, 80, 0.6); border: 1px solid var(--border-strong); color: var(--text);
+}
+.lab-hud-actions { display: inline-flex; gap: 0.4rem; }
+.lab-icon-btn {
+  min-width: 44px; min-height: 44px; border-radius: 999px; font-size: 1.15rem; cursor: pointer;
+  background: rgba(40, 20, 80, 0.6); border: 1px solid var(--border-strong); color: #fde68a;
+}
+.lab-icon-btn:hover, .lab-icon-btn:focus-visible { border-color: rgba(251, 191, 36, 0.7); box-shadow: 0 0 18px rgba(251, 191, 36, 0.3); }
+
+.lab-board {
+  position: relative; width: 100%; max-width: 560px; aspect-ratio: 1 / 1;
+  border-radius: var(--radius); overflow: hidden;
+  border: 1px solid rgba(216, 180, 254, 0.3);
+  box-shadow: 0 0 50px rgba(168, 85, 247, 0.3), 0 0 90px rgba(251, 191, 36, 0.08);
+}
+#lab-canvas { display: block; width: 100%; height: 100%; touch-action: none; outline: none; }
+
+.lab-overlay {
+  position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 0.7rem; padding: 1.4rem; text-align: center;
+  background: radial-gradient(circle at 50% 45%, rgba(30, 12, 62, 0.82), rgba(8, 5, 26, 0.93));
+  backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px);
+}
+.lab-overlay[hidden] { display: none; }
+.lab-overlay h2 { margin: 0; font-size: clamp(1.3rem, 4.5vw, 1.8rem); color: #fde68a; text-shadow: 0 0 22px rgba(251, 191, 36, 0.55); }
+.lab-overlay p { margin: 0; max-width: 28rem; color: var(--text); line-height: 1.5; font-size: clamp(0.9rem, 3.4vw, 1rem); }
+.lab-small { color: var(--text-muted) !important; font-size: 0.85rem !important; }
+.lab-start, #lab-next {
+  min-height: 52px; padding: 0.8rem 2rem; font-size: 1.05rem;
+  background: linear-gradient(135deg, #a855f7, #d946ef 55%, #f59e0b);
+  box-shadow: 0 0 30px rgba(251, 191, 36, 0.35);
+}
+
+.lab-hint { margin: 0; min-height: 1.5em; text-align: center; color: #fde68a; font-size: 0.95rem; opacity: 0.9; }
+.lab-keys { margin: 0; color: var(--text-dim); font-size: 0.85rem; }
+
+.lab-pad {
+  display: none;
+  grid-template-columns: repeat(3, 72px); grid-template-rows: repeat(2, 72px); gap: 10px;
+  grid-template-areas: ". up ." "left down right";
+}
+.lab-arrow {
+  border-radius: 20px; font-size: 1.5rem; color: #fde68a; cursor: pointer;
+  background: radial-gradient(circle at 50% 35%, rgba(126, 34, 206, 0.65), rgba(30, 12, 62, 0.85));
+  border: 1px solid rgba(251, 191, 36, 0.35);
+  box-shadow: 0 0 18px rgba(168, 85, 247, 0.35);
+  touch-action: none; -webkit-user-select: none; user-select: none; -webkit-tap-highlight-color: transparent;
+}
+.lab-arrow:active { box-shadow: 0 0 26px rgba(251, 191, 36, 0.6); transform: scale(0.96); }
+.lab-up { grid-area: up; } .lab-left { grid-area: left; } .lab-down { grid-area: down; } .lab-right { grid-area: right; }
+
+@media (max-width: 760px), (pointer: coarse) {
+  .lab-pad { display: grid; }
+  .lab-keys { display: none; }
+}
+@media (max-width: 760px) {
+  .lab-hero { padding-top: 1.4rem; }
+  .lab-hero .lab-lead { font-size: 0.92rem; }
+}
+.lab-shell .other-game { width: 100%; margin-top: 0.6rem; }
+
+@media (prefers-reduced-motion: reduce) {
+  .lab-arrow:active { transform: none; }
+  .lab-overlay { backdrop-filter: none; -webkit-backdrop-filter: none; }
+}
