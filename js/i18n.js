@@ -983,6 +983,14 @@
   };
 
   function detectLang() {
+    // Lien explicite ?lang=fr|en (portail, liens de jeux) : il a priorité et devient le choix enregistré.
+    try {
+      var q = new URLSearchParams(window.location.search).get("lang");
+      if (q === "fr" || q === "en") {
+        try { localStorage.setItem(STORAGE_KEY, q); } catch (e) {}
+        return q;
+      }
+    } catch (e) {}
     try {
       var stored = localStorage.getItem(STORAGE_KEY);
       if (stored === "fr" || stored === "en") return stored;
