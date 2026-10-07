@@ -82,7 +82,7 @@
       <div class="container puzzle-shell s3d-shell">
         <div class="s3d-card" id="s3d-card">
           <div class="s3d-stage" id="s3d-stage">
-            <canvas id="s3d-canvas" role="img" data-i18n-aria="scene.canvasAria" aria-label="Scène 3D cartoon : un être de lumière danse dans un décor doré"></canvas>
+            <canvas id="s3d-canvas" role="img" data-i18n-aria="scene.canvasAria" aria-label="Scène 3D : un être de lumière danse dans un paysage doré"></canvas>
             <p class="s3d-theme-chip" id="s3d-theme-chip" hidden></p>
             <div class="s3d-loading" id="s3d-loading" data-i18n="scene.loading">Les êtres de lumière arrivent…</div>
             <div class="s3d-fallback" id="s3d-fallback" hidden>
@@ -151,6 +151,7 @@
     </div>
   </footer>
 
+  <script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.min.js", "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/" } }</script>
   <script src="config.js"></script>
   <script src="js/i18n.js"></script>
   <script type="module" src="js/scene-3d.js"></script>
