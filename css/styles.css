@@ -3152,3 +3152,76 @@ html.eden-runners-on .site-footer {
     animation: none;
   }
 }
+
+/* ———————— Accueil réaliste (index.html) : photo NASA (domaine public), verre sobre, lumière douce ———————— */
+body.home-real { background: #05060d; }
+body.home-real::before {
+  background:
+    linear-gradient(180deg, rgba(5, 6, 13, 0.35) 0%, rgba(5, 6, 13, 0.55) 45%, rgba(5, 6, 13, 0.92) 100%),
+    url("../assets/home/hero-milkyway-airglow.webp") center 30% / cover no-repeat;
+}
+@media (max-width: 760px) {
+  body.home-real::before {
+    background:
+      linear-gradient(180deg, rgba(5, 6, 13, 0.35) 0%, rgba(5, 6, 13, 0.6) 45%, rgba(5, 6, 13, 0.94) 100%),
+      url("../assets/home/hero-milkyway-airglow-sm.webp") 40% 30% / cover no-repeat;
+  }
+}
+/* rayons de lumière très discrets venant de l'étoile */
+body.home-real::after {
+  content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(ellipse 60% 40% at 28% 38%, rgba(255, 236, 200, 0.10), transparent 70%),
+    repeating-conic-gradient(from 200deg at 28% 38%, rgba(255, 240, 215, 0.035) 0deg 2deg, transparent 2deg 9deg);
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 28% 38%, #000 0%, transparent 75%);
+  mask-image: radial-gradient(ellipse 70% 60% at 28% 38%, #000 0%, transparent 75%);
+}
+body.home-real .eden-aurora { opacity: 0.25; }
+body.home-real h1, body.home-real h2, body.home-real h3 { color: #f4efe6; letter-spacing: 0.005em; text-shadow: 0 1px 18px rgba(0, 0, 0, 0.45); }
+body.home-real .games-title, body.home-real .section-title { background: none; -webkit-text-fill-color: #f4efe6; color: #f4efe6; font-weight: 600; }
+body.home-real p { color: rgba(236, 232, 245, 0.82); }
+body.home-real .game-card {
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: linear-gradient(180deg, rgba(14, 14, 24, 0.55), rgba(8, 8, 16, 0.78));
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+}
+body.home-real .game-card::before { display: none; }
+body.home-real .game-card:hover, body.home-real .game-card:focus-visible {
+  border-color: rgba(255, 226, 170, 0.35);
+  box-shadow: 0 0 0 1px rgba(255, 226, 170, 0.15), 0 24px 60px rgba(0, 0, 0, 0.55);
+}
+body.home-real .game-visual {
+  border-radius: 14px;
+  border: 0;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  background: #0b0b14 center / cover no-repeat;
+}
+body.home-real .game-visual::before { display: none; }
+body.home-real .game-visual::after {
+  animation: none;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 55%, rgba(6, 6, 12, 0.55) 100%);
+}
+body.home-real .game-card:hover .game-visual { filter: brightness(1.08); }
+/* images réelles à la place des décors dessinés */
+body.home-real .gm-blind   { background-image: url("../assets/home/cover-d34adae3.webp"); }
+body.home-real .gm-etres   { background-image: url("../assets/home/card-carina.webp"); }
+body.home-real .gm-quiz    { background-image: url("../assets/home/cover-a11c8f21.webp"); }
+body.home-real .gm-rythme  { background-image: url("../assets/home/card-milkyway.webp"); }
+body.home-real .gm-eclats  { background-image: url("../assets/home/card-aurora.webp"); }
+body.home-real .gm-memoire { background-image: url("../assets/home/cover-dead13bb.webp"); }
+body.home-real .gm-carte   { background-image: url("../assets/home/cover-2a9f903f.webp"); }
+body.home-real .gm-scene3d { background-image: url("../assets/home/card-scene3d.webp"); }
+body.home-real .gm-jardin  { background-image: url("../assets/home/card-jardin.webp"); }
+body.home-real .game-visual:not(.gm-mosaic) > * { display: none !important; }
+body.home-real .gm-mosaic { background-image: url("../assets/home/card-pillars.webp"); }
+body.home-real .game-cta {
+  background: rgba(255, 244, 225, 0.92);
+  color: #17131f;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+  border: 0;
+  font-weight: 600;
+}
+body.home-real .game-cta:hover { background: #fff; color: #0d0a14; }
+body.home-real .eden-runners { opacity: 0.55; }

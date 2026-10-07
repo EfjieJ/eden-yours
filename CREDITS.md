@@ -17,3 +17,12 @@ Terrain, grass, trees, flowers, water normals, clouds, butterflies, birds, light
 
 ## Êtres de lumière / Light beings
 The human figures in *Danse des Êtres de Lumière* and *Le Jardin d’Éden* are an original procedural anatomical body (lathe-modelled limbs, procedural dance) rendered with a custom Fresnel “energy” shader — no third-party model.
+
+## Home page photography (public domain, NASA)
+NASA imagery is not copyrighted (public domain in the US); NASA does not endorse this site. Converted to WebP in `assets/home/`.
+- `hero-milkyway-airglow*.webp` — ISS photo iss073e0982823 (Milky Way over Earth's airglow), NASA/JSC — https://images.nasa.gov/details/iss073e0982823
+- `card-milkyway.webp` — iss073e0982261, NASA/JSC — https://images.nasa.gov/details/iss073e0982261
+- `card-aurora.webp` — iss039e009160, NASA/JSC — https://images.nasa.gov/details/iss039e009160
+- `card-carina.webp` — Carina Nebula, NASA/ESA Hubble, GSFC_20171208_Archive_e002076 — https://images.nasa.gov/details/GSFC_20171208_Archive_e002076
+- `card-pillars.webp` — Pillars of Creation (infrared), NASA/ESA Hubble, GSFC_20171208_Archive_e000842 — https://images.nasa.gov/details/GSFC_20171208_Archive_e000842
+- `card-scene3d.webp`, `card-jardin.webp` — our own renders; `cover-*.webp` — Eden Yours song covers.
