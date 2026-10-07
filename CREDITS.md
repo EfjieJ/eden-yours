@@ -14,3 +14,6 @@
 
 ## Tout le reste / Everything else
 Terrain, grass, trees, flowers, water normals, clouds, butterflies, birds, light beings, galaxy and rainbow are generated procedurally in `js/eden-real.js` (original code, no third-party textures).
+
+## Êtres de lumière / Light beings
+The human figures in *Danse des Êtres de Lumière* and *Le Jardin d’Éden* are an original procedural anatomical body (lathe-modelled limbs, procedural dance) rendered with a custom Fresnel “energy” shader — no third-party model.

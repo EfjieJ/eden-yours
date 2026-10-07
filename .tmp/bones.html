@@ -1,0 +1,14 @@
+<!doctype html><html><body style="margin:0;background:#222"><canvas id=c width=900 height=600></canvas>
+<script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.min.js", "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/" } }</script>
+<script type="module">
+import * as THREE from "three"; import {GLTFLoader} from "three/addons/loaders/GLTFLoader.js";
+const r=new THREE.WebGLRenderer({canvas:document.getElementById('c')}); const sc=new THREE.Scene(); sc.add(new THREE.HemisphereLight(0xffffff,0x444444,3));
+const cam=new THREE.PerspectiveCamera(40,1.5,0.1,100);
+const q=new URLSearchParams(location.search); const bone=q.get('b'), ax=q.get('ax'), ang=+q.get('a')||0;
+new GLTFLoader().load("https://cdn.jsdelivr.net/gh/KhronosGroup/glTF-Sample-Assets@edc7c9e67c639d230715049ee31f9a96a6babbbe/Models/CesiumMan/glTF-Binary/CesiumMan.glb",(g)=>{
+  const m=g.scene; sc.add(m); m.updateMatrixWorld(true); const box=new THREE.Box3().setFromObject(m); const s=box.getSize(new THREE.Vector3()); window.info={size:s.toArray(),min:box.min.toArray()};
+  cam.position.set(0,s.y*0.55, s.y*2.4); cam.lookAt(0,s.y*0.5,0);
+  m.traverse(o=>{ if(o.isBone && o.name===bone){ const v={x:[1,0,0],y:[0,1,0],z:[0,0,1]}[ax]; o.quaternion.multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(...v),ang)); }});
+  r.render(sc,cam); window.done=true;
+});
+</script></body></html>

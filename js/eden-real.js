@@ -45,6 +45,7 @@ export async function createRealScene(canvas, stage, opts) {
     import(ADDON + "postprocessing/UnrealBloomPass.js"), import(ADDON + "postprocessing/OutputPass.js"),
     import(ADDON + "loaders/GLTFLoader.js"), import(ADDON + "utils/SkeletonUtils.js"), import(ADDON + "utils/BufferGeometryUtils.js")
   ]);
+  const { BokehPass } = await import(ADDON + "postprocessing/BokehPass.js");
 
   const maxDpr = () => [1, 1.5, 2][quality];
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: quality > 0, powerPreference: "high-performance" });
@@ -387,7 +388,7 @@ export async function createRealScene(canvas, stage, opts) {
   }
 
   /* ———————— être de lumière : silhouette faite de particules lumineuses ———————— */
-  const beingVS = `attribute vec4 aSeed; uniform float uTime; uniform float uLevel; uniform float uPulse; uniform float uPx; uniform float uArmL; uniform float uArmR; uniform float uSize;
+  const beingVS = `attribute vec4 aSeed; uniform float uTime; uniform float uLevel; uniform float uPulse; uniform float uPx; uniform float uArmL; uniform float uArmR; uniform float uSize; uniform float uAura;
     varying float vH; varying float vA;
     float prof(float h){
       float r = mix(0.34, 0.15, smoothstep(0.0, 0.5, h));
@@ -405,7 +406,7 @@ export async function createRealScene(canvas, stage, opts) {
       p.x += sin(uTime * 0.8 + h * 4.) * 0.04 * (1. - h);
       vA = 0.7;
       float sel = fract(aSeed.y * 7.31);
-      if (sel < 0.2 && h > 0.25) {
+      if (sel < 0.2 && h > 0.25 && uAura < 0.5) {
         float side = sel < 0.1 ? -1. : 1.; float arm = side < 0. ? uArmL : uArmR;
         float t = fract(aSeed.x * 3.7 + uTime * 0.05 * spd);
         vec3 sh = vec3(side * 0.22, 1.38, 0.);
@@ -413,6 +414,7 @@ export async function createRealScene(canvas, stage, opts) {
         p = sh + dir * t * 0.72 + vec3(cos(ang), sin(ang * 1.3), sin(ang)) * 0.035 * (1. - t * 0.5);
         vH = 0.7 + t * 0.3;
       }
+      p.xz *= 1. + uAura * (0.9 + 0.5 * sin(uTime * 0.6 + aSeed.y * 20.)); p.y += uAura * sin(uTime * 0.4 + aSeed.x * 30.) * 0.06; vA *= 1. - uAura * 0.55;
       if (aSeed.z > 0.9) { p.xz *= 2.4; p.y += sin(uTime * 0.5 + aSeed.y * 9.) * 0.15; vA = 0.25; }
       vec4 mv = modelViewMatrix * vec4(p, 1.);
       gl_PointSize = uSize * (0.6 + aSeed.w) * uPx / -mv.z;
@@ -421,31 +423,107 @@ export async function createRealScene(canvas, stage, opts) {
     void main(){ float d = length(gl_PointCoord - .5); float a = smoothstep(.5, .0, d); a *= a;
       vec3 c = mix(mix(uA, vec3(1.), 0.35), mix(uB, vec3(1.), 0.2), smoothstep(0.1, 0.95, vH));
       gl_FragColor = vec4(c * a * vA * (1.1 + uLevel * 1.4 + uPulse * 1.2), 1.); }`;
+  /* Être de lumière : corps humain aux proportions anatomiques (≈ 1,80 m, 7,5 têtes), fait d'énergie
+     translucide (liseré de Fresnel, lumière intérieure qui circule), aura de particules, lumière au cœur.
+     Danse lente et naturelle : transfert du poids, genoux souples, contre-rotation du buste, bras en arcs. */
+  const energyVS = `varying vec3 vN; varying vec3 vV; varying vec3 vW;
+    void main(){ vec4 mv = modelViewMatrix * vec4(position, 1.); vN = normalize(normalMatrix * normal); vV = normalize(-mv.xyz);
+      vW = (modelMatrix * vec4(position, 1.)).xyz; gl_Position = projectionMatrix * mv; }`;
+  const energyFS = `uniform vec3 uCore; uniform vec3 uRim; uniform float uI; uniform float uTime; varying vec3 vN; varying vec3 vV; varying vec3 vW;
+    void main(){ float f = 1. - abs(dot(normalize(vN), normalize(vV))); float fr = pow(f, 2.3);
+      float flow = 0.8 + 0.2 * sin(vW.y * 16. - uTime * 1.6 + sin(vW.x * 8. + vW.z * 6.) * 1.4);
+      vec3 c = uCore * (0.06 + 0.16 * (1. - f)) * flow + uRim * fr * 1.6;
+      gl_FragColor = vec4(c * uI, 1.); }`;
+  function lathe(pts, depth = 1) {
+    const g = new THREE.LatheGeometry(pts.map(([r, y]) => new THREE.Vector2(Math.max(0.002, r), y)), quality ? 18 : 12);
+    g.scale(1, 1, depth); g.computeVertexNormals(); return g;
+  }
+  function limbGeo(len, r0, r1, bulge = 0.12) {
+    const pts = []; const n = 8;
+    pts.push([0.002, 0.012]);
+    for (let i = 0; i <= n; i++) { const t = i / n; pts.push([(r0 + (r1 - r0) * t) * (1 + bulge * Math.sin(Math.PI * Math.min(1, t * 1.4))), -t * len]); }
+    pts.push([0.002, -len - 0.012]);
+    return lathe(pts.reverse(), 0.88);
+  }
+  const ellip = (rx, ry, rz) => { const g = new THREE.SphereGeometry(1, quality ? 20 : 12, quality ? 14 : 9); g.scale(rx, ry, rz); return g; };
+  function makeBody(mat) {
+    const J = {}, grp = (name, parent, x = 0, y = 0, z = 0) => { const o = new THREE.Group(); o.position.set(x, y, z); parent.add(o); J[name] = o; return o; };
+    const add = (parent, geo, x = 0, y = 0, z = 0) => { const m = new THREE.Mesh(geo, mat); m.position.set(x, y, z); parent.add(m); return m; };
+    const root = new THREE.Group();
+    const pelvis = grp("pelvis", root, 0, 0.93, 0);
+    add(pelvis, lathe([[0.002, -0.07], [0.07, -0.06], [0.15, 0.0], [0.165, 0.07], [0.14, 0.17], [0.13, 0.24]], 0.62));
+    const chest = grp("chest", pelvis, 0, 0.22, 0);
+    add(chest, lathe([[0.13, 0], [0.145, 0.08], [0.168, 0.17], [0.178, 0.25], [0.15, 0.3], [0.07, 0.33], [0.002, 0.335]], 0.6));
+    const neck = grp("neck", chest, 0, 0.31, 0.005);
+    add(neck, limbGeo(0.09, 0.046, 0.05, 0).rotateX(Math.PI), 0, 0, 0);
+    const head = grp("head", neck, 0, 0.1, 0.01);
+    add(head, ellip(0.083, 0.112, 0.098), 0, 0.075, 0.008);
+    add(head, ellip(0.055, 0.04, 0.06), 0, 0.005, 0.03); // mâchoire
+    [["L", 1], ["R", -1]].forEach(([k, sd]) => {
+      const sh = grp("sh" + k, chest, sd * 0.185, 0.265, 0);
+      add(sh, ellip(0.06, 0.055, 0.055), 0, 0.005, 0); // épaule (deltoïde)
+      add(sh, limbGeo(0.29, 0.047, 0.036));
+      const el = grp("el" + k, sh, 0, -0.29, 0);
+      add(el, limbGeo(0.255, 0.037, 0.025, 0.1));
+      const wr = grp("wr" + k, el, 0, -0.255, 0);
+      add(wr, ellip(0.026, 0.085, 0.045), 0, -0.07, 0.005);
+      const hp = grp("hp" + k, pelvis, sd * 0.088, -0.01, 0);
+      add(hp, limbGeo(0.43, 0.078, 0.05, 0.1));
+      const kn = grp("kn" + k, hp, 0, -0.43, 0);
+      add(kn, limbGeo(0.42, 0.054, 0.032, 0.14));
+      const an = grp("an" + k, kn, 0, -0.42, 0);
+      add(an, ellip(0.04, 0.03, 0.12), 0, -0.045, 0.06);
+    });
+    return { root, J };
+  }
   function makeBeing(colA, colB, scale = 1) {
-    const g = new THREE.Group(), n = [700, 1300, 2000][quality];
+    const g = new THREE.Group(), n = [300, 650, 1000][quality];
     const geo = new THREE.BufferGeometry(), sd = new Float32Array(n * 4);
     for (let i = 0; i < n; i++) { sd[i * 4] = Math.pow(rnd(), 0.9); sd[i * 4 + 1] = rnd(); sd[i * 4 + 2] = rnd(); sd[i * 4 + 3] = rnd(); }
     geo.setAttribute("position", new THREE.BufferAttribute(new Float32Array(n * 3), 3));
     geo.setAttribute("aSeed", new THREE.BufferAttribute(sd, 4));
-    const u = { uTime: U.time, uLevel: { value: 0.3 }, uPulse: { value: 0 }, uPx: { value: renderer.getPixelRatio() }, uArmL: { value: -0.6 }, uArmR: { value: -0.6 }, uSize: { value: (quality ? 20 : 16) * scale }, uA: { value: C(colA) }, uB: { value: C(colB) } };
+    const u = { uTime: U.time, uLevel: { value: 0.3 }, uPulse: { value: 0 }, uPx: { value: renderer.getPixelRatio() }, uArmL: { value: -0.6 }, uArmR: { value: -0.6 }, uSize: { value: (quality ? 14 : 11) * scale }, uA: { value: C(colA) }, uB: { value: C(colB) }, uAura: { value: 1 } };
     const pts = new THREE.Points(geo, new THREE.ShaderMaterial({ uniforms: u, vertexShader: beingVS, fragmentShader: beingFS, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending }));
     pts.frustumCulled = false; g.add(pts);
-    const heart = new THREE.Mesh(new THREE.SphereGeometry(0.07, 16, 12), new THREE.MeshBasicMaterial({ color: C(colB).multiplyScalar(6), fog: false }));
-    heart.position.y = 1.25; g.add(heart);
-    const halo = glow(colB, 2.6, 0.35); halo.position.y = 1.2; g.add(halo);
-    const crown = glow(colA, 0.9, 0.6); crown.position.y = 1.68; g.add(crown);
-    const light = new THREE.PointLight(C(colB), 3, 9, 2); light.position.y = 1.2; g.add(light);
+    const em = { uCore: { value: C(colB).lerp(C("#ffffff"), 0.35) }, uRim: { value: C(colA).lerp(C("#ffffff"), 0.25) }, uI: { value: 1 }, uTime: U.time };
+    const mat = new THREE.ShaderMaterial({ uniforms: em, vertexShader: energyVS, fragmentShader: energyFS, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending });
+    const body = makeBody(mat), J = body.J; g.add(body.root);
+    const heart = glow(colB, 0.45, 0.9); J.chest.add(heart); heart.position.set(0, 0.17, 0.02);
+    const mind = glow(colA, 0.32, 0.6); J.head.add(mind); mind.position.set(0, 0.08, 0);
+    const halo = glow(colB, 2.4, 0.22); halo.position.y = 1.2; g.add(halo);
+    const light = new THREE.PointLight(C(colB), 3, 9, 2); J.chest.add(light); light.position.set(0, 0.17, 0.1);
     g.scale.setScalar(scale);
+    const ph = rnd() * 6.28;
+    const st = { reach: 0, sleep: false };
     return {
-      group: g, u,
+      group: g, u, J, state: st,
       update(T, A, R) {
         u.uLevel.value = A.level; u.uPulse.value = A.pulse;
-        const k = 1 + A.pulse * 0.25;
-        halo.scale.setScalar(2.6 * k * (0.85 + A.level * 0.4)); halo.material.opacity = 0.25 + A.level * 0.25;
-        light.intensity = (2 + A.level * 5 + A.pulse * 3);
-        heart.scale.setScalar(1 + A.pulse * 0.6);
-        u.uArmL.value = -0.7 + (0.6 + Math.sin(T * 0.7) * 0.5 + A.level * 0.6) * R + 0.4 * (1 - R);
-        u.uArmR.value = -0.7 + (0.6 + Math.sin(T * 0.7 + 2.1) * 0.5 + A.level * 0.6) * R + 0.4 * (1 - R);
+        em.uI.value = 0.85 + A.level * 0.7 + A.pulse * 0.5;
+        halo.scale.setScalar(2.4 * (1 + A.pulse * 0.2) * (0.85 + A.level * 0.4)); halo.material.opacity = 0.16 + A.level * 0.2;
+        heart.scale.setScalar(0.45 * (1 + A.pulse * 0.8)); light.intensity = 2 + A.level * 5 + A.pulse * 3;
+        const w = 0.85, t = T * w * R + ph, amp = (0.55 + A.level * 0.6) * (0.4 + 0.6 * R), sw = Math.sin(t), sh2 = Math.sin(t * 0.5);
+        if (st.sleep) {
+          J.chest.scale.setScalar(1 + Math.sin(T * 0.8) * 0.012);
+          J.shL.rotation.set(0, 0, 0.12); J.shR.rotation.set(0, 0, -0.12); J.elL.rotation.x = J.elR.rotation.x = -0.25;
+          J.head.rotation.set(0, 0.2, 0);
+          return;
+        }
+        J.pelvis.position.x = sw * 0.07 * amp; J.pelvis.position.y = 0.93 - 0.035 * Math.abs(sw) * amp - A.pulse * 0.015;
+        J.pelvis.rotation.set(0.02, sh2 * 0.28 * amp, sw * 0.07 * amp);
+        J.chest.rotation.set(0.05 + Math.sin(t * 2) * 0.03 * amp, -sh2 * 0.32 * amp, -sw * 0.08 * amp);
+        const bL = 0.12 + 0.32 * Math.max(0, -sw) * amp, bR = 0.12 + 0.32 * Math.max(0, sw) * amp;
+        J.hpL.rotation.set(-bL * 0.55, 0, -sw * 0.07 * amp); J.knL.rotation.x = bL; J.anL.rotation.x = -bL * 0.45;
+        J.hpR.rotation.set(-bR * 0.55, 0, -sw * 0.07 * amp); J.knR.rotation.x = bR; J.anR.rotation.x = -bR * 0.45;
+        const aL = 0.5 + 0.5 * Math.sin(t + 0.6), aR = 0.5 + 0.5 * Math.sin(t + 0.6 + Math.PI);
+        J.shL.rotation.set(-(0.25 + 0.55 * (0.5 + 0.5 * Math.sin(t * 0.5 + 1.2))) * amp, 0.2 * Math.sin(t * 0.7), 0.25 + 0.75 * aL * amp);
+        J.elL.rotation.set(-(0.35 + 0.45 * (0.5 + 0.5 * Math.sin(t + 2.2))) * (0.6 + amp * 0.4), 0, 0);
+        J.wrL.rotation.set(Math.sin(t * 1.3) * 0.25, 0, Math.sin(t * 1.1 + 1) * 0.3);
+        J.shR.rotation.set(-(0.25 + 0.55 * (0.5 + 0.5 * Math.sin(t * 0.5 + 1.2 + Math.PI))) * amp, -0.2 * Math.sin(t * 0.7), -(0.25 + 0.75 * aR * amp));
+        J.elR.rotation.set(-(0.35 + 0.45 * (0.5 + 0.5 * Math.sin(t + 2.2 + Math.PI))) * (0.6 + amp * 0.4), 0, 0);
+        J.wrR.rotation.set(Math.sin(t * 1.3 + 2) * 0.25, 0, -Math.sin(t * 1.1 + 3) * 0.3);
+        if (st.reach > 0) { const k = st.reach; J.shR.rotation.x += (-1.05 - J.shR.rotation.x) * k; J.shR.rotation.z += (-0.2 - J.shR.rotation.z) * k; J.elR.rotation.x += (-0.15 - J.elR.rotation.x) * k; }
+        J.neck.rotation.set(-0.03, sh2 * 0.12 * amp, 0); J.head.rotation.set(-0.06 + Math.sin(t) * 0.05 * amp, sh2 * 0.16 * amp, -sw * 0.06 * amp);
       }
     };
   }
@@ -470,11 +548,12 @@ export async function createRealScene(canvas, stage, opts) {
   const FLOWER_COLS = ["#f4f1ea", "#f6d36b", "#e9a3b8", "#b7a6e8", "#f2a25c", "#ffffff"];
 
   /* ———————— composition, bloom ———————— */
-  let composer = null, bloom = null;
+  let composer = null, bloom = null, bokeh = null;
   function setupComposer() {
     if (quality < 1) { composer = null; return; }
     composer = new EffectComposer(renderer);
     composer.addPass(new RenderPass(sc, camera));
+    if (quality > 1) { bokeh = new BokehPass(sc, camera, { focus: 7, aperture: 0.0012, maxblur: 0.006 }); composer.addPass(bokeh); } // profondeur de champ (qualité haute)
     bloom = new UnrealBloomPass(new THREE.Vector2(256, 256), 0.6, 0.55, 0.85);
     composer.addPass(bloom); composer.addPass(new OutputPass());
   }
@@ -602,7 +681,7 @@ export async function createRealScene(canvas, stage, opts) {
       const s = new THREE.Sprite(cloudMat(i % 3 ? "#c9d2ee" : "#9aa6d6", 0.6 + rnd() * 0.3)), a = rand(0, 6.28), r = Math.sqrt(rnd()) * spread;
       s.position.set(Math.cos(a) * r, (garden ? 0.6 : -0.4) + rand(-0.3, 0.4), Math.sin(a) * r); s.scale.setScalar(rand(3, 7) * (garden ? 0.5 : 1)); g.add(s); clouds.push(s);
     }
-    const b = makeBeing(P.cool, P.warm, 0.9); b.group.rotation.z = Math.PI / 2; b.group.position.set(0.8, garden ? 1.2 : 0.7, 0); g.add(b.group);
+    const b = makeBeing(P.cool, P.warm, 0.9); b.state.sleep = true; b.group.rotation.z = Math.PI / 2; b.group.position.set(0.8, garden ? 1.2 : 0.7, 0); g.add(b.group);
     const moon = glow("#dfe6ff", 30, 0.5); moon.position.copy(nightU.moonDir.value).multiplyScalar(300); g.add(moon);
     const dreams = []; for (let i = 0; i < 14; i++) { const d = glow(P.accent, 0.5, 0.9); g.add(d); dreams.push({ s: d, ph: i / 14 }); }
     return { group: g, camera: { r: 8, y: 2.2, target: [0, 1, 0] }, update(T, dt, A, R) {
@@ -688,7 +767,7 @@ export async function createRealScene(canvas, stage, opts) {
     breath.frustumCulled = false; g.add(breath);
     let spot = new THREE.Vector3(1.2, 0, 0.4), next = 0;
     return { group: g, camera: { r: 6.5, y: 1.3, target: [0.4, 0.8, 0] }, update(T, dt, A, R) {
-      b.update(T, A, R); b.u.uArmR.value = -0.35 + Math.sin(T * 0.5) * 0.1; b.group.rotation.y = -0.5;
+      b.state.reach = 0.85; b.update(T, A, R); b.group.rotation.y = Math.atan2(handP.x, handP.z);
       if (T > next) {
         next = T + (isReduced() ? 9 : 6); const a = rand(-1.2, 1.2), r = rand(0.9, 1.9);
         spot = new THREE.Vector3(Math.cos(a) * r, 0, Math.sin(a) * r);
@@ -696,7 +775,7 @@ export async function createRealScene(canvas, stage, opts) {
       }
       handP.lerp(new THREE.Vector3(spot.x, 0.55, spot.z), Math.min(1, dt * 0.8)); hand.position.copy(handP); hand.material.opacity = 0.6 + A.level * 0.4;
       flowers.forEach((o) => o.f.setOpen(Math.min(1, (T - o.t0) / 5)));
-      const mouth = new THREE.Vector3(0, 1.62, 0).applyMatrix4(b.group.matrixWorld);
+      const mouth = new THREE.Vector3(0, 0.03, 0.09).applyMatrix4(b.J.head.matrixWorld);
       for (let i = 0; i < n; i++) { const k = (bs[i] + T * 0.12 * R) % 1, w = Math.sin(k * Math.PI) * 0.35; bp[i * 3] = mouth.x + (handP.x - mouth.x) * k + Math.sin(bs[i] * 40 + T) * w * 0.3; bp[i * 3 + 1] = mouth.y + (handP.y - mouth.y) * k + w; bp[i * 3 + 2] = mouth.z + (handP.z - mouth.z) * k + Math.cos(bs[i] * 30 + T) * w * 0.3; }
       bg.attributes.position.needsUpdate = true;
     } };
@@ -823,6 +902,7 @@ export async function createRealScene(canvas, stage, opts) {
     trees.forEach((t, i) => { if (t.userData.sway) t.userData.sway.rotation.z = Math.sin(TG * 0.5 + i) * 0.012 * R * U.wind.value; });
     waters.forEach((w) => { if (w.fancy.visible) w.fancy.material.uniforms.time.value += dt * 0.35 * R; });
     stars.rotation.y += dt * 0.003;
+    if (bokeh) bokeh.uniforms.focus.value = camera.position.distanceTo(cam.target);
     if (composer) composer.render(); else renderer.render(sc, camera);
     // qualité adaptative : si l'image ralentit, on coupe bloom puis ombres
     if (fpsT === 0) fpsT = now;
