@@ -75,7 +75,41 @@
   }
 
 
-  /* ---------- silhouettes : une posture par planète (unités : hauteur du corps = 100) ---------- */
+  /* ---------- vraies personnes : une photo détourée par planète (Pexels, voir CREDITS.md) ----------
+     top / bottom : position verticale de l'image en unités du corps (tête = 0, pieds = 100) ;
+     fade : part basse de l'image fondue dans la lumière (corps coupé par le cadre). */
+  var POSES = [
+    { src: "assets/people/poses/pose-palms.webp", top: 0, bottom: 84, fade: 0.18, heart: [0, 30], center: [0, 45] },   // paumes ouvertes, accueillir
+    { src: "assets/people/poses/pose-raised.webp", top: -12, bottom: 64, fade: 0.2, heart: [0, 32], center: [0, 40] }, // bras levés : antenne
+    { src: "assets/people/poses/pose-heart.webp", top: 2, bottom: 62, fade: 0.22, heart: [0, 30], center: [0, 38] },   // main sur le cœur
+    { src: "assets/people/poses/pose-open.webp", top: 4, bottom: 58, fade: 0.25, heart: [0, 30], center: [0, 36] },    // bras grands ouverts : le Nous
+    { src: "assets/people/poses/pose-seated.webp", top: 36, bottom: 100, fade: 0.06, heart: [0, 60], center: [0, 66] } // assise en méditation
+  ];
+  var POSE_V = "?v=20261007p";
+  POSES.forEach(function (ps) {
+    var im = new Image();
+    im.decoding = "async";
+    im.onload = function () { ps.ready = true; };
+    im.src = ps.src + POSE_V;
+    ps.img = im;
+  });
+  function drawPhoto(g, i) {
+    var ps = POSES[i];
+    if (!ps || !ps.ready) return null;
+    var im = ps.img, hU = ps.bottom - ps.top, wU = hU * (im.naturalWidth / im.naturalHeight);
+    g.drawImage(im, -wU / 2, ps.top, wU, hU);
+    if (ps.fade > 0) { /* fondu du bas : le corps se prolonge dans la lumière */
+      var y0 = ps.bottom - hU * ps.fade, gr = g.createLinearGradient(0, y0, 0, ps.bottom);
+      gr.addColorStop(0, "rgba(0,0,0,1)"); gr.addColorStop(1, "rgba(0,0,0,0)");
+      g.globalCompositeOperation = "destination-in";
+      /* un seul rectangle : destination-in efface tout ce qui est hors de la forme dessinée */
+      g.fillStyle = gr; g.fillRect(-80, -60, 160, 240);
+      g.globalCompositeOperation = "source-over";
+    }
+    return { heart: ps.heart, center: ps.center };
+  }
+
+  /* ---------- silhouettes dessinées (repli si la photo n'est pas encore chargée) ---------- */
   function drawPose(g, i) {
     g.fillStyle = g.strokeStyle = "#fff";
     g.lineCap = g.lineJoin = "round";
@@ -136,10 +170,14 @@
     var sc = Math.min(2, dpr || 1);
     var sil = U.canvas(W * sc, H * sc), g = sil.getContext("2d");
     g.setTransform(u * sc, 0, 0, u * sc, ox * sc, oy * sc);
-    var meta = drawPose(g, i);
+    var meta = drawPhoto(g, i), photo = null;
+    if (meta) {
+      photo = U.canvas(sil.width, sil.height);
+      photo.getContext("2d").drawImage(sil, 0, 0);
+    } else meta = drawPose(g, i);
     /* échantillonnage des particules */
     var data = g.getImageData(0, 0, sil.width, sil.height).data;
-    var step = Math.max(2, Math.round((bh * sc) / (reduced ? 46 : 68)));
+    var step = Math.max(2, Math.round((bh * sc) / (photo ? (reduced ? 34 : 50) : (reduced ? 46 : 68))));
     var parts = [], r = U.rng(900 + i), x, y;
     for (y = 0; y < sil.height; y += step) {
       for (x = (y / step) % 2 ? step / 2 : 0; x < sil.width; x += step) {
@@ -176,7 +214,7 @@
     mg.fillStyle = U.rgba(glowColor, 1);
     mg.fillRect(0, 0, mid.width, mid.height);
     return {
-      sil: sil, glow: mid, parts: parts, W: W, H: H, ox: ox, oy: oy, u: u,
+      sil: sil, glow: mid, photo: photo, parts: parts, W: W, H: H, ox: ox, oy: oy, u: u,
       heart: [meta.heart[0] * u, meta.heart[1] * u], center: [meta.center[0] * u, meta.center[1] * u]
     };
   }
@@ -288,6 +326,7 @@
 
   P.update = function (dt) {
     this.T += dt; this.pt += dt;
+    if (this.body && !this.body.photo && POSES[this.i] && POSES[this.i].ready) this.resize(this.w, this.h, this.dpr);
     var d = this.dur(this.phase), ui = this.ui;
     if (this.phase === "breathing") {
       var bt = Math.min(this.pt, 29.999), half = Math.floor(bt / 5), cyc = Math.floor(bt / 10), hp = (bt % 5) / 5, inhale = half % 2 === 0;
@@ -653,8 +692,18 @@
       ctx.globalAlpha = Math.min(1, fa * (0.5 + 0.3 * b));
       var gcx = ox - B.ox + sw / 2, gcy = oy - B.oy + shh / 2;
       ctx.drawImage(B.glow, gcx - (sw * gsc) / 2, gcy - (shh * gsc) / 2, sw * gsc, shh * gsc);
-      ctx.globalAlpha = fa * (0.2 + 0.12 * b);
-      ctx.drawImage(B.sil, ox - B.ox, oy - B.oy, sw, shh);
+      if (B.photo) {
+        /* la vraie personne, baignée de lumière : photo + léger voile lumineux qui respire */
+        ctx.globalCompositeOperation = "source-over";
+        ctx.globalAlpha = Math.min(1, fa * 1.05);
+        ctx.drawImage(B.photo, ox - B.ox, oy - B.oy, sw, shh);
+        ctx.globalCompositeOperation = "lighter";
+        ctx.globalAlpha = fa * (0.08 + 0.1 * b);
+        ctx.drawImage(B.sil, ox - B.ox, oy - B.oy, sw, shh);
+      } else {
+        ctx.globalAlpha = fa * (0.2 + 0.12 * b);
+        ctx.drawImage(B.sil, ox - B.ox, oy - B.oy, sw, shh);
+      }
       ctx.globalAlpha = 1;
       EL.drawGlow(ctx, [255, 255, 255], ox + B.heart[0], oy + B.heart[1], this.bh * (0.09 + 0.05 * b), fa * (0.35 + 0.35 * b));
     }
@@ -683,6 +732,7 @@
         x = tx + (red ? 0 : Math.sin(t * pp.sp + pp.ph) * 0.9);
         y = ty + (red ? 0 : Math.cos(t * pp.sp * 0.8 + pp.ph) * 0.9);
         a = 0.6 + 0.4 * Math.sin(t * pp.sp * 2 + pp.ph);
+        if (B.photo) { if (!pp.bright && (i % 5)) continue; a *= 0.55; }
       }
       if (a <= 0.02) continue;
       if (pp.bright) EL.drawGlow(ctx, C.light, x, y, s * 6, a * 0.7);

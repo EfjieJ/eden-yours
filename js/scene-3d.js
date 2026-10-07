@@ -1,4 +1,4 @@
-/* Eden Yours — Danse des Êtres de Lumière : scène 3D cartoon (three.js, sans build).
+/* Eden Yours — Danse des Êtres de Lumière : vraies personnes dansant dans un paysage 3D (three.js, sans build).
    - Une chanson au hasard dans la langue du site (tracks.json), sans répéter la dernière (sessionStorage).
    - Un décor par chanson (data/scene-3d-themes.json) : un personnage principal, une paire chaud/froid,
      lumière dorée de lever/coucher de soleil, mouvements lents, petits gestes, fondus doux.
@@ -375,7 +375,7 @@ async function boot() {
     return;
   }
   try {
-    const [{ createRealScene }] = await Promise.all([import("./eden-real.js?v=20261007f"), dataP]);
+    const [{ createRealScene }] = await Promise.all([import("./eden-real.js?v=20261007p"), dataP]);
     scene = await createRealScene(el.canvas, el.stage, { isReduced, sampleLevel, dragHint: el.dragHint });
     const th = current ? themeFor(current) : themeFor(null);
     scene.build(th.id, th.def);

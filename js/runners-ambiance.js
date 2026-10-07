@@ -1,7 +1,8 @@
-/* Eden Yours — Coureurs (ambiance accueil uniquement)
-   Canvas 2D léger : silhouettes humaines aux proportions naturelles, foulée réaliste,
-   en contre-jour avec un liseré doré diffus et une ombre portée douce (aucun visage).
-   Pause si onglet caché ; masqué / figé si prefers-reduced-motion ; moins de figures sur mobile. */
+/* Eden Yours — Marcheurs (ambiance accueil uniquement)
+   De vraies personnes qui marchent pieds nus dans la lumière : cycles de marche filmés (vidéo Pexels,
+   détourée, voir CREDITS.md) en planches WebP, liseré doré en contre-jour et ombre portée douce.
+   Repli : silhouettes dessinées tant que les planches ne sont pas chargées.
+   Pause si onglet caché ; figé si prefers-reduced-motion ; moins de personnes sur mobile. */
 (function () {
   "use strict";
   if (window.EdenRunners) return;
@@ -19,6 +20,19 @@
     { body: "#A0C6E6", shade: "#78A8CE", light: "#D6ECF8", limb: "#88B4D6" }
   ];
   var CREAM = "rgba(255, 244, 220, 0.35)";
+  /* planches : une rangée d'images (fw × fh), fps d'origine, vitesse = déplacement / hauteur par image */
+  var SHEETS = [
+    { src: "assets/people/walk-girl.webp", frames: 16, fw: 133, fh: 300, fps: 15, speed: 0.01347, kid: true },
+    { src: "assets/people/walk-mother.webp", frames: 22, fw: 187, fh: 300, fps: 15, speed: 0.01194, kid: false }
+  ];
+  var PACE = 1.35; // un peu plus vif que la prise de vue (ralentie)
+  SHEETS.forEach(function (sh) {
+    var im = new Image();
+    im.decoding = "async";
+    im.onload = function () { sh.ready = true; if (!running) drawStill(); };
+    im.src = sh.src + "?v=20261007p";
+    sh.img = im;
+  });
   var GOLD_LINE = "rgba(246, 201, 106, 0.22)";
   var VIOLET_SOFT = "rgba(192, 132, 252, 0.12)";
 
@@ -104,6 +118,7 @@
       var scale = 0.55 + Math.random() * 0.45;
       var lane = 0.62 + (i % 3) * 0.08 + Math.random() * 0.04;
       runners.push({
+        sheet: SHEETS[i % SHEETS.length],
         x: (i / Math.max(1, n)) * W + Math.random() * 80 - 40,
         yFrac: lane,
         scale: scale,
@@ -163,7 +178,26 @@
     ctx.fill();
     limb(nx, shY + s * 0.02, upA, foA, armA, elbow, s * 0.05);
   }
+  function drawWalker(r, t, sh) {
+    var y = H * r.yFrac;
+    var hh = (sh.kid ? 92 : 128) * r.scale;           // hauteur à l'écran (px)
+    var fwp = hh * sh.fw / sh.fh;
+    var f = Math.floor((t / 1000) * sh.fps * PACE + r.phase * 10) % sh.frames;
+    ctx.save();
+    /* ombre portée douce */
+    var sg = ctx.createRadialGradient(r.x, y + 2, 0, r.x, y + 2, hh * 0.35);
+    sg.addColorStop(0, "rgba(8, 6, 24, 0.35)"); sg.addColorStop(1, "rgba(8, 6, 24, 0)");
+    ctx.fillStyle = sg;
+    ctx.beginPath(); ctx.ellipse(r.x, y + 2, hh * 0.35, hh * 0.04, 0, 0, Math.PI * 2); ctx.fill();
+    /* contre-jour : liseré doré diffus */
+    ctx.shadowColor = "rgba(255, 196, 120, 0.6)";
+    ctx.shadowBlur = Math.max(6, hh * 0.08);
+    ctx.globalAlpha = 0.95;
+    ctx.drawImage(sh.img, f * sh.fw, 0, sh.fw, sh.fh, r.x - fwp / 2, y - hh, fwp, hh);
+    ctx.restore();
+  }
   function drawRunner(r, t) {
+    if (r.sheet && r.sheet.ready) return drawWalker(r, t, r.sheet);
     var y = H * r.yFrac;
     var s = 62 * r.scale;
     var cycle = t * 0.0055 * (0.6 + r.speed / 80) + r.phase;
@@ -244,6 +278,14 @@
 
     for (var i = 0; i < runners.length; i++) {
       var r = runners[i];
+      if (r.sheet && r.sheet.ready) {
+        var hh = (r.sheet.kid ? 92 : 128) * r.scale;
+        r.dir = -1;
+        r.x -= r.sheet.speed * hh * r.sheet.fps * PACE * dt;
+        if (r.x < -80) { r.x = W + 60 + Math.random() * 120; r.phase = Math.random() * Math.PI * 2; }
+        drawRunner(r, t);
+        continue;
+      }
       r.x += r.speed * dt * r.dir;
       if (r.x > W + 60) {
         r.x = -50 - Math.random() * 40;

@@ -176,6 +176,21 @@
     };
   }
 
+  /* Vrais visages qui rient (photos Pexels, voir CREDITS.md) ; repli : petit visage dessiné. */
+  var FACE_IDS = ["18893587", "32272824", "13871734", "4584544", "13757556", "31507920", "8727469", "19879509", "2066039",
+    "3907442", "18644578", "33544578", "13636925", "37409945", "16262989", "11425715", "39178657", "18054416", "32667444", "19236771", "6333507"];
+  var faces = FACE_IDS.map(function (id) {
+    var im = new Image();
+    im.decoding = "async";
+    im.src = "assets/people/faces/laugh-" + id + ".webp?v=20261007p";
+    return im;
+  });
+  var faceBag = [];
+  function nextFace() {
+    if (!faceBag.length) { for (var i = 0; i < faces.length; i++) faceBag.push(i); faceBag.sort(function () { return Math.random() - 0.5; }); }
+    return faceBag.pop();
+  }
+
   function spawnBeing(cfg) {
     var sz = cssSize();
     var r = (36 + Math.random() * 18) * (cfg.size || 1);
@@ -189,6 +204,7 @@
       hue: 40 + Math.random() * 50, /* or → violet soft */
       phase: Math.random() * Math.PI * 2,
       smile: 0.6 + Math.random() * 0.4,
+      face: nextFace(),
       life: 1,
       pulse: Math.random() * Math.PI * 2
     });
@@ -223,6 +239,29 @@
     ctx.arc(b.x, b.y, R * 1.25, 0, Math.PI * 2);
     ctx.fill();
 
+    var im = faces[b.face];
+    if (im && im.complete && im.naturalWidth) {
+      /* un vrai visage qui rit, dans une bulle de lumière */
+      ctx.save();
+      ctx.globalAlpha = b.life;
+      ctx.beginPath();
+      ctx.arc(b.x, b.y, R * 0.78, 0, Math.PI * 2);
+      ctx.clip();
+      ctx.drawImage(im, b.x - R * 0.78, b.y - R * 0.78, R * 1.56, R * 1.56);
+      var sheen = ctx.createRadialGradient(b.x - R * 0.3, b.y - R * 0.4, R * 0.05, b.x, b.y, R * 0.8);
+      sheen.addColorStop(0, "rgba(255,248,230,0.28)");
+      sheen.addColorStop(0.5, "rgba(255,248,230,0)");
+      sheen.addColorStop(1, "rgba(246,201,106,0.22)");
+      ctx.fillStyle = sheen;
+      ctx.fillRect(b.x - R, b.y - R, R * 2, R * 2);
+      ctx.restore();
+      ctx.beginPath();
+      ctx.strokeStyle = "rgba(253,230,138," + (0.75 * b.life) + ")";
+      ctx.lineWidth = Math.max(1.5, R * 0.05);
+      ctx.arc(b.x, b.y, R * 0.79, 0, Math.PI * 2);
+      ctx.stroke();
+      return;
+    }
     ctx.beginPath();
     ctx.fillStyle = "rgba(255,250,240," + (0.92 * b.life) + ")";
     ctx.arc(b.x, b.y, R * 0.72, 0, Math.PI * 2);

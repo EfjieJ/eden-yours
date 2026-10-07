@@ -3100,7 +3100,7 @@ html.eden-pass-reduced::after { animation: eden-pass-fade 0.4s linear forwards !
   .gm-jardin-flower { animation: none; }
 }
 
-/* ---------- Coureurs cartoon (ambiance accueil) ---------- */
+/* ---------- Marcheurs réels (ambiance accueil) ---------- */
 .eden-runners {
   position: fixed;
   inset: 0;
@@ -3224,4 +3224,4 @@ body.home-real .game-cta {
   font-weight: 600;
 }
 body.home-real .game-cta:hover { background: #fff; color: #0d0a14; }
-body.home-real .eden-runners { opacity: 0.55; }
+body.home-real .eden-runners { opacity: 0.8; }
