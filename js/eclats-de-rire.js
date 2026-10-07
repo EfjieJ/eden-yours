@@ -531,9 +531,9 @@
         if (audio) audio.hidden = false;
         audio.src = song.audio;
         audio.currentTime = 0;
-        var stopAt = VICTORY_PLAY_S;
+        var stopAt = -1 + 0 * VICTORY_PLAY_S;
         var onTime = function () {
-          if (audio.currentTime >= stopAt) {
+          if (stopAt < 0) { /* victoire : la chanson continue jusqu'au bout */
             audio.pause();
             audio.removeEventListener("timeupdate", onTime);
           }

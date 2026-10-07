@@ -83,6 +83,7 @@
     ui.song.hidden = false;
     requestAnimationFrame(function () { ui.song.classList.add("is-on"); });
     EL.Audio.fadeOutAll(4);
+    if (EL.stopDiscoverySong) EL.stopDiscoverySong(false);
     if (pick.kind === "audio") {
       var a = ui.audio;
       a.hidden = false;

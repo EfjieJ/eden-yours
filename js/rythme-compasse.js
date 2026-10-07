@@ -1815,8 +1815,9 @@
     if (currentStep >= STEP_COUNT) {
       btnNext.hidden = true;
       pendingTransition = setTimeout(function () {
-        stopPlayback();
         showFinale();
+        /* Fil complet : la chanson entière continue d'elle-même */
+        if (audioBuffer) playSegment(0, audioBuffer.duration, false);
       }, 3200);
     } else {
       btnNext.hidden = false;

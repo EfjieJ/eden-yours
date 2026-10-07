@@ -251,9 +251,7 @@
         } catch (e) {}
         var p = audio.play();
         if (p && p.catch) p.catch(function () {});
-        stopTimer = setTimeout(function () {
-          try { audio.pause(); } catch (e) {}
-        }, secs * 1000);
+        /* on part du vers choisi puis la chanson continue jusqu'au bout */
       };
       audio.addEventListener("loadedmetadata", onMeta);
       audio.load();

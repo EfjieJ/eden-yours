@@ -138,10 +138,11 @@ let triedAac = false;
 const lvl = { level: 0.15, pulse: 0, beat: false, progress: 0, bassAvg: 0.1, lastBeat: 0, smooth: 0.15 };
 
 function previewLimit() {
-  const n = Number(cfg.previewSeconds);
-  return Number.isFinite(n) && n > 0 ? n : 30;
+  const n = Number(cfg.FREE_PREVIEW_SECONDS != null ? cfg.FREE_PREVIEW_SECONDS : cfg.previewSeconds);
+  return Number.isFinite(n) && n > 0 ? n : Infinity;
 }
 function isUnlocked() {
+  if (previewLimit() === Infinity) return true;
   try { return localStorage.getItem(cfg.unlockStorageKey || "eden-yours-unlocked") === "1"; } catch (e) { return false; }
 }
 
@@ -294,6 +295,7 @@ function playTrack(tr) {
     setHint(isUnlocked() ? "scene.hintAudio" : "scene.hintAudioPreview");
     const p = el.audio.play();
     if (p && p.catch) p.catch(() => setHint("scene.hintBlocked"));
+    if (el.previewNote && previewLimit() === Infinity) el.previewNote.hidden = false; // mention douce, non bloquante
     return;
   }
   if (!showEmbed(tr)) setHint("scene.empty");

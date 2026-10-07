@@ -51,6 +51,7 @@
   }
 
   function startDiscovery() {
+    if (discoveryAudio && !discoveryAudio.paused && !discoveryAudio.ended) return; // déjà en cours : on la laisse continuer
     stopDiscovery(true);
     var a = discoveryAudio = new Audio(DISCOVERY.src);
     a.preload = "auto";
@@ -265,7 +266,7 @@
       ui.breath.classList.remove("is-on");
       ui.title.classList.remove("is-on");
       if (ui.leave) ui.leave.hidden = true;
-      stopDiscovery(false);
+      /* la chanson de découverte continue après l'incarnation, jusqu'au bout */
       if (this.audioOn) { A.breathEnd(); A.whoosh(true, ph === "quit" ? 1.6 : 2.8); }
       if (ph === "dissolve") {
         this.success = true;
@@ -281,7 +282,6 @@
       if (this.audioOn) A.whoosh(true, 2.2);
     } else if (ph === "done") {
       ui.phrase.classList.remove("is-on", "is-gift");
-      stopDiscovery(true);
       if (this.onExit) this.onExit(this.success);
     }
   };

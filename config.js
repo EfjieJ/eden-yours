@@ -7,7 +7,10 @@ window.EDEN_CONFIG = {
   siteUrl: "https://EfjieJ.github.io/eden-yours/",
   paypalUrl: "https://paypal.me/Francjul",
   unlockPaypalUrl: "https://paypal.me/Francjul/1USD",
-  previewSeconds: 30,
+  /* Extrait gratuit, en secondes. 0 = chansons entières pour tout le monde (par défaut).
+     Pour un futur abonnement, mettre p. ex. 30 : la limite et la fenêtre de déblocage reviennent. */
+  FREE_PREVIEW_SECONDS: 0,
+  previewSeconds: 0,
   unlockStorageKey: "eden-yours-unlocked",
   contactEmail: "efjie8008@gmail.com",
   sunoArtist: "efjie8008",

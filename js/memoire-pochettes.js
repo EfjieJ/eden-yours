@@ -176,9 +176,9 @@
       audio.hidden = false;
       audio.src = song.audio;
       audio.currentTime = 0;
-      var stopAt = seconds || MATCH_PLAY_S;
+      /* chanson entière : plus d'arrêt après quelques secondes (la paire suivante prend le relais) */
       clipStopHandler = function () {
-        if (audio.currentTime >= stopAt) {
+        if (false) {
           audio.pause();
           if (clipStopHandler) {
             audio.removeEventListener("timeupdate", clipStopHandler);

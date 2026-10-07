@@ -42,8 +42,8 @@
 
   // ---------- Freemium unlock ----------
   function previewLimit() {
-    const n = Number(cfg.previewSeconds);
-    return Number.isFinite(n) && n > 0 ? n : 30;
+    const n = Number(cfg.FREE_PREVIEW_SECONDS != null ? cfg.FREE_PREVIEW_SECONDS : cfg.previewSeconds);
+    return Number.isFinite(n) && n > 0 ? n : Infinity; // 0 = chanson entière
   }
 
   function unlockKey() {
@@ -51,6 +51,7 @@
   }
 
   function isUnlocked() {
+    if (previewLimit() === Infinity) return true;
     try {
       return localStorage.getItem(unlockKey()) === "1";
     } catch {
