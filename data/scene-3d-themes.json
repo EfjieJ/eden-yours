@@ -431,6 +431,14 @@
    "basis": "title+lyrics",
    "excerpt": "Le oui, c'est pas un mot, c'est un geste\nC'est l'être qui dit : que ce soit",
    "excerptSource": "specs/le-oui-lyrics.md"
+  },
+  "0d719cb9-cd9e-4bf8-bc1e-3ee90dbe2345": {
+   "title": "Le Grand Poumon",
+   "lang": "fr",
+   "theme": "souffle",
+   "basis": "title+lyrics",
+   "excerpt": "J'inspire, et je crée,\nJ'expire, et je laisse aller.",
+   "excerptSource": "data/lyrics-sources.json"
   }
  }
 }

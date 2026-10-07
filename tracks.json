@@ -471,6 +471,21 @@
       "featured": false,
       "audio_url_aac": null,
       "lang": "fr"
+    },
+    {
+      "id": "0d719cb9-cd9e-4bf8-bc1e-3ee90dbe2345",
+      "title": "Le Grand Poumon",
+      "artist": "Eden Yours",
+      "sunoArtist": "efjie8008",
+      "sunoTitle": "Le Grand Poumon",
+      "audio_url": null,
+      "embed_url": "https://suno.com/embed/0d719cb9-cd9e-4bf8-bc1e-3ee90dbe2345",
+      "cover_url": "assets/covers/0d719cb9-cd9e-4bf8-bc1e-3ee90dbe2345.jpeg",
+      "suno_share": "https://suno.com/s/NLX75g5zPuN2XP4o",
+      "duration": null,
+      "featured": false,
+      "audio_url_aac": null,
+      "lang": "fr"
     }
   ]
 }
