@@ -3054,6 +3054,52 @@ html.eden-pass-reduced::after { animation: eden-pass-fade 0.4s linear forwards !
   .gm-scene3d-being, .gm-scene3d-spark { animation: none; }
 }
 
+/* Le Jardin d’Éden — portail (accueil) */
+.game-card--jardin::before { animation-delay: -9.4s; }
+.gm-jardin {
+  position: relative;
+  min-height: 118px;
+  padding: 18px 12px 10px;
+  background: linear-gradient(180deg, #123e5a 0%, #3f7f8a 50%, #f0b46a 100%);
+  border-radius: 999px 999px 18px 18px;
+  overflow: hidden;
+}
+.gm-jardin-sun {
+  position: absolute; left: 50%; bottom: 34px; width: 40px; height: 40px; margin-left: -20px; border-radius: 50%;
+  background: radial-gradient(circle, #fff3d1, #ffc27a 60%, rgba(255, 194, 122, 0));
+  box-shadow: 0 0 30px rgba(255, 194, 122, 0.8);
+}
+.gm-jardin-hill {
+  position: absolute; left: -10%; right: -10%; bottom: -40px; height: 74px; border-radius: 50%;
+  background: radial-gradient(ellipse at 50% 0%, #6fc27a, #3f8f5e 70%);
+}
+.gm-jardin-river {
+  position: absolute; z-index: 1; left: 18%; right: 18%; bottom: 8px; height: 12px; border-radius: 50%;
+  background: linear-gradient(90deg, rgba(94, 200, 230, 0), #5ec8e6 30%, #9fe3ff 70%, rgba(94, 200, 230, 0));
+}
+.gm-jardin-tree {
+  position: absolute; z-index: 2; bottom: 24px; width: 34px; height: 34px; border-radius: 50%;
+  background: radial-gradient(circle at 40% 35%, #7ad38a, #3aa37a 70%);
+  box-shadow: 0 0 12px rgba(122, 211, 138, 0.45);
+}
+.gm-jardin-tree::after {
+  content: ""; position: absolute; left: 50%; top: 28px; width: 6px; height: 16px; margin-left: -3px; border-radius: 3px; background: #9a6a45;
+}
+.gm-jardin-tree--a { left: 16%; }
+.gm-jardin-tree--b { right: 16%; transform: scale(0.8); }
+.gm-jardin-flower {
+  position: absolute; z-index: 3; bottom: 14px; left: calc(36% + var(--i) * 12%); width: 8px; height: 8px; border-radius: 50%;
+  background: #ffb3c7; box-shadow: 0 0 10px rgba(255, 225, 160, 0.9);
+  animation: ej-portal-glow 3.2s ease-in-out infinite; animation-delay: calc(var(--i) * -1.1s);
+}
+@keyframes ej-portal-glow {
+  0%, 100% { transform: scale(0.85); opacity: 0.75; }
+  50% { transform: scale(1.15); opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gm-jardin-flower { animation: none; }
+}
+
 /* ---------- Coureurs cartoon (ambiance accueil) ---------- */
 .eden-runners {
   position: fixed;

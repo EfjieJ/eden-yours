@@ -1,0 +1,245 @@
+/* Danse des Êtres de Lumière — scène 3D cartoon, turquoise / or, lumière de lever de soleil */
+.page-scene3d .s3d-shell { max-width: 820px; }
+
+.s3d-card {
+  padding: 1rem 1rem 1.3rem;
+  border-radius: 24px;
+  border: 1px solid rgba(126, 182, 217, 0.32);
+  background:
+    radial-gradient(ellipse 90% 48% at 50% 0%, rgba(246, 201, 106, 0.12), transparent 62%),
+    radial-gradient(ellipse 70% 50% at 80% 100%, rgba(126, 182, 217, 0.16), transparent 60%),
+    linear-gradient(180deg, rgba(22, 30, 66, 0.82), rgba(10, 12, 32, 0.94));
+  box-shadow: 0 0 40px rgba(126, 182, 217, 0.18), 0 16px 40px rgba(5, 2, 14, 0.45);
+}
+
+.s3d-stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  max-height: 72vh;
+  border-radius: 18px;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 50% 80%, #e9a15a 0%, #2a3f74 45%, #0b1530 100%);
+  border: 1px solid rgba(246, 201, 106, 0.25);
+  box-shadow: inset 0 0 40px rgba(5, 2, 14, 0.4);
+}
+
+.s3d-stage canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: pan-y;
+  cursor: grab;
+}
+.s3d-stage canvas:active { cursor: grabbing; }
+
+.s3d-fade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(ellipse at 50% 70%, rgba(255, 214, 150, 0.95), rgba(14, 18, 40, 1) 75%);
+  transition-property: opacity;
+  transition-timing-function: ease-in-out;
+  transition-duration: 900ms;
+}
+.s3d-fade.is-on { opacity: 1; }
+
+.s3d-theme-chip {
+  position: absolute;
+  top: 0.65rem;
+  left: 0.65rem;
+  margin: 0;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  color: #fff4d6;
+  background: rgba(10, 14, 34, 0.55);
+  border: 1px solid rgba(246, 201, 106, 0.35);
+  backdrop-filter: blur(4px);
+  pointer-events: none;
+}
+
+.s3d-loading,
+.s3d-fallback {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1.25rem;
+  text-align: center;
+  color: rgba(255, 244, 214, 0.92);
+}
+.s3d-loading { font-size: 0.95rem; letter-spacing: 0.03em; }
+.s3d-loading[hidden], .s3d-fallback[hidden] { display: none; }
+.s3d-fallback p { max-width: 30rem; margin: 0; line-height: 1.5; }
+
+.s3d-fallback-being {
+  position: relative;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 38% 35%, #ffffff, #8BB8E8 55%, #4f7fb8);
+  box-shadow: 0 0 30px rgba(139, 184, 232, 0.6);
+  animation: s3d-float 3.2s ease-in-out infinite;
+}
+.s3d-fallback-being span {
+  position: absolute;
+  left: 50%;
+  top: -14px;
+  width: 40px;
+  height: 10px;
+  margin-left: -20px;
+  border-radius: 50%;
+  border: 3px solid #F6C66A;
+  box-shadow: 0 0 12px rgba(246, 198, 106, 0.8);
+}
+@keyframes s3d-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.s3d-drag-hint {
+  position: absolute;
+  bottom: 0.6rem;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  padding: 0.25rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  color: rgba(255, 244, 214, 0.85);
+  background: rgba(10, 14, 34, 0.45);
+  pointer-events: none;
+  transition: opacity 0.8s ease;
+}
+.s3d-drag-hint.is-gone { opacity: 0; }
+
+.s3d-controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  margin: 1rem 0 0.5rem;
+}
+.s3d-controls .btn { min-height: 56px; min-width: 220px; font-size: 1.08rem; }
+.s3d-controls .btn[hidden] { display: none; }
+
+.s3d-player {
+  margin: 0.75rem auto 0.25rem;
+  max-width: 560px;
+  padding: 0.9rem 1rem 1rem;
+  border-radius: 18px;
+  border: 1px solid rgba(246, 201, 106, 0.3);
+  background: rgba(14, 18, 42, 0.6);
+}
+.s3d-player[hidden] { display: none; }
+
+.s3d-now-row { display: flex; align-items: center; gap: 0.85rem; }
+.s3d-cover {
+  flex: 0 0 auto;
+  width: 64px;
+  height: 64px;
+  border-radius: 12px;
+  object-fit: cover;
+  border: 1px solid rgba(246, 201, 106, 0.4);
+  box-shadow: 0 6px 18px rgba(5, 2, 14, 0.45);
+}
+.s3d-cover[hidden] { display: none; }
+.s3d-now-text { min-width: 0; }
+.s3d-now-kicker {
+  margin: 0;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(126, 182, 217, 0.95);
+}
+.s3d-now-title {
+  margin: 0.1rem 0 0.25rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #fff4d6;
+  overflow-wrap: anywhere;
+}
+.s3d-song-links { margin: 0; display: flex; flex-wrap: wrap; gap: 0.35rem 0.9rem; font-size: 0.88rem; }
+.s3d-song-links a { color: #F6C66A; text-decoration: underline; text-underline-offset: 3px; }
+.s3d-song-links a[hidden] { display: none; }
+
+.s3d-excerpt {
+  margin: 0.85rem 0 0.2rem;
+  padding: 0.6rem 0.8rem;
+  border-left: 3px solid rgba(246, 201, 106, 0.6);
+  background: rgba(246, 201, 106, 0.06);
+  border-radius: 0 12px 12px 0;
+}
+.s3d-excerpt[hidden] { display: none; }
+.s3d-excerpt blockquote { margin: 0; font-style: italic; line-height: 1.5; color: rgba(255, 244, 214, 0.95); }
+.s3d-excerpt figcaption { margin-top: 0.25rem; font-size: 0.75rem; color: rgba(255, 244, 214, 0.6); }
+
+.s3d-player audio { display: block; width: 100%; margin-top: 0.75rem; }
+.s3d-player audio[hidden] { display: none; }
+.s3d-embed { margin-top: 0.75rem; }
+.s3d-embed[hidden] { display: none; }
+.s3d-suno-embed { display: block; width: 100%; border: 0; border-radius: 12px; min-height: 180px; }
+
+.s3d-preview-note {
+  margin: 0.7rem 0 0;
+  font-size: 0.9rem;
+  color: rgba(255, 244, 214, 0.88);
+}
+.s3d-preview-note[hidden] { display: none; }
+.s3d-preview-note a { color: #F6C66A; margin-left: 0.35rem; font-weight: 650; }
+
+.s3d-hint { text-align: center; margin-top: 0.6rem; }
+
+@media (max-width: 640px) {
+  .s3d-card { padding: 0.7rem 0.6rem 1rem; }
+  .s3d-stage { aspect-ratio: 4 / 5; max-height: 64vh; }
+  .s3d-controls .btn { width: 100%; min-width: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .s3d-fallback-being { animation: none; }
+  .s3d-fade { transition-duration: 250ms !important; }
+}
+
+/* Le Jardin d’Éden — progression par visite */
+.ej-garden {
+  margin: 0.9rem auto 0.2rem;
+  max-width: 620px;
+  text-align: center;
+}
+.ej-visit {
+  margin: 0;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(126, 182, 217, 0.95);
+}
+.ej-new {
+  margin: 0.25rem 0 0.6rem;
+  font-size: 1.02rem;
+  font-weight: 650;
+  color: #fff4d6;
+}
+.ej-layers {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.35rem;
+}
+.ej-layers li {
+  padding: 0.22rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  border: 1px solid rgba(246, 201, 106, 0.35);
+}
+.ej-layers li.is-on { color: #1d1838; background: linear-gradient(135deg, #FFE08A, #9fe3c4); border-color: transparent; }
+.ej-layers li.is-off { color: rgba(255, 244, 214, 0.55); background: rgba(10, 14, 34, 0.4); }
