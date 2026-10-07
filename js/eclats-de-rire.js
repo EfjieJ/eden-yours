@@ -533,7 +533,7 @@
         audio.currentTime = 0;
         var stopAt = -1 + 0 * VICTORY_PLAY_S;
         var onTime = function () {
-          if (stopAt < 0) { /* victoire : la chanson continue jusqu'au bout */
+          if (stopAt > 0 && audio.currentTime >= stopAt) { /* désactivé : la chanson continue jusqu'au bout */
             audio.pause();
             audio.removeEventListener("timeupdate", onTime);
           }

@@ -129,12 +129,12 @@
       var onMeta = function () {
         audio.removeEventListener("loadedmetadata", onMeta);
         try { audio.currentTime = Math.min(start, Math.max(0, (audio.duration || start + 1) - 1)); } catch (e) {}
-        var p = audio.play();
-        if (p && p.catch) p.catch(function () {});
         /* on part du vers choisi puis la chanson continue jusqu'au bout */
       };
       audio.addEventListener("loadedmetadata", onMeta);
-      audio.load();
+      /* play() tout de suite, dans le geste gagnant : démarrage instantané */
+      var p = audio.play();
+      if (p && p.catch) p.catch(function () {});
       return;
     }
 
