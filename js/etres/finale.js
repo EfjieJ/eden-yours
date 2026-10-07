@@ -9,14 +9,14 @@
     list = Array.isArray(list) ? list : [];
     var local = list.filter(function (t) { return t && t.audio_url; });
     var same = local.filter(function (t) { return t.lang === lang; });
-    var pool = same.length ? same : local;
+    var pool = same; /* jamais une chanson d’une autre langue */
     if (pool.length) {
       var feat = pool.filter(function (t) { return t.featured; });
       return { track: feat[0] || pool[0], kind: "audio" };
     }
     var emb = list.filter(function (t) { return t && t.embed_url; });
     var embSame = emb.filter(function (t) { return t.lang === lang; });
-    var e = embSame[0] || emb[0];
+    var e = embSame[0];
     return e ? { track: e, kind: "embed" } : null;
   }
   EL.pickTrack = pickTrack;

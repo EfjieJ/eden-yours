@@ -47,6 +47,10 @@
   function applyI18n() {
     document.documentElement.lang = EL.lang;
     document.title = EL.t("docTitle");
+    var md = document.querySelector('meta[name="description"]');
+    if (md) md.setAttribute("content", EL.t("metaDesc"));
+    var lt = document.getElementById("el-lang");
+    if (lt) { lt.textContent = EL.t("langToggle"); lt.setAttribute("aria-label", EL.t("langToggleAria")); lt.title = EL.t("langToggleAria"); }
     Array.prototype.forEach.call(document.querySelectorAll("[data-t]"), function (el) { el.textContent = EL.t(el.getAttribute("data-t")); });
     Array.prototype.forEach.call(document.querySelectorAll("[data-t-aria]"), function (el) {
       var s = EL.t(el.getAttribute("data-t-aria")); el.setAttribute("aria-label", s); el.title = s;
@@ -633,6 +637,16 @@
   applyI18n();
   updateProgress();
   updateMuteBtn();
+  var langBtn = document.getElementById("el-lang");
+  if (langBtn) langBtn.addEventListener("click", function () {
+    EL.lang = EL.lang === "en" ? "fr" : "en";
+    try { localStorage.setItem("eden-lang", EL.lang); } catch (e) {}
+    try {
+      var u = new URL(location.href);
+      if (u.searchParams.has("lang")) { u.searchParams.set("lang", EL.lang); history.replaceState(null, "", u); }
+    } catch (e) {}
+    applyI18n(); updateProgress(); updateMuteBtn();
+  });
   resize();
   camBase.x = U.lerp(player.x, PLANETS[0].x, 0.45); camBase.y = U.lerp(player.y, PLANETS[0].y, 0.45);
   cam.x = camBase.x; cam.y = camBase.y; cam.z = ZOOM;

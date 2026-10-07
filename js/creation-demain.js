@@ -15,25 +15,129 @@
   const VICTORY_SUNO = 'https://suno.com/s/xEWZPaMo5HSbXeMp';
   const VICTORY_TITLE = "Tout ce que je demande l'univers me le donne";
 
+  // ——— Langue : suit le choix du site (EdenI18n / localStorage « eden-lang »). Les titres de chansons ne sont jamais traduits.
+  function isEn() {
+    try { if (window.EdenI18n && window.EdenI18n.getLang) return window.EdenI18n.getLang() === 'en'; } catch (_) {}
+    try { return localStorage.getItem('eden-lang') === 'en'; } catch (_) { return false; }
+  }
+  const EN_TEXT = {
+      "Courir": "Run",
+      "Respirer": "Breathe",
+      "Toucher l'arbre": "Touch the tree",
+      "Crier": "Shout",
+      "Sauter": "Jump",
+      "Danser": "Dance",
+      "Hésiter": "Hesitate",
+      "Attendre": "Wait",
+      "Douter": "Doubt",
+      "Subir": "Endure",
+      "Clarté": "Clarity",
+      "Force": "Strength",
+      "Joie": "Joy",
+      "Amour": "Love",
+      "Le Fil s’adoucit. Respire. Puis reprends.": "The Thread softens. Breathe. Then begin again.",
+      "Marche en forêt": "Walk in the forest",
+      "Je marche dans la forêt.": "I walk in the forest.",
+      "Tape chaque pas lumineux dans l’ordre, au rythme.": "Tap each glowing step in order, on the beat.",
+      "Mains dans la terre": "Hands in the earth",
+      "Mes mains touchent la terre froide.": "My hands touch the cool earth.",
+      "Maintiens, puis relâche exactement à la marque.": "Hold, then release right at the mark.",
+      "Yeux au ciel": "Eyes to the sky",
+      "Mes yeux montent vers le ciel.": "My eyes rise toward the sky.",
+      "Suis l’étoile qui s’élève — tape au zénith.": "Follow the rising star — tap at the zenith.",
+      "Course dans le champ": "Run through the field",
+      "Je cours dans le champ.": "I run through the field.",
+      "Tape le corridor qui s’ouvre, dans l’ordre des ouvertures.": "Tap each corridor as it opens, in the order they open.",
+      "Frappe du pied": "Stamp of the foot",
+      "Je frappe le sol.": "I stamp the ground.",
+      "Enchaîne les frappes au tempo — pas trop tôt.": "Chain the stamps on the tempo — not too early.",
+      "Respiration": "Breathing",
+      "Je respire.": "I breathe.",
+      "Inspire jusqu’à la marque, expire à la seconde.": "Breathe in to the mark, breathe out on the second.",
+      "Saut du ruisseau": "Leap over the stream",
+      "Je saute le ruisseau.": "I leap over the stream.",
+      "Sauter seulement dans la fenêtre courte.": "Jump only in the short window.",
+      "Cri vers le ciel": "Shout to the sky",
+      "Je crie vers le ciel.": "I shout to the sky.",
+      "Tape en tempo pour charger, puis scelle par Oui.": "Tap on the tempo to charge, then seal with Yes.",
+      "Acte I · Présence": "Act I · Presence",
+      "Chaque geste densifie la silhouette.": "Each gesture makes the silhouette denser.",
+      "Passage": "Passage",
+      "Présence encore légère. Reposons les gestes.": "Presence still light. Let’s lay down the gestures again.",
+      "Le chemin s’estompe. Repose le pas.": "The path fades. Take the step again.",
+      "Tenir": "Hold",
+      "Relâcher": "Release",
+      "Terre": "Earth",
+      "Trop tôt ou trop tard. La terre attend le juste geste.": "Too early or too late. The earth awaits the right gesture.",
+      "La pulsation est passée. Repose le geste.": "The pulse has passed. Make the gesture again.",
+      "Bas": "Low",
+      "Milieu": "Middle",
+      "Haut": "High",
+      "Zénith": "Zenith",
+      "L'étoile s'éloigne. Repose le regard.": "The star drifts away. Rest your gaze and try again.",
+      "Le champ se referme. Reprends la course.": "The field closes. Run again.",
+      "Mauvaise voie. Le champ se referme.": "Wrong path. The field closes.",
+      "Frapper": "Stamp",
+      "Le tempo s’est perdu. Repose le pied.": "The tempo slipped away. Set your foot down again.",
+      "Frappe au moment où le bouton pulse.": "Stamp the moment the button pulses.",
+      "Inspirer": "Breathe in",
+      "Expirer": "Breathe out",
+      "Le souffle n’a pas trouvé la marque.": "The breath didn’t find the mark.",
+      "L’expire est passé à côté. Repose.": "The out-breath missed. Rest and try again.",
+      "Le ruisseau s’est refermé.": "The stream has closed.",
+      "Trop tôt. Attends l’ouverture.": "Too early. Wait for the opening.",
+      "Hors tempo. Le cri veut un rythme vivant.": "Off tempo. The shout wants a living rhythm.",
+      "Scelle par Oui au sommet.": "Seal with Yes at the peak.",
+      "Le Oui s’est éteint. Reprends le cri.": "The Yes went out. Shout again.",
+      "Acte II · Choix": "Act II · Choice",
+      "C’est moi qui crée, c’est moi qui choisis mon demain.": "I am the one who creates, I am the one who chooses my tomorrow.",
+      "Choisis un vrai geste, dans l’ordre du Fil, puis scelle par Oui.": "Choose a true gesture, in the order of the Thread, then seal with Yes.",
+      "Ce n’est pas le geste du Fil. Repose le choix.": "That isn’t the Thread’s gesture. Choose again.",
+      "Le Oui s’allume — scelle maintenant.": "The Yes lights up — seal it now.",
+      "Le Oui n’a pas été scellé à temps.": "The Yes wasn’t sealed in time.",
+      "Le temps du choix est passé. Reprends.": "The moment to choose has passed. Begin again.",
+      "Acte III · Demande & réception": "Act III · Asking & receiving",
+      "Demande. Attrape ta vibration. Reçois par Oui.": "Ask. Catch your vibration. Receive with Yes.",
+      "Acte III · Demande": "Act III · Asking",
+      "Que demandes-tu à l’univers ?": "What are you asking of the universe?",
+      "Choisis une vibration, puis attrape seulement ce qui lui répond.": "Choose a vibration, then catch only what answers it.",
+      "Acte III · Réception": "Act III · Receiving",
+      "Tout ce que je demande, l’univers me le donne.": "Everything I ask for, the universe gives me.",
+      "Réception · 0/5": "Receiving · 0/5",
+      "Immobilité… puis Oui.": "Stillness… then Yes.",
+      "L’univers entier répond à mon oui.": "The whole universe answers my yes.",
+      "La réception s’est dissipée. Demande à nouveau.": "The receiving faded. Ask again.",
+      "Trop de fausses vibrations. Repose la demande.": "Too many false vibrations. Ask once more.",
+      "Oui": "Yes"
+  };
+  function tx(s) { return isEn() && EN_TEXT[s] ? EN_TEXT[s] : s; }
+  // En anglais : une chanson anglaise réelle (même langue que le site) au lieu de la chanson française.
+  const VICTORY_EN = {
+    audio: 'assets/audio/a5ba4262-22f6-4c9c-a6df-05bff2d5e713.mp3',
+    aac: 'assets/audio/a5ba4262-22f6-4c9c-a6df-05bff2d5e713.m4a',
+    suno: 'https://suno.com/s/1yb6CMDvvcr2hmCZ',
+    title: 'The Body Is an Antenna'
+  };
+
   const GESTES_VRAIS = [
-    { id: 'courir', label: 'Courir' },
-    { id: 'respirer', label: 'Respirer' },
-    { id: 'toucher', label: "Toucher l'arbre" },
-    { id: 'crier', label: 'Crier' },
-    { id: 'sauter', label: 'Sauter' },
-    { id: 'danser', label: 'Danser' },
+    { id: 'courir', label: tx('Courir') },
+    { id: 'respirer', label: tx('Respirer') },
+    { id: 'toucher', label: tx("Toucher l'arbre") },
+    { id: 'crier', label: tx('Crier') },
+    { id: 'sauter', label: tx('Sauter') },
+    { id: 'danser', label: tx('Danser') },
   ];
   const GESTES_PIEGES = [
-    { id: 'hesiter', label: 'Hésiter', trap: true },
-    { id: 'attendre', label: 'Attendre', trap: true },
-    { id: 'douter', label: 'Douter', trap: true },
-    { id: 'subir', label: 'Subir', trap: true },
+    { id: 'hesiter', label: tx('Hésiter'), trap: true },
+    { id: 'attendre', label: tx('Attendre'), trap: true },
+    { id: 'douter', label: tx('Douter'), trap: true },
+    { id: 'subir', label: tx('Subir'), trap: true },
   ];
   const DEMANDES = [
-    { id: 'clarte', label: 'Clarté', color: '#67e8f9' },
-    { id: 'force', label: 'Force', color: '#c084fc' },
-    { id: 'joie', label: 'Joie', color: '#f0abfc' },
-    { id: 'amour', label: 'Amour', color: '#34d399' },
+    { id: 'clarte', label: tx('Clarté'), color: '#67e8f9' },
+    { id: 'force', label: tx('Force'), color: '#c084fc' },
+    { id: 'joie', label: tx('Joie'), color: '#f0abfc' },
+    { id: 'amour', label: tx('Amour'), color: '#34d399' },
   ];
 
   // ——— DOM ———
@@ -321,21 +425,21 @@
     setVeil(true);
     softDim(3);
     retryCallback = retryFn;
-    veilHint.textContent = message || 'Le Fil s’adoucit. Respire. Puis reprends.';
+    veilHint.textContent = message || tx('Le Fil s’adoucit. Respire. Puis reprends.');
     showScreen('veil');
     later(() => setVeil(false), 600);
   }
 
   // ——— Acte 1 micro-challenges (ordered + reaction) ———
   const ACTE1 = [
-    { id: 'marche', title: 'Marche en forêt', lyric: 'Je marche dans la forêt.', hint: 'Tape chaque pas lumineux dans l’ordre, au rythme.', densityGain: 8 },
-    { id: 'terre', title: 'Mains dans la terre', lyric: 'Mes mains touchent la terre froide.', hint: 'Maintiens, puis relâche exactement à la marque.', densityGain: 8 },
-    { id: 'ciel', title: 'Yeux au ciel', lyric: 'Mes yeux montent vers le ciel.', hint: 'Suis l’étoile qui s’élève — tape au zénith.', densityGain: 8 },
-    { id: 'course', title: 'Course dans le champ', lyric: 'Je cours dans le champ.', hint: 'Tape le corridor qui s’ouvre, dans l’ordre des ouvertures.', densityGain: 8 },
-    { id: 'frappe', title: 'Frappe du pied', lyric: 'Je frappe le sol.', hint: 'Enchaîne les frappes au tempo — pas trop tôt.', densityGain: 8 },
-    { id: 'respiration', title: 'Respiration', lyric: 'Je respire.', hint: 'Inspire jusqu’à la marque, expire à la seconde.', densityGain: 8 },
-    { id: 'saut', title: 'Saut du ruisseau', lyric: 'Je saute le ruisseau.', hint: 'Sauter seulement dans la fenêtre courte.', densityGain: 8 },
-    { id: 'cri', title: 'Cri vers le ciel', lyric: 'Je crie vers le ciel.', hint: 'Tape en tempo pour charger, puis scelle par Oui.', densityGain: 10 },
+    { id: 'marche', title: tx('Marche en forêt'), lyric: tx('Je marche dans la forêt.'), hint: tx('Tape chaque pas lumineux dans l’ordre, au rythme.'), densityGain: 8 },
+    { id: 'terre', title: tx('Mains dans la terre'), lyric: tx('Mes mains touchent la terre froide.'), hint: tx('Maintiens, puis relâche exactement à la marque.'), densityGain: 8 },
+    { id: 'ciel', title: tx('Yeux au ciel'), lyric: tx('Mes yeux montent vers le ciel.'), hint: tx('Suis l’étoile qui s’élève — tape au zénith.'), densityGain: 8 },
+    { id: 'course', title: tx('Course dans le champ'), lyric: tx('Je cours dans le champ.'), hint: tx('Tape le corridor qui s’ouvre, dans l’ordre des ouvertures.'), densityGain: 8 },
+    { id: 'frappe', title: tx('Frappe du pied'), lyric: tx('Je frappe le sol.'), hint: tx('Enchaîne les frappes au tempo — pas trop tôt.'), densityGain: 8 },
+    { id: 'respiration', title: tx('Respiration'), lyric: tx('Je respire.'), hint: tx('Inspire jusqu’à la marque, expire à la seconde.'), densityGain: 8 },
+    { id: 'saut', title: tx('Saut du ruisseau'), lyric: tx('Je saute le ruisseau.'), hint: tx('Sauter seulement dans la fenêtre courte.'), densityGain: 8 },
+    { id: 'cri', title: tx('Cri vers le ciel'), lyric: tx('Je crie vers le ciel.'), hint: tx('Tape en tempo pour charger, puis scelle par Oui.'), densityGain: 10 },
   ];
 
   function startActe1() {
@@ -343,13 +447,13 @@
     microIndex = 0;
     acte1Hits = 0;
     acte1Total = ACTE1.length;
-    transitionTo('Acte I · Présence', 'Chaque geste densifie la silhouette.', () => runMicro(0));
+    transitionTo(tx('Acte I · Présence'), tx('Chaque geste densifie la silhouette.'), () => runMicro(0));
   }
 
   function transitionTo(title, hint, nextFn) {
     clearTimers();
     clearPlayUI();
-    transPhase.textContent = 'Passage';
+    transPhase.textContent = tx('Passage');
     transTitle.textContent = title;
     transHint.textContent = hint || '';
     showScreen('transition');
@@ -366,16 +470,16 @@
         saveProgress({ acte1: true });
         startActe2();
       } else {
-        softFail('Présence encore légère. Reposons les gestes.', () => startActe1());
+        softFail(tx('Présence encore légère. Reposons les gestes.'), () => startActe1());
       }
       return;
     }
     const m = ACTE1[i];
     clearPlayUI();
-    playPhase.textContent = 'Acte I · ' + m.title;
+    playPhase.textContent = (isEn() ? 'Act I · ' : 'Acte I · ') + m.title;
     playLyric.textContent = m.lyric;
     playHint.textContent = m.hint;
-    playScore.textContent = `Présence · ${acte1Hits}/${i} gestes scellés`;
+    playScore.textContent = isEn() ? `Presence · ${acte1Hits}/${i} gestures sealed` : `Présence · ${acte1Hits}/${i} gestes scellés`;
     showScreen('play');
 
     const runners = {
@@ -394,7 +498,7 @@
   function passMicro(m) {
     acte1Hits += 1;
     addDensity(m.densityGain);
-    playScore.textContent = `Présence · ${acte1Hits}/${microIndex + 1}`;
+    playScore.textContent = (isEn() ? 'Presence' : 'Présence') + ` · ${acte1Hits}/${microIndex + 1}`;
     later(() => runMicro(microIndex + 1), 700);
   }
 
@@ -402,7 +506,7 @@
   function runMarche(m) {
     const steps = 5;
     const order = [];
-    for (let i = 0; i < steps; i++) order.push({ id: i, label: 'Pas ' + (i + 1) });
+    for (let i = 0; i < steps; i++) order.push({ id: i, label: (isEn() ? 'Step ' : 'Pas ') + (i + 1) });
     currentSeq = order;
     seqProgress = 0;
     renderSeqStrip(order, 0);
@@ -438,7 +542,7 @@
           misses += 1;
           softDim(2);
           if (misses >= 2) {
-            softFail('Le chemin s’estompe. Repose le pas.', () => runMicro(microIndex));
+            softFail(tx('Le chemin s’estompe. Repose le pas.'), () => runMicro(microIndex));
             return;
           }
           later(lightNext, 500);
@@ -451,7 +555,7 @@
           softDim(1);
           if (misses >= 2) {
             clearTimers();
-            softFail('Le chemin s’estompe. Repose le pas.', () => runMicro(microIndex));
+            softFail(tx('Le chemin s’estompe. Repose le pas.'), () => runMicro(microIndex));
           }
           return;
         }
@@ -474,10 +578,10 @@
 
   // Terre: hold then release in window
   function runTerre(m) {
-    renderSeqStrip([{ label: 'Tenir' }, { label: 'Relâcher' }], 0);
+    renderSeqStrip([{ label: tx('Tenir') }, { label: tx('Relâcher') }], 0);
     const ring = document.createElement('div');
     ring.className = 'cd-hold-ring';
-    ring.innerHTML = '<span class="cd-hold-label">Terre</span>';
+    ring.innerHTML = '<span class="cd-hold-label">' + tx('Terre') + '</span>';
     cueZone.appendChild(ring);
     holdState = { el: ring, fill: 0, phase: 'wait' };
     let holding = false;
@@ -502,10 +606,10 @@
       ring.classList.remove('active');
       if (Math.abs(fill - TARGET) <= WINDOW) {
         ring.classList.add('mark');
-        renderSeqStrip([{ label: 'Tenir' }, { label: 'Relâcher' }], 2);
+        renderSeqStrip([{ label: tx('Tenir') }, { label: tx('Relâcher') }], 2);
         passMicro(m);
       } else {
-        softFail('Trop tôt ou trop tard. La terre attend le juste geste.', () => runMicro(microIndex));
+        softFail(tx('Trop tôt ou trop tard. La terre attend le juste geste.'), () => runMicro(microIndex));
       }
     }
     ring.addEventListener('pointerdown', onDown);
@@ -525,7 +629,7 @@
       }
       if (holding && holdState.fill >= 1) {
         holding = false;
-        softFail('La pulsation est passée. Repose le geste.', () => runMicro(microIndex));
+        softFail(tx('La pulsation est passée. Repose le geste.'), () => runMicro(microIndex));
         return;
       }
       later(tick, 32);
@@ -535,7 +639,7 @@
 
   // Ciel: rising star — tap sequence then zenith
   function runCiel(m) {
-    const levels = ['Bas', 'Milieu', 'Haut', 'Zénith'];
+    const levels = [tx('Bas'), tx('Milieu'), tx('Haut'), tx('Zénith')];
     currentSeq = levels.map((l) => ({ label: l }));
     seqProgress = 0;
     renderSeqStrip(currentSeq, 0);
@@ -557,7 +661,7 @@
       const t = later(() => {
         if (!open) return;
         open = false;
-        softFail("L'étoile s'éloigne. Repose le regard.", () => runMicro(microIndex));
+        softFail(tx("L'étoile s'éloigne. Repose le regard."), () => runMicro(microIndex));
       }, step === 3 ? 700 : 900);
       b.onclick = () => {
         if (!open) return;
@@ -575,7 +679,7 @@
   // Course: corridors open in sequence
   function runCourse(m) {
     const n = 4;
-    currentSeq = Array.from({ length: n }, (_, i) => ({ label: 'Voie ' + (i + 1) }));
+    currentSeq = Array.from({ length: n }, (_, i) => ({ label: (isEn() ? 'Path ' : 'Voie ') + (i + 1) }));
     renderSeqStrip(currentSeq, 0);
     const row = document.createElement('div');
     row.className = 'cd-path-row';
@@ -604,7 +708,7 @@
       const t = later(() => {
         if (!open) return;
         open = false;
-        softFail('Le champ se referme. Reprends la course.', () => runMicro(microIndex));
+        softFail(tx('Le champ se referme. Reprends la course.'), () => runMicro(microIndex));
       }, 850);
       slots.forEach((s) => {
         s.onclick = () => {
@@ -612,7 +716,7 @@
           if (s.dataset.slot !== String(openSlot)) {
             open = false;
             clearTimeout(t);
-            softFail('Mauvaise voie. Le champ se referme.', () => runMicro(microIndex));
+            softFail(tx('Mauvaise voie. Le champ se referme.'), () => runMicro(microIndex));
             return;
           }
           open = false;
@@ -632,12 +736,12 @@
     const count = 5;
     const BPM = 100;
     const beat = 60000 / BPM;
-    currentSeq = Array.from({ length: count }, (_, i) => ({ label: 'Frappe ' + (i + 1) }));
+    currentSeq = Array.from({ length: count }, (_, i) => ({ label: (isEn() ? 'Stamp ' : 'Frappe ') + (i + 1) }));
     renderSeqStrip(currentSeq, 0);
     const b = document.createElement('button');
     b.type = 'button';
     b.className = 'cd-cue';
-    b.textContent = 'Frapper';
+    b.textContent = tx('Frapper');
     cueZone.appendChild(b);
     let expected = 0;
     let nextBeatAt = performance.now() + 700;
@@ -657,7 +761,7 @@
           if (!lit) return;
           lit = false;
           b.classList.remove('lit');
-          softFail('Le tempo s’est perdu. Repose le pied.', () => runMicro(microIndex));
+          softFail(tx('Le tempo s’est perdu. Repose le pied.'), () => runMicro(microIndex));
         }, HIT_WINDOW_MS + 140);
         b.onclick = () => {
           if (!lit) {
@@ -674,16 +778,16 @@
         };
       }, Math.max(0, nextBeatAt - performance.now()));
     }
-    playHint.textContent = 'Frappe au moment où le bouton pulse.';
+    playHint.textContent = tx('Frappe au moment où le bouton pulse.');
     scheduleBeat();
   }
 
   // Respiration: two-phase hold
   function runRespiration(m) {
-    renderSeqStrip([{ label: 'Inspirer' }, { label: 'Expirer' }], 0);
+    renderSeqStrip([{ label: tx('Inspirer') }, { label: tx('Expirer') }], 0);
     const ring = document.createElement('div');
     ring.className = 'cd-hold-ring';
-    ring.innerHTML = '<span class="cd-hold-label">Inspirer</span>';
+    ring.innerHTML = '<span class="cd-hold-label">' + tx('Inspirer') + '</span>';
     cueZone.appendChild(ring);
     holdState = { el: ring, fill: 0, phase: 'in' };
     let holding = false;
@@ -709,19 +813,19 @@
         if (Math.abs(fill - IN_TARGET) <= WINDOW) {
           phase = 'out';
           holdState.fill = 0;
-          renderSeqStrip([{ label: 'Inspirer' }, { label: 'Expirer' }], 1);
-          ring.querySelector('.cd-hold-label').textContent = 'Expirer';
+          renderSeqStrip([{ label: tx('Inspirer') }, { label: tx('Expirer') }], 1);
+          ring.querySelector('.cd-hold-label').textContent = tx('Expirer');
           ring.classList.remove('mark');
         } else {
-          softFail('Le souffle n’a pas trouvé la marque.', () => runMicro(microIndex));
+          softFail(tx('Le souffle n’a pas trouvé la marque.'), () => runMicro(microIndex));
         }
       } else if (phase === 'out') {
         if (Math.abs(fill - IN_TARGET) <= WINDOW) {
           ring.classList.add('mark');
-          renderSeqStrip([{ label: 'Inspirer' }, { label: 'Expirer' }], 2);
+          renderSeqStrip([{ label: tx('Inspirer') }, { label: tx('Expirer') }], 2);
           passMicro(m);
         } else {
-          softFail('L’expire est passé à côté. Repose.', () => runMicro(microIndex));
+          softFail(tx('L’expire est passé à côté. Repose.'), () => runMicro(microIndex));
         }
       }
     }
@@ -743,31 +847,31 @@
 
   // Saut: short jump window
   function runSaut(m) {
-    renderSeqStrip([{ label: 'Attendre' }, { label: 'Sauter' }], 0);
+    renderSeqStrip([{ label: tx('Attendre') }, { label: tx('Sauter') }], 0);
     const b = document.createElement('button');
     b.type = 'button';
     b.className = 'cd-cue';
-    b.textContent = 'Sauter';
+    b.textContent = tx('Sauter');
     cueZone.appendChild(b);
     let open = false;
     later(() => {
       open = true;
       b.classList.add('lit');
-      renderSeqStrip([{ label: 'Attendre' }, { label: 'Sauter' }], 1);
+      renderSeqStrip([{ label: tx('Attendre') }, { label: tx('Sauter') }], 1);
       const t = later(() => {
         if (!open) return;
         open = false;
-        softFail('Le ruisseau s’est refermé.', () => runMicro(microIndex));
+        softFail(tx('Le ruisseau s’est refermé.'), () => runMicro(microIndex));
       }, 520);
       b.onclick = () => {
         if (!open) {
-          softFail('Trop tôt. Attends l’ouverture.', () => runMicro(microIndex));
+          softFail(tx('Trop tôt. Attends l’ouverture.'), () => runMicro(microIndex));
           return;
         }
         open = false;
         clearTimeout(t);
         b.classList.add('done');
-        renderSeqStrip([{ label: 'Attendre' }, { label: 'Sauter' }], 2);
+        renderSeqStrip([{ label: tx('Attendre') }, { label: tx('Sauter') }], 2);
         passMicro(m);
       };
     }, 1100 + Math.random() * 600);
@@ -776,12 +880,12 @@
   // Cri: tempo taps then Oui
   function runCri(m) {
     const needed = 6;
-    currentSeq = Array.from({ length: needed }, (_, i) => ({ label: 'Cri ' + (i + 1) })).concat([{ label: 'Oui' }]);
+    currentSeq = Array.from({ length: needed }, (_, i) => ({ label: (isEn() ? 'Shout ' : 'Cri ') + (i + 1) })).concat([{ label: tx('Oui') }]);
     renderSeqStrip(currentSeq, 0);
     const b = document.createElement('button');
     b.type = 'button';
     b.className = 'cd-cue lit';
-    b.textContent = 'Crier';
+    b.textContent = tx('Crier');
     cueZone.appendChild(b);
     let count = 0;
     let lastTap = 0;
@@ -790,20 +894,20 @@
     b.onclick = () => {
       const now = performance.now();
       if (lastTap && (now - lastTap < MIN_GAP || now - lastTap > MAX_GAP)) {
-        softFail('Hors tempo. Le cri veut un rythme vivant.', () => runMicro(microIndex));
+        softFail(tx('Hors tempo. Le cri veut un rythme vivant.'), () => runMicro(microIndex));
         return;
       }
       lastTap = now;
       count += 1;
       renderSeqStrip(currentSeq, count);
-      playScore.textContent = `Charge · ${count}/${needed}`;
+      playScore.textContent = (isEn() ? 'Charge' : 'Charge') + ` · ${count}/${needed}`;
       if (count >= needed) {
         b.classList.add('done');
         b.onclick = null;
         setOui(true, true);
-        playHint.textContent = 'Scelle par Oui au sommet.';
+        playHint.textContent = tx('Scelle par Oui au sommet.');
         const expire = later(() => {
-          softFail('Le Oui s’est éteint. Reprends le cri.', () => runMicro(microIndex));
+          softFail(tx('Le Oui s’est éteint. Reprends le cri.'), () => runMicro(microIndex));
         }, 2200);
         btnOui.onclick = () => {
           clearTimeout(expire);
@@ -819,8 +923,8 @@
   function startActe2() {
     acte = 2;
     transitionTo(
-      'Acte II · Choix',
-      'C’est moi qui crée, c’est moi qui choisis mon demain.',
+      tx('Acte II · Choix'),
+      tx('C’est moi qui crée, c’est moi qui choisis mon demain.'),
       () => runChoixRound(0)
     );
   }
@@ -833,10 +937,10 @@
       return;
     }
     clearPlayUI();
-    playPhase.textContent = 'Acte II · Choix';
-    playLyric.textContent = 'C’est moi qui crée, c’est moi qui choisis mon demain.';
-    playHint.textContent = 'Choisis un vrai geste, dans l’ordre du Fil, puis scelle par Oui.';
-    playScore.textContent = `Choix · ${round + 1}/${TOTAL}`;
+    playPhase.textContent = tx('Acte II · Choix');
+    playLyric.textContent = tx('C’est moi qui crée, c’est moi qui choisis mon demain.');
+    playHint.textContent = tx('Choisis un vrai geste, dans l’ordre du Fil, puis scelle par Oui.');
+    playScore.textContent = (isEn() ? 'Choice' : 'Choix') + ` · ${round + 1}/${TOTAL}`;
     showScreen('play');
 
     // Build a short required sequence of 2 true gestes for this round
@@ -866,7 +970,7 @@
         const want = required[expecting];
         if (g.trap || g.id !== want.id) {
           b.classList.add('wrong');
-          softFail('Ce n’est pas le geste du Fil. Repose le choix.', () => runChoixRound(round));
+          softFail(tx('Ce n’est pas le geste du Fil. Repose le choix.'), () => runChoixRound(round));
           return;
         }
         b.classList.add('done');
@@ -877,10 +981,10 @@
           return;
         }
         chosenOk = true;
-        playHint.textContent = 'Le Oui s’allume — scelle maintenant.';
+        playHint.textContent = tx('Le Oui s’allume — scelle maintenant.');
         setOui(true, true);
         const expire = later(() => {
-          softFail('Le Oui n’a pas été scellé à temps.', () => runChoixRound(round));
+          softFail(tx('Le Oui n’a pas été scellé à temps.'), () => runChoixRound(round));
         }, 1800);
         btnOui.onclick = () => {
           clearTimeout(expire);
@@ -908,7 +1012,7 @@
     // Round timer pressure
     later(() => {
       if (!chosenOk) {
-        softFail('Le temps du choix est passé. Reprends.', () => runChoixRound(round));
+        softFail(tx('Le temps du choix est passé. Reprends.'), () => runChoixRound(round));
       }
     }, 9000);
   }
@@ -917,17 +1021,17 @@
   function startActe3() {
     acte = 3;
     transitionTo(
-      'Acte III · Demande & réception',
-      'Demande. Attrape ta vibration. Reçois par Oui.',
+      tx('Acte III · Demande & réception'),
+      tx('Demande. Attrape ta vibration. Reçois par Oui.'),
       () => pickDemande()
     );
   }
 
   function pickDemande() {
     clearPlayUI();
-    playPhase.textContent = 'Acte III · Demande';
-    playLyric.textContent = 'Que demandes-tu à l’univers ?';
-    playHint.textContent = 'Choisis une vibration, puis attrape seulement ce qui lui répond.';
+    playPhase.textContent = tx('Acte III · Demande');
+    playLyric.textContent = tx('Que demandes-tu à l’univers ?');
+    playHint.textContent = tx('Choisis une vibration, puis attrape seulement ce qui lui répond.');
     playScore.textContent = '';
     showScreen('play');
 
@@ -951,10 +1055,10 @@
 
   function runReception(demande) {
     clearPlayUI();
-    playPhase.textContent = 'Acte III · Réception';
-    playLyric.textContent = 'Tout ce que je demande, l’univers me le donne.';
-    playHint.textContent = `Attrape seulement « ${demande.label} ». Laisse passer le reste.`;
-    playScore.textContent = 'Réception · 0/5';
+    playPhase.textContent = tx('Acte III · Réception');
+    playLyric.textContent = tx('Tout ce que je demande, l’univers me le donne.');
+    playHint.textContent = isEn() ? `Catch only “${demande.label}”. Let the rest go by.` : `Attrape seulement « ${demande.label} ». Laisse passer le reste.`;
+    playScore.textContent = tx('Réception · 0/5');
     showScreen('play');
 
     const layer = document.createElement('div');
@@ -1018,15 +1122,15 @@
         if (isMatch) {
           good += 1;
           addDensity(3);
-          playScore.textContent = `Réception · ${good}/${NEED}`;
+          playScore.textContent = (isEn() ? 'Receiving' : 'Réception') + ` · ${good}/${NEED}`;
           if (good >= NEED && bad <= MAX_BAD) {
             sealed = true;
-            playHint.textContent = 'Immobilité… puis Oui.';
+            playHint.textContent = tx('Immobilité… puis Oui.');
             later(() => {
               setOui(true, true);
-              playLyric.textContent = 'L’univers entier répond à mon oui.';
+              playLyric.textContent = tx('L’univers entier répond à mon oui.');
               const expire = later(() => {
-                softFail('La réception s’est dissipée. Demande à nouveau.', () => pickDemande());
+                softFail(tx('La réception s’est dissipée. Demande à nouveau.'), () => pickDemande());
               }, 2800);
               btnOui.onclick = () => {
                 clearTimeout(expire);
@@ -1041,7 +1145,7 @@
           softDim(2);
           if (bad > MAX_BAD) {
             sealed = true;
-            softFail('Trop de fausses vibrations. Repose la demande.', () => pickDemande());
+            softFail(tx('Trop de fausses vibrations. Repose la demande.'), () => pickDemande());
           }
         }
       };
@@ -1056,11 +1160,11 @@
     if (victoryAudio) return victoryAudio;
     const a = new Audio();
     a.preload = 'auto';
-    a.src = VICTORY_AUDIO;
+    a.src = isEn() ? VICTORY_EN.audio : VICTORY_AUDIO;
     a.addEventListener('error', () => {
       if (!a.getAttribute('data-tried-aac')) {
         a.setAttribute('data-tried-aac', '1');
-        a.src = VICTORY_AUDIO_AAC;
+        a.src = isEn() ? VICTORY_EN.aac : VICTORY_AUDIO_AAC;
       }
     });
     victoryAudio = a;
@@ -1105,8 +1209,8 @@
 
     const line = document.getElementById('finale-line');
     const line2 = document.getElementById('finale-line2');
-    line.textContent = 'Tout ce que je demande, l’univers me le donne.';
-    line2.textContent = 'L’univers entier répond à mon oui.';
+    line.textContent = tx('Tout ce que je demande, l’univers me le donne.');
+    line2.textContent = tx('L’univers entier répond à mon oui.');
 
     // Soft attribution link if not already present
     let attr = document.getElementById('victory-attr');
@@ -1115,7 +1219,7 @@
       attr.id = 'victory-attr';
       attr.className = 'cd-hint';
       attr.style.marginTop = '0.75rem';
-      attr.innerHTML = `♪ <em>${VICTORY_TITLE}</em> · <a href="${VICTORY_SUNO}" target="_blank" rel="noopener" style="color:#67e8f9">Suno</a>`;
+      attr.innerHTML = `♪ <em>${isEn() ? VICTORY_EN.title : VICTORY_TITLE}</em> · <a href="${isEn() ? VICTORY_EN.suno : VICTORY_SUNO}" target="_blank" rel="noopener" style="color:#67e8f9">Suno</a>`;
       const actions = document.querySelector('.cd-finale-actions');
       if (actions && actions.parentNode) {
         actions.parentNode.insertBefore(attr, actions);

@@ -76,7 +76,8 @@
       footName: "Casse-tête",
       tagline: "Écoute sans t'arrêter. Ça régénère.",
       emptyFr: "Pas encore de chanson française",
-      emptyEn: "No French song yet"
+      emptyEn: "No French song yet",
+      winDefault: "Écoute la chanson."
     },
     en: {
       docTitle: "Jigsaw — Eden Yours",
@@ -108,8 +109,9 @@
       nav: "Jigsaw",
       footName: "Jigsaw",
       tagline: "Listen without stopping. It regenerates.",
-      emptyFr: "Pas encore de chanson anglaise",
-      emptyEn: "No English song yet"
+      emptyFr: "No English song yet",
+      emptyEn: "",
+      winDefault: "Listen to the song."
     }
   };
 
@@ -280,7 +282,8 @@
     var emptyFr = document.getElementById("empty-line-fr");
     var emptyEn = document.getElementById("empty-line-en");
     if (emptyFr) emptyFr.textContent = text.emptyFr;
-    if (emptyEn) emptyEn.textContent = text.emptyEn;
+    if (emptyEn) { emptyEn.textContent = text.emptyEn; emptyEn.hidden = !text.emptyEn; }
+    if (winLine && winLine.getAttribute("data-default") === "1") winLine.textContent = text.winDefault;
   }
 
   function paintLangButtons() {
@@ -439,6 +442,7 @@
     if (!current) return;
     var text = copy();
     winLine.textContent = text.winLine(current.title);
+    winLine.removeAttribute("data-default");
     winPanel.classList.add("is-open");
     hint.textContent = text.solved;
     board.classList.add("is-solved");

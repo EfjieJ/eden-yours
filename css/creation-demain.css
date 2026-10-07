@@ -554,3 +554,25 @@ body.cd-veiled {
   .cd-demande-grid { max-width: 100%; }
   .cd-particle-layer { height: 10.5rem; }
 }
+
+/* Choix de langue FR | EN */
+.cd-lang {
+  position: fixed;
+  bottom: max(12px, env(safe-area-inset-bottom));
+  right: 14px;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.85rem;
+}
+.cd-lang .lang-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: rgba(255, 255, 255, 0.8);
+  border-radius: 999px;
+  padding: 0.2rem 0.6rem;
+  cursor: pointer;
+}
+.cd-lang .lang-btn.is-active { background: rgba(103, 232, 249, 0.18); color: #fff; border-color: rgba(103, 232, 249, 0.6); }
+.cd-lang .lang-sep { opacity: 0.4; }

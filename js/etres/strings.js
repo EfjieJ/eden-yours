@@ -6,6 +6,9 @@
   EL.STR = {
     fr: {
       docTitle: "Les Êtres de Lumière — Eden Yours",
+      metaDesc: "Prototype : un voyage méditatif de planète en planète, avec le souffle.",
+      langToggle: "EN",
+      langToggleAria: "Switch to English",
       back: "← Eden Yours",
       title: "Les Êtres de Lumière",
       subtitle: "Tu es un être de lumière. Cinq planètes t’attendent, chacune avec un corps à habiter le temps de trente secondes de souffle.",
@@ -44,6 +47,9 @@
     },
     en: {
       docTitle: "The Beings of Light — Eden Yours",
+      metaDesc: "Prototype: a meditative journey from planet to planet, with the breath.",
+      langToggle: "FR",
+      langToggleAria: "Passer en français",
       back: "← Eden Yours",
       title: "The Beings of Light",
       subtitle: "You are a being of light. Five planets are waiting, each with a body to inhabit for thirty seconds of breath.",

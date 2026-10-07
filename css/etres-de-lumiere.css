@@ -423,3 +423,4 @@ body.is-incarnated .el-toast { top: auto; bottom: calc(84px + var(--el-safe-b));
 @media (max-height: 520px) {
   .el-inc-breath { top: auto; bottom: calc(30px + var(--el-safe-b)); left: auto; right: 22px; transform: none; }
 }
+.el-icon-btn.el-lang { font: 600 0.85rem/1 inherit; letter-spacing: 0.06em; font-family: inherit; }

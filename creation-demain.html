@@ -3,35 +3,40 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Création-Demain — Eden Yours</title>
-  <meta name="description" content="Création-Demain · Choisis. Crée. Reçois. Chaque geste densifie ta présence.">
+  <title data-i18n-title="cd.title">Création-Demain — Eden Yours</title>
+  <meta name="description" data-i18n-content="cd.metaDesc" content="Création-Demain · Choisis. Crée. Reçois. Chaque geste densifie ta présence.">
   <link rel="canonical" href="https://efjiej.github.io/eden-yours/creation-demain.html">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="fr_CA">
   <meta property="og:locale:alternate" content="en_US">
   <meta property="og:site_name" content="Eden Yours">
   <meta property="og:url" content="https://efjiej.github.io/eden-yours/creation-demain.html">
-  <meta property="og:title" content="Création-Demain — Eden Yours">
-  <meta property="og:description" content="Choisis. Crée. Reçois. Densifie la silhouette consciente.">
+  <meta property="og:title" data-i18n-content="cd.title" content="Création-Demain — Eden Yours">
+  <meta property="og:description" data-i18n-content="cd.ogDesc" content="Choisis. Crée. Reçois. Densifie la silhouette consciente.">
   <meta property="og:image" content="https://efjiej.github.io/eden-yours/assets/og-share-v2.jpg">
   <meta property="og:image:secure_url" content="https://efjiej.github.io/eden-yours/assets/og-share-v2.jpg">
   <meta property="og:image:type" content="image/jpeg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Eden Yours — Écoute en continu. Ça régénère. 29 chansons · Casse-tête · Blind test">
+  <meta property="og:image:alt" data-i18n-content="common.ogAlt" content="Eden Yours — Écoute en continu. Ça régénère. 29 chansons · Casse-tête · Blind test">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Création-Demain — Eden Yours">
-  <meta name="twitter:description" content="Choisis. Crée. Reçois. Densifie la silhouette consciente.">
+  <meta name="twitter:title" data-i18n-content="cd.title" content="Création-Demain — Eden Yours">
+  <meta name="twitter:description" data-i18n-content="cd.ogDesc" content="Choisis. Crée. Reçois. Densifie la silhouette consciente.">
   <meta name="twitter:image" content="https://efjiej.github.io/eden-yours/assets/og-share-v2.jpg">
-  <meta name="twitter:image:alt" content="Eden Yours — Écoute en continu. Ça régénère. 29 chansons · Casse-tête · Blind test">
+  <meta name="twitter:image:alt" data-i18n-content="common.ogAlt" content="Eden Yours — Écoute en continu. Ça régénère. 29 chansons · Casse-tête · Blind test">
   <link rel="stylesheet" href="css/creation-demain.css">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%23c084fc'/%3E%3Cstop offset='1' stop-color='%2367e8f9'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3C/svg%3E">
 </head>
 <body>
   <div class="cd-wrap">
     <a class="cd-back" href="index.html">← Eden Yours</a>
-    <div class="cd-density" id="cd-density" aria-live="polite" aria-label="Densité de présence">
-      <span class="cd-density-label">Présence</span>
+    <div class="lang-switch cd-lang" role="group" data-i18n-aria="common.langAria" aria-label="Choisir la langue">
+      <button type="button" class="lang-btn" data-set-lang="fr" aria-pressed="true">FR</button>
+      <span class="lang-sep" aria-hidden="true">|</span>
+      <button type="button" class="lang-btn" data-set-lang="en" aria-pressed="false">EN</button>
+    </div>
+    <div class="cd-density" id="cd-density" aria-live="polite" data-i18n-aria="cd.densityAria" aria-label="Densité de présence">
+      <span class="cd-density-label" data-i18n="cd.presence">Présence</span>
       <div class="cd-density-bar"><div class="cd-density-fill" id="density-fill"></div></div>
       <span class="cd-density-pct" id="density-pct">0%</span>
     </div>
@@ -41,60 +46,68 @@
     <div class="cd-hud">
       <!-- Intro -->
       <div class="cd-screen active" id="screen-intro">
-        <h1 class="cd-title">Création-Demain</h1>
-        <p class="cd-subtitle">Choisis. Crée. Reçois.</p>
-        <p class="cd-hint">Chaque geste naît ton futur. L’univers répond à ton Oui.</p>
-        <p class="cd-intent">Enchaîne les gestes dans l’ordre. Réagis à ce qui apparaît. Densifie la silhouette consciente.</p>
-        <button type="button" class="cd-btn interactive" id="btn-start">Commencer</button>
+        <h1 class="cd-title" data-i18n="cd.h1">Création-Demain</h1>
+        <p class="cd-subtitle" data-i18n="cd.subtitle">Choisis. Crée. Reçois.</p>
+        <p class="cd-hint" data-i18n="cd.hint">Chaque geste naît ton futur. L’univers répond à ton Oui.</p>
+        <p class="cd-intent" data-i18n="cd.intent">Enchaîne les gestes dans l’ordre. Réagis à ce qui apparaît. Densifie la silhouette consciente.</p>
+        <button type="button" class="cd-btn interactive" id="btn-start" data-i18n="cd.start">Commencer</button>
       </div>
 
       <!-- Transition -->
       <div class="cd-screen" id="screen-transition">
         <p class="cd-phase-label visible" id="trans-phase">Passage</p>
-        <h2 class="cd-trans-title" id="trans-title">Acte suivant</h2>
+        <h2 class="cd-trans-title" id="trans-title" data-i18n="cd.nextAct">Acte suivant</h2>
         <p class="cd-hint" id="trans-hint"></p>
       </div>
 
       <!-- Play HUD (shared across micro-challenges) -->
       <div class="cd-screen" id="screen-play">
-        <p class="cd-phase-label visible" id="play-phase">Acte I · Présence</p>
+        <p class="cd-phase-label visible" id="play-phase" data-i18n="cd.act1">Acte I · Présence</p>
         <p class="cd-lyric" id="play-lyric"></p>
         <p class="cd-hint" id="play-hint"></p>
         <p class="cd-score visible" id="play-score"></p>
-        <div class="cd-cue-zone interactive" id="cue-zone" aria-label="Zone de gestes"></div>
-        <div class="cd-seq-strip" id="seq-strip" aria-label="Enchaînement"></div>
+        <div class="cd-cue-zone interactive" id="cue-zone" data-i18n-aria="cd.cueAria" aria-label="Zone de gestes"></div>
+        <div class="cd-seq-strip" id="seq-strip" data-i18n-aria="cd.seqAria" aria-label="Enchaînement"></div>
         <div class="cd-oui-wrap" id="oui-wrap">
-          <button type="button" class="cd-oui" id="btn-oui" disabled aria-label="Oui">Oui</button>
+          <button type="button" class="cd-oui" id="btn-oui" disabled data-i18n-aria="cd.yes" aria-label="Oui" data-i18n="cd.yes">Oui</button>
         </div>
       </div>
 
       <!-- Soft veil / rest -->
       <div class="cd-screen" id="screen-veil">
-        <h2 class="cd-trans-title">Reposer le geste</h2>
-        <p class="cd-hint" id="veil-hint">Le Fil s’adoucit. Respire. Puis reprends.</p>
-        <button type="button" class="cd-btn interactive" id="btn-retry">Reprendre</button>
+        <h2 class="cd-trans-title" data-i18n="cd.veilTitle">Reposer le geste</h2>
+        <p class="cd-hint" id="veil-hint" data-i18n="cd.veilHint">Le Fil s’adoucit. Respire. Puis reprends.</p>
+        <button type="button" class="cd-btn interactive" id="btn-retry" data-i18n="cd.retry">Reprendre</button>
       </div>
 
       <!-- Completion -->
       <div class="cd-screen" id="screen-finale">
-        <h2 class="cd-trans-title">Présence densifiée</h2>
-        <p class="cd-closing" id="finale-line">Tout ce que je demande, l’univers me le donne.</p>
-        <p class="cd-closing soft" id="finale-line2">L’univers entier répond à mon oui.</p>
+        <h2 class="cd-trans-title" data-i18n="cd.finaleTitle">Présence densifiée</h2>
+        <p class="cd-closing" id="finale-line" data-i18n="cd.finale1">Tout ce que je demande, l’univers me le donne.</p>
+        <p class="cd-closing soft" id="finale-line2" data-i18n="cd.finale2">L’univers entier répond à mon oui.</p>
         <div class="cd-pillars">
-          <span>Choix</span>
+          <span data-i18n="cd.choice">Choix</span>
           <span>·</span>
-          <span>Création</span>
+          <span data-i18n="cd.creation">Création</span>
           <span>·</span>
-          <span>Réception</span>
+          <span data-i18n="cd.reception">Réception</span>
         </div>
         <div class="cd-finale-actions">
-          <button type="button" class="cd-btn interactive" id="btn-replay">Rejouer</button>
-          <a class="cd-btn ghost interactive" href="index.html">Retour Eden Yours</a>
+          <button type="button" class="cd-btn interactive" id="btn-replay" data-i18n="cd.replay">Rejouer</button>
+          <a class="cd-btn ghost interactive" href="index.html" data-i18n="cd.back">Retour Eden Yours</a>
         </div>
       </div>
     </div>
   </div>
 
+  <script src="js/i18n.js"></script>
+  <script>
+    /* Changement de langue en direct : les gestes du jeu sont préparés au chargement, on recharge doucement. */
+    (function () {
+      var start = window.EdenI18n && window.EdenI18n.getLang();
+      if (window.EdenI18n) window.EdenI18n.onChange(function (l) { if (l !== start) location.reload(); });
+    })();
+  </script>
   <script src="js/creation-demain.js"></script>
 </body>
 </html>

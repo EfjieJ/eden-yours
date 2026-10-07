@@ -1020,7 +1020,19 @@
   };
 
   // ---------- Boot ----------
+  function refreshPlayerLabels() {
+    const bar = $(".player-bar");
+    if (!bar) return;
+    const set = (sel, key, attr = "aria-label") => { const n = bar.querySelector(sel); if (n) n.setAttribute(attr, i18n(key)); };
+    set(".js-prev", "player.prev");
+    set(".js-next", "player.next");
+    set(".progress", "player.progress");
+    set(".js-volume", "player.volume");
+    set(".volume-wrap", "player.volume", "title");
+  }
+
   function refreshLangUI() {
+    refreshPlayerLabels();
     applyLangFilter();
     renderFeatured();
     renderTrackList($(".track-list"));
