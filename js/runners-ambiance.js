@@ -1,6 +1,6 @@
-/* Eden Yours — Coureurs cartoon (ambiance accueil uniquement)
-   Canvas 2D léger : personnages procéduraux (tête ronde, corps capsule, membres simples),
-   faux-3D par volumes + ombres douces. Palette bleu doux (ciel / périwinkle).
+/* Eden Yours — Coureurs (ambiance accueil uniquement)
+   Canvas 2D léger : silhouettes humaines aux proportions naturelles, foulée réaliste,
+   en contre-jour avec un liseré doré diffus et une ombre portée douce (aucun visage).
    Pause si onglet caché ; masqué / figé si prefers-reduced-motion ; moins de figures sur mobile. */
 (function () {
   "use strict";
@@ -117,107 +117,75 @@
     }
   }
 
-  /* Dessin procédural : silhouette cartoon faux-3D (volumes + ombre douce) */
+  /* Dessin procédural : silhouette humaine aux proportions naturelles (≈ 7,5 têtes),
+     foulée réaliste (cuisse / tibia, bras / avant-bras), contre-jour avec liseré doré, sans visage. */
+  function seg(x0, y0, len, ang, w0, w1) {
+    var x1 = x0 + Math.sin(ang) * len, y1 = y0 + Math.cos(ang) * len;
+    var nx = Math.cos(ang), ny = -Math.sin(ang);
+    ctx.beginPath();
+    ctx.moveTo(x0 + nx * w0 / 2, y0 + ny * w0 / 2);
+    ctx.lineTo(x1 + nx * w1 / 2, y1 + ny * w1 / 2);
+    ctx.arc(x1, y1, w1 / 2, Math.atan2(ny, nx), Math.atan2(ny, nx) + Math.PI);
+    ctx.lineTo(x0 - nx * w0 / 2, y0 - ny * w0 / 2);
+    ctx.arc(x0, y0, w0 / 2, Math.atan2(-ny, -nx), Math.atan2(-ny, -nx) + Math.PI);
+    ctx.fill();
+    return [x1, y1];
+  }
+  function limb(x, y, l1, l2, a1, a2, w) {
+    var k = seg(x, y, l1, a1, w, w * 0.72);
+    var e = seg(k[0], k[1], l2, a1 + a2, w * 0.7, w * 0.45);
+    return e;
+  }
+  function drawFigure(r, cycle, s, back) {
+    var thigh = s * 0.25, shin = s * 0.25, upA = s * 0.17, foA = s * 0.16;
+    var hipY = -(thigh + shin) * 0.94;
+    var sh = cycle + (back ? Math.PI : 0);
+    var hipA = Math.sin(sh) * 0.62;
+    var knee = -(0.25 + 0.95 * Math.max(0, Math.sin(sh - 1.2)));
+    var armA = -Math.sin(sh) * 0.55;
+    var elbow = 1.25 + Math.sin(sh) * 0.2;
+    ctx.fillStyle = back ? r.colBack : r.col;
+    limb(0, hipY, thigh, shin, -hipA, knee, s * 0.075);
+    var shY = hipY - s * 0.3;
+    if (back) { limb(s * 0.01, shY + s * 0.02, upA, foA, armA, elbow, s * 0.05); return; }
+    // torse (léger penché vers l'avant) et tête
+    var lean = 0.14;
+    ctx.beginPath();
+    ctx.moveTo(-s * 0.06, hipY + s * 0.02);
+    ctx.quadraticCurveTo(-s * 0.08 + lean * s * 0.1, hipY - s * 0.16, -s * 0.05 + lean * s * 0.3, shY);
+    ctx.lineTo(s * 0.07 + lean * s * 0.3, shY + s * 0.01);
+    ctx.quadraticCurveTo(s * 0.08 + lean * s * 0.1, hipY - s * 0.14, s * 0.06, hipY + s * 0.02);
+    ctx.closePath(); ctx.fill();
+    var nx = lean * s * 0.3 + s * 0.01;
+    seg(nx, shY + s * 0.01, s * 0.05, Math.PI - lean, s * 0.04, s * 0.035);
+    ctx.beginPath();
+    ctx.ellipse(nx + s * 0.02, shY - s * 0.085, s * 0.055, s * 0.068, lean, 0, Math.PI * 2);
+    ctx.fill();
+    limb(nx, shY + s * 0.02, upA, foA, armA, elbow, s * 0.05);
+  }
   function drawRunner(r, t) {
     var y = H * r.yFrac;
-    var s = 28 * r.scale;
-    var cycle = t * 0.009 * r.speed + r.phase;
-    var legSwing = Math.sin(cycle) * 0.55;
-    var armSwing = Math.sin(cycle + Math.PI) * 0.5;
-    var bobY = Math.abs(Math.sin(cycle)) * 2.2 * r.bob;
-    var lean = 0.12;
-
+    var s = 62 * r.scale;
+    var cycle = t * 0.0055 * (0.6 + r.speed / 80) + r.phase;
+    var bobY = Math.abs(Math.cos(cycle)) * s * 0.025;
+    if (!r.col) {
+      var depth = (r.yFrac - 0.6) / 0.25;
+      r.col = "rgba(" + (24 + depth * 10 | 0) + "," + (20 + depth * 8 | 0) + "," + (44 + depth * 10 | 0) + ",0.9)";
+      r.colBack = "rgba(18,15,34,0.85)";
+    }
     ctx.save();
     ctx.translate(r.x, y - bobY);
     ctx.scale(r.dir, 1);
-    ctx.rotate(lean * 0.15);
-
-    var pal = r.pal;
-
-    /* Ombre au sol */
-    ctx.beginPath();
-    ctx.ellipse(0, 6, s * 0.55, s * 0.12, 0, 0, Math.PI * 2);
-    ctx.fillStyle = "rgba(10, 8, 30, 0.28)";
-    ctx.fill();
-
-    /* Jambes */
-    drawLimb(-s * 0.18, s * 0.15, s * 0.55, legSwing, pal.limb, pal.shade, s * 0.14);
-    drawLimb(s * 0.18, s * 0.15, s * 0.55, -legSwing, pal.limb, pal.shade, s * 0.14);
-
-    /* Corps capsule */
-    var bodyGrad = ctx.createLinearGradient(-s * 0.35, -s * 0.55, s * 0.4, s * 0.35);
-    bodyGrad.addColorStop(0, pal.light);
-    bodyGrad.addColorStop(0.45, pal.body);
-    bodyGrad.addColorStop(1, pal.shade);
-    roundRect(-s * 0.32, -s * 0.55, s * 0.64, s * 0.85, s * 0.32);
-    ctx.fillStyle = bodyGrad;
-    ctx.fill();
-    /* Reflet doux sur le torse */
-    ctx.beginPath();
-    ctx.ellipse(-s * 0.1, -s * 0.25, s * 0.14, s * 0.22, -0.2, 0, Math.PI * 2);
-    ctx.fillStyle = "rgba(255, 255, 255, 0.22)";
-    ctx.fill();
-
-    /* Bras */
-    drawLimb(-s * 0.34, -s * 0.25, s * 0.42, armSwing, pal.limb, pal.shade, s * 0.11);
-    drawLimb(s * 0.34, -s * 0.25, s * 0.42, -armSwing, pal.limb, pal.shade, s * 0.11);
-
-    /* Tête */
-    var hx = 0;
-    var hy = -s * 0.78;
-    var hr = s * 0.34;
-    var headGrad = ctx.createRadialGradient(hx - hr * 0.3, hy - hr * 0.35, hr * 0.1, hx, hy, hr);
-    headGrad.addColorStop(0, pal.light);
-    headGrad.addColorStop(0.55, pal.body);
-    headGrad.addColorStop(1, pal.shade);
-    ctx.beginPath();
-    ctx.arc(hx, hy, hr, 0, Math.PI * 2);
-    ctx.fillStyle = headGrad;
-    ctx.fill();
-
-    /* Joues / yeux simples (mignons) */
-    ctx.beginPath();
-    ctx.arc(hx - hr * 0.28, hy + hr * 0.08, hr * 0.12, 0, Math.PI * 2);
-    ctx.arc(hx + hr * 0.28, hy + hr * 0.08, hr * 0.12, 0, Math.PI * 2);
-    ctx.fillStyle = "rgba(255, 180, 200, 0.35)";
-    ctx.fill();
-
-    ctx.fillStyle = "rgba(40, 50, 80, 0.55)";
-    ctx.beginPath();
-    ctx.arc(hx - hr * 0.18, hy - hr * 0.05, hr * 0.07, 0, Math.PI * 2);
-    ctx.arc(hx + hr * 0.18, hy - hr * 0.05, hr * 0.07, 0, Math.PI * 2);
-    ctx.fill();
-
-    /* Petit sourire */
-    ctx.beginPath();
-    ctx.arc(hx, hy + hr * 0.12, hr * 0.18, 0.15, Math.PI - 0.15);
-    ctx.strokeStyle = "rgba(40, 50, 80, 0.4)";
-    ctx.lineWidth = Math.max(1, s * 0.04);
-    ctx.lineCap = "round";
-    ctx.stroke();
-
-    ctx.restore();
-  }
-
-  function drawLimb(ox, oy, len, angle, color, shade, thick) {
-    ctx.save();
-    ctx.translate(ox, oy);
-    ctx.rotate(angle);
-    var g = ctx.createLinearGradient(0, 0, 0, len);
-    g.addColorStop(0, color);
-    g.addColorStop(1, shade);
-    ctx.strokeStyle = g;
-    ctx.lineWidth = thick;
-    ctx.lineCap = "round";
-    ctx.beginPath();
-    ctx.moveTo(0, 0);
-    ctx.lineTo(0, len);
-    ctx.stroke();
-    /* « chaussure » / main */
-    ctx.beginPath();
-    ctx.arc(0, len, thick * 0.7, 0, Math.PI * 2);
-    ctx.fillStyle = shade;
-    ctx.fill();
+    /* ombre portée longue et douce (soleil bas) */
+    var sg = ctx.createRadialGradient(-s * 0.25, 2, 0, -s * 0.25, 2, s * 0.6);
+    sg.addColorStop(0, "rgba(8, 6, 24, 0.32)"); sg.addColorStop(1, "rgba(8, 6, 24, 0)");
+    ctx.fillStyle = sg;
+    ctx.beginPath(); ctx.ellipse(-s * 0.25, 2 + bobY, s * 0.6, s * 0.05, 0, 0, Math.PI * 2); ctx.fill();
+    /* contre-jour : liseré doré diffus */
+    ctx.shadowColor = "rgba(255, 196, 120, 0.55)";
+    ctx.shadowBlur = Math.max(4, s * 0.12);
+    drawFigure(r, cycle, s, true);
+    drawFigure(r, cycle, s, false);
     ctx.restore();
   }
 

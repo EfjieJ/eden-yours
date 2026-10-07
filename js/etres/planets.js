@@ -102,13 +102,16 @@
 
   EL.sparkle = function (ctx, x, y, s, a, c) {
     if (a <= 0.01) return;
-    ctx.strokeStyle = U.rgba(c, a);
-    ctx.lineWidth = Math.max(0.6, s * 0.18);
+    /* étoile réaliste : point lumineux, halo doux, aigrettes de diffraction très fines */
+    EL.drawGlow(ctx, c, x, y, s * 2.2, a * 0.75);
+    ctx.strokeStyle = U.rgba(c, a * 0.22);
+    ctx.lineWidth = Math.max(0.4, s * 0.06);
     ctx.beginPath();
-    ctx.moveTo(x - s, y); ctx.lineTo(x + s, y);
-    ctx.moveTo(x, y - s); ctx.lineTo(x, y + s);
+    ctx.moveTo(x - s * 1.6, y); ctx.lineTo(x + s * 1.6, y);
+    ctx.moveTo(x, y - s * 1.6); ctx.lineTo(x, y + s * 1.6);
     ctx.stroke();
-    EL.drawGlow(ctx, c, x, y, s * 2.4, a * 0.8);
+    ctx.fillStyle = U.rgba([255, 255, 255], Math.min(1, a * 1.2));
+    ctx.beginPath(); ctx.arc(x, y, Math.max(0.5, s * 0.16), 0, TAU); ctx.fill();
   };
 
   function moon(ctx, m, sx, sy, R, t, behind) {
@@ -298,17 +301,27 @@
     ctx.drawImage(tex, sx - R - off + w, sy - R, w, R * 2);
     var emissive = p.style === "radiant";
     var shadow = U.mix(C.dark, [8, 4, 20], 0.7);
-    var g = ctx.createRadialGradient(sx - R * 0.38, sy - R * 0.42, R * 0.05, sx, sy, R * 1.02);
-    g.addColorStop(0, "rgba(255,255,255," + (emissive ? 0.45 : 0.28) + ")");
-    g.addColorStop(0.35, "rgba(255,255,255,0)");
-    g.addColorStop(0.78, U.rgba(shadow, emissive ? 0.08 : 0.28));
-    g.addColorStop(1, U.rgba(shadow, emissive ? 0.25 : 0.72));
-    ctx.fillStyle = g;
+    /* éclairage physique : assombrissement du limbe + terminateur doux (lumière venant du haut à gauche) */
+    var limb = ctx.createRadialGradient(sx, sy, R * 0.2, sx, sy, R);
+    limb.addColorStop(0, "rgba(0,0,0,0)");
+    limb.addColorStop(0.75, U.rgba(shadow, emissive ? 0.05 : 0.18));
+    limb.addColorStop(1, U.rgba(shadow, emissive ? 0.2 : 0.55));
+    ctx.fillStyle = limb;
     ctx.fillRect(sx - R, sy - R, R * 2, R * 2);
+    if (!emissive) {
+      var term = ctx.createRadialGradient(sx - R * 0.55, sy - R * 0.5, R * 0.4, sx - R * 0.55, sy - R * 0.5, R * 2.15);
+      term.addColorStop(0, "rgba(0,0,0,0)");
+      term.addColorStop(0.55, "rgba(0,0,0,0)");
+      term.addColorStop(0.78, U.rgba(shadow, 0.6));
+      term.addColorStop(1, U.rgba(shadow, 0.92));
+      ctx.fillStyle = term;
+      ctx.fillRect(sx - R, sy - R, R * 2, R * 2);
+    }
     ctx.globalCompositeOperation = "lighter";
-    var rim = ctx.createRadialGradient(sx, sy, R * 0.78, sx, sy, R);
+    /* atmosphère : fine diffusion sur le limbe éclairé seulement */
+    var rim = ctx.createRadialGradient(sx + R * 0.12, sy + R * 0.1, R * 0.86, sx, sy, R);
     rim.addColorStop(0, U.rgba(C.glow, 0));
-    rim.addColorStop(1, U.rgba(C.glow, 0.55));
+    rim.addColorStop(1, U.rgba(C.glow, emissive ? 0.5 : 0.38));
     ctx.fillStyle = rim;
     ctx.fillRect(sx - R, sy - R, R * 2, R * 2);
     ctx.restore();

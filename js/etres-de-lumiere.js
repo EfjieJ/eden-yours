@@ -256,10 +256,12 @@
     if (!bgCv || bgCv.width !== bw || bgCv.height !== bh) bgCv = U.canvas(bw, bh);
     var b = bgCv.getContext("2d");
     b.setTransform(BS, 0, 0, BS, 0, 0);
+    /* espace profond : les teintes du ciel sont assombries vers le noir bleuté, l'horizon reste chaud et discret */
+    var space = [6, 6, 16];
     var g = b.createLinearGradient(0, 0, 0, H);
-    g.addColorStop(0, U.rgba(s[0], 1));
-    g.addColorStop(0.58, U.rgba(s[1], 1));
-    g.addColorStop(1, U.rgba(s[2], 1));
+    g.addColorStop(0, U.rgba(U.mix(s[0], space, 0.72), 1));
+    g.addColorStop(0.58, U.rgba(U.mix(s[1], space, 0.6), 1));
+    g.addColorStop(1, U.rgba(U.mix(s[2], space, 0.45), 1));
     b.fillStyle = g;
     b.fillRect(0, 0, W, H);
     b.globalCompositeOperation = "lighter";
