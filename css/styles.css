@@ -3100,7 +3100,7 @@ html.eden-pass-reduced::after { animation: eden-pass-fade 0.4s linear forwards !
   .gm-jardin-flower { animation: none; }
 }
 
-/* ---------- Marcheurs réels (ambiance accueil) ---------- */
+/* ---------- Marcheurs de lumière (ambiance accueil) ---------- */
 .eden-runners {
   position: fixed;
   inset: 0;

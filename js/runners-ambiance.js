@@ -1,8 +1,7 @@
-/* Eden Yours — Marcheurs (ambiance accueil uniquement)
-   De vraies personnes qui marchent pieds nus dans la lumière : cycles de marche filmés (vidéo Pexels,
-   détourée, voir CREDITS.md) en planches WebP, liseré doré en contre-jour et ombre portée douce.
-   Repli : silhouettes dessinées tant que les planches ne sont pas chargées.
-   Pause si onglet caché ; figé si prefers-reduced-motion ; moins de personnes sur mobile. */
+/* Eden Yours — Marcheurs de lumière (ambiance accueil uniquement)
+   Canvas 2D léger : silhouettes dessinées (sans visage, sans sexe) qui marchent à l'intérieur d'une bulle
+   lumineuse douce — halo, reflet, liseré doré — comme les premiers êtres de lumière.
+   Pause si onglet caché ; masqué / figé si prefers-reduced-motion ; moins de figures sur mobile. */
 (function () {
   "use strict";
   if (window.EdenRunners) return;
@@ -20,19 +19,6 @@
     { body: "#A0C6E6", shade: "#78A8CE", light: "#D6ECF8", limb: "#88B4D6" }
   ];
   var CREAM = "rgba(255, 244, 220, 0.35)";
-  /* planches : une rangée d'images (fw × fh), fps d'origine, vitesse = déplacement / hauteur par image */
-  var SHEETS = [
-    { src: "assets/people/walk-girl.webp", frames: 16, fw: 133, fh: 300, fps: 15, speed: 0.01347, kid: true },
-    { src: "assets/people/walk-mother.webp", frames: 22, fw: 187, fh: 300, fps: 15, speed: 0.01194, kid: false }
-  ];
-  var PACE = 1.35; // un peu plus vif que la prise de vue (ralentie)
-  SHEETS.forEach(function (sh) {
-    var im = new Image();
-    im.decoding = "async";
-    im.onload = function () { sh.ready = true; if (!running) drawStill(); };
-    im.src = sh.src + "?v=20261010n";
-    sh.img = im;
-  });
   var GOLD_LINE = "rgba(246, 201, 106, 0.22)";
   var VIOLET_SOFT = "rgba(192, 132, 252, 0.12)";
 
@@ -118,7 +104,6 @@
       var scale = 0.55 + Math.random() * 0.45;
       var lane = 0.62 + (i % 3) * 0.08 + Math.random() * 0.04;
       runners.push({
-        sheet: SHEETS[i % SHEETS.length],
         x: (i / Math.max(1, n)) * W + Math.random() * 80 - 40,
         yFrac: lane,
         scale: scale,
@@ -164,7 +149,7 @@
     var shY = hipY - s * 0.3;
     if (back) { limb(s * 0.01, shY + s * 0.02, upA, foA, armA, elbow, s * 0.05); return; }
     // torse (léger penché vers l'avant) et tête
-    var lean = 0.14;
+    var lean = 0.05;
     ctx.beginPath();
     ctx.moveTo(-s * 0.06, hipY + s * 0.02);
     ctx.quadraticCurveTo(-s * 0.08 + lean * s * 0.1, hipY - s * 0.16, -s * 0.05 + lean * s * 0.3, shY);
@@ -178,46 +163,33 @@
     ctx.fill();
     limb(nx, shY + s * 0.02, upA, foA, armA, elbow, s * 0.05);
   }
-  function drawWalker(r, t, sh) {
-    var y = H * r.yFrac;
-    var hh = (sh.kid ? 92 : 128) * r.scale;           // hauteur à l'écran (px)
-    var fwp = hh * sh.fw / sh.fh;
-    var f = Math.floor((t / 1000) * sh.fps * PACE + r.phase * 10) % sh.frames;
-    ctx.save();
-    /* ombre portée douce */
-    var sg = ctx.createRadialGradient(r.x, y + 2, 0, r.x, y + 2, hh * 0.35);
-    sg.addColorStop(0, "rgba(8, 6, 24, 0.35)"); sg.addColorStop(1, "rgba(8, 6, 24, 0)");
-    ctx.fillStyle = sg;
-    ctx.beginPath(); ctx.ellipse(r.x, y + 2, hh * 0.35, hh * 0.04, 0, 0, Math.PI * 2); ctx.fill();
-    /* contre-jour : liseré doré diffus */
-    ctx.shadowColor = "rgba(255, 196, 120, 0.6)";
-    ctx.shadowBlur = Math.max(6, hh * 0.08);
-    ctx.globalAlpha = 0.95;
-    ctx.drawImage(sh.img, f * sh.fw, 0, sh.fw, sh.fh, r.x - fwp / 2, y - hh, fwp, hh);
-    ctx.restore();
-  }
   function drawRunner(r, t) {
-    if (r.sheet && r.sheet.ready) return drawWalker(r, t, r.sheet);
     var y = H * r.yFrac;
-    var s = 62 * r.scale;
-    var cycle = t * 0.0055 * (0.6 + r.speed / 80) + r.phase;
+    var s = 76 * r.scale;
+    var cycle = t * 0.0038 * (0.6 + r.speed / 80) + r.phase;
     var bobY = Math.abs(Math.cos(cycle)) * s * 0.025;
     if (!r.col) {
-      var depth = (r.yFrac - 0.6) / 0.25;
-      r.col = "rgba(" + (24 + depth * 10 | 0) + "," + (20 + depth * 8 | 0) + "," + (44 + depth * 10 | 0) + ",0.9)";
-      r.colBack = "rgba(18,15,34,0.85)";
+      r.col = "rgba(255,246,228,0.96)";
+      r.colBack = "rgba(255,228,176,0.7)";
     }
     ctx.save();
     ctx.translate(r.x, y - bobY);
     ctx.scale(r.dir, 1);
-    /* ombre portée longue et douce (soleil bas) */
-    var sg = ctx.createRadialGradient(-s * 0.25, 2, 0, -s * 0.25, 2, s * 0.6);
-    sg.addColorStop(0, "rgba(8, 6, 24, 0.32)"); sg.addColorStop(1, "rgba(8, 6, 24, 0)");
-    ctx.fillStyle = sg;
-    ctx.beginPath(); ctx.ellipse(-s * 0.25, 2 + bobY, s * 0.6, s * 0.05, 0, 0, Math.PI * 2); ctx.fill();
-    /* contre-jour : liseré doré diffus */
-    ctx.shadowColor = "rgba(255, 196, 120, 0.55)";
-    ctx.shadowBlur = Math.max(4, s * 0.12);
+    /* bulle de lumière : halo intérieur, paroi lumineuse, reflet */
+    var bx = 0, by = -s * 0.52, br = s * 0.7 * (1 + Math.sin(cycle * 0.5) * 0.015);
+    var bg = ctx.createRadialGradient(bx, by, br * 0.15, bx, by, br);
+    bg.addColorStop(0, "rgba(255, 240, 210, 0.16)");
+    bg.addColorStop(0.7, "rgba(255, 214, 150, 0.10)");
+    bg.addColorStop(1, "rgba(255, 226, 180, 0.38)");
+    ctx.fillStyle = bg;
+    ctx.beginPath(); ctx.arc(bx, by, br, 0, Math.PI * 2); ctx.fill();
+    ctx.strokeStyle = "rgba(255, 240, 210, 0.75)"; ctx.lineWidth = Math.max(1, s * 0.012);
+    ctx.beginPath(); ctx.arc(bx, by, br, 0, Math.PI * 2); ctx.stroke();
+    ctx.fillStyle = "rgba(255,255,255,0.55)";
+    ctx.beginPath(); ctx.ellipse(bx - br * 0.45, by - br * 0.55, br * 0.16, br * 0.07, -0.7, 0, Math.PI * 2); ctx.fill();
+    /* lueur du marcheur */
+    ctx.shadowColor = "rgba(255, 204, 130, 0.9)";
+    ctx.shadowBlur = Math.max(6, s * 0.2);
     drawFigure(r, cycle, s, true);
     drawFigure(r, cycle, s, false);
     ctx.restore();
@@ -278,14 +250,6 @@
 
     for (var i = 0; i < runners.length; i++) {
       var r = runners[i];
-      if (r.sheet && r.sheet.ready) {
-        var hh = (r.sheet.kid ? 92 : 128) * r.scale;
-        r.dir = -1;
-        r.x -= r.sheet.speed * hh * r.sheet.fps * PACE * dt;
-        if (r.x < -80) { r.x = W + 60 + Math.random() * 120; r.phase = Math.random() * Math.PI * 2; }
-        drawRunner(r, t);
-        continue;
-      }
       r.x += r.speed * dt * r.dir;
       if (r.x > W + 60) {
         r.x = -50 - Math.random() * 40;

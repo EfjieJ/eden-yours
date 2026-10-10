@@ -300,48 +300,6 @@
       });
     }
   }
-  /* Vraie personne (vidéo Pexels détourée, voir CREDITS.md) : hologramme bleuté et ligné au début,
-     ses vraies couleurs apparaissent à mesure que la silhouette se densifie. Repli : silhouette dessinée. */
-  const holo = { img: new Image(), ready: false, tint: null, real: null };
-  holo.img.decoding = 'async';
-  holo.img.onload = () => {
-    const im = holo.img, w = im.naturalWidth, h = im.naturalHeight;
-    const fadeMask = (g) => {
-      const gr = g.createLinearGradient(0, h * 0.8, 0, h);
-      gr.addColorStop(0, 'rgba(0,0,0,1)'); gr.addColorStop(1, 'rgba(0,0,0,0)');
-      g.globalCompositeOperation = 'destination-in'; g.fillStyle = gr; g.fillRect(0, 0, w, h); // un seul rectangle couvrant tout
-      g.globalCompositeOperation = 'source-over';
-    };
-    const real = document.createElement('canvas'); real.width = w; real.height = h;
-    const rg = real.getContext('2d'); rg.drawImage(im, 0, 0); fadeMask(rg);
-    const tint = document.createElement('canvas'); tint.width = w; tint.height = h;
-    const tg = tint.getContext('2d'); tg.drawImage(real, 0, 0);
-    tg.globalCompositeOperation = 'color'; tg.fillStyle = 'rgb(120,200,255)'; tg.fillRect(0, 0, w, h);
-    tg.globalCompositeOperation = 'destination-in'; tg.drawImage(real, 0, 0);
-    tg.globalCompositeOperation = 'destination-out'; tg.fillStyle = 'rgba(0,0,0,0.45)';
-    for (let y = 0; y < h; y += 4) tg.fillRect(0, y, w, 1.5);
-    tg.globalCompositeOperation = 'source-over';
-    holo.real = real; holo.tint = tint; holo.ready = true;
-  };
-  holo.img.src = 'assets/lightbody/holo-person.webp?v=20261010n';
-  function drawPerson(cx, cy, scale, dens, breath) {
-    const im = holo.real, H = 196 * scale * breath, W = H * (im.width / im.height), x = cx - W / 2, y = cy - 96 * scale * breath;
-    ctx.save();
-    // contour lumineux qui respire
-    ctx.globalAlpha = 0.25 + dens * 0.35;
-    ctx.shadowColor = `rgba(103,232,249,${0.35 + dens * 0.45})`;
-    ctx.shadowBlur = 18 + dens * 22;
-    ctx.drawImage(holo.tint, x, y, W, H);
-    ctx.shadowBlur = 0;
-    // les vraies couleurs apparaissent avec la densité
-    ctx.globalAlpha = Math.min(1, dens * 1.05);
-    ctx.drawImage(im, x, y, W, H);
-    // voile d'hologramme qui s'efface
-    ctx.globalCompositeOperation = 'lighter';
-    ctx.globalAlpha = 0.1 + (1 - dens) * 0.45;
-    ctx.drawImage(holo.tint, x, y, W, H);
-    ctx.restore();
-  }
   function drawSilhouette(cx, cy, scale, alpha, fill, glow) {
     ctx.save();
     ctx.translate(cx, cy);
@@ -410,20 +368,29 @@
     const dens = density / 100;
     const breath = 1 + Math.sin(pulseT * 0.0018) * 0.015;
 
-    if (holo.ready) {
-      drawPerson(cx, cy, scale, dens, breath);
-    } else {
-      // Body (behind / opaque outline)
-      drawSilhouette(cx, cy, scale * breath, 0.22 + dens * 0.12, 'rgba(110,98,136,0.45)', null);
-
-      // Luminous hologram densifying
-      const holoAlpha = 0.08 + dens * 0.78;
-      const holoGlow = dens > 0.05
-        ? `rgba(103,232,249,${0.2 + dens * 0.55})`
-        : null;
-      const holoFill = `rgba(192,132,252,${0.12 + dens * 0.55})`;
-      drawSilhouette(cx, cy, scale * breath * (0.98 + dens * 0.04), holoAlpha, holoFill, holoGlow);
+    // Bulle de lumière autour de la silhouette : s'illumine à mesure que la présence se densifie
+    {
+      const br = 172 * scale * breath, by = cy + 18 * scale;
+      const bg = ctx.createRadialGradient(cx, by, br * 0.2, cx, by, br);
+      bg.addColorStop(0, `rgba(242,238,252,${0.02 + dens * 0.08})`);
+      bg.addColorStop(0.75, `rgba(103,232,249,${0.03 + dens * 0.07})`);
+      bg.addColorStop(1, `rgba(192,132,252,${0.14 + dens * 0.2})`);
+      ctx.fillStyle = bg; ctx.beginPath(); ctx.arc(cx, by, br, 0, Math.PI * 2); ctx.fill();
+      ctx.strokeStyle = `rgba(242,238,252,${0.25 + dens * 0.4})`; ctx.lineWidth = 1.6;
+      ctx.beginPath(); ctx.arc(cx, by, br, 0, Math.PI * 2); ctx.stroke();
+      ctx.fillStyle = `rgba(255,255,255,${0.2 + dens * 0.25})`;
+      ctx.beginPath(); ctx.ellipse(cx - br * 0.45, by - br * 0.55, br * 0.1, br * 0.045, -0.7, 0, Math.PI * 2); ctx.fill();
     }
+    // Body (behind / opaque outline)
+    drawSilhouette(cx, cy, scale * breath, 0.22 + dens * 0.12, 'rgba(110,98,136,0.45)', null);
+
+    // Luminous hologram densifying
+    const holoAlpha = 0.08 + dens * 0.78;
+    const holoGlow = dens > 0.05
+      ? `rgba(103,232,249,${0.2 + dens * 0.55})`
+      : null;
+    const holoFill = `rgba(192,132,252,${0.12 + dens * 0.55})`;
+    drawSilhouette(cx, cy, scale * breath * (0.98 + dens * 0.04), holoAlpha, holoFill, holoGlow);
 
     // Inner light core when densifying
     if (dens > 0.15) {
