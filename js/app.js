@@ -14,6 +14,7 @@
   let currentId = null;
   let audio = null;
   let featuredTemplate = null;
+  let queueIds = null; // lecture d'un thème (data/categories.json) : ids dans l'ordre, chanson entière après chanson entière
 
   // ---------- Helpers ----------
   const $ = (sel, root = document) => root.querySelector(sel);
@@ -235,6 +236,7 @@
   function headTrack() { return hasStartUI() ? startTrack() : (tracks.find((t) => t.featured) || tracks[0] || null); }
 
   function applyLangFilter() {
+    if (queueIds) { queueIds = null; emitQueue(); }
     const lang = siteLang();
     tracks = window.EdenSongPick ? window.EdenSongPick.forLang(allTracks, lang) : allTracks.filter((t) => t && t.lang === lang);
     if (currentId && tracks.some((t) => t.id === currentId)) {
@@ -364,6 +366,7 @@
   function playTrack(index) {
     if (index < 0 || index >= tracks.length) return;
     const t = tracks[index];
+    if (queueIds && queueIds.indexOf(t.id) === -1) { queueIds = null; emitQueue(); } // l'utilisateur choisit un titre hors thème
     if (isEmbedTrack(t)) {
       playEmbedTrack(index);
       return;
@@ -418,8 +421,41 @@
     else a.pause();
   }
 
+  function emitQueue() {
+    try { document.dispatchEvent(new CustomEvent("eden:queue", { detail: { active: !!queueIds, ids: queueIds ? queueIds.slice() : [], current: currentId } })); } catch (_) {}
+  }
+  // Thème : file d'attente (ids). Retourne l'index de la prochaine chanson de la file, -1 si fin.
+  function queueStep(dir) {
+    const pos = queueIds.indexOf(currentId);
+    const nid = queueIds[pos + dir];
+    if (!nid) return -1;
+    return tracks.findIndex((x) => x.id === nid);
+  }
+  function playQueue(ids) {
+    const list = (ids || []).filter((id) => tracks.some((x) => x.id === id));
+    if (!list.length) return false;
+    queueIds = list;
+    const idx = tracks.findIndex((x) => x.id === list[0]);
+    playTrack(idx);
+    emitQueue();
+    return true;
+  }
+  window.EdenLibrary = {
+    tracks: () => tracks.slice(),
+    playQueue,
+    queue: () => (queueIds ? queueIds.slice() : null),
+    currentId: () => currentId,
+    isPlaying: () => !!(audio && !audio.paused && !audio.ended && currentIndex >= 0),
+    togglePlay,
+  };
+
   function playNext() {
     if (!tracks.length) return;
+    if (queueIds) {
+      const q = queueStep(1);
+      if (q >= 0) { playTrack(q); emitQueue(); return; }
+      queueIds = null; emitQueue(); toast(i18n("cat.queueEnd")); return;
+    }
     const next = (currentIndex + 1) % tracks.length;
     playTrack(next);
   }
@@ -429,6 +465,11 @@
     const a = ensureAudio();
     if (!isEmbedTrack(tracks[currentIndex]) && a.currentTime > 3) {
       a.currentTime = 0;
+      return;
+    }
+    if (queueIds) {
+      const q = queueStep(-1);
+      if (q >= 0) { playTrack(q); emitQueue(); }
       return;
     }
     const prev = (currentIndex - 1 + tracks.length) % tracks.length;
