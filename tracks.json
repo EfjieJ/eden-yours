@@ -486,6 +486,21 @@
       "featured": false,
       "audio_url_aac": null,
       "lang": "fr"
+    },
+    {
+      "id": "283895e4-3125-4c0c-9fe3-2f0293b848f1",
+      "title": "Commencer-Recommencer",
+      "artist": "Eden Yours",
+      "sunoArtist": "efjie8008",
+      "sunoTitle": "Commencer-Recommencer",
+      "audio_url": null,
+      "embed_url": "https://suno.com/embed/283895e4-3125-4c0c-9fe3-2f0293b848f1",
+      "cover_url": "assets/covers/283895e4-3125-4c0c-9fe3-2f0293b848f1.jpeg",
+      "suno_share": "https://suno.com/s/WnpzcSjLAEHzTQTR",
+      "duration": null,
+      "featured": false,
+      "audio_url_aac": null,
+      "lang": "fr"
     }
   ]
 }

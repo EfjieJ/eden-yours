@@ -439,6 +439,14 @@
    "basis": "title+lyrics",
    "excerpt": "J'inspire, et je crée,\nJ'expire, et je laisse aller.",
    "excerptSource": "data/lyrics-sources.json"
+  },
+  "283895e4-3125-4c0c-9fe3-2f0293b848f1": {
+   "title": "Commencer-Recommencer",
+   "lang": "fr",
+   "theme": "creation",
+   "basis": "title+lyrics",
+   "excerpt": "Nous sommes tous des artisans.\nDes artisans de la réalité.",
+   "excerptSource": "data/lyrics-sources.json"
   }
  }
 }
