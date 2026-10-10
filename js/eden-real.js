@@ -679,7 +679,7 @@ export async function createRealScene(canvas, stage, opts) {
     const spark = glow("#ffffff", 0.9, 1); g.add(spark);
     const sl = new THREE.PointLight(C(P.accent), 3, 12, 2); spark.add(sl);
     if (garden) { g.scale.setScalar(0.35); g.position.y = 5.5; g.rotation.x = 0.35; }
-    const watcher = makePerson("particule-reach", { rim: P.accent, aura: P.cool, height: garden ? 1.25 : 2.1, tint: "#e8eeff" });
+    const watcher = makePerson("particule-reach", { rim: P.accent, aura: P.cool, height: garden ? 1.15 : 1.55, tint: "#e8eeff" });
     (garden ? sc : g).add(watcher.group); if (garden) watcher.dispose2 = () => sc.remove(watcher.group);
     return { group: g, camera: { r: garden ? 9 : 14, y: garden ? 3 : 6, target: [0, garden ? 2.5 : 0, 0] }, update(T, dt, A, R) {
       gal.rotation.y += dt * 0.03 * R; u.uLevel.value = A.level;
@@ -688,7 +688,7 @@ export async function createRealScene(canvas, stage, opts) {
       core.material.opacity = 0.4 + A.level * 0.4;
       // la personne regarde la galaxie : toujours entre la caméra et le centre
       const dx = camera.position.x - cam.target.x, dz = camera.position.z - cam.target.z, dl = Math.hypot(dx, dz) || 1, k = garden ? 0.45 : 0.62;
-      watcher.group.position.set(cam.target.x + dx / dl * dl * k, garden ? heightAt(cam.target.x + dx / dl * dl * k, cam.target.z + dz / dl * dl * k) - 0.1 : -0.75, cam.target.z + dz / dl * dl * k);
+      watcher.group.position.set(cam.target.x + dx / dl * dl * k, garden ? heightAt(cam.target.x + dx / dl * dl * k, cam.target.z + dz / dl * dl * k) - 0.1 : -0.55, cam.target.z + dz / dl * dl * k);
       watcher.update(T, dt, A);
     }, dispose() { watcher.dispose(); if (watcher.dispose2) watcher.dispose2(); } };
   };
