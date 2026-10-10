@@ -1,0 +1,126 @@
+{
+ "version": 1,
+ "note": "Chansons d'OUVERTURE (démarrage au hasard sans répétition) : les plus dynamiques par langue. Le reste de la bibliothèque et les tirages après victoire ne changent pas.",
+ "criteria": [
+  "Étiquettes de style Suno (API publique des clips) : joyful / upbeat / rhythmic / cha-cha / gospel / pop-rock / BPM annoncé ; exclus : art song, ballade, « unhurried », 60 BPM, valse lente",
+  "Mesure audio sur les MP3 locaux (librosa) : tempo estimé, énergie RMS, densité d'attaques (onset strength) ; les titres uniquement en embed Suno sont jugés sur leurs étiquettes",
+  "Titres et paroles : refrains rythmés / chœurs ; popularité Suno comme départage"
+ ],
+ "excluded": {
+  "fr": [
+   "Commencer (×2, art song / pulsation douce)",
+   "Le Grand Poumon (60 BPM)",
+   "Le Rêveur (ballade)",
+   "Et que ce soit (valse lente 83 BPM)",
+   "Le Oui, La Mécanique du Jeu, Le Reset du Jeu (valse/pulsation douce)"
+  ],
+  "en": [
+   "Start - Continue - Finish (art song)",
+   "Start (pulsation douce)"
+  ]
+ },
+ "songs": [
+  {
+   "id": "702aaf9e-cde4-4b51-900c-a790db4a2320",
+   "lang": "fr",
+   "title": "Éternel sur Terre",
+   "why": "Cha-cha, upbeat, joyful (Suno tags); le plus rythmé du lot en FR : 129 BPM, plus forte densité d'attaques mesurée."
+  },
+  {
+   "id": "2c8a36c9-4207-41b9-80e9-bf78313c2099",
+   "lang": "fr",
+   "title": "Tout ce que je demande l'univers me le donne",
+   "why": "Gospel / cha-cha, joyful, percussions, xylophone ; ≈108 BPM, énergie élevée (RMS 0,148)."
+  },
+  {
+   "id": "dead13bb-42bc-492e-83a1-87609f224734",
+   "lang": "fr",
+   "title": "Particule Pure",
+   "why": "Pop rythmée, joyful, chœur, trompette, accordéon ; ≈123 BPM."
+  },
+  {
+   "id": "2c1321b1-378d-47f3-be06-1ba9437edd30",
+   "lang": "fr",
+   "title": "La Vraie Liberté",
+   "why": "Chant choral rythmé et joyeux, clochettes/xylophone ; la plus forte énergie mesurée (RMS 0,157), ≈123 BPM."
+  },
+  {
+   "id": "f5bf8830-85bb-4a9b-9545-081800be485f",
+   "lang": "fr",
+   "title": "La Sensibilité est la Fonction",
+   "why": "Pulsation rythmée et joyeuse, duo + chœur d'enfants, flûte, violon, guitare ; ≈103 BPM."
+  },
+  {
+   "id": "6f66fa1b-ee30-428e-823d-d62524debf08",
+   "lang": "fr",
+   "title": "Présence en Chœur",
+   "why": "Suno : « French pop, 118 BPM », groove 80s, handclaps, cordes disco, call-and-response."
+  },
+  {
+   "id": "6d91a0bb-d51e-4dd7-b69e-19be51580fc6",
+   "lang": "fr",
+   "title": "Présence au centre",
+   "why": "Cha-cha, rock, joyful, rythmé, chœur et percussions (tags Suno)."
+  },
+  {
+   "id": "2a9f903f-cc96-4649-922b-4e8ec1339c5c",
+   "lang": "fr",
+   "title": "Le souffle et la main",
+   "why": "Tags Suno : joyful, energetic, pop rock, chœur d'enfants."
+  },
+  {
+   "id": "a0b2b33d-66f6-4c6a-b933-cdb5977d920e",
+   "lang": "fr",
+   "title": "Le Léger Futur",
+   "why": "Valse upbeat, gospel joyeux, flûte, violon, cloches ; ≈103 BPM."
+  },
+  {
+   "id": "b51d4773-9849-4bb8-9def-06b99c2a8dc2",
+   "lang": "fr",
+   "title": "Optim Us Le Double Cœur",
+   "why": "Rythmé, joyful, accordéon, violon, chœurs d'enfants — la chanson la plus écoutée du catalogue (68 écoutes Suno)."
+  },
+  {
+   "id": "a5ba4262-22f6-4c9c-a6df-05bff2d5e713",
+   "lang": "en",
+   "title": "The Body Is an Antenna",
+   "why": "Pop, « driving pulse », duo + chœur d'enfants, flûte, violon, guitare ; ≈103 BPM, énergie élevée (RMS 0,120)."
+  },
+  {
+   "id": "d2d61703-a205-41ac-a670-6e5cf7c22911",
+   "lang": "en",
+   "title": "The Postulate",
+   "why": "Groove rythmé mi-tempo, guitare funky, basse, duo joyeux ; la plus forte densité d'attaques de l'EN (≈108 BPM)."
+  },
+  {
+   "id": "bd31373d-709e-4a64-a7dd-7baed7ec7bb7",
+   "lang": "en",
+   "title": "the postulat",
+   "why": "Folk-pop québécois, accordéon, percussions, « rhythmic buoyant two-step sway » ; énergie élevée (RMS 0,130)."
+  },
+  {
+   "id": "b495fcd7-5db9-4de1-8fe5-4ba9a397e325",
+   "lang": "en",
+   "title": "Sensitivity is Pure Function",
+   "why": "Bright folk-pop, joyful, buoyant pulse, flûte, violon, guitare ; ≈103 BPM."
+  },
+  {
+   "id": "d8d9dfd9-223c-4a2b-b72c-3bf1424b7b9d",
+   "lang": "en",
+   "title": "The Lightest Particle",
+   "why": "Joyful rhythmic pop, cloches et xylophone, percussions nettes, mi-tempo bondissant (tags Suno)."
+  },
+  {
+   "id": "4f9514ec-7ad0-4d80-9f7e-120179145eab",
+   "lang": "en",
+   "title": "The Sacredness of Emotions",
+   "why": "Suno : « rhythmic pop, soft rock, 112 BPM », backbeat syncopé, handclaps, « uplifting defiance ». (la 2e version du même titre, c188685c, est volontairement omise pour éviter deux titres identiques d'affilée)"
+  },
+  {
+   "id": "b0eb0f76-f2d8-4e16-85a9-037fc3f32b01",
+   "lang": "en",
+   "title": "The slight future",
+   "why": "Gospel waltz, orgue Hammond, réponses gospel joyeuses, « lively mix », triple temps bondissant."
+  }
+ ]
+}
