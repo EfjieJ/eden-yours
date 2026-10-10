@@ -829,11 +829,11 @@ export async function createRealScene(canvas, stage, opts) {
     const cx = garden ? 0 : LAKE.x, cz = garden ? riverZ(0) : LAKE.z, wy = garden ? -0.4 : LAKE.y;
     const kidsAt = garden ? [[-1.2, 3.2], [1.4, 3.6]] : [[LAKE.x * 0.35 + 0.6, LAKE.z * 0.35 + 1.2], [LAKE.x * 0.35 - 1.4, LAKE.z * 0.35 + 0.2]];
     const ppl = people([
-      { id: "jeu-boy", x: kidsAt[0][0], z: kidsAt[0][1], rim: P.warm, aura: P.accent },
-      { id: "jeu-girl", x: kidsAt[1][0], z: kidsAt[1][1], rim: P.warm, aura: P.accent, secondary: true }
+      { id: "jeu-boy", x: kidsAt[0][0], z: kidsAt[0][1], rim: P.warm, aura: P.accent, height: garden ? 1.6 : undefined },
+      { id: "jeu-girl", x: kidsAt[1][0], z: kidsAt[1][1], rim: P.warm, aura: P.accent, secondary: true, height: garden ? 1.5 : undefined }
     ]); ppl.list.forEach((p) => g.add(p.group));
     let lastHop = -1, ri = 0;
-    return { group: g, people: ppl, camera: garden ? { r: 9, y: 2, target: [0, 0.6, 2] } : { r: 6.2, y: 1.2, target: [LAKE.x * 0.4, 0.7, LAKE.z * 0.4] }, update(T, dt, A, R) {
+    return { group: g, people: ppl, camera: garden ? { r: 6, y: 1.6, target: [0.1, 0.7, 3.3] } : { r: 5.6, y: 1.1, target: [LAKE.x * 0.4, 0.7, LAKE.z * 0.4] }, update(T, dt, A, R) {
       ppl.update(T, dt, A);
       if (garden) { const a = T * 0.3 * R; orb.position.set(Math.sin(a) * 5, 0.5 + Math.sin(T * 0.9) * 0.15, riverZ(Math.sin(a) * 5) + Math.sin(a * 2) * 0.6); }
       else {
