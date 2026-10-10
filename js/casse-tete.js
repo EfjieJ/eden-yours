@@ -170,6 +170,16 @@
     try { last = sessionStorage.getItem(LAST_SONG_KEY); } catch (e) {}
     var candidates = [];
     var i;
+    /* premier puzzle : une chanson d'ouverture dynamique de la langue (data/opening-songs.json), jamais celle de la dernière visite */
+    var SP = window.EdenSongPick;
+    if (SP) {
+      var ids = SP.openingIds(puzzleLang), prev = SP.lastStarted().slice(-1);
+      var pre = [];
+      for (i = 0; i < list.length; i++) {
+        if (ids.indexOf(list[i].id) !== -1 && prev.indexOf(list[i].id) === -1 && list[i].id !== last) pre.push(i);
+      }
+      if (pre.length) { var pk = pre[Math.floor(Math.random() * pre.length)]; SP.record(list[pk].id); return pk; }
+    }
     for (i = 0; i < list.length; i++) {
       if (!last || list[i].id !== last) candidates.push(i);
     }
@@ -411,12 +421,17 @@
     clearTimeout(songTimer);
     if (window.EdenStars) window.EdenStars.clear(starsBox);
     winPanel.classList.remove("is-open");
+    /* la chanson de victoire en cours n'est jamais coupée par le puzzle suivant : elle va jusqu'au bout
+       (sauf changement de langue : elle est alors dans l'ancienne langue) */
+    if (!forceStopSong && window.EdenFullSong && window.EdenFullSong.busy(audio)) { audio.muted = false; return; }
+    forceStopSong = false;
     stopAudio();
     audio.muted = false;
     audio.removeAttribute("src");
     audio.load();
     clearEmbed();
   }
+  var forceStopSong = false;
 
   /* Étoiles : 1 à 3 selon les mauvais dépôts et le temps (règles dans js/stars.js),
      trois étoiles qui se remplissent + une note par étoile, puis la chanson. */
@@ -453,6 +468,7 @@
       hint.textContent = text.embedTap;
       return;
     }
+    if (window.EdenFullSong && window.EdenFullSong.busy(audio)) return; // la chanson précédente va jusqu'au bout
     audio.src = current.audio;
     // On « débloque » le lecteur pendant le geste (muet), puis la chanson part après le motif.
     audio.muted = true;
@@ -748,6 +764,7 @@
     if (next !== "fr" && next !== "en") return;
     if (puzzleLang === next && layout && !layout.hidden) return;
     puzzleLang = next;
+    forceStopSong = true;
     var list = songs();
     songIndex = pickStartSongIndex(list);
     paintLangButtons();

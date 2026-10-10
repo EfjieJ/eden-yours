@@ -17,6 +17,7 @@
 
   // ——— Langue : suit le choix du site (EdenI18n / localStorage « eden-lang »). Les titres de chansons ne sont jamais traduits.
   function isEn() {
+    if (window.EdenSongPick) return window.EdenSongPick.lang() === 'en';
     try { if (window.EdenI18n && window.EdenI18n.getLang) return window.EdenI18n.getLang() === 'en'; } catch (_) {}
     try { return localStorage.getItem('eden-lang') === 'en'; } catch (_) { return false; }
   }
@@ -1173,7 +1174,6 @@
     if (victoryAudio) return victoryAudio;
     const a = new Audio();
     a.preload = 'auto';
-    a.src = isEn() ? VICTORY_EN.audio : VICTORY_AUDIO;
     a.addEventListener('error', () => {
       if (!a.getAttribute('data-tried-aac')) {
         a.setAttribute('data-tried-aac', '1');
@@ -1183,9 +1183,18 @@
     victoryAudio = a;
     return a;
   }
+  // La chanson de victoire suit la langue ACTIVE au moment de jouer (le sélecteur de langue peut changer entre-temps)
+  function syncVictoryLang(a) {
+    const want = isEn() ? 'en' : 'fr';
+    if (a.getAttribute('data-lang') === want) return;
+    a.setAttribute('data-lang', want);
+    a.removeAttribute('data-tried-aac');
+    a.src = want === 'en' ? VICTORY_EN.audio : VICTORY_AUDIO;
+  }
 
   function playVictorySong() {
     const a = ensureVictoryAudio();
+    syncVictoryLang(a);
     try { a.pause(); } catch (_) {}
     a.currentTime = 0;
     a.volume = 0;
@@ -1255,6 +1264,7 @@
     running = true;
     // Unlock audio during user gesture
     const a = ensureVictoryAudio();
+    syncVictoryLang(a);
     try {
       a.volume = 0;
       const p = a.play();

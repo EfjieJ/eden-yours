@@ -1,4 +1,4 @@
-/* Eden Yours — Mémoire des pochettes : paires de covers, chimes soft, extrait à la victoire. */
+/* Eden Yours — Mémoire des pochettes : paires de covers, chimes soft, chanson entière à la victoire. */
 (function () {
   "use strict";
 
@@ -48,6 +48,7 @@
   }
 
   function siteLang() {
+    if (window.EdenSongPick) return window.EdenSongPick.lang();
     try {
       if (window.EdenI18n && window.EdenI18n.getLang) return window.EdenI18n.getLang();
       var stored = localStorage.getItem("eden-lang");
@@ -167,26 +168,22 @@
     if (playerBox) playerBox.hidden = true;
   }
 
+  /* Chanson entière, de 0:00 à la fin : aucun minuteur d'arrêt ; une chanson déjà en cours n'est jamais coupée
+     (la paire suivante / la victoire la laissent finir). */
   function playAudioClip(song, seconds, showPlayer) {
     if (!song || !song.audio || !audio) return false;
     try {
+      if (window.EdenFullSong && window.EdenFullSong.busy(audio)) {
+        if (showPlayer && playerBox) playerBox.hidden = false;
+        return true;
+      }
       stopClip();
       if (showPlayer && playerBox) playerBox.hidden = false;
       if (nowPlaying) nowPlaying.textContent = t("memoire.playing", { title: song.title });
+      if (window.EdenFullSong) return window.EdenFullSong.play(audio, { id: song.id, audio: song.audio, aac: song.aac });
       audio.hidden = false;
       audio.src = song.audio;
       audio.currentTime = 0;
-      /* chanson entière : plus d'arrêt après quelques secondes (la paire suivante prend le relais) */
-      clipStopHandler = function () {
-        if (false) {
-          audio.pause();
-          if (clipStopHandler) {
-            audio.removeEventListener("timeupdate", clipStopHandler);
-            clipStopHandler = null;
-          }
-        }
-      };
-      audio.addEventListener("timeupdate", clipStopHandler);
       var p = audio.play();
       if (p && p.catch) p.catch(function () {});
       return true;
@@ -395,7 +392,7 @@
   }
 
   function startGame() {
-    stopClip();
+    if (!(window.EdenFullSong && window.EdenFullSong.busy(audio))) stopClip(); /* une chanson en cours continue */
     if (flipBackTimer) { clearTimeout(flipBackTimer); flipBackTimer = null; }
     if (window.EdenStars) window.EdenStars.clear(starsBox);
     ctxAudio();

@@ -643,6 +643,7 @@
   if (langBtn) langBtn.addEventListener("click", function () {
     EL.lang = EL.lang === "en" ? "fr" : "en";
     try { localStorage.setItem("eden-lang", EL.lang); } catch (e) {}
+    if (EL.stopDiscoverySong) EL.stopDiscoverySong(true); /* la chanson suivante sera dans la nouvelle langue */
     try {
       var u = new URL(location.href);
       if (u.searchParams.has("lang")) { u.searchParams.set("lang", EL.lang); history.replaceState(null, "", u); }

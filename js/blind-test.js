@@ -486,7 +486,10 @@
     celebrateEl.hidden = true;
     celebrateEl.classList.remove("is-on");
     celebrateEl.innerHTML = "";
-    resetAudio();
+    /* la chanson complète révélée n'est jamais coupée par la manche suivante : elle finit ; l'extrait suivant
+       ne démarre que si l'auditeur le demande (bouton « Écouter »). */
+    var keepFull = mode === "full" && !!(window.EdenFullSong && window.EdenFullSong.busy(audio));
+    if (keepFull) autoPlay = false; else resetAudio();
     clearEmbed();
     var song = nextSong();
     if (!song) return;
@@ -618,6 +621,7 @@
     paintLangButtons();
     if (!ready) return;
     round = 0; found = 0; played = 0; queue = []; cur = null;
+    resetAudio(); clearEmbed(); /* la chanson en cours est dans l'ancienne langue */
     buildPool();
     if (groupKeys.length < 2) { showEmpty(); return; }
     emptyBox.hidden = true;

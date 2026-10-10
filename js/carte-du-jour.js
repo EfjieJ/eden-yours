@@ -1,4 +1,4 @@
-/* Eden Yours — Carte du jour : phrase vraie + extrait audio, tirage quotidien Toronto. */
+/* Eden Yours — Carte du jour : phrase vraie + chanson entière, tirage quotidien Toronto. */
 (function () {
   "use strict";
 
@@ -39,7 +39,12 @@
     return window.EdenI18n && window.EdenI18n.t ? window.EdenI18n.t(key, vars) : key;
   }
 
+  function songBusyInLang() {
+    var F = window.EdenFullSong;
+    return !!(F && F.busy(audio));
+  }
   function siteLang() {
+    if (window.EdenSongPick) return window.EdenSongPick.lang();
     try {
       if (window.EdenI18n && window.EdenI18n.getLang) return window.EdenI18n.getLang();
       var stored = localStorage.getItem("eden-lang");
@@ -179,7 +184,8 @@
 
   function showCard(card, opts) {
     opts = opts || {};
-    stopAudio();
+    /* une chanson en cours (dans la langue du site) n'est jamais coupée par un nouveau tirage */
+    if (!(songBusyInLang() && current && current.lang === siteLang())) stopAudio();
     current = card;
     if (!card) {
       if (frame) frame.hidden = true;
@@ -230,6 +236,7 @@
 
   function playExcerpt() {
     if (!current) return;
+    if (songBusyInLang() && audio.getAttribute("data-id") === (current.trackId || "")) return; /* déjà en train de jouer : on laisse finir */
     stopAudio();
     softChime();
     if (!playerBox) return;
@@ -241,20 +248,9 @@
     var src = current.audio_url || current.audio_url_aac;
 
     if (src && audio) {
-      audio.hidden = false;
-      audio.src = src;
-      var onMeta = function () {
-        audio.removeEventListener("loadedmetadata", onMeta);
-        try {
-          var dur = audio.duration || start + secs + 1;
-          audio.currentTime = Math.min(start, Math.max(0, dur - 1));
-        } catch (e) {}
-        /* on part du vers choisi puis la chanson continue jusqu'au bout */
-      };
-      audio.addEventListener("loadedmetadata", onMeta);
-      /* play() tout de suite, dans le geste de révélation */
-      var p = audio.play();
-      if (p && p.catch) p.catch(function () {});
+      /* la chanson entière, depuis le début jusqu'à la fin (le « tirage » ne sert qu'à choisir la phrase) */
+      if (window.EdenFullSong) window.EdenFullSong.play(audio, { id: current.trackId, audio_url: current.audio_url, audio_url_aac: current.audio_url_aac });
+      else { audio.hidden = false; audio.src = src; var p = audio.play(); if (p && p.catch) p.catch(function () {}); }
       return;
     }
 

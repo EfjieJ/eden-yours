@@ -11,12 +11,13 @@
     var same = local.filter(function (t) { return t.lang === lang; });
     var pool = same; /* jamais une chanson d’une autre langue */
     if (pool.length) {
-      var feat = pool.filter(function (t) { return t.featured; });
-      return { track: feat[0] || pool[0], kind: "audio" };
+      /* au hasard dans la langue de la page, sans reprendre les dernières chansons démarrées */
+      var P = window.EdenSongPick, one = P ? P.pick(pool) : pool[Math.floor(Math.random() * pool.length)];
+      return { track: one || pool[0], kind: "audio" };
     }
     var emb = list.filter(function (t) { return t && t.embed_url; });
     var embSame = emb.filter(function (t) { return t.lang === lang; });
-    var e = embSame[0];
+    var e = embSame.length ? (window.EdenSongPick ? window.EdenSongPick.pick(embSame) : embSame[Math.floor(Math.random() * embSame.length)]) : null;
     return e ? { track: e, kind: "embed" } : null;
   }
   EL.pickTrack = pickTrack;

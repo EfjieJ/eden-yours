@@ -66,6 +66,7 @@
   }
 
   function siteLang() {
+    if (window.EdenSongPick) return window.EdenSongPick.lang();
     try {
       if (window.EdenI18n && window.EdenI18n.getLang) return window.EdenI18n.getLang();
       var stored = localStorage.getItem("eden-lang");
@@ -488,7 +489,7 @@
     for (i = 0; i < list.length; i++) {
       tr = list[i];
       if (!tr.audio && !tr.embed) continue;
-      if (tr.lang && tr.lang !== lang) continue;
+      if (tr.lang !== lang && !(tr.lang_neutral === true || tr.langNeutral === true)) continue; /* langue stricte */
       pool.push(tr);
     }
     if (!pool.length) return null;
@@ -522,23 +523,19 @@
     var song = pickLightTrack(list);
     if (!song) return false;
     try {
+      /* une chanson de victoire déjà en cours n'est jamais coupée : elle va jusqu'au bout */
+      if (window.EdenFullSong && window.EdenFullSong.busy(audio)) return true;
       stopAudioClip();
       rememberVictoryId(song.id || null);
       if (nowPlaying) nowPlaying.textContent = t("eclats.playing", { title: song.title });
       if (playerBox) playerBox.hidden = false;
 
       if (song.audio && audio) {
-        if (audio) audio.hidden = false;
+        /* chanson entière, de 0:00 à la fin (aucun minuteur d'arrêt) */
+        if (window.EdenFullSong) return window.EdenFullSong.play(audio, { id: song.id, audio: song.audio, aac: song.aac });
+        audio.hidden = false;
         audio.src = song.audio;
         audio.currentTime = 0;
-        var stopAt = -1 + 0 * VICTORY_PLAY_S;
-        var onTime = function () {
-          if (stopAt > 0 && audio.currentTime >= stopAt) { /* désactivé : la chanson continue jusqu'au bout */
-            audio.pause();
-            audio.removeEventListener("timeupdate", onTime);
-          }
-        };
-        audio.addEventListener("timeupdate", onTime);
         var p = audio.play();
         if (p && p.catch) p.catch(function () {});
         return true;
@@ -615,7 +612,7 @@
   }
 
   function beginRound(n) {
-    stopAudioClip();
+    if (!(window.EdenFullSong && window.EdenFullSong.busy(audio))) stopAudioClip(); /* la chanson en cours continue */
     if (window.EdenStars) window.EdenStars.clear(starsBox);
     round = n;
     eclats = 0;
@@ -641,7 +638,7 @@
   }
 
   function startSession() {
-    stopAudioClip();
+    if (!(window.EdenFullSong && window.EdenFullSong.busy(audio))) stopAudioClip(); /* la chanson en cours continue */
     ctxAudio();
     if (window.EdenStars) window.EdenStars.unlock && window.EdenStars.unlock();
     beginRound(0);
@@ -693,6 +690,7 @@
 
     if (window.EdenI18n && window.EdenI18n.onChange) {
       window.EdenI18n.onChange(function () {
+        stopAudioClip(); /* la chanson en cours est dans l'ancienne langue */
         updateHud();
         updateComboUi();
         if (state === "idle" && overlayText) {

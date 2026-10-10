@@ -15,13 +15,26 @@
   };
   var BASE = [0.6, 0.66, 0.73, 0.8];
 
-  /* Chanson de découverte (tirée au hasard parmi les 29) : Particule Pure.
-     Démarre à l'arrivée sur la surface de la planète (« forming »). */
-  var DISCOVERY = {
-    id: "dead13bb-42bc-492e-83a1-87609f224734",
-    title: "Particule Pure",
-    src: "assets/audio/dead13bb-42bc-492e-83a1-87609f224734.mp3"
-  };
+  /* Chanson de découverte : tirée au hasard dans la liste d'ouverture (data/opening-songs.json) de la LANGUE de la page,
+     sans répétition, parmi les titres à MP3 local ; elle joue en entier. Démarre à l'arrivée sur la planète (« forming »). */
+  var DISCOVERY = { id: null, title: "", src: "" };
+  var discoveryPick = null;
+  function chooseDiscovery(cb) {
+    if (DISCOVERY.src && DISCOVERY.lang === EL.lang) return cb();
+    var SP = window.EdenSongPick;
+    if (discoveryPick && discoveryPick.lang === EL.lang) return discoveryPick.then(cb);
+    DISCOVERY.src = ""; DISCOVERY.id = null;
+    discoveryPick = Promise.resolve(SP && SP.ready).then(function () { return fetch("tracks.json", { cache: "no-cache" }); })
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        var list = (d && d.tracks || []).filter(function (t) { return t && t.audio_url; });
+        var same = SP ? SP.forLang(list, EL.lang) : list.filter(function (t) { return t.lang === EL.lang; });
+        var t = same.length ? (SP ? SP.pickOpening(same, EL.lang) : same[0]) : null;
+        if (t) { DISCOVERY.id = t.id; DISCOVERY.title = t.title; DISCOVERY.src = t.audio_url; DISCOVERY.lang = EL.lang; }
+      }).catch(function () {});
+    discoveryPick.lang = EL.lang;
+    return discoveryPick.then(cb);
+  }
   var discoveryAudio = null;
   var discoveryFade = null;
 
@@ -52,6 +65,11 @@
 
   function startDiscovery() {
     if (discoveryAudio && !discoveryAudio.paused && !discoveryAudio.ended) return; // déjà en cours : on la laisse continuer
+    chooseDiscovery(startDiscoveryNow);
+  }
+  function startDiscoveryNow() {
+    if (!DISCOVERY.src) return; // aucune chanson dans cette langue
+    if (discoveryAudio && !discoveryAudio.paused && !discoveryAudio.ended) return;
     stopDiscovery(true);
     var a = discoveryAudio = new Audio(DISCOVERY.src);
     a.preload = "auto";

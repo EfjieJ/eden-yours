@@ -329,6 +329,7 @@
   }
 
   function siteLang() {
+    if (window.EdenSongPick) return window.EdenSongPick.lang();
     const l = window.EdenI18n && window.EdenI18n.getLang && window.EdenI18n.getLang();
     if (l === 'fr' || l === 'en') return l;
     try {
@@ -364,8 +365,15 @@
       return;
     }
     if (!list.some(function (song) { return song.id === selectedId; })) {
-      const preferred = list.find(function (song) { return song.id === DEFAULT_SONG_ID; });
-      selectedId = (preferred || list[0]).id;
+      /* chanson de départ : au hasard (liste d'ouverture de la langue si possible), jamais toujours la même */
+      const P = window.EdenSongPick;
+      let chosen = list[0];
+      if (P) {
+        const op = P.openingIds(siteLang());
+        const cands = list.filter(function (song) { return op.indexOf(song.id) !== -1; });
+        chosen = P.pick(cands.length ? cands : list) || list[0];
+      }
+      selectedId = chosen.id;
     }
   }
 

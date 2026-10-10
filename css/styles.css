@@ -3225,3 +3225,4 @@ body.home-real .game-cta {
 }
 body.home-real .game-cta:hover { background: #fff; color: #0d0a14; }
 body.home-real .eden-runners { opacity: 0.8; }
+.featured-actions .btn-suno[hidden] { display: none; }

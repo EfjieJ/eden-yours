@@ -29,6 +29,7 @@ function t(key, vars) {
   return window.EdenI18n && window.EdenI18n.t ? window.EdenI18n.t(key, vars) : key;
 }
 function siteLang() {
+  if (window.EdenSongPick) return window.EdenSongPick.lang();
   try {
     if (window.EdenI18n && window.EdenI18n.getLang) return window.EdenI18n.getLang();
     const s = localStorage.getItem("eden-lang");
@@ -100,20 +101,33 @@ function themeFor(track) {
 
 function poolForLang() {
   const lang = siteLang();
-  return tracks.filter((tr) => tr.lang === lang && (tr.audio_url || tr.embed_url));
+  const SP = window.EdenSongPick, ok = (tr) => tr.audio_url || tr.embed_url;
+  return SP ? SP.forLang(tracks, lang).filter(ok) : tracks.filter((tr) => tr.lang === lang && ok(tr));
 }
 
 const RECENT_KEY = "eden-jardin-recent";
 function readRecent() {
   try { const a = JSON.parse(sessionStorage.getItem(RECENT_KEY) || "[]"); return Array.isArray(a) ? a : []; } catch (e) { return []; }
 }
+let firstPick = true;
 function pickTrack() {
   const all = poolForLang();
   if (!all.length) return null;
+  if (firstPick && window.EdenSongPick) { // premier départ : une chanson d'ouverture dynamique (data/opening-songs.json)
+    firstPick = false;
+    const o = window.EdenSongPick.pickOpening(all, siteLang());
+    if (o) { lastId = o.id; try { sessionStorage.setItem(LAST_KEY, o.id); const r = readRecent(); r.push(o.id); sessionStorage.setItem(RECENT_KEY, JSON.stringify(r.slice(-12))); } catch (e) {} return o; }
+  }
+  firstPick = false;
   let pool = all;
   // jamais la dernière ; et, tant que possible, pas une des dernières écoutées de la visite
   if (pool.length > 1 && lastId) {
     const others = pool.filter((tr) => tr.id !== lastId);
+    if (others.length) pool = others;
+  }
+  const SP = window.EdenSongPick;
+  if (SP && pool.length > 1) { // pas non plus la dernière chanson démarrée lors d'une visite précédente
+    const ls = SP.lastStarted().slice(-1), others = pool.filter((tr) => ls.indexOf(tr.id) === -1);
     if (others.length) pool = others;
   }
   const recent = readRecent();
@@ -122,6 +136,7 @@ function pickTrack() {
   if (fresh.length) pool = fresh;
   const tr = pool[Math.floor(Math.random() * pool.length)];
   lastId = tr.id;
+  if (SP) SP.record(tr.id);
   try {
     sessionStorage.setItem(LAST_KEY, tr.id);
     recent.push(tr.id);
@@ -412,7 +427,7 @@ async function loadJson(url) {
 async function boot() {
   bindUi();
   const dataP = Promise.all([
-    loadJson(TRACKS_URL).then((j) => { tracks = (j && j.tracks) || []; }).catch(() => { tracks = []; }),
+    (window.EdenSongPick ? window.EdenSongPick.ready : Promise.resolve()).then(() => loadJson(TRACKS_URL)).then((j) => { tracks = (j && j.tracks) || []; }).catch(() => { tracks = []; }),
     loadJson(THEMES_URL).then((j) => { themesData = j; }).catch(() => { themesData = null; })
   ]);
 
@@ -423,7 +438,7 @@ async function boot() {
     return;
   }
   try {
-    const [{ createRealScene }] = await Promise.all([import("./eden-real.js?v=20261011a"), dataP]);
+    const [{ createRealScene }] = await Promise.all([import("./eden-real.js?v=20261011b"), dataP]);
     scene = await createRealScene(el.canvas, el.stage, { isReduced, sampleLevel, dragHint: el.dragHint, garden: true, gardenLevel: gardenLevel });
     const th = current ? themeFor(current) : themeFor(null);
     scene.build(th.id, th.def);

@@ -208,13 +208,35 @@
 
   // ---------- Load tracks ----------
   function siteLang() {
+    if (window.EdenSongPick) return window.EdenSongPick.lang();
     const l = window.EdenI18n && window.EdenI18n.getLang && window.EdenI18n.getLang();
     return l === "fr" || l === "en" ? l : "en";
   }
 
+  // ---------- Chanson de départ (au hasard à chaque chargement, dans la langue du site) ----------
+  const startPicks = {};
+  function hasStartUI() { return !!($(".featured-card") || $(".js-play-first") || $(".js-play-featured")); }
+  function startTrack() {
+    const lang = siteLang();
+    let t = startPicks[lang] ? tracks.find((x) => x.id === startPicks[lang]) : null;
+    if (t) return t;
+    const pool = tracks.filter((x) => x && (x.audio_url || x.embed_url));
+    const P = window.EdenSongPick;
+    t = P ? P.pickOpening(pool, lang) : pool[Math.floor(Math.random() * pool.length)];
+    t = t || tracks[0] || null;
+    if (t) startPicks[lang] = t.id;
+    return t;
+  }
+  function startIndex() {
+    const t = startTrack();
+    const i = t ? tracks.indexOf(t) : -1;
+    return i >= 0 ? i : 0;
+  }
+  function headTrack() { return hasStartUI() ? startTrack() : (tracks.find((t) => t.featured) || tracks[0] || null); }
+
   function applyLangFilter() {
     const lang = siteLang();
-    tracks = allTracks.filter((t) => t && t.lang === lang);
+    tracks = window.EdenSongPick ? window.EdenSongPick.forLang(allTracks, lang) : allTracks.filter((t) => t && t.lang === lang);
     if (currentId && tracks.some((t) => t.id === currentId)) {
       currentIndex = tracks.findIndex((t) => t.id === currentId);
       return;
@@ -234,6 +256,7 @@
   }
 
   async function loadTracks() {
+    try { if (window.EdenSongPick) await window.EdenSongPick.ready; } catch (_) {}
     try {
       const res = await fetch("tracks.json", { cache: "no-store" });
       if (!res.ok) throw new Error("tracks.json introuvable");
@@ -350,6 +373,7 @@
       return;
     }
     clearEmbed();
+    if (window.EdenSongPick) window.EdenSongPick.record(t.id);
     const a = ensureAudio();
     const switching = currentIndex !== index;
     currentIndex = index;
@@ -385,7 +409,7 @@
 
   function togglePlay() {
     if (currentIndex < 0) {
-      if (tracks.length) playTrack(0);
+      if (tracks.length) playTrack(startIndex());
       return;
     }
     if (isEmbedTrack(tracks[currentIndex])) return;
@@ -675,7 +699,7 @@
     const card = $(".featured-card");
     if (!card) return;
     if (featuredTemplate == null) featuredTemplate = card.innerHTML;
-    const featured = tracks.find((t) => t.featured) || tracks[0];
+    const featured = startTrack();
     if (!featured) {
       card.innerHTML = `<div class="featured-inner"><p class="hint">${escapeHtml(i18n("player.noFeatured"))}</p></div>`;
       $$(".js-play-featured").forEach((btn) => {
@@ -706,6 +730,8 @@
     if (sunoBtn && featured.suno_share) {
       sunoBtn.href = featured.suno_share;
       sunoBtn.hidden = false;
+    } else if (sunoBtn) {
+      sunoBtn.hidden = true;
     }
 
     $$(".js-play-featured").forEach((btn) => bindPlayIndex(btn, idx));
@@ -1037,7 +1063,7 @@
     applyLangFilter();
     renderFeatured();
     renderTrackList($(".track-list"));
-    const head = tracks.find((t) => t.featured) || tracks[0] || null;
+    const head = headTrack();
     updatePlayerCard(currentIndex >= 0 ? tracks[currentIndex] : head);
     highlightActiveRow();
     updatePlayButtons(audio && !audio.paused && currentIndex >= 0);
@@ -1065,7 +1091,7 @@
     await loadTracks();
     renderFeatured();
     renderTrackList($(".track-list"));
-    updatePlayerCard(tracks.find((t) => t.featured) || tracks[0]);
+    updatePlayerCard(headTrack());
     initPayPal();
     initInvitations();
     initSongRequest();
@@ -1076,7 +1102,7 @@
       btn.dataset.bound = "1";
       btn.addEventListener("click", (e) => {
         e.preventDefault();
-        if (tracks.length) playTrack(0);
+        if (tracks.length) playTrack(startIndex());
       });
     });
 

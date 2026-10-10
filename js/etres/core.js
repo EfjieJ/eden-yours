@@ -118,6 +118,7 @@
 
   /* ---------- langue : ?lang=en, localStorage eden-lang, langue du navigateur ---------- */
   function detectLang() {
+    if (window.EdenSongPick) return window.EdenSongPick.lang(); /* même règle que le reste du site */
     var q = (params.get("lang") || "").toLowerCase();
     if (q === "en" || q === "fr") return q;
     try {

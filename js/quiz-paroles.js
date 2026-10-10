@@ -1,4 +1,4 @@
-/* Eden Yours — Quiz paroles : extrait vérifié → 4 choix → à la bonne réponse, écoute 20–30 s. */
+/* Eden Yours — Quiz paroles : extrait vérifié → 4 choix → à la bonne réponse, la chanson entière. */
 (function () {
   "use strict";
 
@@ -35,6 +35,7 @@
   }
 
   function siteLang() {
+    if (window.EdenSongPick) return window.EdenSongPick.lang();
     try {
       if (window.EdenI18n && window.EdenI18n.getLang) return window.EdenI18n.getLang();
       var stored = localStorage.getItem("eden-lang");
@@ -116,6 +117,7 @@
   }
 
   function playReward(q) {
+    if (window.EdenFullSong && window.EdenFullSong.busy(audio)) return; /* la chanson en cours continue jusqu'au bout */
     stopAudio();
     if (!playerBox) return;
     playerBox.hidden = false;
@@ -124,17 +126,9 @@
     var secs = playSeconds || PLAY_DEFAULT;
 
     if (q.audio_url && audio) {
-      audio.hidden = false;
-      audio.src = q.audio_url;
-      var onMeta = function () {
-        audio.removeEventListener("loadedmetadata", onMeta);
-        try { audio.currentTime = Math.min(start, Math.max(0, (audio.duration || start + 1) - 1)); } catch (e) {}
-        /* on part du vers choisi puis la chanson continue jusqu'au bout */
-      };
-      audio.addEventListener("loadedmetadata", onMeta);
-      /* play() tout de suite, dans le geste gagnant : démarrage instantané */
-      var p = audio.play();
-      if (p && p.catch) p.catch(function () {});
+      /* la chanson entière, de 0:00 jusqu'au bout (aucun arrêt programmé) — dans le geste gagnant : démarrage instantané */
+      if (window.EdenFullSong) window.EdenFullSong.play(audio, { id: q.trackId || q.id, audio_url: q.audio_url });
+      else { audio.hidden = false; audio.src = q.audio_url; var p = audio.play(); if (p && p.catch) p.catch(function () {}); }
       return;
     }
 
@@ -170,7 +164,8 @@
 
   function renderQuestion() {
     locked = false;
-    stopAudio();
+    /* une chanson en cours n'est jamais coupée par la question suivante */
+    if (!(window.EdenFullSong && window.EdenFullSong.busy(audio))) stopAudio();
     if (starsBox && window.EdenStars) window.EdenStars.clear(starsBox);
     if (nextBtn) nextBtn.hidden = true;
     if (hintEl) hintEl.textContent = t("quiz.hint");
@@ -255,10 +250,8 @@
 
   function filterQuestions(all) {
     var site = siteLang();
-    var primary = all.filter(function (q) { return q.lang === site; });
-    if (primary.length >= 4) return primary;
-    var fallback = all.filter(function (q) { return q.lang !== site; });
-    return primary.concat(fallback);
+    /* langue stricte : jamais de question (ni de chanson) de l'autre langue */
+    return all.filter(function (q) { return q && q.lang === site; });
   }
 
   function startSession() {
@@ -276,6 +269,7 @@
 
   function onLang() {
     lang = siteLang();
+    stopAudio(); /* la chanson en cours est dans l'ancienne langue */
     startSession();
   }
 
