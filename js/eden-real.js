@@ -5,7 +5,7 @@
    êtres de lumière éthérés (particules + halo + bloom). Qualité adaptative (bloom/ombres coupés
    sur les appareils faibles ou si l'image ralentit). Renard : modèle glTF CC0/CC-BY (voir CREDITS.md). */
 import * as THREE from "three";
-import { loadBody, createFigure, BODY_HEIGHT } from "./light-body.js?v=20261010n";
+import { createBubblePerson } from "./bubble-person.js?v=20261011a";
 
 const ADDON = "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/";
 const FOX_URL = "https://cdn.jsdelivr.net/gh/KhronosGroup/glTF-Sample-Assets@edc7c9e67c639d230715049ee31f9a96a6babbbe/Models/Fox/glTF-Binary/Fox.glb";
@@ -387,11 +387,10 @@ export async function createRealScene(canvas, stage, opts) {
     const pts = new THREE.Points(g, m); pts.frustumCulled = false; return pts;
   }
 
-  /* ———————— êtres de lumière : corps humains sans sexe ————————
-     Corps humain lisse et neutre (ni homme, ni femme : pas de visage, de cheveux ni de vêtements), rendu comme une
-     silhouette de lumière translucide — cœur chaud, liseré en contre-jour, aura (bloom). Maillage CC0 modifié,
-     poses calculées par code (voir js/light-body.js et CREDITS.md). Repli : rien n'est affiché tant que le maillage charge. */
-  const liveVideos = new Set();
+  /* ———————— êtres de lumière : un petit personnage dessiné dans une bulle lumineuse ————————
+     Silhouette lisse et neutre (sans visage, cheveux, vêtements ni attributs sexués) éclairée de l'intérieur, posée dans
+     une bulle translucide qui flotte et respire (paroi lumineuse, reflet, halo, bloom) — comme les tout premiers êtres de lumière.
+     Poses calculées par code (voir js/bubble-person.js). Aucun modèle ni vidéo importés. */
   const shadowTex = canvasTex(64, (g, s) => {
     const r = g.createRadialGradient(s / 2, s / 2, 0, s / 2, s / 2, s / 2);
     r.addColorStop(0, "rgba(0,0,0,0.5)"); r.addColorStop(0.6, "rgba(0,0,0,0.16)"); r.addColorStop(1, "rgba(0,0,0,0)");
@@ -402,45 +401,45 @@ export async function createRealScene(canvas, stage, opts) {
     r.addColorStop(0, "rgba(255,255,255,0.75)"); r.addColorStop(0.45, "rgba(255,255,255,0.35)"); r.addColorStop(1, "rgba(255,255,255,0)");
     g.fillStyle = r; g.fillRect(0, 0, s, s);
   });
-  // h : hauteur debout (m) ; figs : figures du groupe (pose, décalage dx/dz, orientation yaw, phase ph)
+  // h : hauteur de la bulle (m) ; bubble : centre cy et rayon r (m, pour un corps de 1,68 m) ; figs : figures du groupe (pose, décalage dx/dz, yaw, phase ph)
   const FIGS = {
     "lumiere-flower": { h: 1.7, figs: [{ pose: "dance" }] },
     "lumiere-dancer2": { h: 1.55, figs: [{ pose: "dance", ph: 0.4 }] },
-    "coeur-couple": { h: 1.7, spin: 0.12, figs: [{ pose: "waltz", dx: -0.31, yaw: Math.PI / 2 }, { pose: "waltz", dx: 0.31, yaw: -Math.PI / 2 }] },
+    "coeur-couple": { h: 1.9, spin: 0.12, bubble: { cy: 0.9, r: 1.32 }, figs: [{ pose: "waltz", dx: -0.31, yaw: Math.PI / 2 }, { pose: "waltz", dx: 0.31, yaw: -Math.PI / 2 }] },
     "souffle-man2": { h: 1.75, breath: true, figs: [{ pose: "stand" }] },
     "souffle-man": { h: 1.6, breath: true, figs: [{ pose: "stand", ph: 0.3 }] },
-    "oui-hug": { h: 1.7, figs: [{ pose: "embrace", dz: -0.15 }, { pose: "embrace", dz: 0.15, yaw: Math.PI }] },
-    "oui-arms": { h: 1.55, figs: [{ pose: "open" }] },
-    "reveur-meditate": { h: 1.7, figs: [{ pose: "lotus" }] },
-    "creation-dancer": { h: 1.8, figs: [{ pose: "create" }] },
+    "oui-hug": { h: 1.8, bubble: { cy: 0.9, r: 1.2 }, figs: [{ pose: "embrace", dz: -0.15 }, { pose: "embrace", dz: 0.15, yaw: Math.PI }] },
+    "oui-arms": { h: 1.55, bubble: { cy: 0.92, r: 1.18 }, figs: [{ pose: "open" }] },
+    "reveur-meditate": { h: 1.5, bubble: { cy: 0.46, r: 0.8 }, figs: [{ pose: "lotus" }] },
+    "creation-dancer": { h: 1.8, bubble: { cy: 0.88, r: 1.2 }, figs: [{ pose: "create" }] },
     "jeu-boy": { h: 1.25, figs: [{ pose: "play" }] },
     "jeu-girl": { h: 1.15, figs: [{ pose: "play", ph: 0.4 }] },
     "regen-stretch": { h: 1.75, figs: [{ pose: "tree" }] },
-    "particule-reach": { h: 1.9, figs: [{ pose: "reach" }] }
+    "particule-reach": { h: 1.9, bubble: { cy: 0.95, r: 1.12 }, figs: [{ pose: "reach" }] }
   };
-  let bodyTpl = null;
   function makePerson(id, o = {}) {
     const spec = FIGS[id] || FIGS["souffle-man2"];
-    const H = o.height || spec.h, sc = H / BODY_HEIGHT, W = 0.6 * sc;
+    const bc = spec.bubble || { cy: 0.9, r: 1.08 };
+    const H = o.height || spec.h, sc = H / (2 * bc.r), W = 0.6 * H;
     const g = new THREE.Group(), rot = new THREE.Group(); g.add(rot);
-    const core = C("#ffffff").lerp(C(o.rim || "#ffd79a"), 0.22), rim = C(o.rim || "#ffd79a").multiplyScalar(1.5), aura = C(o.aura || o.rim || "#ffd79a");
+    rot.position.y = 0.035 + (bc.r - bc.cy) * sc; // la bulle effleure le sol
+    const core = C("#fff6e6").lerp(C(o.rim || "#ffd79a"), 0.18), rim = C(o.rim || "#ffd79a").multiplyScalar(1.35), aura = C(o.aura || o.rim || "#ffd79a");
     const figs = []; let disposed = false, opac = 0;
-    const heartSp = glow(o.aura || o.rim || "#ffd79a", H * 0.9, 0.16); g.add(heartSp);
-    const pool = new THREE.Mesh(new THREE.PlaneGeometry(W * 2.2, W * 2.2), new THREE.MeshBasicMaterial({ map: mistTex, color: aura, transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending, fog: false }));
+    const heartSp = glow(o.aura || o.rim || "#ffd79a", H * 1.7, 0.16); heartSp.position.y = rot.position.y + bc.cy * sc; g.add(heartSp);
+    const pool = new THREE.Mesh(new THREE.PlaneGeometry(H * 1.5, H * 1.5), new THREE.MeshBasicMaterial({ map: mistTex, color: aura, transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending, fog: false }));
     pool.rotation.x = -Math.PI / 2; pool.position.y = 0.03; g.add(pool);
-    const sh = new THREE.Mesh(new THREE.PlaneGeometry(W * 1.6, W * 0.8), new THREE.MeshBasicMaterial({ map: shadowTex, transparent: true, depthWrite: false, opacity: 0 }));
+    const sh = new THREE.Mesh(new THREE.PlaneGeometry(H * 0.95, H * 0.95), new THREE.MeshBasicMaterial({ map: shadowTex, transparent: true, depthWrite: false, opacity: 0 }));
     sh.rotation.x = -Math.PI / 2; sh.position.y = 0.02; g.add(sh);
-    if (!bodyTpl) bodyTpl = loadBody(GLTFLoader);
-    bodyTpl.then((tpl) => {
-      if (disposed) return;
-      spec.figs.forEach((f) => {
-        const fig = createFigure(SkU, tpl, { pose: f.pose, ph: (f.ph || 0) + (o.offset || 0), core, rim, aura, quality, speed: f.pose === "play" ? 1.6 : 1.5 });
-        const holder = new THREE.Group(); holder.add(fig.root); holder.rotation.y = f.yaw || 0; holder.position.set(f.dx || 0, 0, f.dz || 0);
-        rot.add(holder); figs.push({ fig, holder });
-      });
-      rot.scale.setScalar(sc);
+    spec.figs.forEach((f, i) => {
+      const yaw = f.yaw || 0, dx = f.dx || 0, dz = f.dz || 0;
+      // une seule bulle partagée par le groupe : centrée sur l'origine du groupe, exprimée dans le repère de la 1re figure
+      const bx = -dx * Math.cos(yaw) + dz * Math.sin(yaw), bz = dx * Math.sin(yaw) - dz * Math.cos(yaw);
+      const fig = createBubblePerson({ pose: f.pose, ph: (f.ph || 0) + (o.offset || 0), core, rim, aura, speed: f.pose === "play" ? 1.6 : 1.5,
+        bubble: { cy: bc.cy, r: bc.r, x: bx, z: bz }, noBubble: i > 0 });
+      const holder = new THREE.Group(); holder.add(fig.root); holder.rotation.y = yaw; holder.position.set(dx, 0, dz);
+      rot.add(holder); figs.push({ fig, holder });
     });
-    const wp = new THREE.Vector3();
+    rot.scale.setScalar(sc);
     return {
       group: g, H, W,
       update(T, dt, A) {
@@ -448,17 +447,17 @@ export async function createRealScene(canvas, stage, opts) {
         const reduced = isReduced(), tt = reduced ? 0 : T;
         const b = spec.breath ? 0.5 + 0.5 * Math.sin(tt * 0.63) : 0.5 + 0.5 * Math.sin(tt * 0.5);
         if (spec.spin && !reduced) rot.rotation.y = tt * spec.spin;
-        const gain = (o.gain || 1) * 0.82 / Math.max(0.35, renderer.toneMappingExposure);
+        const gain = (o.gain || 1) * 0.9 / Math.max(0.35, renderer.toneMappingExposure);
         figs.forEach(({ fig }) => {
           const u = fig.uniforms;
           u.uOpacity.value = opac; u.uGain.value = gain; u.uSat.value = U.sat.value;
-          u.uRimI.value = (o.rimI != null ? o.rimI : 1.0) * (0.85 + A.level * 0.5 + A.pulse * 0.5); u.uAuraI.value = 0.5 + A.level * 0.5 + A.pulse * 0.3; u.uHeart.value = A.level;
+          u.uPulse.value = A.pulse; u.uHeart.value = A.level;
           fig.update(tt, b, A.level, reduced);
         });
-        if (figs.length) { const h0 = figs[0].fig.heart; heartSp.position.set(h0.x * sc, h0.y * sc, h0.z * sc + 0.1); }
-        heartSp.material.opacity = (0.07 + A.level * 0.1 + A.pulse * 0.08) * opac;
-        pool.material.opacity = 0.32 * opac * (0.8 + A.level * 0.4); sh.material.opacity = 0.7 * opac;
-        const lot = spec.figs[0].pose === "lotus"; pool.visible = !lot; sh.visible = !lot;
+        const br = 1 + 0.03 * Math.sin(tt * 0.9);
+        heartSp.scale.setScalar(H * 1.7 * br);
+        heartSp.material.opacity = (0.1 + A.level * 0.12 + A.pulse * 0.08) * opac;
+        pool.material.opacity = 0.3 * opac * (0.8 + A.level * 0.4); sh.material.opacity = 0.55 * opac;
       },
       dispose() { disposed = true; figs.forEach(({ fig }) => fig.dispose()); }
     };
@@ -869,8 +868,8 @@ export async function createRealScene(canvas, stage, opts) {
     fpsAcc += dt; fpsN++;
     if (now - fpsT > 4000) { const fps = fpsN / Math.max(0.001, fpsAcc); fpsT = now; fpsAcc = 0; fpsN = 0; if (fps < 30 && quality > 0 && !opts.lockQuality && !new URLSearchParams(location.search).get("quality")) { quality--; applyQuality(); } }
   }
-  function start() { if (!raf && visible && onScreen) { last = 0; raf = requestAnimationFrame(frame); liveVideos.forEach((v) => { const p = v.play(); if (p && p.catch) p.catch(() => {}); }); } }
-  function stop() { if (raf) cancelAnimationFrame(raf); raf = 0; liveVideos.forEach((v) => { try { v.pause(); } catch (e) {} }); }
+  function start() { if (!raf && visible && onScreen) { last = 0; raf = requestAnimationFrame(frame); } }
+  function stop() { if (raf) cancelAnimationFrame(raf); raf = 0; }
   document.addEventListener("visibilitychange", () => { visible = !document.hidden; visible ? start() : stop(); });
   if (window.IntersectionObserver) new IntersectionObserver((ents) => { onScreen = ents[0].isIntersecting; onScreen ? start() : stop(); }).observe(stage);
 
