@@ -323,7 +323,7 @@
     tg.globalCompositeOperation = 'source-over';
     holo.real = real; holo.tint = tint; holo.ready = true;
   };
-  holo.img.src = 'assets/people/poses/holo-person.webp?v=20261007p';
+  holo.img.src = 'assets/lightbody/holo-person.webp?v=20261010n';
   function drawPerson(cx, cy, scale, dens, breath) {
     const im = holo.real, H = 196 * scale * breath, W = H * (im.width / im.height), x = cx - W / 2, y = cy - 96 * scale * breath;
     ctx.save();

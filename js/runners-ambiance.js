@@ -30,7 +30,7 @@
     var im = new Image();
     im.decoding = "async";
     im.onload = function () { sh.ready = true; if (!running) drawStill(); };
-    im.src = sh.src + "?v=20261007p";
+    im.src = sh.src + "?v=20261010n";
     sh.img = im;
   });
   var GOLD_LINE = "rgba(246, 201, 106, 0.22)";

@@ -5,6 +5,7 @@
    êtres de lumière éthérés (particules + halo + bloom). Qualité adaptative (bloom/ombres coupés
    sur les appareils faibles ou si l'image ralentit). Renard : modèle glTF CC0/CC-BY (voir CREDITS.md). */
 import * as THREE from "three";
+import { loadBody, createFigure, BODY_HEIGHT } from "./light-body.js?v=20261010n";
 
 const ADDON = "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/";
 const FOX_URL = "https://cdn.jsdelivr.net/gh/KhronosGroup/glTF-Sample-Assets@edc7c9e67c639d230715049ee31f9a96a6babbbe/Models/Fox/glTF-Binary/Fox.glb";
@@ -386,34 +387,14 @@ export async function createRealScene(canvas, stage, opts) {
     const pts = new THREE.Points(g, m); pts.frustumCulled = false; return pts;
   }
 
-  /* ———————— personnes réelles (vidéos de stock sous licence Pexels, détourées) ————————
-     Chaque clip est une vidéo MP4 « alpha empilé » : couleur en haut, masque (niveaux de gris) en bas.
-     Affiché sur un panneau qui fait face à la caméra, éclairé par la scène : liseré doré en contre-jour,
-     aura douce (bloom) — de vraies personnes, baignées de lumière. Poster WebP (RGBA) pendant le chargement,
-     et seul affichage si « réduire les animations » est actif. Sources et licences : CREDITS.md. */
-  const PEOPLE_BASE = new URL("../assets/people/", import.meta.url).href;
-  const PEOPLE_V = "20261007p";
-  // aspect = largeur / hauteur du cadre ; hm = hauteur réelle du cadre (m) ; cut = corps coupé en bas (fondu dans la lumière)
-  const CLIPS = {
-    "lumiere-flower": { aspect: 0.572, hm: 1.55, cut: 0.2 },
-    "lumiere-dancer2": { aspect: 0.744, hm: 1.3, cut: 0.22 },
-    "coeur-couple": { aspect: 0.5625, hm: 1.85, cut: 0 },
-    "souffle-man": { aspect: 0.5625, hm: 1.6, cut: 0.2 },
-    "souffle-man2": { aspect: 0.584, hm: 1.5, cut: 0.2 },
-    "oui-arms": { aspect: 1.259, hm: 1.05, cut: 0.25 },
-    "oui-hug": { aspect: 0.894, hm: 1.15, cut: 0.25 },
-    "reveur-meditate": { aspect: 0.806, hm: 1.0, cut: 0.12 },
-    "creation-dancer": { aspect: 1.297, hm: 1.7, cut: 0.12 },
-    "jeu-girl": { aspect: 1.447, hm: 1.15, cut: 0.15 },
-    "jeu-boy": { aspect: 0.5625, hm: 1.2, cut: 0.2 },
-    "regen-stretch": { aspect: 0.3625, hm: 2.05, cut: 0 },
-    "particule-reach": { aspect: 1.019, hm: 1.25, cut: 0.3 }
-  };
+  /* ———————— êtres de lumière : corps humains sans sexe ————————
+     Corps humain lisse et neutre (ni homme, ni femme : pas de visage, de cheveux ni de vêtements), rendu comme une
+     silhouette de lumière translucide — cœur chaud, liseré en contre-jour, aura (bloom). Maillage CC0 modifié,
+     poses calculées par code (voir js/light-body.js et CREDITS.md). Repli : rien n'est affiché tant que le maillage charge. */
   const liveVideos = new Set();
-  const texLoader = new THREE.TextureLoader();
   const shadowTex = canvasTex(64, (g, s) => {
     const r = g.createRadialGradient(s / 2, s / 2, 0, s / 2, s / 2, s / 2);
-    r.addColorStop(0, "rgba(0,0,0,0.55)"); r.addColorStop(0.6, "rgba(0,0,0,0.18)"); r.addColorStop(1, "rgba(0,0,0,0)");
+    r.addColorStop(0, "rgba(0,0,0,0.5)"); r.addColorStop(0.6, "rgba(0,0,0,0.16)"); r.addColorStop(1, "rgba(0,0,0,0)");
     g.fillStyle = r; g.fillRect(0, 0, s, s);
   }, false);
   const mistTex = canvasTex(128, (g, s) => {
@@ -421,103 +402,69 @@ export async function createRealScene(canvas, stage, opts) {
     r.addColorStop(0, "rgba(255,255,255,0.75)"); r.addColorStop(0.45, "rgba(255,255,255,0.35)"); r.addColorStop(1, "rgba(255,255,255,0)");
     g.fillStyle = r; g.fillRect(0, 0, s, s);
   });
-  const personVS = `varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.); }`;
-  const personFS = `uniform sampler2D map; uniform float uStacked; uniform vec2 uTexel; uniform vec3 uTint; uniform vec3 uRim; uniform vec3 uAura;
-    uniform float uGain; uniform float uRimI; uniform float uAuraI; uniform float uCut; uniform float uOpacity; uniform float uSat; varying vec2 vUv;
-    float A(vec2 uv){ uv = clamp(uv, vec2(0.002), vec2(0.998)); return uStacked > 0.5 ? texture2D(map, vec2(uv.x, uv.y * 0.5)).r : texture2D(map, uv).a; }
-    vec3 Cc(vec2 uv){ uv = clamp(uv, vec2(0.002), vec2(0.998)); return uStacked > 0.5 ? texture2D(map, vec2(uv.x, 0.5 + uv.y * 0.5)).rgb : texture2D(map, uv).rgb; }
-    vec3 lin(vec3 c){ return mix(c / 12.92, pow((c + 0.055) / 1.055, vec3(2.4)), step(0.04045, c)); }
-    void main(){
-      float a = A(vUv);
-      float b = 0.; const int N = 12;
-      for (int i = 0; i < N; i++) { float t = float(i) / float(N) * 6.2832; vec2 o = vec2(cos(t), sin(t)); b += A(vUv + o * uTexel * 7.) + A(vUv + o * uTexel * 18.); }
-      b /= float(N * 2);
-      float fade = uCut > 0. ? smoothstep(0., uCut, vUv.y) : 1.;
-      // bords du cadre : mains et bras coupés par la prise de vue se fondent dans la lumière
-      fade *= smoothstep(0., 0.05, vUv.x) * smoothstep(1., 0.95, vUv.x) * smoothstep(1., 0.94, vUv.y);
-      vec3 c = lin(Cc(vUv));
-      float l = dot(c, vec3(0.2126, 0.7152, 0.0722)); c = mix(vec3(l), c, uSat);
-      c *= uTint * uGain;
-      float rim = a * clamp((1. - b) * 2.2, 0., 1.);
-      c += uRim * rim * uRimI;
-      float aura = (1. - a) * b * uAuraI;
-      float af = a * fade * uOpacity;
-      vec3 col = c * af + uAura * aura * fade * uOpacity + uAura * (1. - fade) * a * 0.6 * uOpacity;
-      gl_FragColor = vec4(col, af);
-    }`;
+  // h : hauteur debout (m) ; figs : figures du groupe (pose, décalage dx/dz, orientation yaw, phase ph)
+  const FIGS = {
+    "lumiere-flower": { h: 1.7, figs: [{ pose: "dance" }] },
+    "lumiere-dancer2": { h: 1.55, figs: [{ pose: "dance", ph: 0.4 }] },
+    "coeur-couple": { h: 1.7, spin: 0.12, figs: [{ pose: "waltz", dx: -0.31, yaw: Math.PI / 2 }, { pose: "waltz", dx: 0.31, yaw: -Math.PI / 2 }] },
+    "souffle-man2": { h: 1.75, breath: true, figs: [{ pose: "stand" }] },
+    "souffle-man": { h: 1.6, breath: true, figs: [{ pose: "stand", ph: 0.3 }] },
+    "oui-hug": { h: 1.7, figs: [{ pose: "embrace", dz: -0.15 }, { pose: "embrace", dz: 0.15, yaw: Math.PI }] },
+    "oui-arms": { h: 1.55, figs: [{ pose: "open" }] },
+    "reveur-meditate": { h: 1.7, figs: [{ pose: "lotus" }] },
+    "creation-dancer": { h: 1.8, figs: [{ pose: "create" }] },
+    "jeu-boy": { h: 1.25, figs: [{ pose: "play" }] },
+    "jeu-girl": { h: 1.15, figs: [{ pose: "play", ph: 0.4 }] },
+    "regen-stretch": { h: 1.75, figs: [{ pose: "tree" }] },
+    "particule-reach": { h: 1.9, figs: [{ pose: "reach" }] }
+  };
+  let bodyTpl = null;
   function makePerson(id, o = {}) {
-    const meta = CLIPS[id] || { aspect: 0.6, hm: 1.7, cut: 0 };
-    const H = (o.height || meta.hm), W = H * meta.aspect;
-    const g = new THREE.Group();
-    const geo = new THREE.PlaneGeometry(W, H); geo.translate(0, H / 2, 0);
-    const u = {
-      map: { value: null }, uStacked: { value: 0 }, uTexel: { value: new THREE.Vector2(1 / 360, 1 / 640) },
-      uTint: { value: C(o.tint || "#fff4e6") }, uRim: { value: C(o.rim || "#ffd79a").multiplyScalar(1.6) }, uAura: { value: C(o.aura || o.rim || "#ffd79a").multiplyScalar(0.55) },
-      uGain: { value: 1.6 }, uRimI: { value: 0.9 }, uAuraI: { value: 0.55 }, uCut: { value: meta.cut }, uOpacity: { value: 0 }, uSat: { value: 1 }
-    };
-    const mat = new THREE.ShaderMaterial({ uniforms: u, vertexShader: personVS, fragmentShader: personFS, transparent: true, depthWrite: false,
-      premultipliedAlpha: true, blending: THREE.CustomBlending, blendSrc: THREE.OneFactor, blendDst: THREE.OneMinusSrcAlphaFactor, side: THREE.DoubleSide });
-    const mesh = new THREE.Mesh(geo, mat); mesh.frustumCulled = false; g.add(mesh);
-    if (!meta.cut && o.shadow !== false) {
-      const sh = new THREE.Mesh(new THREE.PlaneGeometry(W * 1.1, W * 0.45), new THREE.MeshBasicMaterial({ map: shadowTex, transparent: true, depthWrite: false, opacity: 0.8 }));
-      sh.rotation.x = -Math.PI / 2; sh.position.y = 0.02; g.add(sh);
-    }
-    const halo = glow(o.aura || o.rim || "#ffd79a", H * 1.3, 0.16); halo.position.y = H * 0.55; g.add(halo);
-    const mist = [];
-    if (meta.cut) {
-      // brume lumineuse au pied : le bas du corps (coupé par le cadre) se perd dans une lumière douce
-      const mc = C(o.mist || "#fff1d6");
-      for (let i = 0; i < 7; i++) {
-        const m = new THREE.Sprite(new THREE.SpriteMaterial({ map: mistTex, color: mc, transparent: true, opacity: 0.4, depthWrite: false, fog: false }));
-        const a = (i / 7) * Math.PI * 2;
-        m.position.set(Math.cos(a) * W * 0.3, H * meta.cut * (0.25 + (i % 3) * 0.12), Math.sin(a) * W * 0.2);
-        m.scale.set(W * 0.9 + 0.35, H * meta.cut * 1.5 + 0.15, 1); g.add(m); mist.push({ m, a, ph: i * 1.7 });
-      }
-    }
-    let video = null, vtex = null, disposed = false, rateT = 0;
-    texLoader.load(PEOPLE_BASE + id + ".webp?v=" + PEOPLE_V, (t) => {
-      if (u.uStacked.value > 0.5 || disposed) { t.dispose(); return; }
-      t.colorSpace = THREE.NoColorSpace; u.map.value = t; u.uStacked.value = 0; u.uTexel.value.set(1 / t.image.width, 1 / t.image.height);
-    });
-    if (!isReduced()) {
-      video = document.createElement("video");
-      video.muted = true; video.defaultMuted = true; video.loop = true; video.playsInline = true; video.preload = "auto";
-      video.setAttribute("muted", ""); video.setAttribute("playsinline", ""); video.setAttribute("webkit-playsinline", "");
-      video.src = PEOPLE_BASE + id + ".mp4?v=" + PEOPLE_V;
-      if (o.offset) video.addEventListener("loadedmetadata", () => { try { video.currentTime = (o.offset * video.duration) % video.duration; } catch (e) {} }, { once: true });
-      video.addEventListener("playing", () => {
-        if (disposed || vtex) return;
-        vtex = new THREE.VideoTexture(video); vtex.colorSpace = THREE.NoColorSpace; vtex.minFilter = vtex.magFilter = THREE.LinearFilter; vtex.generateMipmaps = false;
-        if (u.map.value && u.map.value !== vtex) u.map.value.dispose();
-        u.map.value = vtex; u.uStacked.value = 1; u.uTexel.value.set(1 / (video.videoWidth || 360), 2 / (video.videoHeight || 1280));
+    const spec = FIGS[id] || FIGS["souffle-man2"];
+    const H = o.height || spec.h, sc = H / BODY_HEIGHT, W = 0.6 * sc;
+    const g = new THREE.Group(), rot = new THREE.Group(); g.add(rot);
+    const core = C("#ffffff").lerp(C(o.rim || "#ffd79a"), 0.22), rim = C(o.rim || "#ffd79a").multiplyScalar(1.5), aura = C(o.aura || o.rim || "#ffd79a");
+    const figs = []; let disposed = false, opac = 0;
+    const heartSp = glow(o.aura || o.rim || "#ffd79a", H * 0.9, 0.16); g.add(heartSp);
+    const pool = new THREE.Mesh(new THREE.PlaneGeometry(W * 2.2, W * 2.2), new THREE.MeshBasicMaterial({ map: mistTex, color: aura, transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending, fog: false }));
+    pool.rotation.x = -Math.PI / 2; pool.position.y = 0.03; g.add(pool);
+    const sh = new THREE.Mesh(new THREE.PlaneGeometry(W * 1.6, W * 0.8), new THREE.MeshBasicMaterial({ map: shadowTex, transparent: true, depthWrite: false, opacity: 0 }));
+    sh.rotation.x = -Math.PI / 2; sh.position.y = 0.02; g.add(sh);
+    if (!bodyTpl) bodyTpl = loadBody(GLTFLoader);
+    bodyTpl.then((tpl) => {
+      if (disposed) return;
+      spec.figs.forEach((f) => {
+        const fig = createFigure(SkU, tpl, { pose: f.pose, ph: (f.ph || 0) + (o.offset || 0), core, rim, aura, quality, speed: f.pose === "play" ? 1.6 : 1.5 });
+        const holder = new THREE.Group(); holder.add(fig.root); holder.rotation.y = f.yaw || 0; holder.position.set(f.dx || 0, 0, f.dz || 0);
+        rot.add(holder); figs.push({ fig, holder });
       });
-      liveVideos.add(video);
-      const p = video.play(); if (p && p.catch) p.catch(() => {});
-    }
-    const camP = new THREE.Vector3(), wp = new THREE.Vector3();
+      rot.scale.setScalar(sc);
+    });
+    const wp = new THREE.Vector3();
     return {
-      group: g, mesh, u, H, W,
+      group: g, H, W,
       update(T, dt, A) {
-        u.uOpacity.value = Math.min(1, u.uOpacity.value + dt * 1.2) * (u.map.value ? 1 : 0);
-        u.uGain.value = (o.gain || 1) * 0.78 / Math.max(0.35, renderer.toneMappingExposure);
-        u.uRimI.value = (o.rimI != null ? o.rimI : 0.5) * (0.8 + A.level * 0.5 + A.pulse * 0.6);
-        u.uAuraI.value = (o.auraI != null ? o.auraI : 0.35) * (0.7 + A.level * 0.6 + A.pulse * 0.5);
-        mist.forEach((q) => { q.m.material.opacity = 0.38 * u.uOpacity.value; q.m.position.x = Math.cos(q.a + Math.sin(T * 0.15 + q.ph) * 0.25) * W * 0.32; });
-        u.uSat.value = U.sat.value;
-        halo.material.opacity = 0.06 + A.level * 0.08 + A.pulse * 0.06;
-        g.getWorldPosition(wp); camP.copy(camera.position);
-        mesh.rotation.y = Math.atan2(camP.x - wp.x, camP.z - wp.z) - (g.parent ? g.parent.rotation.y : 0);
-        if (video && !video.paused && (rateT += dt) > 1.2) { rateT = 0; const r = (o.rate || 1) * (0.92 + A.level * 0.16); if (Math.abs(video.playbackRate - r) > 0.03) video.playbackRate = r; }
+        opac = Math.min(1, opac + dt * 0.9);
+        const reduced = isReduced(), tt = reduced ? 0 : T;
+        const b = spec.breath ? 0.5 + 0.5 * Math.sin(tt * 0.63) : 0.5 + 0.5 * Math.sin(tt * 0.5);
+        if (spec.spin && !reduced) rot.rotation.y = tt * spec.spin;
+        const gain = (o.gain || 1) * 0.82 / Math.max(0.35, renderer.toneMappingExposure);
+        figs.forEach(({ fig }) => {
+          const u = fig.uniforms;
+          u.uOpacity.value = opac; u.uGain.value = gain; u.uSat.value = U.sat.value;
+          u.uRimI.value = (o.rimI != null ? o.rimI : 1.0) * (0.85 + A.level * 0.5 + A.pulse * 0.5); u.uAuraI.value = 0.5 + A.level * 0.5 + A.pulse * 0.3; u.uHeart.value = A.level;
+          fig.update(tt, b, A.level, reduced);
+        });
+        if (figs.length) { const h0 = figs[0].fig.heart; heartSp.position.set(h0.x * sc, h0.y * sc, h0.z * sc + 0.1); }
+        heartSp.material.opacity = (0.07 + A.level * 0.1 + A.pulse * 0.08) * opac;
+        pool.material.opacity = 0.32 * opac * (0.8 + A.level * 0.4); sh.material.opacity = 0.7 * opac;
+        const lot = spec.figs[0].pose === "lotus"; pool.visible = !lot; sh.visible = !lot;
       },
-      dispose() {
-        disposed = true;
-        if (video) { try { video.pause(); video.removeAttribute("src"); video.load(); } catch (e) {} liveVideos.delete(video); }
-        if (vtex) vtex.dispose(); if (u.map.value && u.map.value !== vtex) u.map.value.dispose();
-      }
+      dispose() { disposed = true; figs.forEach(({ fig }) => fig.dispose()); }
     };
   }
   function people(list) {
-    const arr = list.filter((x) => x && (quality > 0 || !x.secondary)).map((x) => { const p = makePerson(x.id, x); p.group.position.set(x.x || 0, x.y != null ? x.y : heightAt(x.x || 0, x.z || 0) - (CLIPS[x.id] && CLIPS[x.id].cut ? 0.12 : 0.02), x.z || 0); return p; });
+    const arr = list.filter((x) => x && (quality > 0 || !x.secondary)).map((x) => { const p = makePerson(x.id, x); p.group.position.set(x.x || 0, x.y != null ? x.y : heightAt(x.x || 0, x.z || 0) + (x.id === "reveur-meditate" ? 0.02 : 0), x.z || 0); return p; });
     return { list: arr, update(T, dt, A) { arr.forEach((p) => p.update(T, dt, A)); }, dispose() { arr.forEach((p) => p.dispose()); } };
   }
 
@@ -781,7 +728,7 @@ export async function createRealScene(canvas, stage, opts) {
       }
       handP.lerp(new THREE.Vector3(spot.x, 0.55, spot.z), Math.min(1, dt * 0.8)); hand.position.copy(handP); hand.material.opacity = 0.6 + A.level * 0.4;
       flowers.forEach((o) => o.f.setOpen(Math.min(1, (T - o.t0) / 5)));
-      const mouth = new THREE.Vector3(0, breather.H * 0.62, 0.1).add(breather.group.position);
+      const mouth = new THREE.Vector3(0, breather.H * 0.9, 0.1).add(breather.group.position);
       for (let i = 0; i < n; i++) { const k = (bs[i] + T * 0.12 * R) % 1, w = Math.sin(k * Math.PI) * 0.35; bp[i * 3] = mouth.x + (handP.x - mouth.x) * k + Math.sin(bs[i] * 40 + T) * w * 0.3; bp[i * 3 + 1] = mouth.y + (handP.y - mouth.y) * k + w; bp[i * 3 + 2] = mouth.z + (handP.z - mouth.z) * k + Math.cos(bs[i] * 30 + T) * w * 0.3; }
       bg.attributes.position.needsUpdate = true;
     } };

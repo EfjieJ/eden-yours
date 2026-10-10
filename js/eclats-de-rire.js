@@ -182,7 +182,7 @@
   var faces = FACE_IDS.map(function (id) {
     var im = new Image();
     im.decoding = "async";
-    im.src = "assets/people/faces/laugh-" + id + ".webp?v=20261007p";
+    im.src = "assets/people/faces/laugh-" + id + ".webp?v=20261010n";
     return im;
   });
   var faceBag = [];

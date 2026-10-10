@@ -75,17 +75,17 @@
   }
 
 
-  /* ---------- vraies personnes : une photo détourée par planète (Pexels, voir CREDITS.md) ----------
+  /* ---------- corps de lumière sans sexe : un rendu par planète (modèle CC0 modifié, voir js/light-body.js et CREDITS.md) ----------
      top / bottom : position verticale de l'image en unités du corps (tête = 0, pieds = 100) ;
      fade : part basse de l'image fondue dans la lumière (corps coupé par le cadre). */
   var POSES = [
-    { src: "assets/people/poses/pose-palms.webp", top: 0, bottom: 84, fade: 0.18, heart: [0, 30], center: [0, 45] },   // paumes ouvertes, accueillir
-    { src: "assets/people/poses/pose-raised.webp", top: -12, bottom: 64, fade: 0.2, heart: [0, 32], center: [0, 40] }, // bras levés : antenne
-    { src: "assets/people/poses/pose-heart.webp", top: 2, bottom: 62, fade: 0.22, heart: [0, 30], center: [0, 38] },   // main sur le cœur
-    { src: "assets/people/poses/pose-open.webp", top: 4, bottom: 58, fade: 0.25, heart: [0, 30], center: [0, 36] },    // bras grands ouverts : le Nous
-    { src: "assets/people/poses/pose-seated.webp", top: 36, bottom: 100, fade: 0.06, heart: [0, 60], center: [0, 66] } // assise en méditation
+    { src: "assets/lightbody/pose-palms.webp", top: -1.9, bottom: 101.8, fade: 0.04, heart: [0, 24], center: [0, 36] },    // paumes ouvertes, accueillir
+    { src: "assets/lightbody/pose-raised.webp", top: -16.1, bottom: 101.4, fade: 0.04, heart: [0, 24], center: [0, 34] },  // bras levés : antenne
+    { src: "assets/lightbody/pose-heart.webp", top: -1.9, bottom: 101.8, fade: 0.04, heart: [0, 24], center: [0, 36] },    // mains sur le cœur
+    { src: "assets/lightbody/pose-open.webp", top: -1.9, bottom: 101.8, fade: 0.04, heart: [0, 24], center: [0, 34] },     // bras grands ouverts : le Nous
+    { src: "assets/lightbody/pose-seated.webp", top: 45.6, bottom: 103, fade: 0.03, heart: [0, 72], center: [0, 72] }       // assise en méditation
   ];
-  var POSE_V = "?v=20261007p";
+  var POSE_V = "?v=20261010n";
   POSES.forEach(function (ps) {
     var im = new Image();
     im.decoding = "async";

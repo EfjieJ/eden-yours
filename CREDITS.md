@@ -15,31 +15,17 @@
 ## Tout le reste / Everything else
 Terrain, grass, trees, flowers, water normals, clouds, butterflies, birds, galaxy and rainbow are generated procedurally in `js/eden-real.js` (original code, no third-party textures).
 
-## Personnes réelles / Real people (Pexels License)
-Every person shown on the site is a real person from free stock footage or photos on **Pexels**, used under the
-[Pexels License](https://www.pexels.com/license/) (free to use, modification allowed, attribution not required — given here anyway).
-We modified them: background removed (matting with Robust Video Matting, run offline), cropped, looped, re-encoded,
-tinted by the scene light. The people shown do not endorse Eden Yours. Files live in `assets/people/`.
+## Corps de lumière / Bodies of light (CC0)
+Les êtres de lumière de *Danse des Êtres de Lumière*, du *Jardin d’Éden*, des *Êtres de Lumière* et de l’hologramme de *Création-Demain* sont des
+corps humains **sans sexe** (ni homme ni femme : pas de visage, de cheveux, de vêtements, de poitrine ou d’organes sexuels), rendus comme des silhouettes de lumière.
+The beings of light are sexless human bodies (no face, hair, clothing or sexual features), rendered as translucent light.
+- **Maillage / mesh** : « Human base mesh with editable 53-bone rig » (`human-base-rigged.glb`) by **Innerscene** — https://www.innerscene.com/tools/library/3d-parts/human-base-mesh-with-editable-53-bone-rig-8e7c8ab1 — **CC0 1.0** (public domain, no attribution required; page states: « MakeHuman/MPFB CC0 anatomical base and 53-bone game-engine skeleton … released CC0 »).
+- **Nos modifications / our changes** (hors-ligne, `assets/lightbody/body.glb`) : maillage allégé (≈ 17 k sommets), détails du torse et du bassin lissés, tête remplacée par une forme ovoïde lisse, cou refait, proportions légèrement androgynes, textures retirées. Aucune texture ni capture de mouvement : poses et mouvements calculés par code (`js/light-body.js`).
+- Rendu : shader Fresnel + cœur chaud + aura (`js/light-body.js`), poses fixes de *Êtres de Lumière* et hologramme : rendus de ce même modèle (`assets/lightbody/pose-*.webp`, `holo-person.webp`).
 
-Videos (stacked-alpha MP4 + RGBA WebP poster, `assets/people/<name>.mp4|.webp`):
-- `lumiere-flower` — « A Woman Dancing while Holding a Yellow Flower » by cottonbro studio — https://www.pexels.com/video/a-woman-dancing-while-holding-a-yellow-flower-10288402/ — Danse — Être de lumière
-- `lumiere-dancer2` — « Happy Smiling Woman Dancing » by ROMAN ODINTSOV — https://www.pexels.com/video/happy-smiling-woman-dancing-10159466/ — Danse — Être de lumière
-- `coeur-couple` — « Elderly Couple Wearing Red Sweater Dancing » by Alex Green — https://www.pexels.com/video/elderly-couple-wearing-red-sweater-dancing-6624531/ — Danse — Cœur
-- `souffle-man2` — « A Man Standing With His Eyes Closed » by Mikhail Nilov — https://www.pexels.com/video/a-man-standing-with-his-eyes-closed-6943921/ — Danse — Souffle / Le Grand Poumon ; hologramme de Création-Demain (`poses/holo-person.webp`)
-- `souffle-man` — « A Man Raising his Arms and Putting his Hands Together » by Yan Krukau — https://www.pexels.com/video/a-man-raising-his-arms-and-putting-his-hands-together-8480544/ — Danse — Souffle
-- `oui-hug` — « Two Women Hugging » by Anna Shvets — https://www.pexels.com/video/two-women-hugging-4800446/ — Danse — Le Oui
-- `oui-arms` — « Happy Woman Standing with Arms Stretched » by ArtHouse Studio — https://www.pexels.com/video/happy-woman-standing-with-arms-stretched-5091102/ — Danse — Le Oui ; pose Êtres « bras grands ouverts » (`poses/pose-open.webp`)
-- `reveur-meditate` — « A Woman Meditating » by KATRIN BOLOVTSOVA — https://www.pexels.com/video/a-woman-meditating-7117573/ — Danse — Le Rêveur ; pose Êtres « méditation » (`poses/pose-seated.webp`)
-- `creation-dancer` — « A Woman Dancing Gracefully » by Thirdman — https://www.pexels.com/video/a-woman-dancing-gracefully-8491501/ — Danse — Création
-- `jeu-boy` — « A Boy Happily Dancing » by Marta Wave — https://www.pexels.com/video/a-boy-happily-dancing-6435806/ — Danse — Jeu
-- `jeu-girl` — « Young Girl in Polka Dot Dress Spinning and Spinning Around » by KATRIN BOLOVTSOVA — https://www.pexels.com/video/young-girl-in-polka-dot-dress-spinning-and-spinning-around-5380809/ — Danse — Jeu
-- `regen-stretch` — « A Woman Stretching Her Arms and Legs » by Polina ⠀ — https://www.pexels.com/video/a-woman-stretching-her-arms-and-legs-6019955/ — Danse — Régénération
-- `particule-reach` — « Young Woman Dancing » by ROMAN ODINTSOV — https://www.pexels.com/video/young-woman-dancing-8334795/ — Danse — Particule ; pose Êtres « bras levés » (`poses/pose-raised.webp`)
+## Personnes réelles restantes / Remaining real people (Pexels License)
+Seuls restent des photos et vidéos réelles dans *Éclats de rire* (portraits) et sur l’accueil (marcheurs). Pexels License: free to use, modification allowed, attribution not required — given here anyway. Background removed offline (Robust Video Matting), cropped, re-encoded. The people shown do not endorse Eden Yours. Files in `assets/people/`.
 - `walk-girl, walk-mother` — « Side View of a People Walking Together » by Ron Lach — https://www.pexels.com/video/side-view-of-a-people-walking-together-9479419/ — Accueil — marcheurs (planches `walk-girl.webp`, `walk-mother.webp`)
-
-Photos (background removed, `assets/people/poses/`):
-- `pose-palms.webp` — « Smiling Woman in Red Dress Indoors » by Tran Nhu Tuan — https://www.pexels.com/photo/smiling-woman-in-red-dress-indoors-29995626/ — pose Êtres « paumes ouvertes »
-- `pose-heart.webp` — « Contemplative Woman in Blue Dress Indoors » by Speak Media Uganda — https://www.pexels.com/photo/contemplative-woman-in-blue-dress-indoors-36998233/ — pose Êtres « main sur le cœur »
 
 Laughing faces in *Éclats de rire* (cropped portraits, `assets/people/faces/`):
 - `laugh-18893587.webp` — Alessandra Araújo — https://www.pexels.com/photo/portrait-of-a-woman-laughing-18893587/
@@ -64,7 +50,7 @@ Laughing faces in *Éclats de rire* (cropped portraits, `assets/people/faces/`):
 - `laugh-19236771.webp` — Vishwa Vantepaka — https://www.pexels.com/photo/laughing-baby-in-wool-hat-tied-under-the-chin-19236771/
 - `laugh-6333507.webp` — https://kaboompics.com/ — https://www.pexels.com/photo/man-with-black-framed-eyeglasses-laughing-6333507/
 
-Tool used offline (not shipped): Robust Video Matting (Lin et al., https://github.com/PeterL1n/RobustVideoMatting) to remove backgrounds.
+Tool used offline for the walkers (not shipped): Robust Video Matting (Lin et al., https://github.com/PeterL1n/RobustVideoMatting) to remove backgrounds.
 
 ## Home page photography (public domain, NASA)
 NASA imagery is not copyrighted (public domain in the US); NASA does not endorse this site. Converted to WebP in `assets/home/`.
