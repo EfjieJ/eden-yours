@@ -3226,3 +3226,7 @@ body.home-real .game-cta {
 body.home-real .game-cta:hover { background: #fff; color: #0d0a14; }
 body.home-real .eden-runners { opacity: 0.8; }
 .featured-actions .btn-suno[hidden] { display: none; }
+
+/* Pas de défilement horizontal sur téléphone (menu replié / halos qui dépassent) : la fenêtre garde sa largeur réelle,
+   donc la pastille de langue fixe en haut à droite reste toujours visible. */
+html, body { overflow-x: clip; }
