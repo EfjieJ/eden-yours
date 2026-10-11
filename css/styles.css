@@ -3339,3 +3339,16 @@ html, body { overflow-x: clip; }
   .cat-chip { flex: 0 0 auto; }
   .cat-panel .btn { width: 100%; }
 }
+
+
+/* Mode aléatoire / Shuffle mode — bouton (accueil, bibliothèque, lecteur) + minuteur des embeds */
+.js-shuffle-toggle { gap: 0.4rem; }
+.js-shuffle-toggle[aria-pressed="true"], .ctrl-btn.js-shuffle[aria-pressed="true"] {
+  color: #1c0f2e; background: linear-gradient(120deg, #fde68a, #f6c96a 45%, #e9b8ff);
+  border-color: rgba(253, 230, 138, 0.9); box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.3), 0 0 22px rgba(246, 201, 106, 0.5);
+}
+.ctrl-btn.js-shuffle { display: inline-flex; align-items: center; gap: 0.35rem; width: auto; padding: 0 0.7rem; border-radius: 999px; font-size: 0.78rem; font-weight: 650; }
+.ctrl-btn.js-shuffle .shuffle-bar-label { white-space: nowrap; }
+@media (max-width: 520px) { .ctrl-btn.js-shuffle .shuffle-bar-label { display: none; } .ctrl-btn.js-shuffle { padding: 0 0.6rem; } }
+.shuffle-status { font-size: 0.78rem; color: #fde68a; white-space: nowrap; margin-right: 0.6rem; font-variant-numeric: tabular-nums; }
+.shuffle-status[hidden] { display: none; }

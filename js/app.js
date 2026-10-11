@@ -251,6 +251,7 @@
       } catch (_) {}
     }
     clearEmbed();
+    if (window.EdenShuffle) window.EdenShuffle.cancel();
     currentIndex = -1;
     currentId = null;
     const bar = $(".player-bar");
@@ -361,12 +362,14 @@
     highlightActiveRow();
     updatePlayerCard(t);
     updatePlayButtons(false);
+    if (window.EdenShuffle) window.EdenShuffle.onEmbed(t, playNext); // mode aléatoire : enchaînement par minuteur (durée Suno vérifiée)
   }
 
   function playTrack(index) {
     if (index < 0 || index >= tracks.length) return;
     const t = tracks[index];
     if (queueIds && queueIds.indexOf(t.id) === -1) { queueIds = null; emitQueue(); } // l'utilisateur choisit un titre hors thème
+    if (window.EdenShuffle) { window.EdenShuffle.cancel(); window.EdenShuffle.noteStart(t.id); window.EdenShuffle.setMedia(t); }
     if (isEmbedTrack(t)) {
       playEmbedTrack(index);
       return;
@@ -447,10 +450,35 @@
     currentId: () => currentId,
     isPlaying: () => !!(audio && !audio.paused && !audio.ended && currentIndex >= 0),
     togglePlay,
+    play: () => { if (currentIndex >= 0 && !isEmbedTrack(tracks[currentIndex])) { const a = ensureAudio(); if (a.paused) a.play().catch(() => {}); } },
+    pause: () => { if (audio && !audio.paused) audio.pause(); },
+    next: () => playNext(),
+    prev: () => playPrev(),
+    shuffleKick,
   };
 
+  // Mode aléatoire : prochaine chanson au hasard (même langue, dans le thème si une file est active), jamais la même deux fois de suite.
+  function shufflePick() {
+    const S = window.EdenShuffle;
+    if (!S || !S.on()) return -1;
+    const pool = queueIds ? tracks.filter((x) => queueIds.indexOf(x.id) !== -1) : tracks;
+    const t = S.pick(pool, currentId);
+    return t ? tracks.indexOf(t) : -1;
+  }
+  function shuffleKick() { // mode activé (ou langue changée) : démarre / arme l'enchaînement
+    if (currentIndex < 0) {
+      const t = window.EdenShuffle && window.EdenShuffle.pick(tracks, null);
+      const i = t ? tracks.indexOf(t) : -1;
+      if (i >= 0) playTrack(i);
+      return;
+    }
+    const cur = tracks[currentIndex];
+    if (isEmbedTrack(cur) && window.EdenShuffle) window.EdenShuffle.onEmbed(cur, playNext);
+  }
   function playNext() {
     if (!tracks.length) return;
+    const sh = shufflePick();
+    if (sh >= 0) { playTrack(sh); if (queueIds) emitQueue(); return; }
     if (queueIds) {
       const q = queueStep(1);
       if (q >= 0) { playTrack(q); emitQueue(); return; }
@@ -466,6 +494,11 @@
     if (!isEmbedTrack(tracks[currentIndex]) && a.currentTime > 3) {
       a.currentTime = 0;
       return;
+    }
+    if (window.EdenShuffle && window.EdenShuffle.on()) {
+      const pid = window.EdenShuffle.prevId(currentId);
+      const pi = pid ? tracks.findIndex((x) => x.id === pid) : -1;
+      if (pi >= 0) { playTrack(pi); if (queueIds) emitQueue(); return; }
     }
     if (queueIds) {
       const q = queueStep(-1);
@@ -504,6 +537,9 @@
   }
   function iconPause() {
     return `<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg>`;
+  }
+  function iconShuffle() {
+    return `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg>`;
   }
   function iconPrev() {
     return `<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"/></svg>`;
@@ -598,6 +634,7 @@
           </div>
           <div class="player-controls">
             <div class="player-btns">
+              <button type="button" class="ctrl-btn js-shuffle" aria-pressed="false" aria-label="${i18n("shuffle.aria")}" title="${i18n("shuffle.aria")}">${iconShuffle()}<span class="js-shuffle-label shuffle-bar-label">${i18n("shuffle.label")}</span></button>
               <button type="button" class="ctrl-btn js-prev" aria-label="${i18n("player.prev")}">${iconPrev()}</button>
               <button type="button" class="ctrl-btn play js-toggle" aria-label="${i18n("player.play")}">${iconPlay()}</button>
               <button type="button" class="ctrl-btn js-next" aria-label="${i18n("player.next")}">${iconNext()}</button>
@@ -1101,7 +1138,10 @@
 
   function refreshLangUI() {
     refreshPlayerLabels();
+    const wasActive = currentIndex >= 0;
     applyLangFilter();
+    // Mode aléatoire : la chanson est arrêtée au changement de langue, puis ça continue dans la nouvelle langue.
+    if (wasActive && currentIndex < 0 && window.EdenShuffle && window.EdenShuffle.on()) shuffleKick();
     renderFeatured();
     renderTrackList($(".track-list"));
     const head = headTrack();
@@ -1113,6 +1153,7 @@
     initPayPal();
     initInvitations();
     initSongRequest();
+    if (window.EdenShuffle) window.EdenShuffle.refresh();
     // Re-apply static i18n after dynamic HTML rebuilds if needed
     if (window.EdenI18n && window.EdenI18n.apply) {
       // only refresh switcher pressed state; avoid listener loop by not calling apply here
@@ -1149,6 +1190,11 @@
 
     if (window.EdenI18n && window.EdenI18n.onChange) {
       window.EdenI18n.onChange(() => refreshLangUI());
+    }
+    if (window.EdenShuffle) {
+      window.EdenShuffle.refresh();
+      // Mode aléatoire resté actif d'une page à l'autre : on reprend (si le navigateur refuse l'autoplay, eden-autoplay.js affiche « Touche pour écouter »).
+      if (window.EdenShuffle.on() && tracks.length) setTimeout(() => { if (currentIndex < 0) shuffleKick(); }, 500);
     }
   }
 
