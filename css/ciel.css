@@ -1,0 +1,79 @@
+/* Eden Yours — « Ciel d'Éden » : ciel rosé, arcs pastel d'arc-en-ciel, rubans d'aurore, étoiles, lucioles dorées, lumière constante.
+   Calque AMBIANT fixe, derrière tout le contenu (z-index -1, pointer-events none, contain strict) : il n'a aucun effet sur la mise en page (pas de CLS).
+   L'ouverture de l'accueil (photo NASA + cartes) n'est pas modifiée : au premier regard, seuls les bords (côtés, ligne d'horizon) sont éclairés ;
+   le ciel plein écran (.ciel-full) apparaît progressivement dès qu'on fait défiler. Animations : transform/opacity seulement. */
+.ciel { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; contain: strict; }
+.ciel > *, .ciel-full > * { position: absolute; pointer-events: none; }
+.ciel-stars { inset: 0; width: 100%; height: 100%; }
+
+/* bords : toujours visibles, uniquement dans les marges latérales (hors des cartes de l'ouverture) */
+.ciel-edge { inset: 0;
+  background:
+    radial-gradient(ellipse 5.5% 62% at 0% 46%, rgba(255, 150, 205, 0.34), transparent 100%),
+    radial-gradient(ellipse 5.5% 62% at 100% 46%, rgba(255, 170, 215, 0.34), transparent 100%),
+    radial-gradient(ellipse 5.5% 34% at 0% 6%, rgba(200, 170, 255, 0.22), transparent 100%),
+    radial-gradient(ellipse 5.5% 34% at 100% 6%, rgba(255, 215, 150, 0.2), transparent 100%);
+}
+
+/* ciel plein écran : opacité pilotée par le défilement (js/ciel.js) */
+.ciel-full { inset: 0; opacity: 0; will-change: opacity; }
+.ciel-rose { inset: 0;
+  background:
+    radial-gradient(ellipse 80% 55% at 18% 8%, rgba(255, 140, 200, 0.26), transparent 62%),
+    radial-gradient(ellipse 70% 50% at 88% 22%, rgba(255, 190, 220, 0.18), transparent 60%),
+    radial-gradient(ellipse 90% 60% at 50% 108%, rgba(255, 190, 150, 0.24), transparent 64%),
+    radial-gradient(ellipse 60% 40% at 6% 92%, rgba(200, 160, 255, 0.16), transparent 62%),
+    radial-gradient(ellipse 70% 8% at 50% 100%, rgba(255, 175, 205, 0.34), transparent 100%),
+    radial-gradient(ellipse 36% 4.5% at 50% 100%, rgba(255, 230, 170, 0.26), transparent 100%),
+    linear-gradient(180deg, rgba(255, 150, 205, 0.06) 0%, rgba(255, 160, 210, 0.13) 55%, rgba(255, 190, 170, 0.14) 100%);
+}
+.ciel-bow { left: 50%; top: calc(52vh - 38vmax); width: 190vmax; height: 190vmax; margin: 0 0 0 -95vmax; border-radius: 50%; opacity: 0.3;
+  background: radial-gradient(circle closest-side, transparent 52%,
+    rgba(255, 150, 175, 0.0) 54%, rgba(255, 150, 175, 0.55) 56%, rgba(255, 196, 140, 0.55) 58.5%, rgba(255, 244, 160, 0.5) 61%,
+    rgba(170, 238, 190, 0.5) 63.5%, rgba(150, 210, 255, 0.5) 66%, rgba(200, 170, 255, 0.5) 68.5%, rgba(200, 170, 255, 0) 71%);
+  will-change: opacity, transform; }
+.ciel-bow--2 { top: calc(66vh - 46vmax); width: 230vmax; height: 230vmax; margin-left: -115vmax; opacity: 0.14;
+  background: radial-gradient(circle closest-side, transparent 52%,
+    rgba(200, 170, 255, 0) 54%, rgba(200, 170, 255, 0.5) 56%, rgba(150, 210, 255, 0.5) 58.5%, rgba(170, 238, 190, 0.45) 61%,
+    rgba(255, 244, 160, 0.45) 63.5%, rgba(255, 196, 140, 0.45) 66%, rgba(255, 150, 175, 0.45) 68.5%, rgba(255, 150, 175, 0) 71%); }
+.ciel-ribbon { left: -25%; width: 150%; height: 34%; border-radius: 50%; opacity: 0.18; filter: blur(30px); will-change: transform, opacity;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 160, 210, 0.7) 18%, rgba(255, 224, 168, 0.6) 36%, rgba(176, 242, 214, 0.5) 52%, rgba(162, 204, 255, 0.6) 68%, rgba(214, 172, 255, 0.7) 84%, transparent 100%); }
+.ciel-ribbon--1 { top: 6%; transform: rotate(-7deg); }
+.ciel-ribbon--2 { top: 40%; transform: rotate(5deg); opacity: 0.14; }
+.ciel-ribbon--3 { top: 70%; transform: rotate(-4deg); opacity: 0.14; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .ciel-bow { animation: ciel-breathe 16s ease-in-out infinite; }
+  .ciel-bow--2 { animation-duration: 22s; animation-delay: -7s; }
+  .ciel-ribbon { animation: ciel-drift 26s ease-in-out infinite alternate; }
+  .ciel-ribbon--2 { animation-duration: 33s; animation-delay: -11s; }
+  .ciel-ribbon--3 { animation-duration: 29s; animation-delay: -17s; }
+  .ciel-edge { animation: ciel-glow 9s ease-in-out infinite alternate; }
+}
+@keyframes ciel-breathe { 0%, 100% { opacity: 0.2; scale: 1; } 50% { opacity: 0.32; scale: 1.025; } }
+@keyframes ciel-drift { 0% { translate: -4% 0; } 100% { translate: 4% -3%; } }
+@keyframes ciel-glow { 0% { opacity: 0.78; } 100% { opacity: 1; } }
+@media (max-width: 760px) {
+  .ciel-ribbon { filter: blur(22px); }
+  .ciel-ribbon--3 { display: none; }
+  .ciel-bow--2 { display: none; }
+}
+
+/* sections de l'accueil plus lumineuses (verre rosé sombre + halos, texte lisible) — jamais la grille de jeux d'ouverture */
+body.home-real .manifesto-hero, body.home-real .why-visit, body.home-real .pillars-section, body.home-real .cat-section,
+body.home-real .music-teaser, body.home-real .closing-section {
+  background-image: radial-gradient(ellipse 62% 46% at 50% 0%, rgba(255, 170, 215, 0.10), transparent 72%),
+                    radial-gradient(ellipse 40% 40% at 90% 100%, rgba(255, 224, 168, 0.07), transparent 70%);
+}
+body.home-real :is(.pillar-card, .card, .cat-card, .closing-quote):not(:hover) {
+  background-color: rgba(20, 11, 40, 0.80);
+  background-image: linear-gradient(155deg, rgba(255, 205, 232, 0.10), rgba(190, 170, 255, 0.05) 55%, rgba(255, 224, 168, 0.04));
+  border-color: rgba(255, 196, 228, 0.30);
+  box-shadow: 0 10px 34px rgba(0, 0, 0, 0.26), 0 0 34px rgba(255, 160, 210, 0.16);
+}
+body.home-real :is(.pillar-card, .card, .cat-card):hover { box-shadow: 0 12px 36px rgba(0, 0, 0, 0.3), 0 0 38px rgba(255, 170, 215, 0.26); }
+/* texte posé directement sur le ciel : halo sombre discret pour garder le contraste */
+body.home-real :is(.manifesto-hero, .section-header, .closing-section) :is(h1, h2, h3, p, .eyebrow) { text-shadow: 0 0 14px rgba(10, 5, 24, 0.92), 0 0 4px rgba(10, 5, 24, 0.75), 0 1px 18px rgba(0, 0, 0, 0.45); }
+/* lignes de la liste : fond sombre conservé (le texte atténué y reste lisible) */
+body.home-real .track-row:not(:hover) { background-color: rgba(16, 9, 34, 0.78); border-color: rgba(255, 196, 228, 0.2); }
+body.home-real .track-badge.soon { color: #b8acd6; }
