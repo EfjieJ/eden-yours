@@ -33,7 +33,7 @@
 
   /* ——— sons doux (Web Audio) : même famille que les autres jeux ——— */
   function ctxAudio() {
-    try { if (!AC) { var C = window.AudioContext || window.webkitAudioContext; if (!C) return null; AC = new C(); } if (AC.state === "suspended" && AC.resume) AC.resume(); return AC; } catch (e) { return null; }
+    try { if (!AC) { var C = window.AudioContext || window.webkitAudioContext; if (!C) return null; AC = new C(); } if (AC.state === "suspended" && AC.resume) (function (r) { if (r && r.catch) r.catch(function () {}); })(AC.resume()); return AC; } catch (e) { return null; }
   }
   function tone(freqs, type, gain, step, dur) {
     try {

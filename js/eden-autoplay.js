@@ -44,7 +44,7 @@
   function resumeAll() {
     for (var i = 0; i < contexts.length; i++) {
       var c = contexts[i];
-      if (c && c.state === "suspended" && c.resume) { try { c.resume(); } catch (e) { /* ignore */ } }
+      if (c && c.state === "suspended" && c.resume) { try { var rp = c.resume(); if (rp && rp.catch) rp.catch(function () { /* contexte déjà fermé : sans importance */ }); } catch (e) { /* ignore */ } }
     }
   }
 
@@ -125,7 +125,7 @@
       var r = nStart.apply(node, arguments);
       try {
         if (ctx && ctx.state === "suspended" && node.buffer && node.buffer.duration > 8) {
-          ctx.resume();
+          try { var rq = ctx.resume(); if (rq && rq.catch) rq.catch(function () {}); } catch (e2) { /* ignore */ }
           setTimeout(function () {
             if (ctx.state === "suspended") showTap({ play: function () { return ctx.resume(); } });
           }, 400);

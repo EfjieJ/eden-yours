@@ -82,7 +82,7 @@
         if (!AC) return null;
         audioCtx = new AC();
       }
-      if (audioCtx.state === "suspended" && audioCtx.resume) audioCtx.resume();
+      if (audioCtx.state === "suspended" && audioCtx.resume) (function (r) { if (r && r.catch) r.catch(function () {}); })(audioCtx.resume());
       return audioCtx;
     } catch (e) { return null; }
   }
