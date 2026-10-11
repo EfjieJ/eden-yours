@@ -561,6 +561,21 @@
       "featured": false,
       "audio_url_aac": null,
       "lang": "fr"
+    },
+    {
+      "id": "da8977c3-f23a-4eef-b5a7-b7f78f3ba412",
+      "title": "Bonheur traité-données",
+      "artist": "Eden Yours",
+      "sunoArtist": "efjie8008",
+      "sunoTitle": "Bonheur traité-données",
+      "audio_url": null,
+      "embed_url": "https://suno.com/embed/da8977c3-f23a-4eef-b5a7-b7f78f3ba412",
+      "cover_url": "assets/covers/da8977c3-f23a-4eef-b5a7-b7f78f3ba412.jpeg",
+      "suno_share": "https://suno.com/s/p5EJXru8XlpVCr98",
+      "duration": null,
+      "featured": false,
+      "audio_url_aac": null,
+      "lang": "fr"
     }
   ]
 }

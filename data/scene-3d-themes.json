@@ -479,6 +479,14 @@
    "basis": "title+lyrics",
    "excerpt": "Nous ne sommes pas dans le tapis.\nNous sommes ceux qui tiennent les fils.",
    "excerptSource": "data/lyrics-sources.json"
+  },
+  "da8977c3-f23a-4eef-b5a7-b7f78f3ba412": {
+   "title": "Bonheur traité-données",
+   "lang": "fr",
+   "theme": "jeu",
+   "basis": "title+lyrics",
+   "excerpt": "Nous donnons cette création\nparce que l’autre nous intéresse.",
+   "excerptSource": "data/lyrics-sources.json"
   }
  }
 }
