@@ -447,6 +447,14 @@
    "basis": "title+lyrics",
    "excerpt": "Nous sommes tous des artisans.\nDes artisans de la réalité.",
    "excerptSource": "data/lyrics-sources.json"
+  },
+  "e4a2c1d5-a03a-4a1f-9a62-7b542f799443": {
+   "title": "La vie, c'est un geste",
+   "lang": "fr",
+   "theme": "coeur",
+   "basis": "title+lyrics",
+   "excerpt": "Reconnaître la présence de l'autre\nEt donner notre présence",
+   "excerptSource": "data/lyrics-sources.json"
   }
  }
 }

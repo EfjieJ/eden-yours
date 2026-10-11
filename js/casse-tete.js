@@ -33,6 +33,7 @@
     { id: "e2f896d7-cdbe-470b-b414-3cb5988695a7", lang: "fr", title: "Le Oui", cover: "assets/covers/e2f896d7-cdbe-470b-b414-3cb5988695a7.jpeg", embed: "https://suno.com/embed/e2f896d7-cdbe-470b-b414-3cb5988695a7" },
     { id: "0d719cb9-cd9e-4bf8-bc1e-3ee90dbe2345", lang: "fr", title: "Le Grand Poumon", cover: "assets/covers/0d719cb9-cd9e-4bf8-bc1e-3ee90dbe2345.jpeg", embed: "https://suno.com/embed/0d719cb9-cd9e-4bf8-bc1e-3ee90dbe2345" },
     { id: "283895e4-3125-4c0c-9fe3-2f0293b848f1", lang: "fr", title: "Commencer-Recommencer", cover: "assets/covers/283895e4-3125-4c0c-9fe3-2f0293b848f1.jpeg", embed: "https://suno.com/embed/283895e4-3125-4c0c-9fe3-2f0293b848f1" },
+    { id: "e4a2c1d5-a03a-4a1f-9a62-7b542f799443", lang: "fr", title: "La vie, c'est un geste", cover: "assets/covers/e4a2c1d5-a03a-4a1f-9a62-7b542f799443.jpeg", embed: "https://suno.com/embed/e4a2c1d5-a03a-4a1f-9a62-7b542f799443" },
     { id: "a11c8f21-163b-4b53-8d3a-5353e809bb50", lang: "en", title: "Start - Continue - Finish", cover: "assets/covers/a11c8f21-163b-4b53-8d3a-5353e809bb50.jpeg", audio: "assets/audio/a11c8f21-163b-4b53-8d3a-5353e809bb50.mp3" },
     { id: "a5ba4262-22f6-4c9c-a6df-05bff2d5e713", lang: "en", title: "The Body Is an Antenna", cover: "assets/covers/a5ba4262-22f6-4c9c-a6df-05bff2d5e713.jpeg", audio: "assets/audio/a5ba4262-22f6-4c9c-a6df-05bff2d5e713.mp3" },
     { id: "18a2266c-70b1-4e80-94e5-144a5ccd29fc", lang: "en", title: "Start", cover: "assets/covers/18a2266c-70b1-4e80-94e5-144a5ccd29fc.jpeg", audio: "assets/audio/18a2266c-70b1-4e80-94e5-144a5ccd29fc.mp3" },

@@ -501,6 +501,21 @@
       "featured": false,
       "audio_url_aac": null,
       "lang": "fr"
+    },
+    {
+      "id": "e4a2c1d5-a03a-4a1f-9a62-7b542f799443",
+      "title": "La vie, c'est un geste",
+      "artist": "Eden Yours",
+      "sunoArtist": "efjie8008",
+      "sunoTitle": "La vie, c'est un geste",
+      "audio_url": null,
+      "embed_url": "https://suno.com/embed/e4a2c1d5-a03a-4a1f-9a62-7b542f799443",
+      "cover_url": "assets/covers/e4a2c1d5-a03a-4a1f-9a62-7b542f799443.jpeg",
+      "suno_share": "https://suno.com/s/gkGbGauI6RzxVpmj",
+      "duration": null,
+      "featured": false,
+      "audio_url_aac": null,
+      "lang": "fr"
     }
   ]
 }
