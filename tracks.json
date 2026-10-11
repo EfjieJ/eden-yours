@@ -546,6 +546,21 @@
       "featured": false,
       "audio_url_aac": null,
       "lang": "fr"
+    },
+    {
+      "id": "ea749cc4-84d5-4caa-9038-915b7cca6923",
+      "title": "Les Tisserands Conscients",
+      "artist": "Eden Yours",
+      "sunoArtist": "efjie8008",
+      "sunoTitle": "Les Tisserands Conscients",
+      "audio_url": null,
+      "embed_url": "https://suno.com/embed/ea749cc4-84d5-4caa-9038-915b7cca6923",
+      "cover_url": "assets/covers/ea749cc4-84d5-4caa-9038-915b7cca6923.jpeg",
+      "suno_share": "https://suno.com/s/uZ9Mjv22CJ0Xvnin",
+      "duration": null,
+      "featured": false,
+      "audio_url_aac": null,
+      "lang": "fr"
     }
   ]
 }

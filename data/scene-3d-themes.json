@@ -471,6 +471,14 @@
    "basis": "title+lyrics",
    "excerpt": "Je n'ai plus besoin de rien prendre dehors\nJe me nourris du pur, du vrai, du beau",
    "excerptSource": "data/lyrics-sources.json"
+  },
+  "ea749cc4-84d5-4caa-9038-915b7cca6923": {
+   "title": "Les Tisserands Conscients",
+   "lang": "fr",
+   "theme": "creation",
+   "basis": "title+lyrics",
+   "excerpt": "Nous ne sommes pas dans le tapis.\nNous sommes ceux qui tiennent les fils.",
+   "excerptSource": "data/lyrics-sources.json"
   }
  }
 }
