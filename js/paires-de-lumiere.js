@@ -28,7 +28,7 @@
   function say(msg) { if (liveEl) { liveEl.textContent = ""; setTimeout(function () { liveEl.textContent = msg; }, 30); } }
   function shuffle(a) { for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var x = a[i]; a[i] = a[j]; a[j] = x; } return a; }
   function fmt(s) { s = Math.max(0, Math.floor(s)); return Math.floor(s / 60) + ":" + (s % 60 < 10 ? "0" : "") + (s % 60); }
-  function cssUrl(u) { var abs = u; try { abs = new URL(u, document.baseURI).href; } catch (e) {} return 'url("' + String(abs).replace(/"/g, "%22") + '")'; }   // absolu : une variable CSS se résout par rapport à la feuille de style, pas à la page
+  function cssUrl_unused(u) { var abs = u; try { abs = new URL(u, document.baseURI).href; } catch (e) {} return 'url("' + String(abs).replace(/"/g, "%22") + '")'; }   // absolu : une variable CSS se résout par rapport à la feuille de style, pas à la page
   function store(kind) { try { return window[kind]; } catch (e) { return null; } }
 
   /* ——— sons doux (Web Audio) : même famille que les autres jeux ——— */
@@ -105,8 +105,9 @@
     b.setAttribute("tabindex", i === 0 ? "0" : "-1");
     var front = c.kind === "bubble" ? '<span class="pl-front pl-front--bubble"><span class="pl-orb"></span></span>' : '<span class="pl-front pl-front--' + c.kind + '"></span>';
     b.innerHTML = '<span class="pl-inner"><span class="pl-back" aria-hidden="true"><i>✦</i></span>' + front + "</span>";
-    var img = cssUrl(c.song.cover_url);
-    b.querySelectorAll(".pl-front--cover, .pl-front--gold, .pl-orb").forEach(function (el) { el.style.setProperty("--img", img); });
+    var holder = b.querySelector(".pl-orb") || b.querySelector(".pl-front");
+    if (window.EdenThumb) window.EdenThumb.fill(holder, c.song.cover_url, c.song.title);
+    else { var im0 = document.createElement("img"); im0.alt = ""; im0.src = c.song.cover_url; holder.appendChild(im0); }
     b.addEventListener("click", function () { onFlip(i); });
     b.addEventListener("keydown", function (e) { onKey(e, i); });
     c.el = b; refreshCell(c, i);

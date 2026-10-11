@@ -271,9 +271,10 @@
         '<span class="mp-tile-inner">' +
           '<span class="mp-face mp-face--back" aria-hidden="true"></span>' +
           '<span class="mp-face mp-face--front">' +
-            '<img src="' + item.track.cover.replace(/"/g, "") + '" alt="" loading="lazy" draggable="false">' +
           "</span>" +
         "</span>";
+      if (window.EdenThumb) window.EdenThumb.fill(btn.querySelector(".mp-face--front"), item.track.cover, item.track.title);
+      else { var im0 = document.createElement("img"); im0.alt = ""; im0.src = item.track.cover; btn.querySelector(".mp-face--front").appendChild(im0); }
       btn.addEventListener("click", function () { onFlip(btn, item); });
       board.appendChild(btn);
     });
