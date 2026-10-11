@@ -463,6 +463,14 @@
    "basis": "title+lyrics",
    "excerpt": "Recognizing the presence of the other\nAnd give our presence",
    "excerptSource": "data/lyrics-sources.json"
+  },
+  "ca876051-1597-4ef1-9dcf-1ce19089628f": {
+   "title": "Je suis éternelle",
+   "lang": "fr",
+   "theme": "regeneration",
+   "basis": "title+lyrics",
+   "excerpt": "Je n'ai plus besoin de rien prendre dehors\nJe me nourris du pur, du vrai, du beau",
+   "excerptSource": "data/lyrics-sources.json"
   }
  }
 }

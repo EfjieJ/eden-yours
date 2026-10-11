@@ -531,6 +531,21 @@
       "featured": false,
       "audio_url_aac": null,
       "lang": "en"
+    },
+    {
+      "id": "ca876051-1597-4ef1-9dcf-1ce19089628f",
+      "title": "Je suis éternelle",
+      "artist": "Eden Yours",
+      "sunoArtist": "efjie8008",
+      "sunoTitle": "Je suis éternelle",
+      "audio_url": null,
+      "embed_url": "https://suno.com/embed/ca876051-1597-4ef1-9dcf-1ce19089628f",
+      "cover_url": "assets/covers/ca876051-1597-4ef1-9dcf-1ce19089628f.jpeg",
+      "suno_share": "https://suno.com/s/iP2EGsR5H18RPpAu",
+      "duration": null,
+      "featured": false,
+      "audio_url_aac": null,
+      "lang": "fr"
     }
   ]
 }
