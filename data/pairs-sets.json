@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "note": "Paires de lumière — données du jeu. Chaque manche tire au hasard N chansons DE LA LANGUE DE LA PAGE (jamais un mélange FR/EN), en évitant les pochettes déjà vues récemment (localStorage « eden-pairs-recent »), et un jeu d'images (« set ») différent de la manche précédente quand il y en a plusieurs. Pour ajouter un jeu d'images : ajouter un objet dans « sets » (faces = deux types parmi ceux que js/paires-de-lumiere.js sait dessiner : cover, bubble, gold). Pour ajouter un niveau : ajouter un objet dans « levels ».",
+  "recentStorageKey": "eden-pairs-recent",
+  "recentMax": 36,
+  "levels": [
+    { "id": "easy", "pairs": 6, "cols": { "desktop": 4, "phone": 3 } },
+    { "id": "medium", "pairs": 8, "cols": { "desktop": 4, "phone": 4 } },
+    { "id": "hard", "pairs": 12, "cols": { "desktop": 6, "phone": 4 } }
+  ],
+  "defaultLevel": "easy",
+  "sets": [
+    { "id": "bubble", "faces": ["cover", "bubble"], "name": { "fr": "Pochette & bulle de lumière", "en": "Cover & light bubble" } },
+    { "id": "gold", "faces": ["cover", "gold"], "name": { "fr": "Pochette & reflet d’or", "en": "Cover & golden glow" } }
+  ]
+}

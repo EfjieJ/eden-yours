@@ -3352,3 +3352,26 @@ html, body { overflow-x: clip; }
 @media (max-width: 520px) { .ctrl-btn.js-shuffle .shuffle-bar-label { display: none; } .ctrl-btn.js-shuffle { padding: 0 0.6rem; } }
 .shuffle-status { font-size: 0.78rem; color: #fde68a; white-space: nowrap; margin-right: 0.6rem; font-variant-numeric: tabular-nums; }
 .shuffle-status[hidden] { display: none; }
+
+
+/* Paires de lumière — portail (accueil) : une pochette carrée et son second visage, bulle de lumière */
+.game-card--pairs::before { animation-delay: -5.1s; }
+.gm-pairs {
+  position: relative; display: flex; align-items: center; justify-content: center; gap: 14px;
+  min-height: 118px; padding: 18px 16px 10px;
+  background: radial-gradient(ellipse at 50% 55%, rgba(255, 170, 215, 0.16), rgba(14, 8, 30, 0.55));
+  border-radius: 999px 999px 18px 18px; overflow: hidden;
+}
+.gm-pairs-card {
+  position: relative; z-index: 2; display: block; width: 58px; height: 58px; background: url("../assets/home/cover-2a9f903f.webp") center / cover no-repeat;
+  box-shadow: 0 4px 14px rgba(5, 2, 14, 0.45);
+}
+.gm-pairs-card--a { border-radius: 10px; border: 1px solid rgba(246, 201, 106, 0.55); transform: rotate(-6deg); }
+.gm-pairs-card--b { border-radius: 50%; border: 2px solid rgba(253, 230, 138, 0.8); box-shadow: 0 0 20px rgba(255, 170, 215, 0.7), inset 0 0 14px rgba(255, 255, 255, 0.35); animation: pl-portal-glow 3.6s ease-in-out infinite; }
+.gm-pairs-spark {
+  position: absolute; left: 50%; top: 26%; width: 8px; height: 8px; margin-left: -4px; border-radius: 50%;
+  background: rgba(253, 230, 138, 0.95); box-shadow: 0 0 14px rgba(246, 201, 106, 0.8); animation: mp-portal-spark 2.4s ease-in-out infinite;
+}
+@keyframes pl-portal-glow { 0%, 100% { box-shadow: 0 0 14px rgba(255, 170, 215, 0.5), inset 0 0 14px rgba(255, 255, 255, 0.3); } 50% { box-shadow: 0 0 28px rgba(255, 190, 225, 0.95), inset 0 0 14px rgba(255, 255, 255, 0.45); } }
+@media (prefers-reduced-motion: reduce) { .gm-pairs-card--b, .gm-pairs-spark { animation: none; } }
+body.home-real .gm-pairs   { background-image: url("../assets/home/card-pairs.webp"); }
