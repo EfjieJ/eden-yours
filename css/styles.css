@@ -2919,6 +2919,36 @@ html.eden-pass-reduced::after { animation: eden-pass-fade 0.4s linear forwards !
   .gm-memoire-card--c, .gm-memoire-spark { animation: none; }
 }
 
+
+/* Reconstruis la chanson — portail (accueil) : couplets qui se remettent en ordre */
+.game-card--rebuild::before { animation-delay: -4.4s; }
+.gm-rebuild {
+  position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 7px;
+  min-height: 118px; padding: 18px 16px 10px;
+  background: radial-gradient(ellipse at 50% 55%, rgba(246, 201, 106, 0.12), rgba(14, 8, 30, 0.55));
+  border-radius: 999px 999px 18px 18px; overflow: hidden;
+}
+.gm-rebuild-bar {
+  position: relative; z-index: 2; display: block; height: 16px; border-radius: 9px;
+  border: 1px solid rgba(246, 201, 106, 0.4);
+  background: linear-gradient(145deg, rgba(88, 48, 140, 0.95), rgba(28, 14, 55, 0.98));
+  box-shadow: 0 3px 10px rgba(5, 2, 14, 0.4);
+}
+.gm-rebuild-bar--a { width: 74px; animation: rb-portal-a 4.2s ease-in-out infinite; }
+.gm-rebuild-bar--b { width: 92px; background: radial-gradient(circle at 40% 35%, rgba(255, 248, 230, 0.8), rgba(246, 201, 106, 0.55) 55%, rgba(192, 132, 252, 0.4)); animation: rb-portal-b 4.2s ease-in-out infinite; }
+.gm-rebuild-bar--c { width: 64px; animation: rb-portal-c 4.2s ease-in-out infinite; }
+.gm-rebuild-spark {
+  position: absolute; right: 22%; top: 24%; width: 8px; height: 8px; border-radius: 50%;
+  background: rgba(253, 230, 138, 0.95); box-shadow: 0 0 14px rgba(246, 201, 106, 0.8);
+  animation: mp-portal-spark 2.4s ease-in-out infinite;
+}
+@keyframes rb-portal-a { 0%, 30% { transform: translateY(0); } 50%, 100% { transform: translateY(23px); } }
+@keyframes rb-portal-b { 0%, 100% { transform: translateY(0); } }
+@keyframes rb-portal-c { 0%, 30% { transform: translateY(0); } 50%, 100% { transform: translateY(-23px); } }
+@media (prefers-reduced-motion: reduce) {
+  .gm-rebuild-bar, .gm-rebuild-spark { animation: none; }
+}
+
 /* Portail accueil */
 .game-card--carte::before { animation-delay: -7.1s; }
 .gm-carte {
@@ -3211,6 +3241,7 @@ body.home-real .gm-quiz    { background-image: url("../assets/home/cover-a11c8f2
 body.home-real .gm-rythme  { background-image: url("../assets/home/card-milkyway.webp"); }
 body.home-real .gm-eclats  { background-image: url("../assets/home/card-aurora.webp"); }
 body.home-real .gm-memoire { background-image: url("../assets/home/cover-dead13bb.webp"); }
+body.home-real .gm-rebuild { background-image: url("../assets/home/cover-e4a2c1d5.webp"); }
 body.home-real .gm-carte   { background-image: url("../assets/home/cover-2a9f903f.webp"); }
 body.home-real .gm-scene3d { background-image: url("../assets/home/card-scene3d.webp"); }
 body.home-real .gm-jardin  { background-image: url("../assets/home/card-jardin.webp"); }

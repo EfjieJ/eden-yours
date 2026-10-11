@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "about": "Jeu « Reconstruis la chanson » / « Rebuild the song » (reconstruis-la-chanson.html). Chaque entrée = une chanson jouable, avec sa langue. Titre, pochette, audio/embed viennent de tracks.json ; les couplets viennent des VRAIES paroles de data/lyrics-sources.json (jamais inventées). Pour ajouter une chanson : ajouter { id, lang } ici (la chanson doit avoir au moins 3 couplets distincts).",
+  "rules": [
+    "Seule la première version du texte est utilisée si les paroles Suno contiennent deux versions séparées par « --- ».",
+    "Le titre en tête de texte et les étiquettes de section ([Couplet], Couplet 1, Refrain, Pont, Refrain final…) sont retirés : elles révéleraient l'ordre.",
+    "Les strophes sont séparées par les lignes vides (ou par une étiquette de section).",
+    "Une strophe identique (après normalisation casse/accents/ponctuation) présente plusieurs fois est un refrain : elle reste FIXE à ses vraies places (bandeau « ♪ Refrain ») ; seules les strophes uniques sont mélangées. Deux strophes identiques ne peuvent donc jamais être ambiguës.",
+    "L'ordre est juste quand la suite des strophes uniques est celle de la chanson (comparaison par texte, pas par position).",
+    "Maximum 7 strophes à déplacer (maxMovable) ; langue stricte : une chanson FR n'est jamais proposée sur la page EN, et inversement."
+  ],
+  "maxMovable": 7,
+  "songs": [
+    { "id": "e4a2c1d5-a03a-4a1f-9a62-7b542f799443", "lang": "fr" },
+    { "id": "4d1bff83-a04f-417c-9656-b64494e04779", "lang": "en" }
+  ]
+}

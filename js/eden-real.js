@@ -5,7 +5,7 @@
    êtres de lumière éthérés (particules + halo + bloom). Qualité adaptative (bloom/ombres coupés
    sur les appareils faibles ou si l'image ralentit). Renard : modèle glTF CC0/CC-BY (voir CREDITS.md). */
 import * as THREE from "three";
-import { createBubblePerson } from "./bubble-person.js?v=20261011g";
+import { createBubblePerson } from "./bubble-person.js?v=20261011h";
 
 const ADDON = "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/";
 const FOX_URL = "https://cdn.jsdelivr.net/gh/KhronosGroup/glTF-Sample-Assets@edc7c9e67c639d230715049ee31f9a96a6babbbe/Models/Fox/glTF-Binary/Fox.glb";
