@@ -1,0 +1,54 @@
+/* Eden Yours — « alive » : micro-animations douces (transform/opacity seulement, individual `translate`/`scale`).
+   L'entrée des éléments visibles démarre à l'ouverture de la page en CSS pur (aucun JS, aucun état « caché en attendant l'observateur ») ;
+   js/alive.js ne fait qu'améliorer : révélation au défilement pour ce qui est SOUS la ligne de flottaison, petits sauts au survol/au toucher,
+   étincelles. Rien n'agit sur layout (pas de CLS), audio ou logique de jeu. Désactivé si prefers-reduced-motion: reduce. */
+@media (prefers-reduced-motion: no-preference) {
+  /* ——— entrée en cascade (démarre au premier rendu) ——— */
+  :where(.games-head > *, .games-grid > *, .hero-grid > *, .manifesto-hero .container > *, .page-hero .container > *, .puzzle-hero .container > *, .section-header, .pillar-card, .why-grid > *, .music-teaser, .cat-card, .cat-lib, .player-card, .games-banner, .puzzle-shell:not(.s3d-shell) > *, .track-list > .track-row, .other-game) {
+    animation: alive-in 0.8s cubic-bezier(0.3, 0.7, 0.3, 1) backwards;
+    animation-delay: calc(var(--a0, 0ms) + min(var(--ai, 0), 8) * 65ms);
+  }
+  :where(.section-header) { --a0: 40ms; }
+  :where(.games-grid > *, .why-grid > *, .pillar-card, .cat-card, .player-card, .games-banner, .cat-lib, .puzzle-shell > *, .track-list > .track-row, .other-game) { --a0: 140ms; }
+  :where(.games-head > *, .hero-grid > *, .page-hero .container > *, .puzzle-hero .container > *, .manifesto-hero .container > *) { --a0: 0ms; }
+:where(.games-head, .games-grid, .hero-grid, .why-grid, .pillar-grid, .cat-grid, .track-list, .puzzle-shell:not(.s3d-shell), .page-hero .container, .puzzle-hero .container, .manifesto-hero .container) > :nth-child(1) { --ai: 0; }
+:where(.games-head, .games-grid, .hero-grid, .why-grid, .pillar-grid, .cat-grid, .track-list, .puzzle-shell:not(.s3d-shell), .page-hero .container, .puzzle-hero .container, .manifesto-hero .container) > :nth-child(2) { --ai: 1; }
+:where(.games-head, .games-grid, .hero-grid, .why-grid, .pillar-grid, .cat-grid, .track-list, .puzzle-shell:not(.s3d-shell), .page-hero .container, .puzzle-hero .container, .manifesto-hero .container) > :nth-child(3) { --ai: 2; }
+:where(.games-head, .games-grid, .hero-grid, .why-grid, .pillar-grid, .cat-grid, .track-list, .puzzle-shell:not(.s3d-shell), .page-hero .container, .puzzle-hero .container, .manifesto-hero .container) > :nth-child(4) { --ai: 3; }
+:where(.games-head, .games-grid, .hero-grid, .why-grid, .pillar-grid, .cat-grid, .track-list, .puzzle-shell:not(.s3d-shell), .page-hero .container, .puzzle-hero .container, .manifesto-hero .container) > :nth-child(5) { --ai: 4; }
+:where(.games-head, .games-grid, .hero-grid, .why-grid, .pillar-grid, .cat-grid, .track-list, .puzzle-shell:not(.s3d-shell), .page-hero .container, .puzzle-hero .container, .manifesto-hero .container) > :nth-child(6) { --ai: 5; }
+:where(.games-head, .games-grid, .hero-grid, .why-grid, .pillar-grid, .cat-grid, .track-list, .puzzle-shell:not(.s3d-shell), .page-hero .container, .puzzle-hero .container, .manifesto-hero .container) > :nth-child(7) { --ai: 6; }
+:where(.games-head, .games-grid, .hero-grid, .why-grid, .pillar-grid, .cat-grid, .track-list, .puzzle-shell:not(.s3d-shell), .page-hero .container, .puzzle-hero .container, .manifesto-hero .container) > :nth-child(8) { --ai: 7; }
+:where(.games-head, .games-grid, .hero-grid, .why-grid, .pillar-grid, .cat-grid, .track-list, .puzzle-shell:not(.s3d-shell), .page-hero .container, .puzzle-hero .container, .manifesto-hero .container) > :nth-child(9) { --ai: 8; }
+:where(.games-head, .games-grid, .hero-grid, .why-grid, .pillar-grid, .cat-grid, .track-list, .puzzle-shell:not(.s3d-shell), .page-hero .container, .puzzle-hero .container, .manifesto-hero .container) > :nth-child(10) { --ai: 9; }
+  @keyframes alive-in {
+    0%   { opacity: 0; translate: 0 26px; scale: 0.94; }
+    55%  { opacity: 1; translate: 0 -7px; scale: 1.015; }
+    78%  { translate: 0 2px; scale: 0.998; }
+    100% { opacity: 1; translate: 0 0; scale: 1; }
+  }
+  /* sous la ligne de flottaison : attend d'être vu (posé par js/alive.js, jamais pour ce qui est visible) */
+  .alive-wait { animation: none; opacity: 0; translate: 0 26px; scale: 0.94; will-change: opacity, translate; }
+
+  /* ——— vie au repos ——— */
+  :where(.game-card .game-visual) { animation: alive-float 6.5s ease-in-out infinite; animation-delay: calc(var(--ai, 0) * -1.3s); }
+  :where(.pillar-icon, .cat-icon, .cat-i, .player-card-cover, .s3d-cover) { animation: alive-float-s 5s ease-in-out infinite; animation-delay: calc(var(--ai, 0) * -0.8s); }
+  :where(.logo-mark) { animation: alive-breathe 4.2s ease-in-out infinite; }
+  :where(.eyebrow)::after { content: "✦"; display: inline-block; margin-left: 0.5em; font-size: 0.85em; color: #fde68a; text-shadow: 0 0 10px rgba(246, 201, 106, 0.8); animation: alive-twinkle 3.4s ease-in-out infinite; }
+  @keyframes alive-float { 0%, 100% { translate: 0 0; } 50% { translate: 0 -6px; } }
+  @keyframes alive-float-s { 0%, 100% { translate: 0 0; } 50% { translate: 0 -3px; } }
+  @keyframes alive-breathe { 0%, 100% { scale: 1; } 50% { scale: 1.07; } }
+  @keyframes alive-twinkle { 0%, 100% { opacity: 0.35; scale: 0.7; } 50% { opacity: 1; scale: 1.15; } }
+
+  /* ——— la chanson qui joue respire ——— */
+  html.alive-playing :is(.player-bar .player-cover, .s3d-cover, .track-row.is-active .track-cover) { animation: alive-breathe 2.6s ease-in-out infinite; }
+  .cat-card.is-playing :is(.cat-icon, .cat-i) { animation: alive-breathe 2.2s ease-in-out infinite; }
+
+  /* onglet caché : on met en pause la vie au repos */
+  html.alive-paused :is(.game-visual, .pillar-icon, .cat-icon, .cat-i, .player-card-cover, .s3d-cover, .logo-mark, .eyebrow::after, .player-cover, .track-cover) { animation-play-state: paused; }
+
+  /* étincelles au toucher (JS) */
+  .alive-sparks { position: fixed; inset: 0; z-index: 2147480000; pointer-events: none; overflow: hidden; contain: strict; }
+  .alive-sparks i { position: absolute; left: 0; top: 0; width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%;
+    background: radial-gradient(circle, #fffbea 0%, #fde68a 40%, rgba(246, 201, 106, 0) 72%); box-shadow: 0 0 10px rgba(253, 230, 138, 0.8); }
+}
