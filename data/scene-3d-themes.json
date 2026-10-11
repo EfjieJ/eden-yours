@@ -455,6 +455,14 @@
    "basis": "title+lyrics",
    "excerpt": "Reconnaître la présence de l'autre\nEt donner notre présence",
    "excerptSource": "data/lyrics-sources.json"
+  },
+  "4d1bff83-a04f-417c-9656-b64494e04779": {
+   "title": "Life is a gesture",
+   "lang": "en",
+   "theme": "coeur",
+   "basis": "title+lyrics",
+   "excerpt": "Recognizing the presence of the other\nAnd give our presence",
+   "excerptSource": "data/lyrics-sources.json"
   }
  }
 }

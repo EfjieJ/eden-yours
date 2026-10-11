@@ -516,6 +516,21 @@
       "featured": false,
       "audio_url_aac": null,
       "lang": "fr"
+    },
+    {
+      "id": "4d1bff83-a04f-417c-9656-b64494e04779",
+      "title": "Life is a gesture",
+      "artist": "Eden Yours",
+      "sunoArtist": "efjie8008",
+      "sunoTitle": "Life is a gesture",
+      "audio_url": null,
+      "embed_url": "https://suno.com/embed/4d1bff83-a04f-417c-9656-b64494e04779",
+      "cover_url": "assets/covers/4d1bff83-a04f-417c-9656-b64494e04779.jpeg",
+      "suno_share": "https://suno.com/s/y8Ne7HOdV2xkonU9",
+      "duration": null,
+      "featured": false,
+      "audio_url_aac": null,
+      "lang": "en"
     }
   ]
 }
