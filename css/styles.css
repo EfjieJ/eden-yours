@@ -3375,3 +3375,19 @@ html, body { overflow-x: clip; }
 @keyframes pl-portal-glow { 0%, 100% { box-shadow: 0 0 14px rgba(255, 170, 215, 0.5), inset 0 0 14px rgba(255, 255, 255, 0.3); } 50% { box-shadow: 0 0 28px rgba(255, 190, 225, 0.95), inset 0 0 14px rgba(255, 255, 255, 0.45); } }
 @media (prefers-reduced-motion: reduce) { .gm-pairs-card--b, .gm-pairs-spark { animation: none; } }
 body.home-real .gm-pairs   { background-image: url("../assets/home/card-pairs.webp"); }
+
+/* Mots cachés — portail (accueil) : quelques tuiles de lettres dont un mot doré */
+.game-card--words::before { animation-delay: -6.3s; }
+.gm-words {
+  position: relative; display: flex; align-items: center; justify-content: center; gap: 6px;
+  min-height: 118px; padding: 18px 16px 10px;
+  background: radial-gradient(ellipse at 50% 55%, rgba(255, 170, 215, 0.16), rgba(14, 8, 30, 0.55));
+  border-radius: 999px 999px 18px 18px; overflow: hidden;
+}
+.gm-words-tile {
+  display: grid; place-items: center; width: 40px; height: 40px; border-radius: 9px; font-weight: 700; font-size: 1.2rem; color: #1c0f2e;
+  background: linear-gradient(135deg, #fde68a, #f6c96a); box-shadow: 0 0 14px rgba(246, 201, 106, 0.55);
+}
+.gm-words-tile:nth-child(2) { transform: translateY(-4px); }
+body.home-real .gm-words { background-image: url("../assets/home/card-words.webp"); background-size: cover; background-position: center; }
+body.home-real .gm-words .gm-words-tile { display: none; }
