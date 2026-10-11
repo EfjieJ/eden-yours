@@ -3391,3 +3391,15 @@ body.home-real .gm-pairs   { background-image: url("../assets/home/card-pairs.we
 .gm-words-tile:nth-child(2) { transform: translateY(-4px); }
 body.home-real .gm-words { background-image: url("../assets/home/card-words.webp"); background-size: cover; background-position: center; }
 body.home-real .gm-words .gm-words-tile { display: none; }
+
+/* Solitaire des pochettes — portail (accueil) : trois cercles de thème et des pochettes qui se chevauchent */
+.game-card--solitaire::before { animation-delay: -7.4s; }
+.gm-solitaire {
+  position: relative; display: flex; align-items: center; justify-content: center; gap: 12px;
+  min-height: 118px; padding: 18px 16px 10px;
+  background: radial-gradient(ellipse at 50% 55%, rgba(255, 170, 215, 0.16), rgba(14, 8, 30, 0.55));
+  border-radius: 999px 999px 18px 18px; overflow: hidden;
+}
+.gm-sol-slot { display: block; width: 44px; height: 44px; border-radius: 50%; border: 2px dashed rgba(253, 230, 138, 0.85); box-shadow: 0 0 14px rgba(255, 170, 215, 0.5); }
+body.home-real .gm-solitaire { background-image: url("../assets/home/card-solitaire.webp"); background-size: cover; background-position: center; }
+body.home-real .gm-solitaire .gm-sol-slot { display: none; }

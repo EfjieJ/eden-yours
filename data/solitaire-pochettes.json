@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "note": "Solitaire des pochettes — données. Les thèmes viennent de data/categories.json (catégorie principale de chaque chanson) ; seules les chansons de la langue de la page sont distribuées. Un thème est retenu s'il a au moins « minThemeSongs » chansons avec pochette ; si la langue n'a pas assez de thèmes (l'anglais en a peu), on complète avec des thèmes d'une seule chanson et le nombre de cartes s'adapte. « stockShare » = part des cartes laissée dans la pioche.",
+  "minThemeSongs": 2,
+  "stockShare": 0.25,
+  "defaultLevel": "easy",
+  "recentStorageKey": "eden-solitaire-recent",
+  "levels": [
+    { "id": "easy",   "themes": 3, "cards": 12, "cols": 4 },
+    { "id": "medium", "themes": 4, "cards": 18, "cols": 4 },
+    { "id": "hard",   "themes": 5, "cards": 26, "cols": 5 }
+  ]
+}
