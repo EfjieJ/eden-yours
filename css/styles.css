@@ -3416,3 +3416,7 @@ body.home-real .gm-solitaire .gm-sol-slot { display: none; }
 .gm-eden-piece--b { transform: rotate(8deg) translateY(4px); }
 body.home-real .gm-eden { background-image: url("../assets/home/card-eden.webp"); background-size: cover; background-position: center; }
 body.home-real .gm-eden .gm-eden-piece { display: none; }
+
+/* Texte d'accueil (poème de François) : vers séparés, strophes espacées */
+.welcome-poem .welcome-stanza { display: block; }
+.welcome-poem .welcome-stanza + .welcome-stanza { margin-top: 0.9em; }
