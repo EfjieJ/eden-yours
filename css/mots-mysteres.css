@@ -1,0 +1,25 @@
+/* Mots mystères — ajouts à css/mots-caches.css : boîte du mot mystère, lettres restantes, grille lumineuse à la victoire */
+.mm-box { grid-column: 1 / -1; margin: 0.9rem auto 0; max-width: 520px; padding: 0.85rem 0.9rem 0.7rem; text-align: center; border-radius: 18px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(253, 230, 138, 0.35); transition: box-shadow 0.4s, border-color 0.4s; }
+.mm-box[hidden] { display: none; }
+.mm-box.is-ready { border-color: rgba(253, 230, 138, 0.9); box-shadow: 0 0 26px rgba(253, 230, 138, 0.3); }
+.mm-box.is-solved { border-color: rgba(253, 230, 138, 1); box-shadow: 0 0 34px rgba(253, 230, 138, 0.45), 0 0 60px rgba(244, 184, 230, 0.3); }
+.mm-box.is-nope { animation: mm-nope 0.45s ease-in-out; }
+.mm-kicker { margin: 0 0 0.45rem; font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255, 214, 236, 0.92); }
+.mm-slots { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-bottom: 0.6rem; }
+.mm-slot { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 40px; border-radius: 10px; font-weight: 700; font-size: 1.15rem; color: #1c0f2e; background: rgba(255, 255, 255, 0.08); border: 1px dashed rgba(253, 230, 138, 0.6); }
+.mm-box.is-solved .mm-slot { background: linear-gradient(140deg, #fde68a, #f6c96a 55%, #f4b8e6); border: 1px solid rgba(255, 246, 214, 0.9); animation: mm-pop 0.5s cubic-bezier(0.3, 1.6, 0.5, 1) backwards; animation-delay: calc(var(--i, 0) * 70ms); }
+.mm-form { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; align-items: center; }
+.mm-input { flex: 1 1 160px; min-width: 0; max-width: 260px; min-height: 46px; padding: 0.5rem 0.85rem; border-radius: 999px; font: inherit; font-size: 1.05rem; letter-spacing: 0.08em; text-transform: uppercase; text-align: center; color: #fff8e6; background: rgba(14, 8, 30, 0.6); border: 1px solid rgba(253, 230, 138, 0.55); }
+.mm-input:focus { outline: 2px solid rgba(253, 230, 138, 0.9); outline-offset: 1px; }
+.mm-go, .mm-reveal { min-height: 46px; }
+.mm-msg { min-height: 1.4em; margin: 0.5rem 0 0; font-size: 0.92rem; color: rgba(255, 236, 214, 0.95); }
+.ws-cell.is-left { color: #1c0f2e; background: radial-gradient(circle, #fff6d6, #fde68a 60%, #f6c96a); box-shadow: 0 0 14px rgba(253, 230, 138, 0.85); animation: mm-left 1.6s ease-in-out infinite; animation-delay: calc(var(--k, 0) * 120ms); }
+.ws-grid.is-luminous .ws-cell { animation: mm-wave 2.4s ease-in-out infinite; animation-delay: var(--d, 0ms); }
+.ws-grid.is-luminous .ws-cell.is-left { animation: mm-wave 2.4s ease-in-out infinite, mm-left 1.6s ease-in-out infinite; animation-delay: var(--d, 0ms), 0ms; }
+.ws-grid.is-luminous { box-shadow: 0 0 40px rgba(253, 230, 138, 0.5), 0 0 80px rgba(244, 184, 230, 0.3); border-radius: 14px; }
+@keyframes mm-left { 0%, 100% { box-shadow: 0 0 8px rgba(253, 230, 138, 0.6); } 50% { box-shadow: 0 0 20px rgba(253, 230, 138, 1); } }
+@keyframes mm-wave { 0%, 100% { filter: brightness(1); } 40% { filter: brightness(1.55) drop-shadow(0 0 6px rgba(253, 230, 138, 0.9)); } }
+@keyframes mm-pop { from { transform: scale(0.4) translateY(8px); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes mm-nope { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+@media (max-width: 560px) { .mm-slot { width: 30px; height: 36px; font-size: 1rem; } }
+@media (prefers-reduced-motion: reduce) { .mm-box.is-nope, .mm-box.is-solved .mm-slot, .ws-cell.is-left, .ws-grid.is-luminous .ws-cell { animation: none; } }

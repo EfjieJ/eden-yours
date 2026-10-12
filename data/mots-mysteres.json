@@ -1,0 +1,12 @@
+{
+ "version": 1,
+ "note": "Mots mystères — données. Les mots viennent des vraies paroles (data/lyrics-sources.json), mots-outils exclus via data/wordsearch.json (« stop »). Le mot mystère est un mot du titre présent dans les paroles (sinon un mot curé de wordsearch.json « songs », sinon un mot des paroles). js/mots-mysteres.js remplit la grille jusqu'à laisser exactement les cases du mot mystère.",
+ "minLen": 4, "maxLen": 9, "mysteryMin": 4, "mysteryMax": 9, "minPool": 30,
+ "levels": [
+  {"id": "easy", "N": 7, "dirs": ["E", "S"], "minWords": 6},
+  {"id": "medium", "N": 8, "dirs": ["E", "S", "SE", "W", "N"], "minWords": 8},
+  {"id": "hard", "N": 9, "dirs": ["E", "S", "SE", "NE", "W", "N", "NW", "SW"], "minWords": 10}
+ ],
+ "defaultLevel": "easy",
+ "recentStorageKey": "eden-mm-recent"
+}

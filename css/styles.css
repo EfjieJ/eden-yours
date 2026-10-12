@@ -3420,3 +3420,9 @@ body.home-real .gm-eden .gm-eden-piece { display: none; }
 /* Texte d'accueil (poème de François) : vers séparés, strophes espacées */
 .welcome-poem .welcome-stanza { display: block; }
 .welcome-poem .welcome-stanza + .welcome-stanza { margin-top: 0.9em; }
+
+/* Mots mystères — portail (accueil) */
+.game-card--mystery::before { animation-delay: -5.6s; }
+.gm-mystery { position: relative; display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 118px; padding: 18px 16px 10px; background: radial-gradient(ellipse at 50% 55%, rgba(253, 230, 138, 0.16), rgba(14, 8, 30, 0.55)); border-radius: 999px 999px 18px 18px; overflow: hidden; }
+body.home-real .gm-mystery { background-image: url("../assets/home/card-mystery.webp"); background-size: cover; background-position: center; }
+body.home-real .gm-mystery .gm-words-tile { display: none; }
