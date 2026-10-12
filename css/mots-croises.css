@@ -1,0 +1,35 @@
+/* Mots croisés — ajouts à css/mots-caches.css (cadre, joueur, bulles réutilisés) */
+.cw-board { display: block; width: 100%; }
+.cw-board[hidden] { display: none; }
+.cw-cluebar { min-height: 2.8em; margin: 0 auto 0.6rem; max-width: 560px; padding: 0.5rem 0.8rem; border-radius: 14px; font-size: 0.95rem; line-height: 1.35; text-align: center; color: rgba(255, 246, 226, 0.97); background: rgba(253, 230, 138, 0.1); border: 1px solid rgba(253, 230, 138, 0.35); }
+.cw-cluebar strong { color: rgba(253, 230, 138, 1); }
+.cw-grid { --cell: 40px; display: grid; grid-template-columns: repeat(var(--w), var(--cell)); grid-auto-rows: var(--cell); gap: 0; justify-content: center; margin: 0 auto; width: max-content; max-width: 100%; }
+.cw-block { display: block; width: var(--cell); height: var(--cell); }
+.cw-cell { position: relative; display: block; width: var(--cell); height: var(--cell); background: rgba(255, 250, 240, 0.94); border: 1px solid rgba(70, 40, 100, 0.55); border-radius: 4px; transition: background 0.15s; }
+.cw-cell.is-word { background: #fdf0c4; }
+.cw-cell.is-cur { background: #fde68a; box-shadow: inset 0 0 0 2px #f6a6d8; z-index: 1; }
+.cw-cell.is-wrong .cw-in { color: #c2185b; text-decoration: line-through; }
+.cw-cell.is-given .cw-in { color: #7c3aed; }
+.cw-num { position: absolute; left: 2px; top: 0; font-size: max(8px, calc(var(--cell) * 0.24)); line-height: 1.1; font-weight: 700; color: rgba(60, 30, 90, 0.85); pointer-events: none; }
+.cw-in { display: block; width: 100%; height: 100%; padding: 0; margin: 0; border: 0; background: transparent; text-align: center; font: inherit; font-weight: 700; font-size: calc(var(--cell) * 0.52); line-height: var(--cell); text-transform: uppercase; color: #1c0f2e; caret-color: transparent; outline: none; cursor: pointer; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+.cw-in:focus-visible { outline: none; }
+.cw-grid.is-luminous .cw-cell { animation: cw-glow 2.4s ease-in-out infinite; animation-delay: var(--d, 0ms); background: linear-gradient(140deg, #fff6d6, #fde68a 55%, #f4b8e6); }
+.cw-grid.is-luminous { filter: drop-shadow(0 0 18px rgba(253, 230, 138, 0.7)); }
+@keyframes cw-glow { 0%, 100% { transform: none; box-shadow: none; } 40% { transform: translateY(-3px) scale(1.04); box-shadow: 0 0 16px rgba(253, 230, 138, 1); } }
+.cw-kbd { display: flex; flex-direction: column; gap: 6px; margin: 0.8rem auto 0; max-width: 520px; user-select: none; }
+.cw-kbd[hidden] { display: none; }
+.cw-krow { display: flex; justify-content: center; gap: 4px; }
+.cw-key { flex: 1 1 0; min-width: 0; max-width: 46px; height: 46px; padding: 0; border-radius: 8px; font: inherit; font-weight: 700; font-size: 1rem; color: #fff8e6; background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 214, 236, 0.35); touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+.cw-key:active { background: rgba(253, 230, 138, 0.45); }
+.cw-key-wide { flex: 1.5 1 0; max-width: 64px; }
+.cw-clues { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem 1.2rem; margin-top: 1rem; }
+.cw-ch { margin: 0 0 0.35rem; font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255, 214, 236, 0.92); }
+.cw-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.3rem; }
+.cw-clue { display: block; width: 100%; text-align: left; padding: 0.4rem 0.55rem; border-radius: 10px; font: inherit; font-size: 0.88rem; line-height: 1.35; color: rgba(240, 232, 255, 0.92); background: rgba(255, 255, 255, 0.04); border: 1px solid transparent; cursor: pointer; }
+.cw-clue:focus-visible { outline: 2px solid var(--accent-2, #67e8f9); }
+.cw-list li.is-active .cw-clue { border-color: rgba(253, 230, 138, 0.8); background: rgba(253, 230, 138, 0.12); }
+.cw-list li.is-done .cw-ctext { text-decoration: line-through; opacity: 0.65; }
+.cw-cnum { font-weight: 700; color: rgba(253, 230, 138, 0.95); }
+.cw-clen { opacity: 0.7; white-space: nowrap; }
+@media (max-width: 640px) { .cw-clues { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: reduce) { .cw-grid.is-luminous .cw-cell { animation: none; } }

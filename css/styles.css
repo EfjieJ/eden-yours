@@ -3426,3 +3426,9 @@ body.home-real .gm-eden .gm-eden-piece { display: none; }
 .gm-mystery { position: relative; display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 118px; padding: 18px 16px 10px; background: radial-gradient(ellipse at 50% 55%, rgba(253, 230, 138, 0.16), rgba(14, 8, 30, 0.55)); border-radius: 999px 999px 18px 18px; overflow: hidden; }
 body.home-real .gm-mystery { background-image: url("../assets/home/card-mystery.webp"); background-size: cover; background-position: center; }
 body.home-real .gm-mystery .gm-words-tile { display: none; }
+
+/* Mots croisés — portail (accueil) */
+.game-card--crossword::before { animation-delay: -3.1s; }
+.gm-crossword { position: relative; display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 118px; padding: 18px 16px 10px; background: radial-gradient(ellipse at 50% 55%, rgba(244, 184, 230, 0.16), rgba(14, 8, 30, 0.55)); border-radius: 999px 999px 18px 18px; overflow: hidden; }
+body.home-real .gm-crossword { background-image: url("../assets/home/card-crossword.webp"); background-size: cover; background-position: center; }
+body.home-real .gm-crossword .gm-words-tile { display: none; }

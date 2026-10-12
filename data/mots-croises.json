@@ -1,0 +1,12 @@
+{
+ "version": 1,
+ "note": "Mots croisés — données. Mots tirés des vraies paroles (data/lyrics-sources.json, premier texte avant « --- »), mots-outils exclus via data/wordsearch.json. Définition = le vers réel où le mot apparaît, mot remplacé par « ___ », + nombre de lettres. maxW = largeur max de la grille (phone/desktop), maxH = hauteur max.",
+ "minLen": 4, "maxLen": 9, "maxLine": 110, "minPool": 20,
+ "levels": [
+  {"id": "easy", "words": 6, "maxW": {"phone": 9, "desktop": 11}, "maxH": 11},
+  {"id": "medium", "words": 8, "maxW": {"phone": 9, "desktop": 12}, "maxH": 12},
+  {"id": "hard", "words": 10, "maxW": {"phone": 9, "desktop": 13}, "maxH": 13}
+ ],
+ "defaultLevel": "easy",
+ "recentStorageKey": "eden-cw-recent"
+}
