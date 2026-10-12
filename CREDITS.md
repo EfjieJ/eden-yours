@@ -27,3 +27,6 @@ NASA imagery is not copyrighted (public domain in the US); NASA does not endorse
 - `card-carina.webp` — Carina Nebula, NASA/ESA Hubble, GSFC_20171208_Archive_e002076 — https://images.nasa.gov/details/GSFC_20171208_Archive_e002076
 - `card-pillars.webp` — Pillars of Creation (infrared), NASA/ESA Hubble, GSFC_20171208_Archive_e000842 — https://images.nasa.gov/details/GSFC_20171208_Archive_e000842
 - `card-scene3d.webp`, `card-jardin.webp` — our own renders; `cover-*.webp` — Eden Yours song covers.
+
+## « Construis ton Éden » (puzzle) — images
+Les quatre tableaux d'Éden (`assets/eden-puzzle/*.webp` : image à plat + couches ciel / nuages / lointain / milieu / être de lumière / avant-plan) sont des illustrations originales **générées par code** (`tools/gen-eden-scenes.py`, Python + Pillow + NumPy) : aucun modèle, photo ou texture tierce. Ils sont libres de droits (CC0) comme le reste des visuels dessinés du site. Format WebP optimisé (~45 Ko l'image à plat, ~140 Ko les couches d'un tableau).

@@ -3403,3 +3403,16 @@ body.home-real .gm-words .gm-words-tile { display: none; }
 .gm-sol-slot { display: block; width: 44px; height: 44px; border-radius: 50%; border: 2px dashed rgba(253, 230, 138, 0.85); box-shadow: 0 0 14px rgba(255, 170, 215, 0.5); }
 body.home-real .gm-solitaire { background-image: url("../assets/home/card-solitaire.webp"); background-size: cover; background-position: center; }
 body.home-real .gm-solitaire .gm-sol-slot { display: none; }
+
+/* Construis ton Éden — portail (accueil) : un tableau de paradis en cours d'assemblage */
+.game-card--eden::before { animation-delay: -8.2s; }
+.gm-eden {
+  position: relative; display: flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: 118px; padding: 18px 16px 10px;
+  background: radial-gradient(ellipse at 50% 55%, rgba(255, 170, 215, 0.16), rgba(14, 8, 30, 0.55));
+  border-radius: 999px 999px 18px 18px; overflow: hidden;
+}
+.gm-eden-piece { display: block; width: 46px; height: 46px; border-radius: 10px; border: 2px solid rgba(253, 230, 138, 0.85); background: linear-gradient(135deg, #6a3a8c, #e88fc0 55%, #ffd2b0); box-shadow: 0 0 14px rgba(255, 170, 215, 0.5); }
+.gm-eden-piece--b { transform: rotate(8deg) translateY(4px); }
+body.home-real .gm-eden { background-image: url("../assets/home/card-eden.webp"); background-size: cover; background-position: center; }
+body.home-real .gm-eden .gm-eden-piece { display: none; }

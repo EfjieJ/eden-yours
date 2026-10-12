@@ -1,0 +1,188 @@
+{
+ "version": 1,
+ "note": "Construis ton Éden — données. Chaque tableau est généré par code (tools/gen-eden-scenes.py) en couches séparées ; « category » = thème de data/categories.json dont on tire la chanson de fin (sinon une chanson de la langue de la page). « water » = polygone (fractions) où scintille l'eau, « halo » = [x,y,rayon] (fractions de la largeur) des êtres de lumière, « sun » = point lumineux.",
+ "recentStorageKey": "eden-ep-recent",
+ "defaultLevel": "easy",
+ "layers": [
+  "sky",
+  "clouds",
+  "far",
+  "mid",
+  "being",
+  "fg"
+ ],
+ "levels": [
+  {
+   "id": "easy",
+   "cols": 3,
+   "rows": 2
+  },
+  {
+   "id": "medium",
+   "cols": 4,
+   "rows": 3
+  },
+  {
+   "id": "hard",
+   "cols": 5,
+   "rows": 4
+  }
+ ],
+ "scenes": [
+  {
+   "id": "jardin",
+   "name": {
+    "fr": "Jardin flottant",
+    "en": "Floating Garden"
+   },
+   "desc": {
+    "fr": "Une île de lumière flotte sous un arc-en-ciel, et un être de lumière y danse.",
+    "en": "An island of light floats under a rainbow, and a being of light dances there."
+   },
+   "category": "jeu",
+   "base": "assets/eden-puzzle/jardin",
+   "water": null,
+   "halo": [
+    [
+     0.5416666666666666,
+     0.4791666666666667,
+     0.125
+    ]
+   ],
+   "sun": [
+    0.5,
+    0.5555555555555556
+   ]
+  },
+  {
+   "id": "riviere",
+   "name": {
+    "fr": "Rivière de lumière",
+    "en": "River of Light"
+   },
+   "desc": {
+    "fr": "Une rivière rosée traverse la prairie ; deux êtres de lumière veillent sur ses rives.",
+    "en": "A rosy river crosses the meadow; two beings of light watch over its banks."
+   },
+   "category": "regeneration",
+   "base": "assets/eden-puzzle/riviere",
+   "water": [
+    [
+     0.4895833333333333,
+     0.6111111111111112
+    ],
+    [
+     0.5125,
+     0.6111111111111112
+    ],
+    [
+     0.5833333333333334,
+     0.7222222222222222
+    ],
+    [
+     0.6666666666666666,
+     0.8333333333333334
+    ],
+    [
+     0.7916666666666666,
+     1
+    ],
+    [
+     0.1875,
+     1
+    ],
+    [
+     0.34375,
+     0.8333333333333334
+    ],
+    [
+     0.4479166666666667,
+     0.7222222222222222
+    ]
+   ],
+   "halo": [
+    [
+     0.2552083333333333,
+     0.7222222222222222,
+     0.11458333333333333
+    ],
+    [
+     0.765625,
+     0.7222222222222222,
+     0.10416666666666667
+    ]
+   ],
+   "sun": [
+    0.5,
+    0.58
+   ]
+  },
+  {
+   "id": "nuit",
+   "name": {
+    "fr": "Nuit d’étoiles",
+    "en": "Starry Night"
+   },
+   "desc": {
+    "fr": "Aurore, lune dorée et lac d’étoiles : un être de lumière danse sur l’eau.",
+    "en": "Aurora, golden moon and a lake of stars: a being of light dances on the water."
+   },
+   "category": "axiomes",
+   "base": "assets/eden-puzzle/nuit",
+   "water": [
+    [
+     0,
+     0.6527777777777778
+    ],
+    [
+     1,
+     0.6527777777777778
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "halo": [
+    [
+     0.4322916666666667,
+     0.5972222222222222,
+     0.125
+    ]
+   ],
+   "sun": [
+    0.7291666666666666,
+    0.2777777777777778
+   ]
+  },
+  {
+   "id": "foret",
+   "name": {
+    "fr": "Forêt dorée",
+    "en": "Golden Grove"
+   },
+   "desc": {
+    "fr": "Un sentier d’or traverse la forêt ; au bout, un être de lumière vous attend.",
+    "en": "A golden path crosses the grove; at its end, a being of light awaits."
+   },
+   "category": "nous",
+   "base": "assets/eden-puzzle/foret",
+   "water": null,
+   "halo": [
+    [
+     0.5,
+     0.5625,
+     0.13020833333333334
+    ]
+   ],
+   "sun": [
+    0.5,
+    0.2
+   ]
+  }
+ ]
+}
