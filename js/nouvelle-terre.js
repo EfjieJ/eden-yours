@@ -38,17 +38,25 @@
       { id: "auroras", fx: "glow", pts: [[790, 100], [890, 105], [835, 482]] },
       { id: "breath", fx: "glow", pts: [[590, 200], [1080, 380], [835, 290]] }] },
     { id: 6, sim: [96, 100], steps: [
-      { id: "ships", fx: "weld", pts: [[540, 610], [700, 598], [870, 615]] },
-      { id: "board", fx: "board", pts: [[540, 610], [700, 598], [870, 615]] },
-      { id: "launch", fx: "glow", pts: [[540, 610], [700, 598], [870, 615]] }] }
+      { id: "ships", fx: "weld", pts: [[850, 505], [873, 412], [850, 318]] },
+      { id: "board", fx: "glow", pts: [[478, 520], [300, 600], [420, 640]] },
+      { id: "launch", fx: "glow", pts: [[915, 412], [850, 560], [850, 360]] }] }
   ];
-  var AUTO = 4, LAST = LEVELS.length - 1, LAND = [[760, 250], [890, 330], [725, 370]], launches = [];
+  var AUTO = 4, LAST = LEVELS.length - 1, LAND = [[760, 250], [890, 330], [725, 370]], launches = [], boards = [], liftoff = 0, landedAt = 0;
+  var WALK = 6.5;
+  function boardDone() { return boards.length >= 3 && performance.now() - boards[2] > (4 * 0.8 + WALK) * 1000 && performance.now() - boards[0] > (2 * 0.7 + WALK) * 1000 && performance.now() - boards[1] > (4 * 0.8 + WALK) * 1000; }
+  var waitShown = false;
+  var SH = { x: 850, base: 542, h: 250 }, PATH = [[680, 598], [800, 590], [880, 574], [935, 558], [972, 547]];
   function D(l, id, k) { if (l < lvl) return true; if (l > lvl) return false; var i = -1; LEVELS[l].steps.forEach(function (s, q) { if (s.id === id) i = q; }); return !!done[i + ":" + k]; }
   var lvl = 0, STEPS = LEVELS[0].steps, TOTAL = 18, unlocked = 1, autoStart = 0, autoVal = 0;
   function S(l, id) { var L = LEVELS[l]; if (!L) return 0; if (l < lvl) return 3; if (l > lvl) return 0; var i = -1; L.steps.forEach(function (s, k) { if (s.id === id) i = k; }); if (i < 0) return 0;
     var n = 0; for (var k = 0; k < 3; k++) if (done[i + ":" + k]) n++; return n; }
   function A(l, id) { return S(l, id) / 3; }
   var BOTS = ["Lumen", "Orbi", "Sève"];
+  var imgL6 = new Image(), imgShip = new Image(), imgEx = new Image(), imgP = [0, 1, 2].map(function () { return new Image(); }), imgT = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(function () { return new Image(); });
+  function lazyL6() { if (imgL6.src) return; imgL6.src = "assets/nouvelle-terre/nt-l6-backdrop.webp"; imgShip.src = "assets/nouvelle-terre/nt-ship.webp"; imgEx.src = "assets/nouvelle-terre/nt-exhaust.webp";
+    imgP.forEach(function (im, i) { im.src = "assets/nouvelle-terre/nt-p" + i + ".webp"; }); imgT.forEach(function (im, i) { im.src = "assets/nouvelle-terre/nt-t" + i + ".webp"; }); }
+  function ok(im) { return im.complete && im.naturalWidth > 0; }
   var imgStart = new Image(), imgFinal = new Image(), imgEarth = new Image(), loaded = 0; imgEarth.src = "assets/nouvelle-terre/nt-earth.webp";
   var maskC = document.createElement("canvas"), compC = document.createElement("canvas"); maskC.width = compC.width = IW / 2; maskC.height = compC.height = IH / 2;
   var mctx = maskC.getContext("2d"), cctx = compC.getContext("2d");
@@ -139,12 +147,12 @@
     dpr = Math.min(2, window.devicePixelRatio || 1); canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
     var ar = w / h;
     if (ar > 1.6) view = { x: 0, y: 0, w: IW, h: IH };
-    else { var vh = 640, vw = Math.min(IW, vh * ar); view = { x: Math.max(0, Math.min(IW - vw, CX - vw / 2 - 20)), y: 20, w: vw, h: vh }; }
+    else { var vh = 640, vw = Math.min(IW, vh * ar), fx = lvl === LAST ? 250 + vw / 2 : CX - 20; view = { x: Math.max(0, Math.min(IW - vw, fx - vw / 2)), y: lvl === LAST ? 80 : 20, w: vw, h: vh }; }
     scale = w / view.w;
   }
   function toImg(clientX, clientY) { var r = canvas.getBoundingClientRect(); return { x: view.x + (clientX - r.left) / scale, y: view.y + (clientY - r.top) / scale }; }
   function toClient(x, y) { var r = canvas.getBoundingClientRect(); return { x: r.left + (x - view.x) * scale, y: r.top + (y - view.y) * scale }; }
-  function pending() { if (state !== "playing") return []; var s = STEPS[stepI]; return s.pts.map(function (p, k) { return { k: k, x: p[0], y: p[1] }; }).filter(function (p) { return !done[stepI + ":" + p.k] && !jobs.some(function (j) { return j.step === stepI && j.k === p.k; }); }); }
+  function pending() { if (state !== "playing") return []; var s = STEPS[stepI]; if (s.id === "launch" && !boardDone()) return []; return s.pts.map(function (p, k) { return { k: k, x: p[0], y: p[1] }; }).filter(function (p) { return !done[stepI + ":" + p.k] && !jobs.some(function (j) { return j.step === stepI && j.k === p.k; }); }); }
   function hitTarget(ix, iy) { var best = null, bd = Math.max(44, 30 / scale); pending().forEach(function (p) { var d = Math.hypot(p.x - ix, p.y - iy); if (d < bd) { bd = d; best = p; } }); return best; }
 
   /* interactions */
@@ -176,7 +184,7 @@
     var s = STEPS[j.step]; done[j.step + ":" + j.k] = 1; nDone++;
     if (s.r && lvl === 0) blobs.push({ x: j.x, y: j.y, r: s.r, t: performance.now() });
     if (s.id === "rings") { ringsOn++; }
-    if (s.id === "launch") { launches.push({ k: j.k, t: performance.now() }); tone([392, 523.25, 783.99, 1046.5], 0.07, 0.1, 0.9, "triangle"); }
+    if (s.id === "board") boards.push(performance.now());
     var fxc = { forest: "#9ae6b4", water: "#9fe7ff", cloud: "#ffffff", glow: "#a5f3fc" }[s.fx];
     burst(j.x, j.y, fxc || "#fde68a", 26);
     tone([523.25, 659.25, 783.99, 1046.5].slice(0, 2 + (nDone % 3)), 0.07, 0.07, 0.5);
@@ -184,6 +192,7 @@
     updateUI();
     if (STEPS[stepI].pts.every(function (_, k) { return done[stepI + ":" + k]; })) {
       if (stepI < STEPS.length - 1) { stepI++; say(t("nt.stepDone", { n: stepI, next: t("nt.step." + STEPS[stepI].id) })); tone([659.25, 783.99, 987.77, 1318.5], 0.08, 0.09, 0.7); updateUI(); }
+      else if (lvl === LAST) { state = "flying"; liftoff = performance.now(); rumble(); trayEl.hidden = true; updateUI(); setTimeout(function () { if (state === "flying") win(); }, 8200); }
       else win();
     }
   }
@@ -222,7 +231,7 @@
     ctx.setTransform(dpr * scale, 0, 0, dpr * scale, -view.x * dpr * scale, -view.y * dpr * scale);
     var zoom = state === "won" ? 1 + 0.025 * (1 - Math.cos(T * 0.6)) : 1;
     if (zoom !== 1) { ctx.translate(CX, CY); ctx.scale(zoom, zoom); ctx.translate(-CX, -CY); }
-    ctx.drawImage(imgStart, 0, 0, IW, IH); ctx.drawImage(compC, 0, 0, IW, IH);
+    if (lvl === LAST && ok(imgL6)) ctx.drawImage(imgL6, 0, 0, IW, IH); else { ctx.drawImage(imgStart, 0, 0, IW, IH); ctx.drawImage(compC, 0, 0, IW, IH); }
     // étoiles
     stars.forEach(function (s) { var a = 0.25 + 0.75 * (0.5 + 0.5 * Math.sin(T * s[4] + s[3])); ctx.fillStyle = "rgba(255,250,235," + a + ")"; ctx.beginPath(); ctx.arc(s[0], s[1], s[2], 0, 6.283); ctx.fill(); });
     drawRings(T, true);
@@ -303,7 +312,7 @@
       var fl = Math.sin(T * 12 + b2[0] * 5) * 3; ctx.strokeStyle = "rgba(255,248,230,0.85)"; ctx.lineWidth = 1.4; ctx.beginPath(); ctx.moveTo(x - 6, y - fl); ctx.lineTo(x, y); ctx.lineTo(x + 6, y - fl); ctx.stroke(); });
     if (ox > 0 && Math.random() < 0.25 * ox * (1 + auto)) { var op = LEVELS[2].steps[0].pts[Math.floor(Math.random() * 3)]; parts.push({ x: op[0] + rnd(-30, 30), y: op[1], vx: rnd(-6, 6), vy: rnd(-45, -25), life: 1.6, age: 0, col: Math.random() < 0.5 ? "rgba(170,255,230,0.9)" : "rgba(140,210,255,0.9)", s: rnd(1.2, 2.6), up: 1 }); }
     if (life > 0 && Math.random() < 0.15) { var lp = LEVELS[3].steps[1].pts[Math.floor(Math.random() * Math.min(3, lvl > 3 ? 3 : life))]; parts.push({ x: lp[0] + rnd(-25, 25), y: lp[1] + rnd(-20, 20), vx: 0, vy: -10, life: 0.8, age: 0, col: "#fde68a", s: 1.6, up: 1 }); }
-    if (lvl >= LAST) drawJourney(T, now);
+    if (lvl >= LAST) { drawJourney(T, now); if (waitShown && boardDone()) updateUI(); }
     if (autoStart) { autoVal = Math.min(100, (now - autoStart) / 50); setGauge(autoFill, autoValEl, autoBar, autoVal); }
   }
 
@@ -317,24 +326,62 @@
     ctx.shadowBlur = 0; ctx.fillStyle = "rgba(253,230,138,0.9)"; ctx.beginPath(); ctx.moveTo(-6, -9); ctx.quadraticCurveTo(2, -26, 14, -9); ctx.closePath(); ctx.globalAlpha = 0.55; ctx.fill(); ctx.globalAlpha = 1;
     for (var w = 0; w < 5; w++) { ctx.fillStyle = lit ? "rgba(255,226,150,0.95)" : "rgba(80,100,130,0.8)"; ctx.beginPath(); ctx.arc(-14 + w * 7, -2, 1.6, 0, 6.283); ctx.fill(); }
     ctx.fillStyle = "rgba(103,232,249,0.9)"; ctx.beginPath(); ctx.ellipse(-30, 3, 3, 2, 0, 0, 6.283); ctx.fill(); ctx.restore(); }
+  function rumble() { try { var c = ctxAudio(); if (!c) return; var n = c.sampleRate * 3, buf = c.createBuffer(1, n, c.sampleRate), d = buf.getChannelData(0); for (var i = 0; i < n; i++) d[i] = (Math.random() * 2 - 1) * Math.min(1, i / 8000) * (1 - i / n);
+      var src = c.createBufferSource(), f = c.createBiquadFilter(), g = c.createGain(); f.type = "lowpass"; f.frequency.value = 180; g.gain.value = 0.35; src.buffer = buf; src.connect(f); f.connect(g); g.connect(c.destination); src.start(); } catch (e) {} }
+  function pathPos(u) { var P = PATH, n = P.length - 1, x = u * n, i = Math.min(n - 1, Math.floor(x)), f = x - i; return [P[i][0] + (P[i + 1][0] - P[i][0]) * f, P[i][1] + (P[i + 1][1] - P[i][1]) * f]; }
+  function pscale(y) { return Math.max(0.13, Math.min(1.4, Math.pow(Math.max(0, (y - 535) / 45), 1.3))); }
+  function drawSprite(im, x, y, h, a, sway, flip) { if (!ok(im)) return; var w = h * im.naturalWidth / im.naturalHeight; ctx.save(); ctx.globalAlpha = a; ctx.translate(x, y); if (sway) ctx.rotate(sway); if (flip) ctx.scale(-1, 1);
+    ctx.shadowColor = "rgba(10,6,20,0.5)"; ctx.shadowBlur = 4; ctx.drawImage(im, -w / 2, -h, w, h); ctx.restore(); }
+  // une personne : départ (x0,y0) → chemin → tour ; renvoie faux si arrivée
+  function walker(im, H, x0, y0, t, dur, T, i) {
+    var u = Math.max(0, t / dur); if (u >= 1) return false;
+    var x, y; if (u < 0.3) { var p0 = pathPos(0), f = u / 0.3; x = x0 + (p0[0] - x0) * f; y = y0 + (p0[1] - y0) * f; } else { var q = pathPos((u - 0.3) / 0.7); x = q[0]; y = q[1]; }
+    var sc = u < 0.3 ? 1 - 0.15 * (u / 0.3) : 0.13 + 0.72 * Math.pow(1 - (u - 0.3) / 0.7, 1.5), bob = Math.abs(Math.sin(T * 6 + i)) * 2.2 * sc, a = u > 0.93 ? (1 - u) / 0.07 : 1;
+    drawSprite(im, x, y - bob, H * sc, a, Math.sin(T * 6 + i) * 0.03, false); return true;
+  }
   function drawJourney(T, now) {
-    var pts = LEVELS[LAST].steps[0].pts;
-    pts.forEach(function (p, k) {
-      var built = D(LAST, "ships", k), boarded = D(LAST, "board", k), L = null; launches.forEach(function (q) { if (q.k === k) L = q; });
-      var gone = D(LAST, "launch", k) && (!L || now - L.t > 2600) , land = LAND[k];
-      if (!built) { ctx.save(); ctx.strokeStyle = "rgba(160,235,255," + (0.35 + 0.2 * Math.sin(T * 3 + k)) + ")"; ctx.setLineDash([3, 4]); ctx.beginPath(); ctx.ellipse(p[0], p[1] + 6, 34, 7, 0, 0, 6.283); ctx.stroke(); ctx.restore(); }
-      if (built && !boarded) for (var i = 0; i < 3; i++) drawPerson(p[0] - 74 + i * 12, p[1] + 28, i === 2 ? 1 : 1.4, 0, i);
-      if (built && boarded && !D(LAST, "launch", k)) { ctx.strokeStyle = "rgba(255,226,170,0.35)"; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.moveTo(p[0] - 18, p[1] + 2); ctx.lineTo(p[0] - 40, p[1] + 22); ctx.stroke(); }
-      if (built && !D(LAST, "launch", k)) drawShip(p[0], p[1] - 8 + Math.sin(T * 2 + k) * 1.5, 1.6, boarded, 0.8 + 0.2 * Math.sin(T * 3 + k), 0);
-      if (L && now - L.t < 2600) { var u = Math.min(1, (now - L.t) / 2400), e = ease(u), cx = (p[0] + land[0]) / 2 - 80, cy = Math.min(p[1], land[1]) - 220,
-          bx = (1 - e) * (1 - e) * p[0] + 2 * (1 - e) * e * cx + e * e * land[0], by = (1 - e) * (1 - e) * p[1] + 2 * (1 - e) * e * cy + e * e * land[1];
-        ctx.save(); ctx.globalCompositeOperation = "lighter"; for (var tr = 1; tr <= 18; tr++) { var e2 = Math.max(0, e - tr * 0.018), tx = (1 - e2) * (1 - e2) * p[0] + 2 * (1 - e2) * e2 * cx + e2 * e2 * land[0], ty = (1 - e2) * (1 - e2) * p[1] + 2 * (1 - e2) * e2 * cy + e2 * e2 * land[1];
-          ctx.fillStyle = "rgba(160,235,255," + (0.5 - tr * 0.025) + ")"; ctx.beginPath(); ctx.arc(tx, ty, 4 - tr * 0.15, 0, 6.283); ctx.fill(); } ctx.restore();
-        drawShip(bx, by, 1.6 - 1.1 * e, true, 1, -0.5 * (1 - e)); if (u >= 1 && !L.burst) { L.burst = 1; burst(land[0], land[1], "#fde68a", 30); } }
-      if (gone) { ctx.save(); ctx.globalCompositeOperation = "lighter"; var gv = ctx.createRadialGradient(land[0], land[1], 1, land[0], land[1], 26); gv.addColorStop(0, "rgba(255,210,130,0.55)"); gv.addColorStop(1, "rgba(255,210,130,0)"); ctx.fillStyle = gv; ctx.beginPath(); ctx.arc(land[0], land[1], 26, 0, 6.283); ctx.fill(); ctx.restore();
-        for (var v = 0; v < 14; v++) { var vx = land[0] + Math.cos(v * 2.39) * (4 + v * 2.6), vy = land[1] + Math.sin(v * 2.39) * (3 + v * 1.8); ctx.fillStyle = "rgba(255,214,140," + (0.55 + 0.45 * Math.sin(T * 3 + v + k)) + ")"; ctx.beginPath(); ctx.arc(vx, vy, 2.2, 0, 6.283); ctx.fill(); }
-        ctx.save(); ctx.shadowColor = "#fde68a"; ctx.shadowBlur = 12; ctx.fillStyle = "rgba(255,240,200,0.9)"; ctx.beginPath(); ctx.arc(land[0], land[1], 2.4, 0, 6.283); ctx.fill(); ctx.restore(); }
-    });
+    if (!ok(imgShip)) return;
+    var built = S(LAST, "ships"), board = boards, lf = liftoff ? (now - liftoff) / 1000 : -1;
+    // vaisseau
+    var sw = SH.h * imgShip.naturalWidth / imgShip.naturalHeight, sx = SH.x, sy = SH.base, scale = 1, rot = 0, rise = 0;
+    if (lf >= 0) { if (lf < 1.4) rise = 0; else if (lf < 4.2) { var r = (lf - 1.4) / 2.8; rise = r * r * 420; } }
+    var phase2 = lf >= 4.2 ? Math.min(1, (lf - 4.2) / 2.6) : 0;
+    // fumée au sol
+    if (lf >= 0 && ok(imgEx)) { var sm = Math.min(1, lf / 1.2), fade = lf > 5 ? Math.max(0, 1 - (lf - 5) / 3) : 1, EH = 230 + 160 * sm, EW = EH * imgEx.naturalWidth / imgEx.naturalHeight;
+      ctx.save(); ctx.globalAlpha = 0.95 * sm * fade; ctx.drawImage(imgEx, 0, imgEx.naturalHeight * 0.45, imgEx.naturalWidth, imgEx.naturalHeight * 0.55, sx - EW * 0.48, sy - EH * 0.55 * 0.62, EW, EH * 0.55); ctx.restore(); }
+    if (lf < 0 || phase2 < 1) {
+      var bx = sx, by = sy - rise, hh = SH.h;
+      if (phase2 > 0) { var e = ease(phase2), c1x = 1010, c1y = -60, L0x = sx, L0y = sy - 420, L = LAND[0];
+        bx = (1 - e) * (1 - e) * L0x + 2 * (1 - e) * e * c1x + e * e * L[0]; by = (1 - e) * (1 - e) * L0y + 2 * (1 - e) * e * c1y + e * e * (L[1] + 14); hh = SH.h * (1 - 0.88 * e); rot = Math.sin(e * 3.1416) * -0.9 * (1 - e * 0.3); }
+      // flamme sous le vaisseau
+      if (lf >= 0.3 && ok(imgEx)) { var fl = Math.min(1, (lf - 0.3) / 0.8) * (phase2 > 0.85 ? (1 - phase2) / 0.15 : 1), PW = hh * 0.62, PH = hh * (0.9 + 0.15 * Math.sin(T * 30));
+        ctx.save(); ctx.translate(bx, by); ctx.rotate(rot); ctx.globalCompositeOperation = "lighter"; ctx.globalAlpha = fl;
+        ctx.drawImage(imgEx, imgEx.naturalWidth * 0.36, 0, imgEx.naturalWidth * 0.26, imgEx.naturalHeight * 0.5, -PW / 2, -4, PW, PH);
+        var gl = ctx.createRadialGradient(0, 0, 2, 0, 0, hh * 0.5); gl.addColorStop(0, "rgba(255,210,140,0.6)"); gl.addColorStop(1, "rgba(255,150,60,0)"); ctx.fillStyle = gl; ctx.beginPath(); ctx.arc(0, 0, hh * 0.5, 0, 6.283); ctx.fill(); ctx.restore(); }
+      if (phase2 > 0) { ctx.save(); ctx.globalCompositeOperation = "lighter"; for (var tr = 1; tr < 16; tr++) { var e2 = Math.max(0, ease(phase2) - tr * 0.02), tx = (1 - e2) * (1 - e2) * sx + 2 * (1 - e2) * e2 * 1010 + e2 * e2 * LAND[0][0], ty = (1 - e2) * (1 - e2) * (sy - 420) + 2 * (1 - e2) * e2 * -60 + e2 * e2 * (LAND[0][1] + 14);
+          ctx.fillStyle = "rgba(255,200,140," + (0.35 - tr * 0.02) + ")"; ctx.beginPath(); ctx.arc(tx, ty, 5 - tr * 0.25, 0, 6.283); ctx.fill(); } ctx.restore(); }
+      var shake = lf >= 0 && lf < 2.4 ? Math.sin(T * 60) * 0.8 : 0, w2 = hh * imgShip.naturalWidth / imgShip.naturalHeight;
+      ctx.save(); ctx.translate(bx + shake, by); ctx.rotate(rot); ctx.scale(-1, 1);
+      if (built < 3) { ctx.globalAlpha = 0.22; ctx.drawImage(imgShip, -w2 / 2, -hh, w2, hh); ctx.globalAlpha = 1; var fr = built / 3; if (fr > 0) { var ih = imgShip.naturalHeight * fr; ctx.drawImage(imgShip, 0, imgShip.naturalHeight - ih, imgShip.naturalWidth, ih, -w2 / 2, -hh * fr, w2, hh * fr); } }
+      else ctx.drawImage(imgShip, -w2 / 2, -hh, w2, hh);
+      ctx.restore();
+      if (built < 3 && built > 0 && Math.random() < 0.6) parts.push({ x: sx + rnd(-sw / 3, sw / 3), y: sy - SH.h * built / 3, vx: rnd(-60, 60), vy: rnd(-60, 10), life: 0.45, age: 0, col: "#ffc86e", s: 1.3 });
+      // hublots qui s'allument au fil de l'embarquement
+      var lit = Math.min(1, ((boards[0] ? 1 : 0) + (boards[1] ? 1 : 0) + (boards[2] ? 1 : 0)) / 3);
+      if (lit > 0 && phase2 === 0) { ctx.save(); ctx.globalCompositeOperation = "lighter"; var wy = by - SH.h * 0.6, gw = ctx.createRadialGradient(bx, wy, 2, bx, wy, 40); gw.addColorStop(0, "rgba(255,200,120," + 0.35 * lit + ")"); gw.addColorStop(1, "rgba(255,200,120,0)"); ctx.fillStyle = gw; ctx.fillRect(bx - 40, wy - 40, 80, 80); ctx.restore(); }
+    }
+    if (phase2 >= 1 && !landedAt) { landedAt = now; burst(LAND[0][0], LAND[0][1], "#fde68a", 50); tone([659.25, 783.99, 1046.5], 0.08, 0.1, 0.9); }
+    // personnes : les trois de la colline d'abord, puis la file
+    var P0 = [[300, 585, 140], [478, 580, 140], [577, 580, 104]];
+    P0.forEach(function (p, i) { var im = imgP[[0, 1, 2][i]];
+      if (!boards[0]) drawSprite(im, p[0], p[1], p[2] * (i === 0 ? 1 : 1), 1, Math.sin(T * 1.2 + i) * 0.012, false);
+      else walker(im, p[2], p[0], p[1], (now - boards[0]) / 1000 - i * 0.7, WALK, T, i); });
+    [1, 2].forEach(function (g) { if (!boards[g]) return; for (var q = 0; q < 5; q++) { var idx = (g - 1) * 5 + q, im = imgT[idx], kid = [2, 4, 6].indexOf(idx) >= 0;
+      walker(im, kid ? 92 : 125, 330 - q * 34, 600 + (q % 2) * 3, (now - boards[g]) / 1000 - q * 0.8, WALK, T, idx + 3); } });
+    // villages
+    if (landedAt) LAND.forEach(function (land, k) { var a = Math.min(1, (now - landedAt - k * 700) / 900); if (a <= 0) return;
+      ctx.save(); ctx.globalCompositeOperation = "lighter"; var gv = ctx.createRadialGradient(land[0], land[1], 1, land[0], land[1], 28); gv.addColorStop(0, "rgba(255,210,130," + 0.55 * a + ")"); gv.addColorStop(1, "rgba(255,210,130,0)"); ctx.fillStyle = gv; ctx.beginPath(); ctx.arc(land[0], land[1], 28, 0, 6.283); ctx.fill(); ctx.restore();
+      for (var v = 0; v < 14; v++) { var vx = land[0] + Math.cos(v * 2.39) * (4 + v * 2.6), vy = land[1] + Math.sin(v * 2.39) * (3 + v * 1.8); ctx.fillStyle = "rgba(255,214,140," + a * (0.55 + 0.45 * Math.sin(T * 3 + v + k)) + ")"; ctx.beginPath(); ctx.arc(vx, vy, 2.2, 0, 6.283); ctx.fill(); } });
   }
 
   /* interface */
@@ -357,14 +404,15 @@
     var pct = Math.round(nDone / TOTAL * 100); progFill.style.width = pct + "%"; progEl.setAttribute("aria-valuenow", pct); scoreEl.textContent = t("nt.levelShort", { n: lvl + 1, m: LEVELS.length });
     setGauge(simFill, simVal, simBar, simNow()); autoRow.hidden = lvl < AUTO; habRow.hidden = lvl < LAST; setGauge(habFill, habValEl, habBar, lvl < LAST ? 0 : state === "won" ? 100 : nDone / TOTAL * 100); if (!autoStart) setGauge(autoFill, autoValEl, autoBar, autoVal);
     renderSteps();
-    if (state === "playing") { var s = STEPS[stepI];
-      statusEl.textContent = t("nt.stepOf", { n: stepI + 1, m: STEPS.length, name: t("nt.step." + s.id) }); instrEl.textContent = t("nt.instr." + s.id, { n: s.pts.filter(function (_, k) { return !done[stepI + ":" + k]; }).length }); }
+    if (state === "playing") { var s = STEPS[stepI]; waitShown = s.id === "launch" && !boardDone();
+      statusEl.textContent = t("nt.stepOf", { n: stepI + 1, m: STEPS.length, name: t("nt.step." + s.id) }); instrEl.textContent = waitShown ? t("nt.waitBoard") : t("nt.instr." + s.id, { n: s.pts.filter(function (_, k) { return !done[stepI + ":" + k]; }).length }); }
+    else if (state === "flying") { statusEl.textContent = t("nt.liftoff"); instrEl.textContent = t("nt.liftoff"); }
     else if (state === "won") { statusEl.textContent = t(lvl === LAST ? "nt.welcomeHome" : lvl === AUTO ? "nt.solved" : "nt.levelDone", { n: lvl + 1 }); instrEl.textContent = lvl === AUTO ? t("nt.breathes") : lvl === LAST ? t("nt.welcomeHome") : ""; }
     else { statusEl.textContent = t("nt.level" + (lvl + 1)); instrEl.textContent = ""; }
   }
   function reset() {
     STEPS = LEVELS[lvl].steps; TOTAL = STEPS.length * 3;
-    stepI = 0; done = {}; nDone = 0; jobs = []; blobs = []; parts = []; ringsOn = lvl > 0 ? 3 : 0; ringFade = lvl > 0 ? [1, 1, 1] : [0, 0, 0]; fullReveal = lvl > 0 ? performance.now() - 5000 : 0; selected = -1; compDirty = true; autoStart = 0; autoVal = lvl > AUTO ? 100 : 0; launches = [];
+    stepI = 0; done = {}; nDone = 0; jobs = []; blobs = []; parts = []; ringsOn = lvl > 0 ? 3 : 0; ringFade = lvl > 0 ? [1, 1, 1] : [0, 0, 0]; fullReveal = lvl > 0 ? performance.now() - 5000 : 0; selected = -1; compDirty = true; autoStart = 0; autoVal = lvl > AUTO ? 100 : 0; launches = []; boards = []; liftoff = 0; landedAt = 0; if (lvl === LAST) lazyL6(); layout();
     bots = BOTS.map(function (n) { return { name: n, busy: false }; }); winEl.hidden = true; video.classList.remove("is-on"); try { video.pause(); } catch (e) {} video.hidden = true; againBtn.hidden = true; nextBtn.hidden = true;
   }
   function startGame() {
