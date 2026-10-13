@@ -30,3 +30,6 @@ NASA imagery is not copyrighted (public domain in the US); NASA does not endorse
 
 ## « Construis ton Éden » (puzzle) — images
 Les quatre tableaux d'Éden (`assets/eden-puzzle/*.webp` : image à plat + couches ciel / nuages / lointain / milieu / être de lumière / avant-plan) sont des illustrations originales **générées par code** (`tools/gen-eden-scenes.py`, Python + Pillow + NumPy) : aucun modèle, photo ou texture tierce. Ils sont libres de droits (CC0) comme le reste des visuels dessinés du site. Format WebP optimisé (~45 Ko l'image à plat, ~140 Ko les couches d'un tableau).
+
+## Bâtis la Nouvelle Terre / Build the New Earth
+- `assets/nouvelle-terre/nt-final.webp`, `nt-start.webp` (version « roche grise » générée par `tools`/script local), `nt-finale.mp4` (boucle animée générée à partir de l’image) et `assets/home/card-nouvelle-terre.webp` : illustration fournie par François (mini-Terre flottante bâtie par des robots), optimisée pour le site.
