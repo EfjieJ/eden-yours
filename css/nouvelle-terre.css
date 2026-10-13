@@ -8,7 +8,7 @@
 .nt-steps li.is-done { color: #c8f7d8; border-color: rgba(154, 230, 180, 0.45); }
 .nt-stage { position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 16px; overflow: hidden; background: #140c26; touch-action: none; user-select: none; -webkit-user-select: none; }
 .nt-canvas, .nt-video { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
-.nt-video { object-fit: cover; object-position: 66% 40%; opacity: 0; transition: opacity 1.6s ease; pointer-events: none; }
+.nt-video { object-fit: cover; object-position: 70% 40%; opacity: 0; transition: opacity 1.6s ease; pointer-events: none; }
 .nt-video.is-on { opacity: 1; }
 .nt-video[hidden] { display: none; }
 .nt-overlay { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 60%, rgba(20, 10, 40, 0.55), rgba(10, 6, 24, 0.82)); }
@@ -36,3 +36,15 @@
   .nt-bot { width: 66px; }
 }
 @media (prefers-reduced-motion: reduce) { .nt-bot svg, .nt-win-title { animation: none; } }
+.nt-levels { margin: 0 0 0.55rem; }
+.nt-levels .ws-level[disabled] { opacity: 0.4; cursor: not-allowed; }
+.nt-gauges { display: grid; gap: 6px; margin: 0 0 0.5rem; }
+.nt-gauge { display: grid; grid-template-columns: minmax(0, 11rem) 1fr 3.2rem; align-items: center; gap: 8px; font-size: 0.82rem; color: rgba(233, 220, 255, 0.92); }
+.nt-gauge[hidden] { display: none; }
+.nt-gauge-bar { position: relative; height: 9px; border-radius: 999px; background: rgba(255, 255, 255, 0.1); overflow: hidden; }
+.nt-gauge-fill { position: absolute; inset: 0 auto 0 0; width: 0; border-radius: inherit; background: linear-gradient(90deg, #3b82f6, #67e8f9 55%, #9ae6b4); box-shadow: 0 0 12px rgba(103, 232, 249, 0.7); transition: width 0.8s cubic-bezier(.2,.8,.2,1); }
+.nt-gauge--auto .nt-gauge-fill { background: linear-gradient(90deg, #a78bfa, #67e8f9 50%, #fde68a); transition: width 0.25s linear; }
+.nt-gauge-val { text-align: right; font-variant-numeric: tabular-nums; color: #fff8e6; }
+.nt-progress { height: 6px; }
+#nt-next[hidden], #nt-again[hidden] { display: none; }
+@media (max-width: 640px) { .nt-gauge { grid-template-columns: 7.6rem 1fr 2.8rem; font-size: 0.74rem; } .nt-stage { aspect-ratio: 4 / 3; } .nt-levels .ws-level { padding: 0.3rem 0.6rem; font-size: 0.78rem; } }

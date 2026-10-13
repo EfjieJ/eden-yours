@@ -24,15 +24,15 @@
   <meta name="twitter:description" data-i18n-content="nt.metaDesc" content="Depuis la colline, envoie des robots bâtir la mini-Terre flottante : échafaudages, panneaux de lumière, soudure, forêts, cascades, anneaux. Planète finie : elle s’anime et une chanson joue en entier.">
   <meta name="twitter:image" content="https://efjiej.github.io/eden-yours/assets/og-share-v2.jpg">
   <meta name="twitter:image:alt" data-i18n-content="common.ogAlt" content="Eden Yours — Écoute en continu. Ça régénère. 29 chansons · Casse-tête · Blind test">
-  <link rel="stylesheet" href="css/styles.css?v=20261012d">
-  <link rel="stylesheet" href="css/casse-tete.css?v=20261012d">
-  <link rel="stylesheet" href="css/mots-caches.css?v=20261012d">
-  <link rel="stylesheet" href="css/nouvelle-terre.css?v=20261012d">
+  <link rel="stylesheet" href="css/styles.css?v=20261012e">
+  <link rel="stylesheet" href="css/casse-tete.css?v=20261012e">
+  <link rel="stylesheet" href="css/mots-caches.css?v=20261012e">
+  <link rel="stylesheet" href="css/nouvelle-terre.css?v=20261012e">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%23c084fc'/%3E%3Cstop offset='1' stop-color='%2367e8f9'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="css/alive.css?v=20261012d">
-  <script src="js/alive.js?v=20261012d" defer></script>
-  <link rel="stylesheet" href="css/ciel.css?v=20261012d">
-  <script src="js/ciel.js?v=20261012d" defer></script>
+  <link rel="stylesheet" href="css/alive.css?v=20261012e">
+  <script src="js/alive.js?v=20261012e" defer></script>
+  <link rel="stylesheet" href="css/ciel.css?v=20261012e">
+  <script src="js/ciel.js?v=20261012e" defer></script>
 </head>
 <body class="page-casse page-words page-nt">
   <header class="site-nav">
@@ -97,6 +97,11 @@
             <p class="puzzle-now" id="nt-status" data-i18n="nt.ready">Prêt·e ?</p>
             <p class="puzzle-moves" id="nt-score" aria-live="off"></p>
           </div>
+          <div class="ws-levels nt-levels" id="nt-levels" role="group" data-i18n-aria="nt.levelAria" aria-label="Niveau"></div>
+          <div class="nt-gauges">
+            <div class="nt-gauge"><span class="nt-gauge-label" data-i18n="nt.similarity">Similitude avec la Terre</span><span class="nt-gauge-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" id="nt-sim" data-i18n-aria="nt.similarity" aria-label="Similitude avec la Terre"><span class="nt-gauge-fill" id="nt-sim-fill"></span></span><span class="nt-gauge-val" id="nt-sim-val">0 %</span></div>
+            <div class="nt-gauge nt-gauge--auto" id="nt-auto-row" hidden><span class="nt-gauge-label" data-i18n="nt.autonomy">Autonomie atmosphérique</span><span class="nt-gauge-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" id="nt-auto" data-i18n-aria="nt.autonomy" aria-label="Autonomie atmosphérique"><span class="nt-gauge-fill" id="nt-auto-fill"></span></span><span class="nt-gauge-val" id="nt-auto-val">0 %</span></div>
+          </div>
           <div class="nt-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="nt-progress" data-i18n-aria="nt.progressAria" aria-label="Avancement de la Nouvelle Terre"><span class="nt-progress-fill" id="nt-progress-fill"></span></div>
           <ol class="nt-steps" id="nt-steps" aria-hidden="true"></ol>
           <div class="nt-stage" id="nt-stage">
@@ -105,12 +110,12 @@
             <div class="nt-ghost" id="nt-ghost" hidden aria-hidden="true"></div>
             <div class="ws-overlay nt-overlay" id="nt-overlay">
               <p class="ws-overlay-kicker" data-i18n="nt.welcomeKicker">Depuis la colline</p>
-              <h2 class="ws-overlay-title" data-i18n="nt.welcomeTitle">Bâtis la Nouvelle Terre</h2>
-              <p class="ws-overlay-text" data-i18n="nt.welcomeText">Six étapes : échafaudages, panneaux de lumière, soudure, forêts, cascades et anneaux. Glisse un robot sur un point lumineux — ou touche simplement le point.</p>
+              <h2 class="ws-overlay-title" id="nt-ov-title">Bâtis la Nouvelle Terre</h2>
+              <p class="ws-overlay-text" id="nt-ov-text">Six étapes : échafaudages, panneaux de lumière, soudure, forêts, cascades et anneaux. Glisse un robot sur un point lumineux — ou touche simplement le point.</p>
               <button type="button" class="btn btn-primary bt-big stars-cta" id="nt-start" data-i18n="nt.start">Commencer</button>
             </div>
             <div class="nt-win" id="nt-win" hidden>
-              <p class="nt-win-title" data-i18n="nt.winTitle">La Nouvelle Terre est vivante ✨</p>
+              <p class="nt-win-title" id="nt-win-title">La Nouvelle Terre est vivante ✨</p>
             </div>
           </div>
           <p class="nt-instr" id="nt-instr" aria-live="polite"></p>
@@ -123,7 +128,7 @@
             <audio id="nt-audio" preload="none" controls></audio>
             <button type="button" class="btn btn-ghost ws-btn" id="nt-listen" hidden></button>
           </div>
-          <div class="ws-next-row"><button type="button" class="btn btn-primary bt-big stars-cta" id="nt-again" hidden data-i18n="nt.again">Rebâtir une Terre</button></div>
+          <div class="ws-next-row"><button type="button" class="btn btn-primary bt-big stars-cta" id="nt-next" hidden data-i18n="nt.next">Niveau suivant →</button> <button type="button" class="btn btn-ghost ws-btn" id="nt-again" hidden data-i18n="nt.replay">Rejouer ce niveau</button></div>
         </div>
         <div class="empty-songs" id="nt-empty" hidden><p data-i18n="nt.empty">Pas encore de chanson dans cette langue pour ce jeu</p></div>
         <a class="other-game" href="casse-tete-eden.html" data-lang-href="casse-tete-eden.html">
@@ -150,12 +155,12 @@
     </div>
   </footer>
 
-  <script src="js/eden-autoplay.js?v=20261012d"></script>
-  <script src="js/song-pick.js?v=20261012d"></script>
-  <script src="js/play-full-song.js?v=20261012d"></script>
-  <script src="js/lang-pill.js?v=20261012d"></script>
-<script src="js/i18n.js?v=20261012d"></script>
-  <script src="js/nouvelle-terre.js?v=20261012d"></script>
-  <script src="js/ambiance.js?v=20261012d"></script>
+  <script src="js/eden-autoplay.js?v=20261012e"></script>
+  <script src="js/song-pick.js?v=20261012e"></script>
+  <script src="js/play-full-song.js?v=20261012e"></script>
+  <script src="js/lang-pill.js?v=20261012e"></script>
+<script src="js/i18n.js?v=20261012e"></script>
+  <script src="js/nouvelle-terre.js?v=20261012e"></script>
+  <script src="js/ambiance.js?v=20261012e"></script>
 </body>
 </html>
