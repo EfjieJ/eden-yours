@@ -3439,3 +3439,10 @@ body.home-real .gm-crossword .gm-words-tile { display: none; }
 body.home-real .gm-newearth { background-image: url("../assets/home/card-nouvelle-terre.webp"); background-size: cover; background-position: center; }
 body.home-real .gm-newearth .gm-ne-orb { display: none; }
 .gm-ne-orb { width: 64px; height: 64px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #9ae6b4, #2f6b4f 60%, #1a2a3a); box-shadow: 0 0 22px rgba(103, 232, 249, 0.6); }
+
+/* Le Geste qui nomme — portail */
+.game-card--gesture::before { animation-delay: -2.3s; }
+.gm-gesture { position: relative; display: flex; align-items: center; justify-content: center; min-height: 118px; padding: 18px 16px 10px; background: radial-gradient(ellipse at 50% 60%, rgba(160, 235, 255, 0.16), rgba(14, 8, 30, 0.55)); border-radius: 999px 999px 18px 18px; overflow: hidden; }
+body.home-real .gm-gesture { background-image: url("../assets/home/card-geste.webp"); background-size: cover; background-position: center; }
+body.home-real .gm-gesture .gm-ge-dot { display: none; }
+.gm-ge-dot { width: 18px; height: 18px; border-radius: 50%; background: #fff; box-shadow: 0 0 18px 6px rgba(160, 235, 255, 0.8); }

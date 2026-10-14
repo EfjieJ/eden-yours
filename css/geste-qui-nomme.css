@@ -1,0 +1,19 @@
+/* Eden Yours — Le Geste qui nomme / The Gesture That Names */
+.nt-card { position: relative; padding: 1rem; border-radius: 22px; background: linear-gradient(160deg, rgba(40, 22, 70, 0.72), rgba(16, 10, 34, 0.82)); border: 1px solid rgba(255, 214, 236, 0.22); box-shadow: 0 18px 50px rgba(8, 4, 20, 0.45); }
+.nt-overlay { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 60%, rgba(20, 10, 40, 0.5), rgba(10, 6, 24, 0.8)); }
+.gn-quote { font-style: italic; }
+.gn-stage { position: relative; width: 100%; aspect-ratio: 16 / 10; border-radius: 18px; overflow: hidden; touch-action: none; user-select: none; -webkit-user-select: none; cursor: grab;
+  background: radial-gradient(ellipse at 50% 110%, rgba(255, 170, 200, 0.35), transparent 60%), radial-gradient(ellipse at 20% 0%, rgba(103, 232, 249, 0.12), transparent 55%), linear-gradient(180deg, #1a1036, #2a1648 55%, #4a2550); }
+.gn-stage:active { cursor: grabbing; }
+.gn-stage:focus-visible { outline: 2px solid #67e8f9; outline-offset: 3px; }
+.gn-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.gn-readout { min-height: 1.3em; margin: 0.55rem 0 0; text-align: center; font-size: 0.8rem; letter-spacing: 0.04em; color: rgba(233, 220, 255, 0.7); font-variant-numeric: tabular-nums; }
+.gn-poem { margin: 0.9rem auto 0.2rem; max-width: 34rem; padding: 1rem 1.2rem; border-radius: 16px; text-align: center; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(253, 230, 138, 0.35); box-shadow: 0 0 24px rgba(253, 230, 138, 0.15); }
+.gn-poem[hidden] { display: none; }
+.gn-poem h3 { margin: 0 0 0.6rem; font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255, 214, 236, 0.92); }
+.gn-poem p { margin: 0.2rem 0; font-size: 1.08rem; line-height: 1.5; color: #fff8e6; animation: gn-in 0.9s ease both; }
+.gn-poem p.gn-close { margin-top: 0.7rem; font-size: 0.92rem; font-style: italic; color: rgba(233, 220, 255, 0.85); }
+@keyframes gn-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+#gn-again[hidden], .ws-actions[hidden] { display: none; }
+@media (max-width: 640px) { .nt-card { padding: 0.7rem 0.55rem; } .gn-stage { aspect-ratio: 3 / 4; } }
+@media (prefers-reduced-motion: reduce) { .gn-poem p { animation: none; } }
