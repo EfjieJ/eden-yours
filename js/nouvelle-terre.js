@@ -38,23 +38,23 @@
       { id: "auroras", fx: "glow", pts: [[790, 100], [890, 105], [835, 482]] },
       { id: "breath", fx: "glow", pts: [[590, 200], [1080, 380], [835, 290]] }] },
     { id: 6, sim: [96, 100], steps: [
-      { id: "ships", fx: "weld", pts: [[850, 505], [873, 412], [850, 318]] },
+      { id: "ships", fx: "glow", pts: [[950, 320], [1020, 320], [985, 380]] },
       { id: "board", fx: "glow", pts: [[478, 520], [300, 600], [420, 640]] },
-      { id: "launch", fx: "glow", pts: [[915, 412], [850, 560], [850, 360]] }] }
+      { id: "launch", fx: "glow", pts: [[915, 412], [985, 548], [985, 290]] }] }
   ];
-  var AUTO = 4, LAST = LEVELS.length - 1, LAND = [[760, 250], [890, 330], [725, 370]], launches = [], boards = [], liftoff = 0, landedAt = 0;
+  var AUTO = 4, LAST = LEVELS.length - 1, LAND = [[760, 250], [890, 330], [725, 370]], boards = [], departAt = 0, landedAt = 0;
   var WALK = 6.5;
   function boardDone() { return boards.length >= 3 && performance.now() - boards[2] > (4 * 0.8 + WALK) * 1000 && performance.now() - boards[0] > (2 * 0.7 + WALK) * 1000 && performance.now() - boards[1] > (4 * 0.8 + WALK) * 1000; }
   var waitShown = false;
-  var SH = { x: 850, base: 542, h: 250 }, PATH = [[680, 598], [800, 590], [880, 574], [935, 558], [972, 547]];
+  var ORB = { x: 985, y: 330 }, PATH = [[680, 598], [800, 590], [880, 574], [935, 558], [972, 547]];
   function D(l, id, k) { if (l < lvl) return true; if (l > lvl) return false; var i = -1; LEVELS[l].steps.forEach(function (s, q) { if (s.id === id) i = q; }); return !!done[i + ":" + k]; }
   var lvl = 0, STEPS = LEVELS[0].steps, TOTAL = 18, unlocked = 1, autoStart = 0, autoVal = 0;
   function S(l, id) { var L = LEVELS[l]; if (!L) return 0; if (l < lvl) return 3; if (l > lvl) return 0; var i = -1; L.steps.forEach(function (s, k) { if (s.id === id) i = k; }); if (i < 0) return 0;
     var n = 0; for (var k = 0; k < 3; k++) if (done[i + ":" + k]) n++; return n; }
   function A(l, id) { return S(l, id) / 3; }
   var BOTS = ["Lumen", "Orbi", "Sève"];
-  var imgL6 = new Image(), imgShip = new Image(), imgEx = new Image(), imgP = [0, 1, 2].map(function () { return new Image(); }), imgT = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(function () { return new Image(); });
-  function lazyL6() { if (imgL6.src) return; imgL6.src = "assets/nouvelle-terre/nt-l6-backdrop.webp"; imgShip.src = "assets/nouvelle-terre/nt-ship.webp"; imgEx.src = "assets/nouvelle-terre/nt-exhaust.webp";
+  var imgL6 = new Image(), imgSmoke = new Image(), imgP = [0, 1, 2].map(function () { return new Image(); }), imgT = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(function () { return new Image(); });
+  function lazyL6() { if (imgL6.src) return; imgL6.src = "assets/nouvelle-terre/nt-l6-backdrop.webp"; imgSmoke.src = "assets/nouvelle-terre/nt-smoke.webp";
     imgP.forEach(function (im, i) { im.src = "assets/nouvelle-terre/nt-p" + i + ".webp"; }); imgT.forEach(function (im, i) { im.src = "assets/nouvelle-terre/nt-t" + i + ".webp"; }); }
   function ok(im) { return im.complete && im.naturalWidth > 0; }
   var imgStart = new Image(), imgFinal = new Image(), imgEarth = new Image(), loaded = 0; imgEarth.src = "assets/nouvelle-terre/nt-earth.webp";
@@ -192,7 +192,7 @@
     updateUI();
     if (STEPS[stepI].pts.every(function (_, k) { return done[stepI + ":" + k]; })) {
       if (stepI < STEPS.length - 1) { stepI++; say(t("nt.stepDone", { n: stepI, next: t("nt.step." + STEPS[stepI].id) })); tone([659.25, 783.99, 987.77, 1318.5], 0.08, 0.09, 0.7); updateUI(); }
-      else if (lvl === LAST) { state = "flying"; liftoff = performance.now(); rumble(); trayEl.hidden = true; updateUI(); setTimeout(function () { if (state === "flying") win(); }, 8200); }
+      else if (lvl === LAST) { state = "flying"; departAt = performance.now(); rumble(); trayEl.hidden = true; updateUI(); setTimeout(function () { if (state === "flying") win(); }, 8200); }
       else win();
     }
   }
@@ -326,8 +326,7 @@
     ctx.shadowBlur = 0; ctx.fillStyle = "rgba(253,230,138,0.9)"; ctx.beginPath(); ctx.moveTo(-6, -9); ctx.quadraticCurveTo(2, -26, 14, -9); ctx.closePath(); ctx.globalAlpha = 0.55; ctx.fill(); ctx.globalAlpha = 1;
     for (var w = 0; w < 5; w++) { ctx.fillStyle = lit ? "rgba(255,226,150,0.95)" : "rgba(80,100,130,0.8)"; ctx.beginPath(); ctx.arc(-14 + w * 7, -2, 1.6, 0, 6.283); ctx.fill(); }
     ctx.fillStyle = "rgba(103,232,249,0.9)"; ctx.beginPath(); ctx.ellipse(-30, 3, 3, 2, 0, 0, 6.283); ctx.fill(); ctx.restore(); }
-  function rumble() { try { var c = ctxAudio(); if (!c) return; var n = c.sampleRate * 3, buf = c.createBuffer(1, n, c.sampleRate), d = buf.getChannelData(0); for (var i = 0; i < n; i++) d[i] = (Math.random() * 2 - 1) * Math.min(1, i / 8000) * (1 - i / n);
-      var src = c.createBufferSource(), f = c.createBiquadFilter(), g = c.createGain(); f.type = "lowpass"; f.frequency.value = 180; g.gain.value = 0.35; src.buffer = buf; src.connect(f); f.connect(g); g.connect(c.destination); src.start(); } catch (e) {} }
+  function rumble() { tone([196, 261.63, 392, 523.25, 783.99], 0.06, 0.18, 1.6); }
   function pathPos(u) { var P = PATH, n = P.length - 1, x = u * n, i = Math.min(n - 1, Math.floor(x)), f = x - i; return [P[i][0] + (P[i + 1][0] - P[i][0]) * f, P[i][1] + (P[i + 1][1] - P[i][1]) * f]; }
   function pscale(y) { return Math.max(0.13, Math.min(1.4, Math.pow(Math.max(0, (y - 535) / 45), 1.3))); }
   function drawSprite(im, x, y, h, a, sway, flip) { if (!ok(im)) return; var w = h * im.naturalWidth / im.naturalHeight; ctx.save(); ctx.globalAlpha = a; ctx.translate(x, y); if (sway) ctx.rotate(sway); if (flip) ctx.scale(-1, 1);
@@ -340,35 +339,31 @@
     drawSprite(im, x, y - bob, H * sc, a, Math.sin(T * 6 + i) * 0.03, false); return true;
   }
   function drawJourney(T, now) {
-    if (!ok(imgShip)) return;
-    var built = S(LAST, "ships"), board = boards, lf = liftoff ? (now - liftoff) / 1000 : -1;
-    // vaisseau
-    var sw = SH.h * imgShip.naturalWidth / imgShip.naturalHeight, sx = SH.x, sy = SH.base, scale = 1, rot = 0, rise = 0;
-    if (lf >= 0) { if (lf < 1.4) rise = 0; else if (lf < 4.2) { var r = (lf - 1.4) / 2.8; rise = r * r * 420; } }
+    var built = S(LAST, "ships"), lf = departAt ? (now - departAt) / 1000 : -1;
+    // bulle de lumière dorée au sommet de la tour
+    var ox = ORB.x, oy = ORB.y, rise = 0;
+    if (lf >= 1.4 && lf < 4.2) { var r0 = (lf - 1.4) / 2.8; rise = r0 * r0 * 200; } else if (lf >= 4.2) rise = 200;
     var phase2 = lf >= 4.2 ? Math.min(1, (lf - 4.2) / 2.6) : 0;
-    // fumée au sol
-    if (lf >= 0 && ok(imgEx)) { var sm = Math.min(1, lf / 1.2), fade = lf > 5 ? Math.max(0, 1 - (lf - 5) / 3) : 1, EH = 230 + 160 * sm, EW = EH * imgEx.naturalWidth / imgEx.naturalHeight;
-      ctx.save(); ctx.globalAlpha = 0.95 * sm * fade; ctx.drawImage(imgEx, 0, imgEx.naturalHeight * 0.45, imgEx.naturalWidth, imgEx.naturalHeight * 0.55, sx - EW * 0.48, sy - EH * 0.55 * 0.62, EW, EH * 0.55); ctx.restore(); }
+    // nuage de fumée/brume lumineuse au départ (base de la tour)
+    if (lf >= 0 && ok(imgSmoke)) { var sm = Math.min(1, lf / 1.2), fade = lf > 5 ? Math.max(0, 1 - (lf - 5) / 3) : 1, EH = 130 + 90 * sm, EW = EH * imgSmoke.naturalWidth / imgSmoke.naturalHeight;
+      ctx.save(); ctx.globalAlpha = 0.9 * sm * fade; ctx.drawImage(imgSmoke, ox - EW * 0.5, 545 - EH * 0.62, EW, EH); ctx.restore();
+      if (lf < 4.2) { ctx.save(); ctx.globalCompositeOperation = "lighter"; var by0 = oy - rise, beam = ctx.createLinearGradient(0, by0, 0, 545); beam.addColorStop(0, "rgba(255,226,160," + 0.5 * Math.min(1, lf / 0.8) + ")"); beam.addColorStop(1, "rgba(255,200,140,0)");
+        ctx.fillStyle = beam; ctx.beginPath(); ctx.moveTo(ox - 8, by0); ctx.lineTo(ox + 8, by0); ctx.lineTo(ox + 26, 545); ctx.lineTo(ox - 26, 545); ctx.closePath(); ctx.fill(); ctx.restore(); } }
     if (lf < 0 || phase2 < 1) {
-      var bx = sx, by = sy - rise, hh = SH.h;
-      if (phase2 > 0) { var e = ease(phase2), c1x = 1010, c1y = -60, L0x = sx, L0y = sy - 420, L = LAND[0];
-        bx = (1 - e) * (1 - e) * L0x + 2 * (1 - e) * e * c1x + e * e * L[0]; by = (1 - e) * (1 - e) * L0y + 2 * (1 - e) * e * c1y + e * e * (L[1] + 14); hh = SH.h * (1 - 0.88 * e); rot = Math.sin(e * 3.1416) * -0.9 * (1 - e * 0.3); }
-      // flamme sous le vaisseau
-      if (lf >= 0.3 && ok(imgEx)) { var fl = Math.min(1, (lf - 0.3) / 0.8) * (phase2 > 0.85 ? (1 - phase2) / 0.15 : 1), PW = hh * 0.62, PH = hh * (0.9 + 0.15 * Math.sin(T * 30));
-        ctx.save(); ctx.translate(bx, by); ctx.rotate(rot); ctx.globalCompositeOperation = "lighter"; ctx.globalAlpha = fl;
-        ctx.drawImage(imgEx, imgEx.naturalWidth * 0.36, 0, imgEx.naturalWidth * 0.26, imgEx.naturalHeight * 0.5, -PW / 2, -4, PW, PH);
-        var gl = ctx.createRadialGradient(0, 0, 2, 0, 0, hh * 0.5); gl.addColorStop(0, "rgba(255,210,140,0.6)"); gl.addColorStop(1, "rgba(255,150,60,0)"); ctx.fillStyle = gl; ctx.beginPath(); ctx.arc(0, 0, hh * 0.5, 0, 6.283); ctx.fill(); ctx.restore(); }
-      if (phase2 > 0) { ctx.save(); ctx.globalCompositeOperation = "lighter"; for (var tr = 1; tr < 16; tr++) { var e2 = Math.max(0, ease(phase2) - tr * 0.02), tx = (1 - e2) * (1 - e2) * sx + 2 * (1 - e2) * e2 * 1010 + e2 * e2 * LAND[0][0], ty = (1 - e2) * (1 - e2) * (sy - 420) + 2 * (1 - e2) * e2 * -60 + e2 * e2 * (LAND[0][1] + 14);
-          ctx.fillStyle = "rgba(255,200,140," + (0.35 - tr * 0.02) + ")"; ctx.beginPath(); ctx.arc(tx, ty, 5 - tr * 0.25, 0, 6.283); ctx.fill(); } ctx.restore(); }
-      var shake = lf >= 0 && lf < 2.4 ? Math.sin(T * 60) * 0.8 : 0, w2 = hh * imgShip.naturalWidth / imgShip.naturalHeight;
-      ctx.save(); ctx.translate(bx + shake, by); ctx.rotate(rot); ctx.scale(-1, 1);
-      if (built < 3) { ctx.globalAlpha = 0.22; ctx.drawImage(imgShip, -w2 / 2, -hh, w2, hh); ctx.globalAlpha = 1; var fr = built / 3; if (fr > 0) { var ih = imgShip.naturalHeight * fr; ctx.drawImage(imgShip, 0, imgShip.naturalHeight - ih, imgShip.naturalWidth, ih, -w2 / 2, -hh * fr, w2, hh * fr); } }
-      else ctx.drawImage(imgShip, -w2 / 2, -hh, w2, hh);
-      ctx.restore();
-      if (built < 3 && built > 0 && Math.random() < 0.6) parts.push({ x: sx + rnd(-sw / 3, sw / 3), y: sy - SH.h * built / 3, vx: rnd(-60, 60), vy: rnd(-60, 10), life: 0.45, age: 0, col: "#ffc86e", s: 1.3 });
-      // hublots qui s'allument au fil de l'embarquement
-      var lit = Math.min(1, ((boards[0] ? 1 : 0) + (boards[1] ? 1 : 0) + (boards[2] ? 1 : 0)) / 3);
-      if (lit > 0 && phase2 === 0) { ctx.save(); ctx.globalCompositeOperation = "lighter"; var wy = by - SH.h * 0.6, gw = ctx.createRadialGradient(bx, wy, 2, bx, wy, 40); gw.addColorStop(0, "rgba(255,200,120," + 0.35 * lit + ")"); gw.addColorStop(1, "rgba(255,200,120,0)"); ctx.fillStyle = gw; ctx.fillRect(bx - 40, wy - 40, 80, 80); ctx.restore(); }
+      var bx = ox, by = oy - rise, rr = 10 + 9 * built + 5 * Math.min(3, boards.length);
+      if (phase2 > 0) { var e = ease(phase2), sX = ox, sY = oy - 200, L = LAND[0];
+        bx = (1 - e) * (1 - e) * sX + 2 * (1 - e) * e * 1110 + e * e * L[0]; by = (1 - e) * (1 - e) * sY + 2 * (1 - e) * e * -40 + e * e * L[1]; rr *= 1 - 0.7 * e;
+        ctx.save(); ctx.globalCompositeOperation = "lighter"; for (var tr = 1; tr < 18; tr++) { var e2 = Math.max(0, e - tr * 0.02), tx = (1 - e2) * (1 - e2) * sX + 2 * (1 - e2) * e2 * 1110 + e2 * e2 * L[0], ty = (1 - e2) * (1 - e2) * sY + 2 * (1 - e2) * e2 * -40 + e2 * e2 * L[1];
+          ctx.fillStyle = "rgba(255,214,140," + (0.4 - tr * 0.02) + ")"; ctx.beginPath(); ctx.arc(tx, ty, Math.max(1, rr * 0.35 - tr * 0.3), 0, 6.283); ctx.fill(); } ctx.restore(); }
+      if (built === 0 && lf < 0) { ctx.save(); ctx.strokeStyle = "rgba(253,230,138," + (0.35 + 0.2 * Math.sin(T * 3)) + ")"; ctx.setLineDash([3, 5]); ctx.beginPath(); ctx.arc(bx, by, 34, 0, 6.283); ctx.stroke(); ctx.restore(); }
+      else { var pul = 1 + 0.06 * Math.sin(T * 2.4), R2 = rr * pul;
+        ctx.save(); ctx.globalCompositeOperation = "lighter"; var halo = ctx.createRadialGradient(bx, by, R2 * 0.3, bx, by, R2 * 2.6); halo.addColorStop(0, "rgba(255,226,160,0.55)"); halo.addColorStop(1, "rgba(255,190,120,0)"); ctx.fillStyle = halo; ctx.beginPath(); ctx.arc(bx, by, R2 * 2.6, 0, 6.283); ctx.fill(); ctx.restore();
+        var g = ctx.createRadialGradient(bx - R2 * 0.35, by - R2 * 0.4, R2 * 0.1, bx, by, R2); g.addColorStop(0, "rgba(255,252,235,0.95)"); g.addColorStop(0.45, "rgba(255,224,150,0.55)"); g.addColorStop(0.85, "rgba(255,190,140,0.28)"); g.addColorStop(1, "rgba(255,240,210,0.75)");
+        ctx.save(); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(bx, by, R2, 0, 6.283); ctx.fill(); ctx.strokeStyle = "rgba(255,248,230,0.7)"; ctx.lineWidth = 1.2; ctx.stroke();
+        ctx.fillStyle = "rgba(255,255,255,0.75)"; ctx.beginPath(); ctx.ellipse(bx - R2 * 0.38, by - R2 * 0.42, R2 * 0.22, R2 * 0.12, -0.6, 0, 6.283); ctx.fill(); ctx.restore();
+        if (built < 3 && Math.random() < 0.5) parts.push({ x: bx + rnd(-R2, R2), y: by + rnd(-R2, R2), vx: rnd(-20, 20), vy: rnd(-30, -5), life: 0.8, age: 0, col: "#fde68a", s: 1.4, up: 1 }); }
+      // passagers : petites lumières qui montent de la base de la tour vers la bulle
+      if (lf < 0 && boards.length && Math.random() < 0.35) parts.push({ x: ox + rnd(-6, 6), y: 540, vx: rnd(-4, 4), vy: -110, life: (540 - oy) / 110, age: 0, col: "#ffe2a0", s: 1.8, up: 1 });
     }
     if (phase2 >= 1 && !landedAt) { landedAt = now; burst(LAND[0][0], LAND[0][1], "#fde68a", 50); tone([659.25, 783.99, 1046.5], 0.08, 0.1, 0.9); }
     // personnes : les trois de la colline d'abord, puis la file
@@ -406,13 +401,13 @@
     renderSteps();
     if (state === "playing") { var s = STEPS[stepI]; waitShown = s.id === "launch" && !boardDone();
       statusEl.textContent = t("nt.stepOf", { n: stepI + 1, m: STEPS.length, name: t("nt.step." + s.id) }); instrEl.textContent = waitShown ? t("nt.waitBoard") : t("nt.instr." + s.id, { n: s.pts.filter(function (_, k) { return !done[stepI + ":" + k]; }).length }); }
-    else if (state === "flying") { statusEl.textContent = t("nt.liftoff"); instrEl.textContent = t("nt.liftoff"); }
+    else if (state === "flying") { statusEl.textContent = t("nt.departing"); instrEl.textContent = t("nt.departing"); }
     else if (state === "won") { statusEl.textContent = t(lvl === LAST ? "nt.welcomeHome" : lvl === AUTO ? "nt.solved" : "nt.levelDone", { n: lvl + 1 }); instrEl.textContent = lvl === AUTO ? t("nt.breathes") : lvl === LAST ? t("nt.welcomeHome") : ""; }
     else { statusEl.textContent = t("nt.level" + (lvl + 1)); instrEl.textContent = ""; }
   }
   function reset() {
     STEPS = LEVELS[lvl].steps; TOTAL = STEPS.length * 3;
-    stepI = 0; done = {}; nDone = 0; jobs = []; blobs = []; parts = []; ringsOn = lvl > 0 ? 3 : 0; ringFade = lvl > 0 ? [1, 1, 1] : [0, 0, 0]; fullReveal = lvl > 0 ? performance.now() - 5000 : 0; selected = -1; compDirty = true; autoStart = 0; autoVal = lvl > AUTO ? 100 : 0; launches = []; boards = []; liftoff = 0; landedAt = 0; if (lvl === LAST) lazyL6(); layout();
+    stepI = 0; done = {}; nDone = 0; jobs = []; blobs = []; parts = []; ringsOn = lvl > 0 ? 3 : 0; ringFade = lvl > 0 ? [1, 1, 1] : [0, 0, 0]; fullReveal = lvl > 0 ? performance.now() - 5000 : 0; selected = -1; compDirty = true; autoStart = 0; autoVal = lvl > AUTO ? 100 : 0; boards = []; departAt = 0; landedAt = 0; if (lvl === LAST) lazyL6(); layout();
     bots = BOTS.map(function (n) { return { name: n, busy: false }; }); winEl.hidden = true; video.classList.remove("is-on"); try { video.pause(); } catch (e) {} video.hidden = true; againBtn.hidden = true; nextBtn.hidden = true;
   }
   function startGame() {
