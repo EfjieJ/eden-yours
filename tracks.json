@@ -576,6 +576,21 @@
       "featured": false,
       "audio_url_aac": null,
       "lang": "fr"
+    },
+    {
+      "id": "9f072abb-56f9-4055-beac-ba6f1c91d539",
+      "title": "C'est la cause totale",
+      "artist": "Eden Yours",
+      "sunoArtist": "efjie8008",
+      "sunoTitle": "C'est la cause totale",
+      "audio_url": null,
+      "embed_url": "https://suno.com/embed/9f072abb-56f9-4055-beac-ba6f1c91d539",
+      "cover_url": "assets/covers/9f072abb-56f9-4055-beac-ba6f1c91d539.jpeg",
+      "suno_share": "https://suno.com/s/BNUEPG8XO9h3Vb4i",
+      "duration": 209.16,
+      "featured": false,
+      "audio_url_aac": null,
+      "lang": "fr"
     }
   ]
 }
