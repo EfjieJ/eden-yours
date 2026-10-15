@@ -591,6 +591,21 @@
       "featured": false,
       "audio_url_aac": null,
       "lang": "fr"
+    },
+    {
+      "id": "603767be-26ae-4e8a-b782-209f2a7002e8",
+      "title": "Joie au Tambourin",
+      "artist": "Eden Yours",
+      "sunoArtist": "efjie8008",
+      "sunoTitle": "Joie au Tambourin",
+      "audio_url": null,
+      "embed_url": "https://suno.com/embed/603767be-26ae-4e8a-b782-209f2a7002e8",
+      "cover_url": "assets/covers/603767be-26ae-4e8a-b782-209f2a7002e8.jpeg",
+      "suno_share": "https://suno.com/s/AeLxtCw8y46qBVSP",
+      "duration": 209.48,
+      "featured": false,
+      "audio_url_aac": null,
+      "lang": "fr"
     }
   ]
 }
