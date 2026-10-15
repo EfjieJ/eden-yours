@@ -38,15 +38,15 @@
       { id: "auroras", fx: "glow", pts: [[803, 100], [903, 105], [848, 482]] },
       { id: "breath", fx: "glow", pts: [[603, 200], [1093, 380], [848, 290]] }] },
     { id: 6, sim: [96, 100], steps: [
-      { id: "bubble", fx: "glow", pts: [[940, 140], [1060, 150], [1000, 215]] },
+      { id: "bubble", fx: "glow", pts: [[905, 200], [1095, 200], [1000, 275]] },
       { id: "board", fx: "glow", pts: [[478, 520], [300, 600], [420, 640]] },
-      { id: "rise", fx: "glow", pts: [[905, 470], [1030, 470], [1000, 90]] }] }
+      { id: "rise", fx: "glow", pts: [[905, 470], [1030, 470], [1000, 330]] }] }
   ];
   var AUTO = 4, LAST = LEVELS.length - 1, LAND = [[700, 200], [690, 300], [722, 410]], boards = [], departAt = 0, landedAt = 0;
   var WALK = 6.5;
   function boardDone() { return boards.length >= 3 && performance.now() - boards[2] > (4 * 0.8 + WALK) * 1000 && performance.now() - boards[0] > (2 * 0.7 + WALK) * 1000 && performance.now() - boards[1] > (4 * 0.8 + WALK) * 1000; }
   var waitShown = false;
-  var ORB = { x: 1000, y: 150 }, PATH = [[680, 600], [790, 592], [870, 572], [920, 545], [955, 515]];
+  var ORB = { x: 1000, y: 200 }, PATH = [[680, 600], [790, 592], [870, 572], [920, 545], [955, 515]];
   function D(l, id, k) { if (l < lvl) return true; if (l > lvl) return false; var i = -1; LEVELS[l].steps.forEach(function (s, q) { if (s.id === id) i = q; }); return !!done[i + ":" + k]; }
   var lvl = 0, STEPS = LEVELS[0].steps, TOTAL = 18, unlocked = 1, autoStart = 0, autoVal = 0;
   function S(l, id) { var L = LEVELS[l]; if (!L) return 0; if (l < lvl) return 3; if (l > lvl) return 0; var i = -1; L.steps.forEach(function (s, k) { if (s.id === id) i = k; }); if (i < 0) return 0;
