@@ -7,10 +7,7 @@
 .nt-steps li.is-now { color: #fff8e6; border-color: rgba(253, 230, 138, 0.8); background: rgba(253, 230, 138, 0.14); box-shadow: 0 0 12px rgba(253, 230, 138, 0.35); }
 .nt-steps li.is-done { color: #c8f7d8; border-color: rgba(154, 230, 180, 0.45); }
 .nt-stage { position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 16px; overflow: hidden; background: #140c26; touch-action: none; user-select: none; -webkit-user-select: none; }
-.nt-canvas, .nt-video { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
-.nt-video { object-fit: cover; object-position: 70% 40%; opacity: 0; transition: opacity 1.6s ease; pointer-events: none; }
-.nt-video.is-on { opacity: 1; }
-.nt-video[hidden] { display: none; }
+.nt-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 .nt-overlay { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 60%, rgba(20, 10, 40, 0.55), rgba(10, 6, 24, 0.82)); }
 .nt-win { position: absolute; left: 0; right: 0; top: 0.7rem; display: flex; justify-content: center; pointer-events: none; }
 .nt-win[hidden] { display: none; }
@@ -19,23 +16,23 @@
 .nt-instr { min-height: 1.4em; margin: 0.6rem 0 0.2rem; text-align: center; font-size: 0.98rem; color: rgba(255, 248, 230, 0.95); }
 .nt-tray { display: flex; justify-content: center; gap: 12px; margin: 0.4rem 0 0.2rem; }
 .nt-tray[hidden] { display: none; }
-.nt-bot { position: relative; display: flex; flex-direction: column; align-items: center; gap: 2px; width: 74px; padding: 6px 4px 5px; border-radius: 16px; font: inherit; font-size: 0.74rem; color: #eaf6ff; background: rgba(103, 232, 249, 0.08); border: 1px solid rgba(103, 232, 249, 0.35); cursor: grab; touch-action: none; -webkit-tap-highlight-color: transparent; transition: transform 0.2s, box-shadow 0.2s, opacity 0.3s; }
-.nt-bot svg { width: 38px; height: 48px; animation: nt-bob 2.6s ease-in-out infinite; animation-delay: var(--d, 0s); }
-.nt-bot.is-selected { border-color: rgba(253, 230, 138, 0.95); box-shadow: 0 0 16px rgba(253, 230, 138, 0.55); transform: translateY(-3px); }
-.nt-bot.is-busy { opacity: 0.38; cursor: default; }
-.nt-bot.is-busy svg { animation: none; }
-.nt-bot:focus-visible { outline: 2px solid #67e8f9; outline-offset: 2px; }
+.nt-spirit { position: relative; display: flex; flex-direction: column; align-items: center; gap: 2px; width: 74px; padding: 6px 4px 5px; border-radius: 16px; font: inherit; font-size: 0.74rem; color: #eaf6ff; background: rgba(103, 232, 249, 0.08); border: 1px solid rgba(103, 232, 249, 0.35); cursor: grab; touch-action: none; -webkit-tap-highlight-color: transparent; transition: transform 0.2s, box-shadow 0.2s, opacity 0.3s; }
+.nt-spirit svg { width: 38px; height: 48px; animation: nt-bob 2.6s ease-in-out infinite; animation-delay: var(--d, 0s); }
+.nt-spirit.is-selected { border-color: rgba(253, 230, 138, 0.95); box-shadow: 0 0 16px rgba(253, 230, 138, 0.55); transform: translateY(-3px); }
+.nt-spirit.is-busy { opacity: 0.38; cursor: default; }
+.nt-spirit.is-busy svg { animation: none; }
+.nt-spirit:focus-visible { outline: 2px solid #67e8f9; outline-offset: 2px; }
 @keyframes nt-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
-.nt-ghost { position: absolute; z-index: 5; width: 40px; height: 50px; margin: -25px 0 0 -20px; pointer-events: none; filter: drop-shadow(0 0 10px rgba(103, 232, 249, 0.9)); }
+.nt-ghost { position: absolute; z-index: 5; width: 40px; height: 50px; margin: -25px 0 0 -20px; pointer-events: none; filter: drop-shadow(0 0 10px rgba(253, 224, 140, 0.9)); }
 .nt-ghost[hidden] { display: none; }
 .nt-ghost svg { width: 100%; height: 100%; }
 @media (max-width: 640px) {
   .nt-card { padding: 0.7rem 0.55rem; }
   .nt-stage { aspect-ratio: 1 / 1; }
   .nt-steps li { font-size: 0.7rem; padding: 2px 7px; }
-  .nt-bot { width: 66px; }
+  .nt-spirit { width: 66px; }
 }
-@media (prefers-reduced-motion: reduce) { .nt-bot svg, .nt-win-title { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .nt-spirit svg, .nt-win-title { animation: none; } }
 .nt-levels { margin: 0 0 0.55rem; }
 .nt-levels .ws-level[disabled] { opacity: 0.4; cursor: not-allowed; }
 .nt-gauges { display: grid; gap: 6px; margin: 0 0 0.5rem; }

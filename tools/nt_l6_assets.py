@@ -9,11 +9,6 @@ def save(rgb,a,name,maxh=None):
     im=Image.fromarray(np.dstack([np.clip(rgb,0,255),a]).astype(np.uint8)[y0:y1,x0:x1],'RGBA')
     if maxh and im.height>maxh: im=im.resize((round(im.width*maxh/im.height),maxh),Image.LANCZOS)
     im.save(O+name,quality=88,method=6); print(name,im.size)
-# brume/fumée seule : moitié basse de l’image générée, partie lumineuse du haut effacée
-e=ld('bc36b3f1'); m=e.max(-1); a=np.clip((m-14)/120,0,1)**0.8
-rgb=e/np.maximum(a[...,None],0.05)*(a[...,None]>0); h=e.shape[0]; rgb=rgb[h//2:]; a=a[h//2:]*np.clip(np.arange(h-h//2)/((h-h//2)*0.35),0,1)[:,None]
-lum=(rgb*[0.3,0.59,0.11]).sum(-1,keepdims=True); rgb=rgb*0.55+np.concatenate([lum*1.05,lum*0.98,lum*0.98],-1)*0.45
-save(rgb,a*255,'nt-smoke.webp',300)
 # people
 def key(img):
     r,g,b=img[...,0],img[...,1],img[...,2]; sp=g-np.maximum(r,b)
