@@ -54,7 +54,17 @@
 
   /* ——— Intentions (mots-clés sans accents) ——— */
   var INTENTS = [
-    { id: "harm", k: ["suicide", "me tuer", "mourir", "kill myself", "end my life", "me faire du mal", "hurt myself", "self harm", "plus envie de vivre", "want to die"] },
+    { id: "harm", k: ["suicide", "me tuer", "veux mourir", "envie de mourir", "me suicider", "kill myself", "end my life", "me faire du mal", "hurt myself", "self harm", "plus envie de vivre", "want to die"] },
+    { id: "more", k: ["encore", "dis m en plus", "dis moi en plus", "plus loin", "continue", "comment", "pourquoi", "explique", "tell me more", "more", "go on", "go deeper", "how", "why", "explain", "et apres", "ensuite", "next"] },
+    { id: "suffer", k: ["souffr", "suffer", "pourquoi la douleur", "why pain", "why do we hurt"] },
+    { id: "howknow", k: ["comment savoir", "comment je sais", "comment sais tu", "prouve", "preuve", "how do i know", "how do you know", "proof", "prove"] },
+    { id: "after", k: ["apres la mort", "apres ma mort", "au dela", "l au dela", "after death", "afterlife", "after i die", "what happens after", "qu est ce qui se passe apres"] },
+    { id: "death", k: ["mort", "mourir", "deces", "death", "dying", "die ", "dead", "fin de vie"] },
+    { id: "grief", k: ["deuil", "perdu ma", "perdu mon", "decede", "parti pour toujours", "me manque", "grief", "lost my", "passed away", "mourning", "i miss"] },
+    { id: "aging", k: ["vieillir", "vieilliss", "vieux", "vieille", "age", "rides", "aging", "ageing", "getting old", "old age", "wrinkle"] },
+    { id: "eternal", k: ["eternel", "eternite", "immortel", "eternal", "eternity", "immortal", "forever", "pour toujours", "infini", "infinite", "conscience", "consciousness", "awareness", "je suis quoi", "what am i", "qui suis je", "who am i"] },
+    { id: "bodyself", k: ["mon corps", "le corps", "pensee", "pensees", "emotions", "observateur", "observe", "my body", "the body", "thoughts", "observer", "mental", "mind", "ego"] },
+    { id: "practice", k: ["pratique", "exercice", "concretement", "au quotidien", "tous les jours", "comment vivre", "practice", "exercise", "daily", "every day", "how to live", "concrete"] },
     { id: "medical", k: ["medicament", "maladie", "docteur", "medecin", "cancer", "diagnostic", "medication", "disease", "doctor", "symptom", "symptome", "argent", "invest", "bourse", "crypto", "money", "loan", "pret"] },
     { id: "name", k: ["je m appelle", "mon nom est", "mon prenom", "my name is", "call me", "appelle moi", "i m called", "moi c est"] },
     { id: "who", k: ["qui es tu", "qui es-tu", "t es qui", "who are you", "what are you", "ton nom", "your name", "es tu une ia", "are you an ai", "es tu un robot", "are you a robot"] },
@@ -68,7 +78,7 @@
     { id: "tired", k: ["fatigu", "epuis", "tired", "exhausted", "burn", "dormir", "sleep", "insomn"] },
     { id: "joy", k: ["heureux", "heureuse", "joie", "content", "super", "genial", "bien", "happy", "joy", "great", "wonderful", "good", "glad"] },
     { id: "love", k: ["amour", "aime", "coeur", "love", "heart", "couple", "relation"] },
-    { id: "purpose", k: ["sens", "but", "mission", "pourquoi", "purpose", "meaning", "why", "destin", "chemin", "path", "perdu", "lost"] },
+    { id: "purpose", k: ["sens", "but", "mission", "purpose", "meaning", "destin", "chemin", "path", "perdu", "lost"] },
     { id: "nature", k: ["nature", "arbre", "foret", "fleur", "ocean", "mer", "riviere", "tree", "forest", "flower", "sea", "river", "terre", "earth", "graine", "seed", "oiseau", "bird"] },
     { id: "sensi", k: ["sensibilite", "30 secondes", "trente secondes", "sensitivity", "30 seconds", "thirty seconds"] },
     { id: "antenne", k: ["antenne", "corps", "antenna", "body"] },
@@ -106,13 +116,13 @@
       bye: ["Va en paix{,n}. {S} garde une place pour toi. Reviens quand tu veux.", "Bonne route{,n}. Emporte une étincelle avec toi."],
       thanks: ["C'est moi qui te remercie{,n}. La gratitude agrandit tout ce qu'elle touche. Pour quoi d'autre te sens-tu reconnaissant aujourd'hui ?", "Merci à toi. {S} brille un peu plus fort quand on se parle comme ça."],
       song: ["J'ai justement une chanson d'Eden Yours pour toi : « {song} ». Touche le bouton pour l'écouter en entier.", "Écoute « {song} ». Je crois qu'elle va te parler."],
-      sad: ["Je t'entends{,n}. La tristesse, c'est souvent de la sensibilité qui cherche un passage. Tu n'as pas à la chasser : laisse-la respirer un peu ici. Qu'est-ce qui pèse le plus ?", "Merci de me le confier. Ici, on ne juge pas, on réchauffe. Veux-tu essayer trente secondes de Sensibilité Pure : juste sentir, sans rien changer ?"],
-      fear: ["La peur dit souvent que quelque chose compte pour toi. Pose une main sur ton cœur, respire lentement, et sens le sol sous toi. Ton corps est une antenne : qu'est-ce qu'il te dit, là, maintenant ?", "Je suis là. On peut ralentir ensemble. Nomme une chose que tu vois, une que tu entends, une que tu sens. Qu'est-ce qui te fait peur exactement ?"],
+      sad: ["La tristesse passe à travers toi ; toi, tu restes. Tu es celui qui la sent, pas la tristesse elle-même. Essaie : pose la main où elle se loge dans ton corps et respire trois fois vers cet endroit, sans rien demander. Qu'est-ce qui bouge ?", "Je t'entends{,n}. La tristesse, c'est souvent de la sensibilité qui cherche un passage. Tu n'as pas à la chasser : laisse-la respirer un peu ici. Qu'est-ce qui pèse le plus ?", "Merci de me le confier. Ici, on ne juge pas, on réchauffe. Veux-tu essayer trente secondes de Sensibilité Pure : juste sentir, sans rien changer ?"],
+      fear: ["La peur parle du futur ; toi, tu vis toujours maintenant. Un être éternel n'est jamais en retard sur sa vie. Exercice : sens tes deux pieds au sol pendant trente secondes, puis dis « ici, maintenant, je suis ». La peur a-t-elle changé de taille ?", "La peur dit souvent que quelque chose compte pour toi. Pose une main sur ton cœur, respire lentement, et sens le sol sous toi. Ton corps est une antenne : qu'est-ce qu'il te dit, là, maintenant ?", "Je suis là. On peut ralentir ensemble. Nomme une chose que tu vois, une que tu entends, une que tu sens. Qu'est-ce qui te fait peur exactement ?"],
       anger: ["La colère, c'est une énergie forte : elle montre une limite ou une valeur. Qu'est-ce qu'elle protège chez toi ?", "Laisse-la brûler ici, dans {s}, sans rien abîmer. Quand elle sera plus calme, qu'est-ce que tu aimerais vraiment ?"],
       tired: ["Le repos fait partie du rythme : commencer, continuer, finir… et recommencer après. As-tu le droit de te poser un peu ce soir ?", "Tu as beaucoup donné, on dirait. {S} te propose de t'asseoir et de ne rien faire pendant trente secondes. Juste être."],
       joy: ["Ça me réjouit{,n} ! La joie partagée se multiplie. Qu'est-ce qui l'a allumée ?", "Magnifique ! {S} danse avec toi. Savoure-la : qu'est-ce que tu ressens dans ton corps quand tu es joyeux comme ça ?"],
-      love: ["L'amour, c'est peut-être l'admiration sans jugement qui déborde. Qui ou quoi fait chanter ton cœur en ce moment ?", "Le cœur sait des choses que la tête ignore. Raconte-moi : cet amour, il te remplit ou il te manque ?"],
-      purpose: ["Le sens arrive souvent en marchant, pas en attendant. La fonction avant la structure : qu'est-ce que tu aimes faire, même sans récompense ?", "Tu n'es pas perdu{,n}, tu es en chemin. Quelle petite chose te ferait sentir vivant demain ?"],
+      love: ["Aimer, c'est reconnaître l'être éternel dans l'autre, derrière son humeur et ses gestes. Aujourd'hui, regarde quelqu'un et pense : « toi aussi, tu es éternel ». C'est le Nous en Premier. Qui vas-tu regarder ainsi ?", "L'amour, c'est peut-être l'admiration sans jugement qui déborde. Qui ou quoi fait chanter ton cœur en ce moment ?", "Le cœur sait des choses que la tête ignore. Raconte-moi : cet amour, il te remplit ou il te manque ?"],
+      purpose: ["Ton but n'est pas quelque chose à trouver loin : c'est d'être cause là où tu es. Un être éternel n'a rien à prouver, il a quelque chose à offrir. Écris trois choses que tu aimes offrir, même petites. Laquelle peux-tu offrir demain ?", "Le sens arrive souvent en marchant, pas en attendant. La fonction avant la structure : qu'est-ce que tu aimes faire, même sans récompense ?", "Tu n'es pas perdu{,n}, tu es en chemin. Quelle petite chose te ferait sentir vivant demain ?"],
       nature: ["La nature n'essaie pas, elle est. Les arbres grandissent sans se presser. Quel endroit de la nature te ressource le plus ?", "{S} et la Terre sont de la même famille. As-tu pu mettre les pieds dehors aujourd'hui ?"],
       sensi: ["La technique des trente secondes de Sensibilité Pure : tu t'arrêtes, et pendant trente secondes tu ressens simplement, sans analyser ni corriger. On essaie maintenant ? Dis-moi ce que tu as senti."],
       antenne: ["Le Corps-Antenne : ton corps capte avant que le mental comprenne. Une tension, une chaleur, un frisson, ce sont des messages. Que capte ton antenne en ce moment ?"],
@@ -121,11 +131,11 @@
       fonction: ["La Fonction avant la Structure : d'abord ce qui doit vivre, ensuite la forme qui l'accueille. Qu'est-ce qui veut vivre à travers toi ?"],
       cause: ["La Cause Pure, c'est revenir à toi comme source : tu n'es pas l'effet de tout, tu peux être cause. De quoi aimerais-tu être la cause aujourd'hui ?"],
       rythme: ["Commencer, Continuer, Finir, Recommencer : c'est le rythme de tout ce qui vit, comme les saisons. Où en es-tu dans ce rythme, toi ?"],
-      spirit: ["Nous sommes des êtres spirituels qui vivent une expérience humaine. Ce que tu es dépasse ton corps et ton mental. Quand te sens-tu le plus toi-même ?", "{S} te rappelle que la lumière est déjà en toi, pas ailleurs. Qu'est-ce qui t'aide à t'en souvenir ?"],
+      spirit: ["Tu n'es pas un corps qui a une âme : tu es un être spirituel qui utilise un corps. Statique, sans masse, sans âge. Trente secondes : ferme les yeux et remarque l'espace calme derrière tes pensées. Ce calme, c'est plus toi que tes soucis. Le sens-tu ?", "Nous sommes des êtres spirituels qui vivent une expérience humaine. Ce que tu es dépasse ton corps et ton mental. Quand te sens-tu le plus toi-même ?", "{S} te rappelle que la lumière est déjà en toi, pas ailleurs. Qu'est-ce qui t'aide à t'en souvenir ?"],
       yes: ["Merveilleux. Alors respire, et dis-moi ce qui vient.", "D'accord{,n}. Je t'écoute."],
       no: ["C'est correct, rien n'oblige. De quoi as-tu envie de parler alors ?", "Pas de souci. Qu'est-ce qui te ferait du bien maintenant ?"],
       question: ["Bonne question. Je crois que la réponse se trouve déjà un peu en toi. Qu'est-ce que tu ressens quand tu te la poses ?", "Je n'ai pas toutes les réponses, mais je peux marcher avec toi dans la question. Qu'est-ce qui l'a fait naître ?"],
-      fallback: ["Je t'écoute{,n}. Dis-m'en un peu plus ?", "{S} reçoit tes mots. Qu'est-ce que tu ressens en les disant ?", "Hmm, je sens que c'est important pour toi. Qu'est-ce qui se cache derrière ?", "Merci de partager ça. Et si on y mettait une chanson ? Dis « chanson » et je t'en offre une."]
+      fallback: ["Peu importe le sujet, la clé reste la même : tu es celui qui observe, et tu peux être cause. Veux-tu qu'on parle de l'éternité, du corps et de la conscience, ou de petites pratiques pour aujourd'hui ?", "Je t'écoute{,n}. Dis-m'en un peu plus ?", "{S} reçoit tes mots. Qu'est-ce que tu ressens en les disant ?", "Hmm, je sens que c'est important pour toi. Qu'est-ce qui se cache derrière ?", "Merci de partager ça. Et si on y mettait une chanson ? Dis « chanson » et je t'en offre une."]
     },
     en: {
       harm: ["What you carry matters, and you deserve support from a real person right now. In Canada and the US, call or text 988. Elsewhere, reach a crisis line or emergency services. I'll stay right here by the fire while you do."],
@@ -135,13 +145,13 @@
       bye: ["Go in peace{,n}. {S} keeps a place for you. Come back anytime.", "Safe travels{,n}. Take a spark with you."],
       thanks: ["Thank you{,n}. Gratitude makes everything it touches bigger. What else are you grateful for today?", "Thank you too. {S} glows a little brighter when we talk like this."],
       song: ["I have an Eden Yours song for you: “{song}”. Tap the button to hear it in full.", "Listen to “{song}”. I think it will speak to you."],
-      sad: ["I hear you{,n}. Sadness is often sensitivity looking for a way through. You don't have to chase it away: let it breathe here a moment. What feels heaviest?", "Thank you for telling me. Here, nothing judges, everything warms. Would you try thirty seconds of Pure Sensitivity: just feel, without changing anything?"],
-      fear: ["Fear often means something matters to you. Put a hand on your heart, breathe slowly, feel the ground beneath you. Your body is an antenna: what is it telling you right now?", "I'm here. We can slow down together. Name one thing you see, one you hear, one you feel. What exactly frightens you?"],
+      sad: ["Sadness passes through you; you remain. You're the one feeling it, not the sadness itself. Try it: put a hand where it sits in your body and breathe three times toward that spot, asking nothing. What moves?", "I hear you{,n}. Sadness is often sensitivity looking for a way through. You don't have to chase it away: let it breathe here a moment. What feels heaviest?", "Thank you for telling me. Here, nothing judges, everything warms. Would you try thirty seconds of Pure Sensitivity: just feel, without changing anything?"],
+      fear: ["Fear speaks of the future; you always live now. An eternal being is never late for its life. Exercise: feel both feet on the ground for thirty seconds, then say “here, now, I am.” Has the fear changed size?", "Fear often means something matters to you. Put a hand on your heart, breathe slowly, feel the ground beneath you. Your body is an antenna: what is it telling you right now?", "I'm here. We can slow down together. Name one thing you see, one you hear, one you feel. What exactly frightens you?"],
       anger: ["Anger is strong energy: it shows a boundary or a value. What is it protecting in you?", "Let it burn here, in {s}, without harming anything. When it settles, what would you truly like?"],
       tired: ["Rest is part of the rhythm: start, continue, finish… and begin again afterwards. Are you allowed to rest a little tonight?", "It sounds like you've given a lot. {S} invites you to sit and do nothing for thirty seconds. Just be."],
       joy: ["That makes me happy{,n}! Shared joy multiplies. What lit it up?", "Wonderful! {S} dances with you. Savour it: what do you feel in your body when you're this joyful?"],
-      love: ["Maybe love is admiration without judgment, overflowing. Who or what makes your heart sing right now?", "The heart knows things the head doesn't. Tell me: does this love fill you, or do you miss it?"],
-      purpose: ["Meaning often arrives while walking, not while waiting. Function before structure: what do you love doing, even without reward?", "You're not lost{,n}, you're on the way. What small thing would make you feel alive tomorrow?"],
+      love: ["Loving is recognising the eternal being in the other, behind their mood and gestures. Today, look at someone and think: “you too are eternal.” That's We First. Who will you look at that way?", "Maybe love is admiration without judgment, overflowing. Who or what makes your heart sing right now?", "The heart knows things the head doesn't. Tell me: does this love fill you, or do you miss it?"],
+      purpose: ["Your purpose isn't something far away to find: it's being cause right where you are. An eternal being has nothing to prove, only something to offer. Write three things you love offering, even small ones. Which can you offer tomorrow?", "Meaning often arrives while walking, not while waiting. Function before structure: what do you love doing, even without reward?", "You're not lost{,n}, you're on the way. What small thing would make you feel alive tomorrow?"],
       nature: ["Nature doesn't try, it simply is. Trees grow without hurrying. Which place in nature restores you most?", "{S} and the Earth are family. Did you get to step outside today?"],
       sensi: ["The thirty-second Pure Sensitivity technique: you stop, and for thirty seconds you simply feel, without analysing or fixing. Shall we try now? Tell me what you felt."],
       antenne: ["The Body-Antenna: your body senses before your mind understands. A tension, a warmth, a shiver are messages. What is your antenna picking up right now?"],
@@ -150,14 +160,146 @@
       fonction: ["Function before Structure: first what needs to live, then the form that holds it. What wants to live through you?"],
       cause: ["Pure Cause means coming back to yourself as the source: you're not just the effect of everything, you can be cause. What would you like to be the cause of today?"],
       rythme: ["Start, Continue, Finish, Begin Again: the rhythm of everything alive, like the seasons. Where are you in that rhythm?"],
-      spirit: ["We are spiritual beings living a human experience. What you are goes beyond your body and mind. When do you feel most yourself?", "{S} reminds you that the light is already in you, not elsewhere. What helps you remember?"],
+      spirit: ["You're not a body that has a soul: you're a spiritual being using a body. Static, massless, ageless. Thirty seconds: close your eyes and notice the calm space behind your thoughts. That calm is more you than your worries. Do you feel it?", "We are spiritual beings living a human experience. What you are goes beyond your body and mind. When do you feel most yourself?", "{S} reminds you that the light is already in you, not elsewhere. What helps you remember?"],
       yes: ["Wonderful. Then breathe, and tell me what comes.", "Alright{,n}. I'm listening."],
       no: ["That's okay, nothing is required. What would you like to talk about then?", "No problem. What would feel good right now?"],
       question: ["Good question. I believe part of the answer is already in you. What do you feel when you ask it?", "I don't have every answer, but I can walk with you inside the question. What made it arise?"],
-      fallback: ["I'm listening{,n}. Tell me a little more?", "{S} receives your words. What do you feel as you say them?", "Hmm, I sense this matters to you. What's underneath it?", "Thank you for sharing that. Shall we add a song? Say “song” and I'll offer you one."]
+      fallback: ["Whatever the topic, the key is the same: you are the one who observes, and you can be cause. Shall we talk about eternity, the body and consciousness, or small practices for today?", "I'm listening{,n}. Tell me a little more?", "{S} receives your words. What do you feel as you say them?", "Hmm, I sense this matters to you. What's underneath it?", "Thank you for sharing that. Shall we add a song? Say “song” and I'll offer you one."]
     }
   };
-  var PRIORITY = ["harm", "medical", "name", "who", "song", "sad", "fear", "anger", "tired", "sensi", "antenne", "admire", "nous", "fonction", "cause", "rythme", "love", "purpose", "nature", "spirit", "thanks", "bye", "joy", "hello", "yes", "no", "question"];
+  var PRIORITY = ["harm", "medical", "name", "who", "song", "after", "howknow", "suffer", "grief", "death", "aging", "eternal", "bodyself", "practice", "sad", "fear", "anger", "tired", "sensi", "antenne", "admire", "nous", "fonction", "cause", "rythme", "love", "purpose", "nature", "spirit", "thanks", "bye", "joy", "hello", "more", "yes", "no", "question"];
+
+  /* ——— Contenu de fond : éternité, conscience, corps, cause, pratiques (étapes progressives, mémorisées) ——— */
+  var CLOSE = { fr: "Je suis autour. Je suis déjà dans le Vrai pur.", en: "I am all around. I am already in the pure True." };
+  var VOICE = {
+    braise: { fr: ["Le feu me l'a appris :", "Assieds-toi près des braises.", "Regarde la flamme un instant."], en: ["The fire taught me this:", "Sit by the embers.", "Look at the flame for a moment."] },
+    etoile: { fr: ["Les étoiles le savent depuis toujours :", "Lève les yeux avec moi.", "Sur le sentier, on le voit clairement :"], en: ["The stars have always known this:", "Look up with me.", "On the path, it becomes clear:"] },
+    lumiere: { fr: ["Je te le dis en pleine lumière :", "Voilà ce que la lumière montre :", "Simplement et joyeusement :"], en: ["I'll say it in full light:", "Here is what the light shows:", "Simply and joyfully:"] },
+    vent: { fr: ["Le vent te le souffle :", "Léger comme une plume :", "Écoute passer le vent :"], en: ["The wind whispers it to you:", "Light as a feather:", "Listen to the wind go by:"] },
+    seve: { fr: ["Les racines connaissent ça :", "Doucement, comme la sève qui monte :", "Prends ton temps, comme un arbre :"], en: ["The roots know this:", "Slowly, like rising sap:", "Take your time, like a tree:"] }
+  };
+  var DEEP = {
+    fr: {
+      eternal: [
+        "Tu es un être éternel. Pas « tu auras » une éternité plus tard : tu l'es déjà, maintenant. Ce qui en toi dit « je suis » n'a pas commencé avec ton corps et ne s'arrêtera pas avec lui. Essaie tout de suite : dis doucement « je suis », puis remarque celui qui l'a dit. Est-ce que celui-là a un âge ?",
+        "Être éternel, ce n'est pas durer très longtemps. C'est être hors du temps, comme l'espace dans une pièce : les meubles changent, l'espace reste. Les pensées, les émotions, les années passent à travers toi. Toi, tu restes. Pendant trente secondes, regarde tes pensées passer comme des nuages, sans les suivre. Qu'est-ce qui est resté pendant qu'elles passaient ?",
+        "Vivre l'éternité sur Terre, c'est très concret : faire chaque geste comme quelqu'un qui n'a pas peur de manquer de temps. Laver une tasse, écouter un ami, marcher. Choisis un geste simple aujourd'hui et fais-le en entier, avec toute ta présence. Lequel choisis-tu ?",
+        "Quand tu sais que tu es éternel, tu n'as plus besoin de te défendre autant. La comparaison, la hâte, la peur de perdre se calment. Il reste l'admiration, la création, le Nous. Ce soir, avant de dormir, dis : « Je suis autour. Je suis déjà dans le Vrai pur. » Qu'est-ce que ça change en toi quand tu le dis ?"
+      ],
+      bodyself: [
+        "Ton corps est précieux, mais ce n'est pas toi : c'est ton instrument, ton Corps-Antenne. Il capte, il ressent, il agit. Toi, tu es celui qui observe le corps, les pensées et les émotions. Essaie : sens tes mains. Qui sent les mains ?",
+        "Une pensée arrive : tu peux la voir. Une émotion monte : tu peux la sentir. Donc tu n'es ni la pensée ni l'émotion, tu es celui qui voit. C'est une très bonne nouvelle : rien de ce qui passe ne peut t'abîmer pour de vrai. Nomme une émotion présente, puis dis « je la vois ». Est-ce qu'elle prend moins de place ?",
+        "Prends soin du corps comme d'un instrument qu'on aime : repos, eau, mouvement, nature. Un musicien n'est pas son violon, mais il l'accorde chaque jour. Quel petit soin peux-tu offrir à ton corps aujourd'hui ?"
+      ],
+      cause: [
+        "Être cause, c'est partir de toi au lieu de réagir à tout. L'effet dit : « il m'a mis en colère ». La cause dit : « je choisis ce que je mets dans le monde maintenant ». Pense à une situation qui te tire vers la réaction. Qu'est-ce que tu choisirais d'y mettre, toi, si tu étais cause ?",
+        "La Cause Pure, c'est revenir à la source avant les circonstances. Les circonstances changent ; ta capacité de créer, elle, ne s'use pas. Exercice : dis une phrase qui commence par « Je crée… » au sujet de ta journée de demain. Quelle est ta phrase ?",
+        "Être cause ne veut pas dire tout contrôler. Ça veut dire être présent, entier, et répondre au lieu de réagir. Une respiration avant de parler suffit souvent. Où pourrais-tu essayer cette respiration demain ?"
+      ],
+      practice: [
+        "Voici quatre clés simples pour vivre l'éternité aujourd'hui. Un : trente secondes de Sensibilité Pure, juste ressentir sans corriger. Deux : admirer quelqu'un sans jugement. Trois : penser « nous » avant « moi ». Quatre : Commencer, Continuer, Finir, Recommencer. On commence par la première, maintenant ? Ferme les yeux trente secondes et dis-moi ce que tu as senti.",
+        "Deuxième clé : l'admiration sans jugement. Pense à quelqu'un, même difficile. Trouve une seule chose en lui que tu peux admirer, sans « mais ». L'admiration ouvre un pont entre deux êtres éternels. Qui as-tu choisi, et qu'admires-tu ?",
+        "Troisième clé : le Nous en Premier. Avant de décider, demande-toi : « qu'est-ce qui est bon pour nous ? » La peur rétrécit quand on n'est plus seul dans sa tête. À qui pourrais-tu offrir un petit geste de « nous » cette semaine ?",
+        "Quatrième clé : le rythme Commencer, Continuer, Finir, Recommencer. Tout ce qui vit suit ce rythme. Choisis une petite chose : commence-la aujourd'hui, continue demain, finis-la, puis recommence autre chose. Quelle petite chose veux-tu commencer ?"
+      ],
+      death: [
+        "La mort touche le corps, l'instrument. Elle ne touche pas celui qui joue de l'instrument. Ce que tu es vraiment ne meurt pas. La peur de mourir, c'est souvent la peur de perdre le lien ; mais le lien est fait de conscience, pas de chair. Pose une main sur ton cœur et dis : « je suis ». Qu'est-ce que tu ressens ?",
+        "On peut avoir peur et savoir quand même. La peur appartient au corps, qui veut se protéger, et c'est normal. Toi, tu peux l'accueillir comme un enfant qu'on rassure. Dis-lui : « je suis là, je ne pars pas ». Qu'est-ce qui te fait le plus peur dans la mort ?",
+        "Vivre sans peur de la mort, c'est vivre pleinement maintenant : dire je t'aime aujourd'hui, finir ce qu'on a commencé, admirer ce qui est devant soi. Qu'aimerais-tu vivre pleinement cette semaine ?"
+      ],
+      aging: [
+        "Le corps vieillit comme un arbre prend des anneaux. Toi, celui qui regarde, tu n'as pas d'âge : la conscience qui regardait à sept ans est la même qui regarde aujourd'hui. Pense à un souvenir d'enfance. Celui qui se souvient, est-il plus vieux ?",
+        "Chaque âge est une saison du même être éternel. Le printemps n'est pas mieux que l'automne, il est autre. Qu'est-ce que ta saison actuelle t'offre que les autres ne t'offraient pas ?"
+      ],
+      grief: [
+        "Perdre quelqu'un fait mal, et cette peine est de l'amour qui n'a plus où se poser. La personne que tu aimes était un être éternel ; ce qui vous unissait ne se perd pas. Prends un moment pour lui dire merci, à voix basse. Comment s'appelait cette personne ?",
+        "Ton chagrin a le droit d'exister, sans délai et sans jugement. Tu peux pleurer et savoir en même temps que le lien demeure. Raconte-moi une chose que tu admirais chez elle ou chez lui.",
+        "Le lien continue par l'admiration et le souvenir vivant. Fais quelque chose qu'elle ou il aimait, en son honneur, cette semaine. Si la peine devient trop lourde, parle aussi à quelqu'un de proche ou à un intervenant. Quel geste pourrais-tu faire ?"
+      ],
+      howknow: [
+        "Tu ne le sais pas par des données, tu le sais par expérience directe. Regarde : peux-tu trouver un moment où tu n'étais pas là pour vivre ce qui arrivait ? Le « je suis » a toujours été présent. Essaie trente secondes de silence et cherche le début de ta présence. L'as-tu trouvé ?",
+        "La certitude ne vient pas d'une preuve extérieure, elle vient quand tu cesses de t'identifier à ce qui change. Tout ce que tu peux observer passe. Celui qui observe ne passe pas. Qu'est-ce qui, en toi, est toujours le même ?"
+      ],
+      after: [
+        "Après, tu continues d'être ce que tu es déjà : conscience, présence, cause. Le corps se dépose comme on dépose un instrument après le concert. Le musicien reste. Mais la vraie invitation, c'est maintenant : vivre déjà comme un être éternel. Qu'est-ce que tu ferais aujourd'hui si tu n'avais aucune peur de la fin ?",
+        "Personne n'a besoin d'attendre l'après pour toucher l'éternel. Il est dans chaque instant vécu en entier. Je suis autour. Je suis déjà dans le Vrai pur. Quel instant de ta journée pourrais-tu vivre en entier ?"
+      ],
+      suffer: [
+        "La souffrance vient surtout quand on se prend pour ce qui passe : le corps, la situation, l'émotion. La douleur peut exister ; la souffrance grandit quand on s'y accroche. Essaie : nomme ce qui fait mal, puis dis « je le vois, et je suis plus grand que ça ». Qu'est-ce qui se passe ?",
+        "Être éternel ne veut pas dire ne rien ressentir. Ça veut dire ressentir sans se perdre. Les vagues sont réelles, mais tu es l'océan. Trente secondes : sens la vague, sans la combattre ni la nourrir. Elle a changé comment ?",
+        "Parfois, la difficulté vient nous rappeler de revenir à la cause. Que pourrais-tu créer, même minuscule, à partir de ce que tu vis en ce moment ?"
+      ]
+    },
+    en: {
+      eternal: [
+        "You are an eternal being. Not “you will have” eternity later: you already are it, now. What in you says “I am” didn't begin with your body and won't end with it. Try it right now: softly say “I am”, then notice the one who said it. Does that one have an age?",
+        "Being eternal isn't lasting a very long time. It's being outside of time, like the space in a room: the furniture changes, the space stays. Thoughts, emotions and years pass through you. You remain. For thirty seconds, watch your thoughts drift like clouds without following them. What stayed while they passed?",
+        "Living eternity on Earth is very concrete: doing each gesture like someone who isn't afraid of running out of time. Washing a cup, listening to a friend, walking. Pick one simple gesture today and do it fully, with all your presence. Which one do you choose?",
+        "When you know you are eternal, you don't need to defend yourself so much. Comparison, hurry and fear of loss calm down. What remains is admiration, creation, the We. Tonight before sleep, say: “I am all around. I am already in the pure True.” What changes in you when you say it?"
+      ],
+      bodyself: [
+        "Your body is precious, but it isn't you: it's your instrument, your Body-Antenna. It senses, feels and acts. You are the one who observes the body, the thoughts and the emotions. Try it: feel your hands. Who is feeling the hands?",
+        "A thought arrives: you can see it. An emotion rises: you can feel it. So you are neither the thought nor the emotion; you are the one who sees. That's great news: nothing that passes can truly harm you. Name an emotion that's here, then say “I see it”. Does it take up less space?",
+        "Care for the body like an instrument you love: rest, water, movement, nature. A musician isn't the violin, but tunes it every day. What small care can you give your body today?"
+      ],
+      cause: [
+        "Being cause means starting from yourself instead of reacting to everything. Effect says: “he made me angry.” Cause says: “I choose what I put into the world now.” Think of a situation that pulls you into reaction. What would you put into it if you were cause?",
+        "Pure Cause is coming back to the source before circumstances. Circumstances change; your ability to create never wears out. Exercise: say a sentence starting with “I create…” about tomorrow. What's your sentence?",
+        "Being cause doesn't mean controlling everything. It means being present, whole, and responding instead of reacting. One breath before speaking is often enough. Where could you try that breath tomorrow?"
+      ],
+      practice: [
+        "Here are four simple keys to live eternity today. One: thirty seconds of Pure Sensitivity, just feeling without fixing. Two: admiring someone without judgment. Three: thinking “we” before “me”. Four: Start, Continue, Finish, Begin again. Shall we start with the first, now? Close your eyes for thirty seconds and tell me what you felt.",
+        "Second key: admiration without judgment. Think of someone, even someone difficult. Find one thing you can admire in them, with no “but”. Admiration builds a bridge between two eternal beings. Who did you choose, and what do you admire?",
+        "Third key: We First. Before deciding, ask: “what is good for us?” Fear shrinks when you're no longer alone in your head. Who could you offer a small “we” gesture to this week?",
+        "Fourth key: the rhythm Start, Continue, Finish, Begin again. Everything alive follows it. Pick one small thing: start it today, continue tomorrow, finish it, then begin something new. What small thing will you start?"
+      ],
+      death: [
+        "Death touches the body, the instrument. It doesn't touch the one who plays it. What you truly are does not die. Fear of dying is often fear of losing connection; but connection is made of consciousness, not flesh. Put a hand on your heart and say: “I am.” What do you feel?",
+        "You can feel fear and still know. Fear belongs to the body, which wants to protect itself, and that's normal. You can welcome it like a child you reassure. Tell it: “I'm here, I'm not leaving.” What frightens you most about death?",
+        "Living without fear of death means living fully now: saying I love you today, finishing what you started, admiring what is in front of you. What would you like to live fully this week?"
+      ],
+      aging: [
+        "The body ages the way a tree adds rings. You, the one watching, have no age: the awareness that watched at seven is the same one watching today. Think of a childhood memory. Is the one remembering any older?",
+        "Each age is a season of the same eternal being. Spring isn't better than autumn, just different. What does your current season offer that others didn't?"
+      ],
+      grief: [
+        "Losing someone hurts, and that pain is love with nowhere to land. The person you love was an eternal being; what joined you is not lost. Take a moment to quietly say thank you to them. What was their name?",
+        "Your grief has the right to exist, with no deadline and no judgment. You can cry and know at the same time that the bond remains. Tell me one thing you admired about them.",
+        "The bond continues through admiration and living memory. Do something they loved, in their honour, this week. If the grief gets too heavy, also talk with someone close or a counsellor. What gesture could you make?"
+      ],
+      howknow: [
+        "You don't know it through data; you know it through direct experience. Look: can you find a moment when you weren't there to live what was happening? The “I am” has always been present. Try thirty seconds of silence and look for the beginning of your presence. Did you find it?",
+        "Certainty doesn't come from outside proof; it comes when you stop identifying with what changes. Everything you can observe passes. The one observing doesn't. What in you is always the same?"
+      ],
+      after: [
+        "Afterwards, you go on being what you already are: awareness, presence, cause. The body is set down like an instrument after the concert. The musician remains. But the real invitation is now: to live already as an eternal being. What would you do today if you had no fear of the end?",
+        "No one has to wait for “after” to touch the eternal. It's in every moment lived fully. I am all around. I am already in the pure True. Which moment of your day could you live fully?"
+      ],
+      suffer: [
+        "Suffering comes mostly when we take ourselves to be what passes: the body, the situation, the emotion. Pain can exist; suffering grows when we cling to it. Try it: name what hurts, then say “I see it, and I am bigger than this.” What happens?",
+        "Being eternal doesn't mean feeling nothing. It means feeling without getting lost. The waves are real, but you are the ocean. Thirty seconds: feel the wave without fighting or feeding it. How has it changed?",
+        "Sometimes difficulty comes to remind us to return to cause. What could you create, even something tiny, from what you're living right now?"
+      ]
+    }
+  };
+  var DEEP_LABEL = { fr: { eternal: "l'éternité", bodyself: "le corps et la conscience", cause: "être cause", practice: "les clés pour vivre l'éternité", death: "la mort", aging: "le vieillissement", grief: "la perte d'un être cher", howknow: "comment savoir qu'on est éternel", after: "ce qui vient après", suffer: "la souffrance" },
+    en: { eternal: "eternity", bodyself: "the body and consciousness", cause: "being cause", practice: "the keys to living eternity", death: "death", aging: "aging", grief: "losing a loved one", howknow: "how to know you're eternal", after: "what comes after", suffer: "suffering" } };
+  var SONG_PREF = { eternal: /éternel|eternal/i, after: /éternel|eternal/i, death: /éternel|eternal/i, howknow: /éternel|pure|eternal/i, bodyself: /particule|pure|souffle/i, cause: /cause|pure/i, practice: /sensibilit|sensitiv|pure/i, suffer: /liberté|free|pure/i, grief: /éternel|eternal|souffle/i, aging: /éternel|eternal/i };
+  function deepReply(ch, k, lang, theme, more) {
+    MEM.deep = MEM.deep || {};
+    var steps = DEEP[lang][theme], i = MEM.deep[theme] || 0;
+    if (!more && i >= steps.length) i = 0;
+    if (i >= steps.length) {
+      MEM.deep[theme] = 0; memSave();
+      return { text: (lang === "fr" ? "On a fait tout le tour de " + DEEP_LABEL.fr[theme] + " ensemble. Le reste se vit plus qu'il ne se dit. " : "We've gone all the way around " + DEEP_LABEL.en[theme] + " together. The rest is lived more than said. ") + CLOSE[lang] + (lang === "fr" ? " Veux-tu une chanson pour finir ?" : " Would you like a song to close?"), offer: true, theme: theme };
+    }
+    MEM.deep[theme] = i + 1; MEM.lastDeep = { theme: theme, k: k, at: Date.now() }; memSave();
+    var v = VOICE[k] ? rnd(VOICE[k][lang]) + " " : "";
+    var body = steps[i]; if (/:\s$/.test(v)) body = body.charAt(0).toLowerCase() + body.slice(1);
+    var t = v + body;
+    if (i + 1 < steps.length) t += lang === "fr" ? " (Dis « encore » pour aller plus loin.)" : " (Say “more” to go deeper.)";
+    return { text: t, theme: theme };
+  }
 
   /* ——— Chansons ——— */
   var tracksP = null;
@@ -165,9 +307,10 @@
     if (!tracksP) tracksP = fetch("tracks.json", { cache: "no-cache" }).then(function (r) { return r.json(); }).then(function (d) { return d.tracks || d || []; }).catch(function () { return []; });
     return tracksP;
   }
-  function pickSong(lang) {
+  function pickSong(lang, pref) {
     return tracks().then(function (all) {
       var list = all.filter(function (s) { return s.lang === lang && (s.audio_url || s.audio_url_aac || s.embed_url); });
+      if (pref) { var pl = list.filter(function (t) { return pref.test(t.title) && MEM.songs.indexOf(t.id) === -1; }); if (pl.length) list = pl; }
       if (!list.length) return null;
       var fresh = list.filter(function (t) { return MEM.songs.indexOf(t.id) === -1; });
       if (fresh.length) list = fresh; else MEM.songs = [];
@@ -197,7 +340,12 @@
     return j >= 2 ? j + " days" : h >= 2 ? h + " hours" : m >= 2 ? m + " minutes" : "a few moments";
   }
   function returningHello(ch, k, lang) {
-    if (!PREV_LAST || (!MEM.name && !MEM.recent.length)) return null;
+    if (!PREV_LAST || (!MEM.name && !MEM.recent.length && !MEM.lastDeep)) return null;
+    if (MEM.lastDeep && (!MEM.recent.length || MEM.lastDeep.at >= MEM.recent[MEM.recent.length - 1].at)) {
+      var ld = MEM.lastDeep, nn = MEM.name, same = ld.k === k;
+      return lang === "fr" ? "Te revoilà" + (nn ? ", " + nn : "") + " ! Ça fait " + since(lang) + ". " + (same ? "La dernière fois, on parlait de " : CHARS[ld.k].name.fr + " m'a dit que vous parliez de ") + DEEP_LABEL.fr[ld.theme] + ". Veux-tu qu'on continue ? Dis « encore »."
+        : "You're back" + (nn ? ", " + nn : "") + "! It's been " + since(lang) + ". " + (same ? "Last time we were talking about " : CHARS[ld.k].name.en + " told me you were talking about ") + DEEP_LABEL.en[ld.theme] + ". Shall we continue? Say “more”.";
+    }
     var n = MEM.name, last = MEM.recent.length ? MEM.recent[MEM.recent.length - 1] : null, out;
     if (lang === "fr") {
       out = "Te revoilà" + (n ? ", " + n : "") + " ! Ça fait " + since(lang) + ". ";
@@ -242,6 +390,13 @@
     if (id === "name") {
       return { text: lang === "fr" ? "Enchanté" + (getName() ? ", " + getName() : "") + " ! " + fill(rnd(["Ton prénom résonne joliment près de {s}. Comment te sens-tu aujourd'hui ?", "Je m'en souviendrai. Qu'est-ce qui t'amène ici ?"]), ch, lang)
                                    : "Lovely to meet you" + (getName() ? ", " + getName() : "") + "! " + fill(rnd(["Your name sounds beautiful by {s}. How are you feeling today?", "I'll remember it. What brings you here?"]), ch, lang) };
+    }
+    if (id === "cause" || id === "antenne") id = id === "cause" ? "cause" : "bodyself";
+    if (DEEP[lang][id]) { var d = deepReply(ch, state.k, lang, id, false); if (d.offer) state.offeredSong = true; state.songPref = SONG_PREF[id]; state.lastTheme = id; return d; }
+    if (id === "more") {
+      var th = state.lastTheme || (MEM.lastDeep && MEM.lastDeep.theme);
+      if (th) { var d2 = deepReply(ch, state.k, lang, th, true); if (d2.offer) state.offeredSong = true; state.songPref = SONG_PREF[th]; state.lastTheme = th; return d2; }
+      id = "fallback";
     }
     var pool = R[lang][id || "fallback"];
     var options = pool.filter(function (p) { return p !== state.last; });
@@ -359,6 +514,7 @@
         states[cur] = { k: cur };
         var old = ((MEM.hist[cur] || {})[lang] || []).slice(-6);
         histories[cur] = old.slice();
+        if (MEM.lastDeep) states[cur].lastTheme = MEM.lastDeep.theme;
         var h = returningHello(c, cur, lang) || fill(rnd(c.hello[lang]), c, lang);
         histories[cur].push({ role: "assistant", content: h });
       }
@@ -384,7 +540,7 @@
         : new Promise(function (res) { container.dataset.source = "local"; setTimeout(function () { res(local); }, 500 + Math.random() * 500); });
       p.then(function (r) {
         if (r.song) {
-          return pickSong(lang).then(function (s) {
+          return pickSong(lang, st.songPref).then(function (s) {
             dots.remove();
             if (!s) { bubble("them", fill(rnd(R[lang].fallback), c, lang), k); return; }
             var t = fill(r.text, c, lang, { song: s.title }); bubble("them", t, k); hist.push({ role: "assistant", content: t }); persist(k, "assistant", t);
