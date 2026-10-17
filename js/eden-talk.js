@@ -56,6 +56,7 @@
   var INTENTS = [
     { id: "harm", k: ["suicide", "me tuer", "veux mourir", "envie de mourir", "me suicider", "kill myself", "end my life", "me faire du mal", "hurt myself", "self harm", "plus envie de vivre", "want to die"] },
     { id: "more", k: ["encore", "dis m en plus", "dis moi en plus", "plus loin", "continue", "comment", "pourquoi", "explique", "tell me more", "more", "go on", "go deeper", "how", "why", "explain", "et apres", "ensuite", "next"] },
+    { id: "losefriend", k: ["peur de perdre", "perdre quelqu", "perdre mon", "perdre ma", "perdre mes", "perdre ceux", "perdre celle", "perdre celui", "oublier", "oubli", "il me manque", "elle me manque", "me manque", "afraid of losing", "scared of losing", "fear of losing", "losing someone", "lose someone", "lose my", "losing my", "forget", "forgetting", "i miss"] },
     { id: "suffer", k: ["souffr", "suffer", "pourquoi la douleur", "why pain", "why do we hurt"] },
     { id: "howknow", k: ["comment savoir", "comment je sais", "comment sais tu", "prouve", "preuve", "how do i know", "how do you know", "proof", "prove"] },
     { id: "after", k: ["apres la mort", "apres ma mort", "au dela", "l au dela", "after death", "afterlife", "after i die", "what happens after", "qu est ce qui se passe apres"] },
@@ -167,7 +168,7 @@
       fallback: ["Whatever the topic, the key is the same: you are the one who observes, and you can be cause. Shall we talk about eternity, the body and consciousness, or small practices for today?", "I'm listening{,n}. Tell me a little more?", "{S} receives your words. What do you feel as you say them?", "Hmm, I sense this matters to you. What's underneath it?", "Thank you for sharing that. Shall we add a song? Say “song” and I'll offer you one."]
     }
   };
-  var PRIORITY = ["harm", "medical", "name", "who", "song", "after", "howknow", "suffer", "grief", "death", "aging", "eternal", "bodyself", "practice", "sad", "fear", "anger", "tired", "sensi", "antenne", "admire", "nous", "fonction", "cause", "rythme", "love", "purpose", "nature", "spirit", "thanks", "bye", "joy", "hello", "more", "yes", "no", "question"];
+  var PRIORITY = ["harm", "medical", "name", "who", "song", "losefriend", "after", "howknow", "suffer", "grief", "death", "aging", "eternal", "bodyself", "practice", "sad", "fear", "anger", "tired", "sensi", "antenne", "admire", "nous", "fonction", "cause", "rythme", "love", "purpose", "nature", "spirit", "thanks", "bye", "joy", "hello", "more", "yes", "no", "question"];
 
   /* ——— Contenu de fond : éternité, conscience, corps, cause, pratiques (étapes progressives, mémorisées) ——— */
   var CLOSE = { fr: "Je suis autour. Je suis déjà dans le Vrai pur.", en: "I am all around. I am already in the pure True." };
@@ -224,6 +225,12 @@
         "Après, tu continues d'être ce que tu es déjà : conscience, présence, cause. Le corps se dépose comme on dépose un instrument après le concert. Le musicien reste. Mais la vraie invitation, c'est maintenant : vivre déjà comme un être éternel. Qu'est-ce que tu ferais aujourd'hui si tu n'avais aucune peur de la fin ?",
         "Personne n'a besoin d'attendre l'après pour toucher l'éternel. Il est dans chaque instant vécu en entier. Je suis autour. Je suis déjà dans le Vrai pur. Quel instant de ta journée pourrais-tu vivre en entier ?"
       ],
+      losefriend: [
+        "Avoir peur de perdre quelqu'un, c'est la preuve que tu l'aimes. Mais regarde : ce que tu aimes chez cette personne, ce n'est pas seulement son corps, c'est l'être qu'elle est. Et cet être-là est éternel, comme toi. Essaie maintenant : ferme les yeux, pense à elle, et sens le lien entre vous. Où le sens-tu dans ton corps ?",
+        "La mort ressemble à un oubli : on dépose le corps, et on oublie un moment qui on est et qui on aimait. L'éternité, c'est ne plus jamais oublier. Quand tu te souviens de toi comme être éternel, tu te souviens aussi des autres. Trente secondes : rappelle-toi un moment précis avec cette personne, ses yeux, sa voix. Qu'est-ce qui revient ?",
+        "La douleur de l'oubli, c'est la peur que le lien s'efface. Mais le lien n'est pas rangé dans la mémoire du cerveau : il vit dans ce que tu es. Des êtres éternels ne se perdent pas vraiment, ils ne s'oublient pas. Exercice : dis à voix basse « je ne t'oublie pas, tu ne m'oublies pas ». Comment ça résonne en toi ?",
+        "Vivre ça maintenant, c'est simple : aime la personne aujourd'hui, pendant qu'elle est là. Dis-lui une chose que tu admires chez elle, sans attendre. Et si un jour la peine devient trop lourde, parle aussi à quelqu'un de proche ou à un intervenant. Que pourrais-tu lui dire cette semaine ?"
+      ],
       suffer: [
         "La souffrance vient surtout quand on se prend pour ce qui passe : le corps, la situation, l'émotion. La douleur peut exister ; la souffrance grandit quand on s'y accroche. Essaie : nomme ce qui fait mal, puis dis « je le vois, et je suis plus grand que ça ». Qu'est-ce qui se passe ?",
         "Être éternel ne veut pas dire ne rien ressentir. Ça veut dire ressentir sans se perdre. Les vagues sont réelles, mais tu es l'océan. Trente secondes : sens la vague, sans la combattre ni la nourrir. Elle a changé comment ?",
@@ -275,6 +282,12 @@
         "Afterwards, you go on being what you already are: awareness, presence, cause. The body is set down like an instrument after the concert. The musician remains. But the real invitation is now: to live already as an eternal being. What would you do today if you had no fear of the end?",
         "No one has to wait for “after” to touch the eternal. It's in every moment lived fully. I am all around. I am already in the pure True. Which moment of your day could you live fully?"
       ],
+      losefriend: [
+        "Being afraid of losing someone proves that you love them. But look: what you love in them isn't only their body, it's the being they are. And that being is eternal, like you. Try it now: close your eyes, think of them, and feel the bond between you. Where do you feel it in your body?",
+        "Death is like a forgetting: the body is set down, and for a while we forget who we are and who we loved. Eternity means never forgetting again. When you remember yourself as an eternal being, you remember the others too. Thirty seconds: recall one precise moment with this person, their eyes, their voice. What comes back?",
+        "The pain of forgetting is the fear that the bond will fade. But the bond isn't stored in the brain's memory: it lives in what you are. Eternal beings don't truly lose each other; they don't forget. Exercise: softly say “I don't forget you, you don't forget me.” How does that resonate in you?",
+        "Living this now is simple: love the person today, while they're here. Tell them one thing you admire about them, without waiting. And if the grief ever gets too heavy, also talk with someone close or a counsellor. What could you tell them this week?"
+      ],
       suffer: [
         "Suffering comes mostly when we take ourselves to be what passes: the body, the situation, the emotion. Pain can exist; suffering grows when we cling to it. Try it: name what hurts, then say “I see it, and I am bigger than this.” What happens?",
         "Being eternal doesn't mean feeling nothing. It means feeling without getting lost. The waves are real, but you are the ocean. Thirty seconds: feel the wave without fighting or feeding it. How has it changed?",
@@ -282,9 +295,9 @@
       ]
     }
   };
-  var DEEP_LABEL = { fr: { eternal: "l'éternité", bodyself: "le corps et la conscience", cause: "être cause", practice: "les clés pour vivre l'éternité", death: "la mort", aging: "le vieillissement", grief: "la perte d'un être cher", howknow: "comment savoir qu'on est éternel", after: "ce qui vient après", suffer: "la souffrance" },
-    en: { eternal: "eternity", bodyself: "the body and consciousness", cause: "being cause", practice: "the keys to living eternity", death: "death", aging: "aging", grief: "losing a loved one", howknow: "how to know you're eternal", after: "what comes after", suffer: "suffering" } };
-  var SONG_PREF = { eternal: /éternel|eternal/i, after: /éternel|eternal/i, death: /éternel|eternal/i, howknow: /éternel|pure|eternal/i, bodyself: /particule|pure|souffle/i, cause: /cause|pure/i, practice: /sensibilit|sensitiv|pure/i, suffer: /liberté|free|pure/i, grief: /éternel|eternal|souffle/i, aging: /éternel|eternal/i };
+  var DEEP_LABEL = { fr: { eternal: "l'éternité", losefriend: "la peur de perdre quelqu'un qu'on aime", bodyself: "le corps et la conscience", cause: "être cause", practice: "les clés pour vivre l'éternité", death: "la mort", aging: "le vieillissement", grief: "la perte d'un être cher", howknow: "comment savoir qu'on est éternel", after: "ce qui vient après", suffer: "la souffrance" },
+    en: { eternal: "eternity", losefriend: "the fear of losing someone you love", bodyself: "the body and consciousness", cause: "being cause", practice: "the keys to living eternity", death: "death", aging: "aging", grief: "losing a loved one", howknow: "how to know you're eternal", after: "what comes after", suffer: "suffering" } };
+  var SONG_PREF = { losefriend: /éternel|eternal|souffle|nous|together/i, eternal: /éternel|eternal/i, after: /éternel|eternal/i, death: /éternel|eternal/i, howknow: /éternel|pure|eternal/i, bodyself: /particule|pure|souffle/i, cause: /cause|pure/i, practice: /sensibilit|sensitiv|pure/i, suffer: /liberté|free|pure/i, grief: /éternel|eternal|souffle/i, aging: /éternel|eternal/i };
   function deepReply(ch, k, lang, theme, more) {
     MEM.deep = MEM.deep || {};
     var steps = DEEP[lang][theme], i = MEM.deep[theme] || 0;
