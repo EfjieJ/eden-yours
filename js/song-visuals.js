@@ -63,10 +63,25 @@
   function apply(mode) { if (!root) return; root.classList.toggle("is-min", mode === "min"); if (mode === "min") root.classList.remove("is-full"); paintLabels(); place(); }
   var pt = 0; function throttlePlace() { if (pt) return; pt = setTimeout(function () { pt = 0; place(); }, 120); }
   /* jamais par-dessus le lecteur : on se met en haut ou en bas de l'écran, du côté libre */
+  /* téléphone : la fenêtre se glisse dans la page juste au-dessus du lecteur (elle ne recouvre plus rien : ni ▶ Suno,
+     ni « Chanson suivante ») ; ordinateur : fenêtre flottante en haut ou en bas, du côté libre */
+  function playerBox() {
+    var el = cur && cur.el; if (!el || !el.isConnected) return null;
+    var box = (el.closest && el.closest(".win-embed, .ca-player, [class*='player'], [class*='embed']")) || el;
+    var r = box.getBoundingClientRect(); return r.width > 0 && r.height > 0 && box.parentNode ? box : null;
+  }
+  function inlineOut() { if (root && root.classList.contains("is-inline")) { root.classList.remove("is-inline"); document.body.appendChild(root); } }
   function place() {
     if (!root || root.hidden || root.classList.contains("is-full")) { if (root) root.classList.remove("at-top"); return; }
-    var el = cur && cur.el, top = false;
-    var box = el && el.isConnected ? ((el.closest && el.closest(".win-embed, .ca-player, [class*='player'], [class*='embed']")) || el) : null;
+    var box = playerBox(), top = false;
+    if (window.innerWidth <= 700) {
+      if (box) {
+        if (root.nextSibling !== box || !root.classList.contains("is-inline")) { box.parentNode.insertBefore(root, box); root.classList.add("is-inline"); }
+        root.classList.remove("at-top"); return;
+      }
+      inlineOut(); root.classList.add("at-top"); return;   // pas de lecteur visible : petite bande en haut
+    }
+    inlineOut();
     if (box) {
       var r = box.getBoundingClientRect(), vh = window.innerHeight, h = root.getBoundingClientRect().height || 200;
       var ovB = Math.max(0, Math.min(r.bottom, vh) - Math.max(r.top, vh - h - 20));
@@ -78,7 +93,7 @@
   function hide() {
     clearInterval(timer); clearInterval(poll); timer = poll = 0;
     if (!root) return; root.classList.remove("is-on", "is-full");
-    setTimeout(function () { if (root && !root.classList.contains("is-on")) { root.hidden = true; layers.forEach(function (im) { im.removeAttribute("src"); im.classList.remove("is-on"); }); } }, 900);
+    setTimeout(function () { if (root && !root.classList.contains("is-on")) { root.hidden = true; inlineOut(); layers.forEach(function (im) { im.removeAttribute("src"); im.classList.remove("is-on"); }); } }, 900);
   }
   function srcOf(imgId) { var m = data && data.images && data.images[imgId]; if (!m) return ""; return base + (small() ? m.sm : m.src); }
   function imagesFor(id) {
@@ -109,6 +124,7 @@
   }
   function tick() {
     if (!cur) return;
+    if (root && window.innerWidth <= 700 && !root.classList.contains("is-full")) { var pb = playerBox(); if (pb ? root.nextSibling !== pb : root.classList.contains("is-inline")) place(); }
     var a = cur.el;
     if (cur.kind === "embed") { if (!a || !a.isConnected) { hide(); cur = null; return; } show(Math.floor((Date.now() - shownAt) / 1000 / interval())); return; }
     if (!a || a.ended || !a.getAttribute("src")) { hide(); cur = null; return; }
@@ -147,6 +163,6 @@
       start(d);
     });
   }
-  window.EdenSongVisuals = { song: song, hide: hide, state: function () { return { on: !!(root && !root.hidden && root.classList.contains("is-on")), id: cur && cur.id, kind: cur && cur.kind, slide: slide, images: cur ? cur.imgs.slice() : [], mode: root ? (root.classList.contains("is-full") ? "full" : root.classList.contains("is-min") ? "min" : "win") : null, top: !!(root && root.classList.contains("at-top")), interval: cur ? interval() : 0 }; } };
+  window.EdenSongVisuals = { song: song, hide: hide, state: function () { return { on: !!(root && !root.hidden && root.classList.contains("is-on")), id: cur && cur.id, kind: cur && cur.kind, slide: slide, images: cur ? cur.imgs.slice() : [], mode: root ? (root.classList.contains("is-full") ? "full" : root.classList.contains("is-min") ? "min" : "win") : null, top: !!(root && root.classList.contains("at-top")), inline: !!(root && root.classList.contains("is-inline")), interval: cur ? interval() : 0 }; } };
   if (window.__edenSongNow) song(window.__edenSongNow);
 })();

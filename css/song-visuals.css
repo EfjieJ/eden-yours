@@ -32,13 +32,17 @@
 .sv-pill-note { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1.3rem; text-shadow: 0 1px 8px rgba(0, 0, 0, 0.8); background: rgba(8, 6, 24, 0.25); }
 @keyframes sv-breathe { 50% { transform: scale(1.12); } }
 /* agrandi : plein écran */
-.sv.is-full { z-index: 2147483000; inset: 0; width: auto; border-radius: 0; transform: none; }
+.sv.is-full { position: fixed !important; margin: 0 !important; z-index: 2147483000; inset: 0; width: auto; border-radius: 0; transform: none; }
 .sv.is-full .sv-stage { aspect-ratio: auto; height: 100%; cursor: zoom-out; }
 .sv.is-full .sv-bar { padding: 0.8rem 1.2rem 1rem; }
 .sv.is-full .sv-title { font-size: 1rem; }
 @media (max-width: 700px) {
   .sv { left: 10px; right: 10px; bottom: 10px; width: auto; border-radius: 16px; }
   .sv.at-top { top: 72px; }
+  .sv.at-top:not(.is-min) .sv-stage { aspect-ratio: auto; height: 120px; }   /* petite bande en haut */
+  .sv.is-inline { position: relative; inset: auto; width: 100%; margin: 0.6rem 0 0.9rem; z-index: 1; transform: none; box-sizing: border-box; }
+  .sv.is-inline.is-min { width: 56px; margin-left: auto; }
+  .sv.is-inline.is-full { inset: 0; width: auto; }
   .sv.is-min { left: auto; width: 56px; }
   .sv.is-min .sv-pill { width: 56px; height: 56px; }
   .sv-btn { width: 34px; height: 34px; }
