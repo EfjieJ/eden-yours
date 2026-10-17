@@ -620,7 +620,9 @@
       "duration": 311.28,
       "featured": false,
       "audio_url_aac": null,
-      "lang": "fr"
+      "lang": "fr",
+      "new": true,
+      "added": "2026-10-16"
     }
   ]
 }

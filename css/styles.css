@@ -3446,3 +3446,6 @@ body.home-real .gm-newearth .gm-ne-orb { display: none; }
 body.home-real .gm-gesture { background-image: url("../assets/home/card-geste.webp"); background-size: cover; background-position: center; }
 body.home-real .gm-gesture .gm-ge-dot { display: none; }
 .gm-ge-dot { width: 18px; height: 18px; border-radius: 50%; background: #fff; box-shadow: 0 0 18px 6px rgba(160, 235, 255, 0.8); }
+
+/* Pastille « Nouveau » dans la liste des chansons (visible aussi sur téléphone) */
+.track-new { display: inline-block; margin-left: .4em; padding: .1em .55em; border-radius: 999px; font-size: .62em; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; vertical-align: middle; color: #1a1030; background: linear-gradient(135deg, #fde68a, #c084fc); }

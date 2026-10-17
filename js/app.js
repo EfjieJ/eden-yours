@@ -239,6 +239,8 @@
     if (queueIds) { queueIds = null; emitQueue(); }
     const lang = siteLang();
     tracks = window.EdenSongPick ? window.EdenSongPick.forLang(allTracks, lang) : allTracks.filter((t) => t && t.lang === lang);
+    // Nouveautés (drapeau new: true dans tracks.json) en tête de liste, le reste dans l'ordre habituel.
+    tracks = tracks.filter((t) => t.new).concat(tracks.filter((t) => !t.new));
     if (currentId && tracks.some((t) => t.id === currentId)) {
       currentIndex = tracks.findIndex((t) => t.id === currentId);
       return;
@@ -708,7 +710,7 @@
               : `<div class="track-cover placeholder">♫</div>`}
           </div>
           <div class="track-info">
-            <h3>${escapeHtml(t.title)}</h3>
+            <h3>${escapeHtml(t.title)}${t.new ? ` <span class="track-new">${escapeHtml(i18n("player.new"))}</span>` : ""}</h3>
             <div class="sub">${escapeHtml(t.artist || cfg.artistName || "")}</div>
           </div>
           ${badge}
