@@ -24,17 +24,17 @@
   <meta name="twitter:description" data-i18n-content="home.metaDesc" content="Plateforme vibratoire : 29 chansons pour la Sensibilité Pure. Joue au casse-tête et au blind test. Chanson sur demande 10 € / 10 $, piste parlée sur mesure 25 $ CAD. Ça régénère.">
   <meta name="twitter:image" content="https://efjiej.github.io/eden-yours/assets/og-share-v2.jpg">
   <meta name="twitter:image:alt" data-i18n-content="common.ogAlt" content="Eden Yours — Écoute en continu. Ça régénère. 29 chansons · Casse-tête · Blind test">
-  <link rel="stylesheet" href="css/styles.css?v=20261016k">
-  <script src="js/eden-autoplay.js?v=20261016k"></script>
-  <script src="js/song-pick.js?v=20261016k"></script>
-  <script src="js/play-full-song.js?v=20261016k"></script>
-  <script src="js/lang-pill.js?v=20261016k"></script>
-<script src="js/eden-passage.js?v=20261016k"></script>
+  <link rel="stylesheet" href="css/styles.css?v=20261017a">
+  <script src="js/eden-autoplay.js?v=20261017a"></script>
+  <script src="js/song-pick.js?v=20261017a"></script>
+  <script src="js/play-full-song.js?v=20261017a"></script>
+  <script src="js/lang-pill.js?v=20261017a"></script>
+<script src="js/eden-passage.js?v=20261017a"></script>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%23c084fc'/%3E%3Cstop offset='1' stop-color='%2367e8f9'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="css/alive.css?v=20261016k">
-  <script src="js/alive.js?v=20261016k" defer></script>
-  <link rel="stylesheet" href="css/ciel.css?v=20261016k">
-  <script src="js/ciel.js?v=20261016k" defer></script>
+  <link rel="stylesheet" href="css/alive.css?v=20261017a">
+  <script src="js/alive.js?v=20261017a" defer></script>
+  <link rel="stylesheet" href="css/ciel.css?v=20261017a">
+  <script src="js/ciel.js?v=20261017a" defer></script>
 </head>
 <body class="home-real">
   <header class="site-nav">
@@ -50,7 +50,8 @@
             <nav class="nav-links" data-i18n-aria="common.navAria" aria-label="Main">
         <span class="nav-games" role="group" data-i18n-aria="games.navAria" aria-label="Jeux">
           <a class="nav-games-kicker" href="index.html#jeux" data-i18n="games.nav">Jeux</a>
-          <a href="casse-tete.html" data-lang-href="casse-tete.html" data-i18n="home.puzzleEntryLabel">Casse-tête</a>
+          <a class="nav-fav" href="casse-tete.html" data-lang-href="casse-tete.html" data-i18n="home.puzzleEntryLabel">Casse-tête</a>
+          <a class="nav-fav" href="casse-tete-eden.html" data-lang-href="casse-tete-eden.html" data-i18n="home.edenPuzzleEntryLabel">Construis ton Éden</a>
           <a href="blind-test.html" data-lang-href="blind-test.html" data-i18n="home.blindEntryLabel">Blind test</a>
           <a href="etres-de-lumiere.html" data-lang-href="etres-de-lumiere.html" data-i18n="home.etresEntryLabel">Êtres de Lumière</a>
           <a href="quiz-paroles.html" data-lang-href="quiz-paroles.html" data-i18n="home.quizEntryLabel">Quiz paroles</a>
@@ -62,7 +63,6 @@
           <a href="mots-mysteres.html" data-lang-href="mots-mysteres.html" data-i18n="home.mysteryEntryLabel">Mots mystères</a>
           <a href="mots-croises.html" data-lang-href="mots-croises.html" data-i18n="home.crosswordEntryLabel">Mots croisés</a>
           <a href="solitaire-pochettes.html" data-lang-href="solitaire-pochettes.html" data-i18n="home.solitaireEntryLabel">Solitaire des pochettes</a>
-          <a href="casse-tete-eden.html" data-lang-href="casse-tete-eden.html" data-i18n="home.edenPuzzleEntryLabel">Construis ton Éden</a>
           <a href="nouvelle-terre.html" data-lang-href="nouvelle-terre.html" data-i18n="home.newEarthEntryLabel">Bâtis la Nouvelle Terre</a>
           <a href="geste-qui-nomme.html" data-lang-href="geste-qui-nomme.html" data-i18n="home.gestureEntryLabel">Le Geste qui nomme</a>
           <a href="jardin-sonore.html" data-lang-href="jardin-sonore.html" data-i18n="home.soundGardenEntryLabel">Jardin sonore</a>
@@ -98,12 +98,45 @@
           <h2 class="games-title" data-i18n="games.title">Joue avec les chansons</h2>
           <p class="games-lead" data-i18n="games.lead">Des jeux pour écouter, jouer et rayonner.</p>
         </div>
-        <div class="games-grid">
-          <a class="game-card game-card--puzzle" href="casse-tete.html" data-lang-href="casse-tete.html" data-i18n-aria="games.playPuzzle" aria-label="Jouer au casse-tête">
+        <div class="games-fav" role="group" data-i18n-aria="games.favAria" aria-label="Coup de cœur : les jeux d’assemblage">
+          <p class="games-fav-kicker" data-i18n="games.favKicker">♥ Coup de cœur</p>
+          <h3 class="games-fav-title" data-i18n="games.favTitle">Les jeux d’assemblage</h3>
+          <p class="games-fav-lead" data-i18n="games.favLead">Assemble l’image pièce par pièce. Quand elle est entière, elle s’illumine et une chanson joue en entier.</p>
+          <div class="games-fav-grid">
+          <a class="game-card game-card--fav game-card--puzzle" href="casse-tete.html" data-lang-href="casse-tete.html" data-i18n-aria="games.playPuzzle" aria-label="Jouer au casse-tête">
+            <span class="game-fav-badge" data-i18n="games.favBadge">♥ Coup de cœur</span>
             <div class="game-visual gm-mosaic" aria-hidden="true"><span class="gm-tile" style="--i:0"></span><span class="gm-tile" style="--i:1"></span><span class="gm-tile" style="--i:2"></span><span class="gm-tile" style="--i:3"></span><span class="gm-tile" style="--i:4"></span><span class="gm-tile is-lifted" style="--i:5"></span><span class="gm-tile" style="--i:6"></span><span class="gm-tile" style="--i:7"></span><span class="gm-tile" style="--i:8"></span></div>
             <div class="game-body">
               <h3 data-i18n="games.puzzleTitle">Casse-tête</h3>
               <p data-i18n="games.puzzleLine">Replace les pièces de la pochette. Quand l'image est entière, la chanson s'ouvre.</p>
+              <span class="btn btn-primary game-cta" data-i18n="games.play">▶ Jouer</span>
+            </div>
+          </a>
+          <a class="game-card game-card--fav game-card--eden" href="casse-tete-eden.html" data-lang-href="casse-tete-eden.html" data-i18n-aria="games.playEdenPuzzle" aria-label="Jouer à Construis ton Éden">
+            <span class="game-fav-badge" data-i18n="games.favBadge">♥ Coup de cœur</span>
+            <div class="game-visual gm-eden" aria-hidden="true">
+              <span class="gm-eden-piece gm-eden-piece--a"></span><span class="gm-eden-piece gm-eden-piece--b"></span>
+            </div>
+            <div class="game-body">
+              <h3 data-i18n="games.edenPuzzleTitle">Construis ton Éden</h3>
+              <p data-i18n="games.edenPuzzleLine">Assemble un paradis pièce par pièce. Quand il est fini, l’image s’anime et une chanson joue en entier.</p>
+              <span class="btn btn-primary game-cta" data-i18n="games.play">▶ Jouer</span>
+            </div>
+          </a>
+          </div>
+        </div>
+        <p class="games-more" data-i18n="games.moreTitle">Tous les autres jeux</p>
+        <div class="games-grid">
+          <a class="game-card game-card--rebuild" href="reconstruis-la-chanson.html" data-lang-href="reconstruis-la-chanson.html" data-i18n-aria="games.playRebuild" aria-label="Jouer à Reconstruis la chanson">
+            <div class="game-visual gm-rebuild" aria-hidden="true">
+              <span class="gm-rebuild-bar gm-rebuild-bar--a"></span>
+              <span class="gm-rebuild-bar gm-rebuild-bar--b"></span>
+              <span class="gm-rebuild-bar gm-rebuild-bar--c"></span>
+              <span class="gm-rebuild-spark"></span>
+            </div>
+            <div class="game-body">
+              <h3 data-i18n="games.rebuildTitle">Reconstruis la chanson</h3>
+              <p data-i18n="games.rebuildLine">Les couplets se sont mélangés. Remets-les dans l’ordre : la chanson se retrouve et joue en entier.</p>
               <span class="btn btn-primary game-cta" data-i18n="games.play">▶ Jouer</span>
             </div>
           </a>
@@ -304,30 +337,7 @@
             </div>
           </a>
 
-          <a class="game-card game-card--eden" href="casse-tete-eden.html" data-lang-href="casse-tete-eden.html" data-i18n-aria="games.playEdenPuzzle" aria-label="Jouer à Construis ton Éden">
-            <div class="game-visual gm-eden" aria-hidden="true">
-              <span class="gm-eden-piece gm-eden-piece--a"></span><span class="gm-eden-piece gm-eden-piece--b"></span>
-            </div>
-            <div class="game-body">
-              <h3 data-i18n="games.edenPuzzleTitle">Construis ton Éden</h3>
-              <p data-i18n="games.edenPuzzleLine">Assemble un paradis pièce par pièce. Quand il est fini, l’image s’anime et une chanson joue en entier.</p>
-              <span class="btn btn-primary game-cta" data-i18n="games.play">▶ Jouer</span>
-            </div>
-          </a>
 
-          <a class="game-card game-card--rebuild" href="reconstruis-la-chanson.html" data-lang-href="reconstruis-la-chanson.html" data-i18n-aria="games.playRebuild" aria-label="Jouer à Reconstruis la chanson">
-            <div class="game-visual gm-rebuild" aria-hidden="true">
-              <span class="gm-rebuild-bar gm-rebuild-bar--a"></span>
-              <span class="gm-rebuild-bar gm-rebuild-bar--b"></span>
-              <span class="gm-rebuild-bar gm-rebuild-bar--c"></span>
-              <span class="gm-rebuild-spark"></span>
-            </div>
-            <div class="game-body">
-              <h3 data-i18n="games.rebuildTitle">Reconstruis la chanson</h3>
-              <p data-i18n="games.rebuildLine">Les couplets se sont mélangés. Remets-les dans l’ordre : la chanson se retrouve et joue en entier.</p>
-              <span class="btn btn-primary game-cta" data-i18n="games.play">▶ Jouer</span>
-            </div>
-          </a>
 
           <a class="game-card game-card--carte" href="carte-du-jour.html" data-lang-href="carte-du-jour.html" data-i18n-aria="games.playCarte" aria-label="Ouvrir la Carte du jour">
             <div class="game-visual gm-carte" aria-hidden="true">
@@ -618,12 +628,12 @@
     </div>
   </footer>
 
-  <script src="config.js?v=20261016k"></script>
-  <script src="js/i18n.js?v=20261016k"></script>
-  <script src="js/shuffle.js?v=20261016k"></script>
-  <script src="js/app.js?v=20261016k"></script>
-  <script src="js/categories.js?v=20261016k"></script>
-  <script src="js/ambiance.js?v=20261016k"></script>
-  <script src="js/runners-ambiance.js?v=20261016k"></script>
+  <script src="config.js?v=20261017a"></script>
+  <script src="js/i18n.js?v=20261017a"></script>
+  <script src="js/shuffle.js?v=20261017a"></script>
+  <script src="js/app.js?v=20261017a"></script>
+  <script src="js/categories.js?v=20261017a"></script>
+  <script src="js/ambiance.js?v=20261017a"></script>
+  <script src="js/runners-ambiance.js?v=20261017a"></script>
 </body>
 </html>

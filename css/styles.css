@@ -3449,3 +3449,55 @@ body.home-real .gm-gesture .gm-ge-dot { display: none; }
 
 /* Pastille « Nouveau » dans la liste des chansons (visible aussi sur téléphone) */
 .track-new { display: inline-block; margin-left: .4em; padding: .1em .55em; border-radius: 999px; font-size: .62em; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; vertical-align: middle; color: #1a1030; background: linear-gradient(135deg, #fde68a, #c084fc); }
+
+/* ---------- Coup de cœur : les jeux d'assemblage en premier (accueil + menu) ---------- */
+.games-fav { text-align: center; margin: 0.4rem auto 2.4rem; max-width: 1100px; }
+.games-fav-kicker {
+  display: inline-block; margin: 0 0 0.35rem; padding: 0.28rem 0.9rem; border-radius: 999px;
+  font-size: 0.78rem; font-weight: 750; letter-spacing: 0.14em; text-transform: uppercase;
+  color: #f6d48f !important; border: 1px solid rgba(246, 212, 143, 0.45); background: rgba(246, 212, 143, 0.08);
+}
+.games-fav-title { font-size: clamp(1.45rem, 3.6vw, 2.1rem); font-weight: 650; margin: 0.2rem 0 0.35rem; }
+.games-fav-lead { max-width: 36rem; margin: 0 auto 1.6rem; color: #d9cdee; }
+.games-fav-grid {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 500px));
+  justify-content: center; gap: 2.6rem;
+}
+.game-card--fav {
+  border-color: rgba(246, 212, 143, 0.6) !important;
+  box-shadow: 0 0 0 1px rgba(246, 212, 143, 0.25), 0 0 46px rgba(246, 212, 143, 0.22), 0 22px 60px rgba(0, 0, 0, 0.5) !important;
+}
+.game-card--fav .game-visual { height: 300px; }
+.game-card--fav .game-body h3 { font-size: 1.7rem; }
+.game-card--fav .game-body p { font-size: 1.05rem; }
+.game-fav-badge {
+  position: absolute; top: -13px; left: 50%; transform: translateX(-50%); z-index: 3;
+  padding: 0.3rem 0.85rem; border-radius: 999px; white-space: nowrap;
+  font-size: 0.8rem; font-weight: 700; letter-spacing: 0.02em;
+  color: #2a1a08; background: linear-gradient(100deg, #fff1cf, #f6d48f 60%, #f3b9d8);
+  box-shadow: 0 4px 16px rgba(246, 212, 143, 0.45);
+  pointer-events: none;
+}
+.games-more {
+  text-align: center; margin: 0 0 1.4rem; font-size: 0.85rem; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase; color: rgba(236, 232, 245, 0.7) !important;
+}
+@media (max-width: 640px) {
+  .games-fav { margin-bottom: 1.8rem; }
+  .games-fav-lead { font-size: 0.95rem; margin-bottom: 1.3rem; }
+  .games-fav-grid { grid-template-columns: 1fr; gap: 1.9rem; }
+  .game-card--fav .game-visual { height: 230px; }
+  .game-card--fav .game-body h3 { font-size: 1.4rem; }
+  .game-card--fav .game-body p { font-size: 0.98rem; }
+}
+/* Menu des jeux : les deux casse-tête en tête, avec un petit cœur doré */
+.nav-links .nav-games a.nav-fav { color: #f6d48f; }
+.nav-links .nav-games a.nav-fav::before { content: "♥"; margin-right: 0.3em; font-size: 0.85em; color: #f6d48f; }
+@media (max-width: 1100px) {
+  .nav-links .nav-games a.nav-fav { background: rgba(246, 212, 143, 0.16); box-shadow: inset 0 0 0 1px rgba(246, 212, 143, 0.45); }
+}
+/* Menu téléphone : les 2 colonnes restent dans l'écran (les longs noms passent à la ligne) */
+@media (max-width: 1100px) {
+  .nav-games { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .nav-links .nav-games a { white-space: normal; line-height: 1.2; padding-inline: 0.5rem; min-width: 0; }
+}
