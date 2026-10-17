@@ -56,7 +56,7 @@
       docTitle: "Casse-tête — Eden Yours",
       eyebrow: "Jeu · vibration",
       h1: "Casse-tête",
-      lead: "Choisis une chanson française. Prends les pièces dans le plateau, puis dépose-les une à une sur l'image fantôme. Quand la pochette est entière, la chanson s'ouvre.",
+      lead: "Choisis une chanson française, puis assemble une image de merveille : chaque pièce posée la réveille. Quand l'image est entière, elle s'anime et la chanson s'ouvre.",
       menu: "Chansons françaises",
       tray: "Pièces à placer",
       hintFinger: "Tire une pièce du plateau avec le doigt et dépose-la sur sa case.",
@@ -67,9 +67,10 @@
       many: function (c, total) { return c + " pièces placées / " + total; },
       winTitle: "L'image est réunie",
       winLine: function (title) { return "Écoute « " + title + " »."; },
-      solved: "La pochette est entière. La chanson peut jouer.",
+      solved: "L'image est entière. La chanson peut jouer.",
       blocked: "Appuie sur lecture si le son ne part pas tout seul.",
-      embedTap: "La pochette est entière. Appuie sur lecture dans le lecteur Suno.",
+      embedTap: "L'image est entière. Appuie sur lecture dans le lecteur Suno.",
+      picMv: "✦ Merveille", picCover: "♪ Pochette", picAria: "Image à assembler : merveille ou pochette de la chanson",
       shuffle: "Mélanger",
       replay: "Rejouer",
       pause: "Pause",
@@ -90,7 +91,7 @@
       docTitle: "Jigsaw — Eden Yours",
       eyebrow: "Game · vibration",
       h1: "Jigsaw",
-      lead: "Choose an English song. Take the pieces from the tray and drop them one by one onto the ghost image. When the cover is whole, the song opens.",
+      lead: "Choose an English song, then put together a picture of wonder: each piece you place wakes it up. When the picture is whole, it comes alive and the song opens.",
       menu: "English songs",
       tray: "Pieces to place",
       hintFinger: "Drag a piece with your finger and drop it on its square.",
@@ -101,9 +102,10 @@
       many: function (c, total) { return c + " pieces placed / " + total; },
       winTitle: "The picture is whole",
       winLine: function (title) { return "Listen to “" + title + "”."; },
-      solved: "The cover is complete. The song can play.",
+      solved: "The picture is complete. The song can play.",
       blocked: "Press play if the sound does not start on its own.",
-      embedTap: "The cover is complete. Press play in the Suno player.",
+      embedTap: "The picture is complete. Press play in the Suno player.",
+      picMv: "✦ Wonder", picCover: "♪ Cover", picAria: "Picture to build: a wonder or the song's cover",
       shuffle: "Shuffle",
       replay: "Play again",
       pause: "Pause",
@@ -215,15 +217,39 @@
     return placedCount() === totalPieces();
   }
 
+  /* Image à assembler : surtout une « merveille » nouvelle (js/merveille.js, jamais une image vue récemment),
+     ou la pochette de la chanson si on la préfère (bouton ✦ / ♪, retenu). */
+  var PIC_KEY = "eden-casse-pic", picMode = "mv", pic = null, picUrl = "", life = null, fullImg = null;
+  try { if (localStorage.getItem(PIC_KEY) === "cover") picMode = "cover"; } catch (e) {}
+  var picBtn = document.getElementById("btn-pic");
+  function paintPicBtn() {
+    if (!picBtn) return; var text = copy();
+    picBtn.textContent = picMode === "mv" ? text.picMv : text.picCover;
+    picBtn.setAttribute("aria-label", text.picAria); picBtn.title = text.picAria;
+  }
+  function choosePic(current) {
+    var M = window.EdenMerveille;
+    pic = picMode === "mv" && M ? M.pick() : null;
+    picUrl = pic ? M.url(pic, "sq") : current.cover;
+  }
+  function sizeLife() { if (life) { var r = board.getBoundingClientRect(); life.size(r.width, r.height); } }
+  function makeLife() {
+    if (life) { life.stop(); life = null; }
+    if (fullImg) { fullImg.parentNode && fullImg.parentNode.removeChild(fullImg); fullImg = null; }
+    board.classList.remove("is-alive");
+    if (!window.EdenMerveille) return;
+    life = window.EdenMerveille.life(pic || { spots: [], fx: ["fireflies"] }, "sq");
+    life.setTotal(totalPieces()); life.canvas.style.zIndex = "3"; board.appendChild(life.canvas); sizeLife();
+  }
+  window.addEventListener("resize", sizeLife);
   function pieceBg(pieceId) {
-    var current = song();
     var row = Math.floor(pieceId / n);
     var col = pieceId % n;
     var x = n === 1 ? 0 : (col * 100) / (n - 1);
     var y = n === 1 ? 0 : (row * 100) / (n - 1);
     var bgSize = (n * 100) + "% " + (n * 100) + "%";
     return {
-      image: "url('" + current.cover + "')",
+      image: "url('" + picUrl + "')",
       size: bgSize,
       position: x + "% " + y + "%"
     };
@@ -293,6 +319,7 @@
     if (replay) replay.textContent = text.replay;
     if (stop) stop.textContent = text.pause;
     if (g3) g3.textContent = text.grid3;
+    paintPicBtn();
     if (g4) g4.textContent = text.grid4;
     if (grid) grid.setAttribute("aria-label", text.gridAria);
     if (board) board.setAttribute("aria-label", text.boardAria);
@@ -468,6 +495,12 @@
     winPanel.classList.add("is-open");
     hint.textContent = text.solved;
     board.classList.add("is-solved");
+    /* révélation : les joints s'effacent (image entière par-dessus), lumière, l'image s'anime et zoome doucement */
+    fullImg = document.createElement("img"); fullImg.className = "mv-full mv-zoom"; fullImg.alt = ""; fullImg.src = picUrl; fullImg.style.zIndex = "2";
+    board.insertBefore(fullImg, life ? life.canvas : null);
+    requestAnimationFrame(function () { if (fullImg) fullImg.classList.add("is-on"); });
+    board.classList.add("is-alive");
+    if (life) life.bloom();
     var delay = awardStars();
     if (current.embed && !current.audio) {
       showEmbed(current);
@@ -564,6 +597,7 @@
   function placeInSlot(pieceId, pieceEl) {
     placed[pieceId] = true;
     removeFromTrayOrder(pieceId);
+    if (life) { var pr = Math.floor(pieceId / n), pc = pieceId % n; life.wake(pc / n, pr / n, (pc + 1) / n, (pr + 1) / n); }
     if (pieceEl && pieceEl.parentNode) pieceEl.parentNode.removeChild(pieceEl);
     renderBoard();
     renderTray();
@@ -676,7 +710,8 @@
     startedAt = 0;
     lastResult = null;
     nowTitle.textContent = current.title;
-    boardGhost.src = current.cover;
+    choosePic(current);
+    boardGhost.src = picUrl;
     boardGhost.alt = "";
     hint.textContent = playHint();
     dealTray();
@@ -685,6 +720,7 @@
     renderBoard();
     renderTray();
     paintCount();
+    makeLife();
   }
 
   function selectSong(i) {
@@ -737,6 +773,11 @@
     if (!audio.getAttribute("src")) return;
     if (audio.paused) audio.play();
     else audio.pause();
+  });
+  if (picBtn) picBtn.addEventListener("click", function () {
+    picMode = picMode === "mv" ? "cover" : "mv";
+    try { localStorage.setItem(PIC_KEY, picMode); } catch (e) {}
+    paintPicBtn(); if (song()) start();
   });
   document.getElementById("grid-3").addEventListener("click", function () { setGrid(3); });
   document.getElementById("grid-4").addEventListener("click", function () { setGrid(4); });
@@ -805,6 +846,7 @@
     });
   }
 
+  function boot() {
   paintLangButtons();
   if (window.EdenI18n && window.EdenI18n.onChange) {
     window.EdenI18n.onChange(function (l) { applyPuzzleLang(l); });
@@ -817,7 +859,9 @@
   } else {
     applyPuzzleLang(fromQuery || "en");
   }
+  }
+  if (window.EdenMerveille) window.EdenMerveille.ready.then(boot, boot); else boot();
   window.EdenPuzzle = {
-    state: function () { return { pieces: totalPieces(), wrong: wrongDrops, startedAt: startedAt, locked: locked, result: lastResult }; }
+    state: function () { return { pieces: totalPieces(), wrong: wrongDrops, startedAt: startedAt, locked: locked, result: lastResult, pic: pic ? pic.id : "cover", picUrl: picUrl, life: life ? life.state() : null }; }
   };
 })();

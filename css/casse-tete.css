@@ -498,3 +498,9 @@ body.page-casse {
   border-radius: 10px;
 }
 .win-actions .btn[hidden] { display: none; }
+
+/* Merveilles : l'image « dort » (grise, sombre) puis chaque pièce posée la réveille ; à la fin elle s'anime */
+.board-ghost { opacity: 0.3; filter: grayscale(0.85) brightness(0.6) blur(0.6px); }
+.board.is-alive .board-slots { opacity: 0; transition: opacity 1.4s ease 0.4s; }
+.board .mv-life { border-radius: 18px; }
+.btn-pic { min-width: 0; padding-left: 0.9rem; padding-right: 0.9rem; }

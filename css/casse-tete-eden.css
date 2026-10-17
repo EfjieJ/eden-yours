@@ -30,7 +30,7 @@
 .ep-frame { position: absolute; left: 0; top: 0; display: block; border-radius: 14px; overflow: hidden; background: rgba(255, 255, 255, 0.04); box-shadow: 0 0 0 2px rgba(255, 196, 228, 0.4), inset 0 0 30px rgba(255, 170, 215, 0.12); }
 .ep-frame.ep-nofile { background: linear-gradient(135deg, rgba(106, 58, 140, 0.5), rgba(232, 143, 192, 0.4), rgba(255, 210, 176, 0.4)); }
 .ep-ghost { position: absolute; inset: 0; display: block; background-size: 100% 100%; background-repeat: no-repeat; opacity: 0.13; transition: opacity 0.4s; }
-.ep-ghost.is-peek { opacity: 0.95; }
+.ep-ghost.is-peek { opacity: 0.95; filter: none; }
 .ep-slots { position: absolute; inset: 0; display: grid; }
 .ep-slot { display: block; width: 100%; height: 100%; min-width: 0; min-height: 0; padding: 0; margin: 0; background: none; border: 1px dashed rgba(255, 220, 240, 0.28); border-radius: 0; cursor: pointer; -webkit-tap-highlight-color: transparent; touch-action: manipulation; transition: background 0.2s; }
 .ep-slots.has-sel .ep-slot:not(.is-filled) { background: rgba(253, 230, 138, 0.14); border-color: rgba(253, 230, 138, 0.7); }
@@ -127,3 +127,8 @@
   .ep-bubble { display: none; }
   .ep-overlay, .ep-scene, .ep-lay, .ep-piece, .ep-ghost { transition: none; }
 }
+
+/* La scène se construit : l'image « dort » (grise, sombre) et chaque pièce posée lui rend sa couleur et sa vie */
+.page-eden-puzzle .ep-ghost { opacity: 0.34; filter: grayscale(0.85) brightness(0.55) blur(0.6px); transition: opacity 0.4s, filter 0.4s; }
+.page-eden-puzzle .ep-ghost.is-peek { opacity: 0.95; filter: none; }
+.page-eden-puzzle .mv-life { z-index: 45; border-radius: 14px; }

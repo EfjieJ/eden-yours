@@ -78,3 +78,7 @@
   .ca-cover { align-self: center; }
 }
 @media (prefers-reduced-motion: reduce) { .ca-piece, .ca-board.is-won, .ca-tap { animation: none; } }
+
+/* Merveilles : le ciel « dort » puis chaque pièce l'éveille ; à la fin, zoom lent dans l'image */
+.ca-ghost { filter: grayscale(0.75) brightness(0.8); }
+.ca-final.mv-zoom { transform-origin: 50% 55%; }

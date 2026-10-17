@@ -51,7 +51,13 @@
   function level() { var L = levels(); for (var i = 0; i < L.length; i++) if (L[i].id === levelId) return L[i]; return L[0]; }
   function readRecent(l) { try { var o = JSON.parse(localStorage.getItem(cfg.recentStorageKey) || "{}"); return Array.isArray(o[l]) ? o[l] : []; } catch (e) { return []; } }
   function writeRecent(l, id) { try { var o = JSON.parse(localStorage.getItem(cfg.recentStorageKey) || "{}"); var a = (o[l] || []).filter(function (x) { return x !== id; }); a.push(id); o[l] = a.slice(-3); localStorage.setItem(cfg.recentStorageKey, JSON.stringify(o)); } catch (e) {} }
+  function mvScene() {                                                      // une image « merveille » (data/merveilles.json) jamais vue récemment
+    var M = window.EdenMerveille, it = M && M.pick(); if (!it) return null;
+    var sun = (it.spots || []).filter(function (x) { return x.t === "sun" || x.t === "glow"; })[0] || { x: 0.5, y: 0.3 };
+    return { id: "mv-" + it.id, base: "assets/merveilles/" + it.id, name: it.name, desc: { fr: "", en: "" }, sun: [sun.x, sun.y], halo: [], water: null, category: null, mv: it };
+  }
   function pickScene() {
+    if (Math.random() < 0.8) { var mv = mvScene(); if (mv) return mv; }   // surtout des images nouvelles, parfois un des 4 tableaux d'origine
     var l = siteLang(), rec = readRecent(l), all = cfg.scenes, last = rec.slice(-Math.min(2, all.length - 1));
     var pool = all.filter(function (s) { return last.indexOf(s.id) < 0; }); if (!pool.length) pool = all;
     return pool[Math.floor(Math.random() * pool.length)];
@@ -103,6 +109,15 @@
       });
     }
     R.pieces.forEach(function (p) { styleFor(p, g); });
+    if (life) life.size(g.W, g.H);
+  }
+  /* la scène se construit : chaque pièce posée éveille ce qu'elle couvre (js/merveille.js) */
+  var life = null;
+  function makeLife(scene) {
+    if (life) { life.stop(); life = null; }
+    if (!window.EdenMerveille) return;
+    var it = scene.mv || { spots: [{ t: "sun", x: scene.sun[0], y: scene.sun[1], r: 0.12 }].concat((scene.halo || []).map(function (h) { return { t: "being", x: h[0], y: h[1], r: h[2] }; })), fx: ["fireflies"] };
+    life = window.EdenMerveille.life(it); life.setTotal(R.pieces.length); stage.appendChild(life.canvas);
   }
   function build(scene, lv, img) {
     var cols = lv.cols, rows = lv.rows, h = [], v = [];
@@ -130,6 +145,7 @@
     p.locked = true; p.el.classList.add("is-locked"); p.el.classList.remove("is-selected", "is-hint"); p.el.setAttribute("tabindex", "-1"); p.el.style.zIndex = "2"; styleFor(p, R.g);
     slotEl(p.r, p.c).classList.add("is-filled"); slotEl(p.r, p.c).setAttribute("tabindex", "-1");
     R.placed++; R.moves++; if (selected === p) selected = null;
+    if (life) life.wake(p.c / R.cols, p.r / R.rows, (p.c + 1) / R.cols, (p.r + 1) / R.rows);
     if (!silent) { snapChime(); p.el.classList.add("is-snap"); setTimeout(function () { p.el.classList.remove("is-snap"); }, 520); }
     updateHud(); clearHint();
     hintEl.textContent = t("ep.hintSnap"); say(t("ep.progress", { a: R.placed, b: R.pieces.length }));
@@ -244,7 +260,7 @@
     cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); cv.style.width = W + "px"; cv.style.height = H + "px";
     var ctx = cv.getContext("2d"); if (!ctx) return; ctx.scale(dpr, dpr);
     var skyH = H * (s.id === "riviere" ? 0.58 : s.id === "nuit" ? 0.62 : s.id === "foret" ? 0.3 : 0.55);
-    var stars = [], nStars = s.id === "foret" ? 14 : (small ? 46 : 80);
+    var stars = [], nStars = s.mv ? (s.mv.night ? (small ? 30 : 50) : 0) : s.id === "foret" ? 14 : (small ? 46 : 80);
     for (var i = 0; i < nStars; i++) stars.push({ x: Math.random() * W, y: Math.random() * skyH, r: rnd(0.6, 1.9), ph: Math.random() * 6.28, sp: rnd(0.8, 2.6) });
     var motes = [], nM = small ? 22 : 40;
     for (i = 0; i < nM; i++) motes.push({ x: Math.random() * W, y: Math.random() * H, r: rnd(1, 2.8), vy: rnd(10, 30), ph: Math.random() * 6.28, a: rnd(0.4, 0.95) });
@@ -318,11 +334,11 @@
   function finish() {
     if (mode !== "playing") return;
     mode = "won"; selected = null; clearHint(); actions.hidden = true; wrap.classList.add("is-won"); updateHud();
-    showScene();
+    showScene(); if (life) life.bloom();
     var score = R.misses + R.hints * 1.5, stars = score <= 0 ? 3 : score <= 3 ? 2 : 1;
     var rec = window.EdenStars ? window.EdenStars.record(GAME_ID, stars) : { session: stars, best: stars };
     if (window.EdenStars) { window.EdenStars.play(stars); window.EdenStars.render(starsBox, stars, { line: t("ep.star" + stars), detail: t("ep.starDetail", { hints: Math.ceil(R.hints), misses: R.misses }), session: rec }); }
-    bubbles(); capEl.hidden = false; capEl.innerHTML = ""; var n = document.createElement("strong"); n.textContent = loc(R.scene.name); capEl.appendChild(n); capEl.appendChild(document.createTextNode(" — " + loc(R.scene.desc)));
+    bubbles(); capEl.hidden = false; capEl.innerHTML = ""; var n = document.createElement("strong"); n.textContent = loc(R.scene.name); capEl.appendChild(n); if (loc(R.scene.desc)) capEl.appendChild(document.createTextNode(" — " + loc(R.scene.desc)));
     var song = songFor(R.scene); hintEl.textContent = t("ep.hintWin"); say(t("ep.wonText", { title: song ? song.title : "" }));
     againBtn.hidden = false; againBtn.textContent = t("ep.again");
     if (song) playSong(song);
@@ -372,15 +388,16 @@
     // image à plat (obligatoire) puis couches (préchargées pour que l'animation parte aussitôt à la victoire)
     loadImg(base + ".webp").then(function (img) {
       if (mode !== "playing") return;
-      build(scene, lv, img); layout(true); updateHud(); hintEl.textContent = img ? t("ep.hintPlay") : t("ep.hintNoImage"); say(t("ep.setLine", { n: R.pieces.length }));
+      build(scene, lv, img); makeLife(scene); layout(true); updateHud(); hintEl.textContent = img ? t("ep.hintPlay") : t("ep.hintNoImage"); say(t("ep.setLine", { n: R.pieces.length }));
       var cur = R;
-      Promise.all(cfg.layers.map(function (n) { return loadImg(base + "-" + n + ".webp"); })).then(function (arr) {
+      if (!scene.mv) Promise.all(cfg.layers.map(function (n) { return loadImg(base + "-" + n + ".webp"); })).then(function (arr) {
         if (R !== cur) return; if (arr.every(Boolean)) { var L = {}; cfg.layers.forEach(function (n, i) { L[n] = arr[i]; }); cur.layers = L; }
       });
       try { var r = stage.getBoundingClientRect(); if (r.top < 50 || r.bottom > window.innerHeight + 300) stage.scrollIntoView({ block: "start", behavior: reduced() ? "auto" : "smooth" }); } catch (e) {}
     });
   }
   function showWelcome() {
+    if (life) { life.stop(); life = null; }
     mode = "idle"; R = null; selected = null; resetScene(); clearHint(); showOverlay(true); stage.hidden = true; stage.style.height = "";
     $("ep-overlay-kicker").textContent = t("ep.welcomeKicker"); $("ep-overlay-title").textContent = t("ep.welcomeTitle"); $("ep-overlay-text").textContent = t("ep.welcomeText");
     startBtn.hidden = false; startBtn.textContent = t("ep.start"); againBtn.hidden = true; actions.hidden = true; wrap.classList.remove("is-glow", "is-won"); if (celebrate) celebrate.innerHTML = "";
@@ -402,8 +419,8 @@
     state: function () {
       if (!R) return { mode: mode };
       var g = R.g; return { mode: mode, scene: R.scene.id, level: R.level, cols: R.cols, rows: R.rows, total: R.pieces.length, placed: R.placed, misses: R.misses, hints: R.hints, layersLoaded: !!R.layers, W: g.W, H: g.H, cw: g.cw, ch: g.ch, clip: CLIP,
-        category: R.scene.category, pieces: R.pieces.map(function (p) { return { i: p.i, r: p.r, c: p.c, locked: p.locked }; }) };
+        category: R.scene.category, life: life ? life.state() : null, pieces: R.pieces.map(function (p) { return { i: p.i, r: p.r, c: p.c, locked: p.locked }; }) };
     }
   };
-  load().then(function () { if (window.EdenSongPick && window.EdenSongPick.ready && window.EdenSongPick.ready.then) return window.EdenSongPick.ready; }).then(bind, bind);
+  load().then(function () { if (window.EdenMerveille) return window.EdenMerveille.ready; }).then(function () { if (window.EdenSongPick && window.EdenSongPick.ready && window.EdenSongPick.ready.then) return window.EdenSongPick.ready; }).then(bind, bind);
 })();

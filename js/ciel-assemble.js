@@ -193,6 +193,7 @@
     gc.globalAlpha = 1; gc.strokeStyle = "rgba(255,230,180,0.18)"; gc.lineWidth = 1; gc.setLineDash([4, 5]);
     for (var i = 1; i < G.n; i++) { gc.beginPath(); gc.moveTo(i * g.cw, 0); gc.lineTo(i * g.cw, g.H); gc.moveTo(0, i * g.ch); gc.lineTo(g.W, i * g.ch); gc.stroke(); }
     var fc = sizeCanvas(finalC, g.W, g.H); fc.drawImage(G.sky, 0, 0, g.W, g.H);
+    if (G.life) { G.life.canvas.style.left = g.bx + "px"; G.life.canvas.style.top = g.by + "px"; G.life.size(g.W, g.H); }
     sizeCanvas(starsC, g.W, g.H);
     G.pieces.forEach(function (p, k) {
       var w = g.cw + g.pad * 2, h = g.ch + g.pad * 2, d = piecePath(p, G.E, G.n, g.cw, g.ch, g.pad), c = sizeCanvas(p.el, w, h);
@@ -234,6 +235,7 @@
     p.locked = true; p.inTray = false; p.el.classList.add("is-locked", "is-snap"); p.el.style.zIndex = 2; place(p, p.tx, p.ty, 1);
     setTimeout(function () { p.el.classList.remove("is-snap"); }, 600);
     chime(G.placed / (G.pieces.length - 1)); G.placed++; progress();
+    if (G.life) G.life.wake(p.c / G.n, p.r / G.n, (p.c + 1) / G.n, (p.r + 1) / G.n);   // chaque pièce posée éveille son coin de ciel
     if (G.placed === G.pieces.length) setTimeout(assembled, 450);
   }
   function progress() { if (fill) fill.style.width = (G ? Math.round(100 * G.placed / G.pieces.length) : 0) + "%"; }
@@ -250,7 +252,7 @@
 
   /* ——— phase étoiles ——— */
   function assembled() {
-    mode = "stars"; board.classList.add("is-whole"); piecesEl.classList.add("is-done"); tray.hidden = true;
+    mode = "stars"; board.classList.add("is-whole"); if (G.life) G.life.canvas.style.zIndex = "35"; piecesEl.classList.add("is-done"); tray.hidden = true;
     stage.style.height = G.g.H + "px"; G.lit = 0;
     var shapeId = pickAvoid(Object.keys(SHAPES), "eden-ca-shapes", 2); pushArr("eden-ca-shapes", shapeId, 4);
     var S = SHAPES[shapeId], pts = S.pts(G.level === "easy"), sz = 0.46, cy = 0.31, av = G.sky._avoid || [], cands = [0.27, 0.4, 0.5, 0.6, 0.73].sort(function () { return Math.random() - 0.5; }), cx = cands[0], best = -1;
@@ -301,6 +303,7 @@
   }
   function win() {
     mode = "won"; tapEl.hidden = true; board.classList.add("is-won"); sparkle(40);
+    finalC.classList.add("mv-zoom"); if (G.life) G.life.bloom();   // révélation : lumière, l'image s'anime, zoom lent
     var song = pickSong(); G.song = song;
     if (song) startSong(song);
     againBtn.hidden = false;
@@ -327,16 +330,23 @@
   /* ——— partie ——— */
   var KINDS = ["lac", "aurore", "prairie", "mer"];
   function newGame() {
-    var kind = pickAvoid(KINDS, "eden-ca-skies", 2); pushArr("eden-ca-skies", kind, 4);
+    /* surtout une image « merveille » de nuit (js/merveille.js, jamais vue récemment), parfois un ciel peint */
+    var M = window.EdenMerveille, mv = M && Math.random() < 0.65 ? M.pick({ night: true }) : null;
+    var kind = mv ? "mv-" + mv.id : pickAvoid(KINDS, "eden-ca-skies", 2); if (!mv) pushArr("eden-ca-skies", kind, 4);
     var seed = (Math.random() * 1e9) | 0, lv = LEVELS[levelId];
-    var skyP = kind === "photo" ? loadPhoto("assets/home/hero-milkyway-airglow.webp") : Promise.resolve(null);
+    var skyP = mv ? loadPhoto(M.url(mv)) : Promise.resolve(null);
     return skyP.then(function (photo) {
-      var sky = photo || paintSky(kind === "photo" ? "lac" : kind, seed);
+      if (mv && !photo) { mv = null; kind = KINDS[0]; }
+      var sky = photo || paintSky(kind, seed);
+      if (mv) sky._avoid = (mv.spots || []).filter(function (q) { return q.t === "being" || q.t === "tree" || q.t === "falls"; }).map(function (q) { return q.x; });
       if (G && G.raf) cancelAnimationFrame(G.raf);
+      if (G && G.life) { G.life.stop(); if (G.life.canvas.parentNode) G.life.canvas.parentNode.removeChild(G.life.canvas); }
+      finalC.classList.remove("mv-zoom");
       stopSong(); againBtn.hidden = true; tapEl.hidden = true; board.classList.remove("is-whole", "is-won"); piecesEl.classList.remove("is-done");
       var c0 = starsC.getContext("2d"); c0.clearRect(0, 0, starsC.width, starsC.height);
       piecesEl.innerHTML = ""; mode = "playing";
       G = { kind: kind, level: levelId, n: lv.n, sky: sky, E: buildEdges(lv.n, lv.irr, rng(seed + 7)), pieces: [], placed: 0, order: [] };
+      if (M) { G.life = M.life(mv || { spots: [], fx: ["fireflies"] }); G.life.setTotal(lv.n * lv.n); G.life.canvas.style.zIndex = "12"; stage.appendChild(G.life.canvas); }
       for (var r = 0; r < lv.n; r++) for (var c = 0; c < lv.n; c++) {
         var el = document.createElement("canvas"); el.className = "ca-piece"; el.setAttribute("aria-hidden", "true"); el.style.setProperty("--i", r * lv.n + c);
         var p = { r: r, c: c, el: el, locked: false, fx: null, fy: null }; el._piece = p;
@@ -371,9 +381,9 @@
     newGame();
   }
   window.EdenCiel = {
-    state: function () { return G ? { mode: mode, kind: G.kind, level: G.level, total: G.pieces.length, placed: G.placed, shape: G.shape && G.shape.id, lit: G.lit || 0, stars: G.shape ? G.shape.pts.length : 0, song: G.song ? { id: G.song.id, title: G.song.title, lang: G.song.lang } : null,
+    state: function () { return G ? { mode: mode, kind: G.kind, level: G.level, total: G.pieces.length, placed: G.placed, shape: G.shape && G.shape.id, lit: G.lit || 0, stars: G.shape ? G.shape.pts.length : 0, life: G.life ? G.life.state() : null, song: G.song ? { id: G.song.id, title: G.song.title, lang: G.song.lang } : null,
       pieces: G.pieces.map(function (p) { return { cx: p.cx, cy: p.cy, tx: p.tx, ty: p.ty, s: p.s, locked: p.locked }; }), starPts: G.shape ? G.shape.pts.map(function (q) { return [q[0] * G.g.W, q[1] * G.g.H]; }) : [] } : { mode: mode }; }
   };
   fetch("tracks.json", { cache: "no-cache" }).then(function (r) { return r.json(); }).then(function (d) { tracks = d.tracks || d || []; }).catch(function () {})
-    .then(function () { if (window.EdenSongPick && window.EdenSongPick.ready) return window.EdenSongPick.ready; }).then(bind, bind);
+    .then(function () { if (window.EdenSongPick && window.EdenSongPick.ready) return window.EdenSongPick.ready; }).then(function () { if (window.EdenMerveille) return window.EdenMerveille.ready; }).then(bind, bind);
 })();
