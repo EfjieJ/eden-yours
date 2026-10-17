@@ -62,7 +62,7 @@
 @keyframes ca-spark { 0% { opacity: 0; transform: scale(0.2); } 30% { opacity: 1; transform: scale(1.2); } 100% { opacity: 0; transform: translateY(-40px) scale(0.4); } }
 
 .ca-player { display: flex; gap: 0.8rem; align-items: center; margin-top: 1rem; padding: 0.7rem; border-radius: 16px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(246, 212, 143, 0.3); }
-.ca-player[hidden] { display: none; }
+.ca-player[hidden], .ca-cover[hidden] { display: none; }
 .ca-cover { width: 72px; height: 72px; border-radius: 12px; object-fit: cover; flex-shrink: 0; box-shadow: 0 0 18px rgba(246, 212, 143, 0.35); }
 .ca-player-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.4rem; }
 .ca-now { margin: 0; font-weight: 700; font-size: 1.05rem; color: #fff1cf !important; }
