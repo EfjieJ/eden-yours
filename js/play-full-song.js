@@ -17,11 +17,12 @@
   var verQ = (selfSrc.match(/\?v=[^&#]*/) || [""])[0], baseU = selfSrc ? selfSrc.replace(/js\/play-full-song\.js.*$/, "") : "";
   var visLoading = false;
   function songIdOf(u) { var m = String(u || "").match(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i); return m ? m[0].toLowerCase() : ""; }
-  function announce(el, kind) {
+  function announce(el, kind, extra) {
     try {
-      var id = songIdOf(kind === "embed" ? el.src : (el.getAttribute("src") || el.currentSrc || el.src)) || (el.getAttribute && el.getAttribute("data-id")) || "";
+      var id = extra && extra.id ? songIdOf(extra.id) || String(extra.id) : songIdOf(kind === "embed" ? el.src : (el.getAttribute("src") || el.currentSrc || el.src)) || (el.getAttribute && el.getAttribute("data-id")) || "";
       if (!id) return;
       var d = { id: id, el: el, kind: kind };
+      if (extra) for (var k in extra) if (k !== "id") d[k] = extra[k];
       window.__edenSongNow = d;
       if (window.EdenSongVisuals) { window.EdenSongVisuals.song(d); return; }
       if (visLoading || !document.head) return; visLoading = true;
@@ -36,7 +37,13 @@
   }
   /* Lecteurs hors <audio> (ex. Web Audio de Rythme-Compasse) : claim(stopFn) avant de jouer ; stopFn est appelée quand une autre chanson démarre. */
   var external = [];
-  function claim(stopFn) { stopOthers(null, null, stopFn); if (stopFn && external.indexOf(stopFn) === -1) external.push(stopFn); }
+  /* claim(stopFn, { id, start, duration, el }) : une chanson Web Audio démarre (id = chanson, start = position dans la chanson,
+     el = repère pour placer les images) ; release(stopFn) quand elle s'arrête ou finit → les images de la chanson suivent. */
+  function claim(stopFn, info) {
+    stopOthers(null, null, stopFn); if (stopFn && external.indexOf(stopFn) === -1) external.push(stopFn);
+    if (info && info.id) announce(info.el || null, "external", { id: info.id, start: +info.start || 0, duration: +info.duration || 0, t0: Date.now(), owner: stopFn, done: false });
+  }
+  function release(stopFn) { var n = window.__edenSongNow; if (n && n.kind === "external" && (!stopFn || n.owner === stopFn)) n.done = true; }
   function stopOthers(except, keepFrame, keepFn) {
     for (var j = 0; j < external.length; j++) if (external[j] !== keepFn) { try { external[j](); } catch (e) {} }
     var all = songs.concat([].slice.call(document.querySelectorAll("audio, video")));
@@ -51,12 +58,15 @@
   document.addEventListener("play", function (e) { var m = e.target; if (isSong(m)) { stopOthers(m); announce(m, "audio"); } }, true);
   try {
     new MutationObserver(function (muts) {
-      muts.forEach(function (mu) { [].forEach.call(mu.addedNodes, function (n) {
+      muts.forEach(function (mu) {
+        /* iframe Suno réutilisée : on lui change seulement src → c'est une nouvelle chanson */
+        if (mu.type === "attributes") { var t = mu.target; if (t.tagName === "IFRAME" && t.isConnected && /suno\.com/.test(t.src || "") && songIdOf(t.src) !== songIdOf(mu.oldValue)) { stopOthers(null, t); announce(t, "embed"); } return; }
+        [].forEach.call(mu.addedNodes, function (n) {
         if (n.nodeType !== 1) return;
         var f = n.tagName === "IFRAME" ? n : n.querySelector && n.querySelector('iframe[src*="suno.com"]');
         if (f && /suno\.com/.test(f.src || "")) { stopOthers(null, f); announce(f, "embed"); }
       }); });
-    }).observe(document.documentElement, { childList: true, subtree: true });
+    }).observe(document.documentElement, { childList: true, subtree: true, attributes: true, attributeFilter: ["src"], attributeOldValue: true });
   } catch (e) {}
   function busy(a) { return !!(a && a.getAttribute && a.getAttribute("src") && !a.paused && !a.ended); }
   function resolve(u) { try { return new URL(u, document.baseURI).href; } catch (e) { return u; } }
@@ -100,5 +110,5 @@
     try { if (window.EdenSongPick && song.id) window.EdenSongPick.record(song.id); } catch (e) {}
     return true;
   }
-  window.EdenFullSong = { play: play, stop: stop, embed: embed, busy: busy, stopOthers: stopOthers, claim: claim };
+  window.EdenFullSong = { play: play, stop: stop, embed: embed, busy: busy, stopOthers: stopOthers, claim: claim, release: release };
 })();

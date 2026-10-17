@@ -755,6 +755,7 @@
       detuneGain = null;
     }
     if (currentSource) {
+      try { if (window.EdenFullSong && window.EdenFullSong.release) window.EdenFullSong.release(stopPlayback); } catch (_) {}
       try { currentSource.onended = null; } catch (_) {}
       try { currentSource.stop(); } catch (_) {}
       try { currentSource.disconnect(); } catch (_) {}
@@ -804,16 +805,23 @@
 
     gainNode.connect(audioCtx.destination);
     currentSource = src;
-    try { if (window.EdenFullSong && window.EdenFullSong.claim) window.EdenFullSong.claim(stopPlayback); } catch (_) {}
-
     const start = Math.max(0, startSec || 0);
     const end = Math.min(endSec || audioBuffer.duration, audioBuffer.duration);
     const dur = Math.max(0.05, end - start);
+    /* annonce la chanson (et l'endroit où l'on est dans la chanson) : les images de SES paroles suivent */
+    try {
+      if (window.EdenFullSong && window.EdenFullSong.claim) {
+        const scr = document.querySelector('.rc-screen.active');
+        const anchor = (scr && scr.querySelector('.rc-listen-bar, #btn-finale-listen')) || null;
+        window.EdenFullSong.claim(stopPlayback, { id: loadedSongId || selectedId, start: start, duration: audioBuffer.duration, el: anchor && anchor.id === 'btn-finale-listen' ? anchor.parentNode : anchor });
+      }
+    } catch (_) {}
     src.start(0, start, dur);
     src.onended = function () {
       if (currentSource === src) {
         currentSource = null;
         btnStop.hidden = true;
+        try { if (window.EdenFullSong && window.EdenFullSong.release) window.EdenFullSong.release(stopPlayback); } catch (_) {}
       }
     };
     btnStop.hidden = false;

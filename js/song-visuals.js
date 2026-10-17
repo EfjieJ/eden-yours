@@ -8,7 +8,7 @@
   if (window.EdenSongVisuals) return;
   var me = document.currentScript, base = (me && me.getAttribute("data-base")) || "";
   var ver = ((me && me.src) || "").match(/\?v=[^&#]*/); ver = ver ? ver[0] : "";
-  var data = null, tracks = null, cur = null, root = null, layers = [], li = 0, timer = 0, poll = 0, shownAt = 0, slide = -1;
+  var data = null, tracks = null, cur = null, root = null, layers = [], li = 0, timer = 0, poll = 0, shownAt = 0, slide = -1, gen = 0;
   var MODE_KEY = "eden-visuals-mode";
   function lang() { return (document.documentElement.lang || "fr").slice(0, 2) === "en" ? "en" : "fr"; }
   var TXT = {
@@ -93,7 +93,8 @@
   function hide() {
     clearInterval(timer); clearInterval(poll); timer = poll = 0;
     if (!root) return; root.classList.remove("is-on", "is-full");
-    setTimeout(function () { if (root && !root.classList.contains("is-on")) { root.hidden = true; inlineOut(); layers.forEach(function (im) { im.removeAttribute("src"); im.classList.remove("is-on"); }); } }, 900);
+    var g = ++gen;   // une chanson qui démarre entre-temps (ex. enchaînement auto, onglet en arrière-plan) annule ce masquage
+    setTimeout(function () { if (root && g === gen && !root.classList.contains("is-on")) { root.hidden = true; inlineOut(); layers.forEach(function (im) { im.removeAttribute("src"); im.classList.remove("is-on"); }); } }, 900);
   }
   function srcOf(imgId) { var m = data && data.images && data.images[imgId]; if (!m) return ""; return base + (small() ? m.sm : m.src); }
   function imagesFor(id) {
@@ -119,15 +120,19 @@
   function interval() {
     var n = cur.imgs.length || 1, dur = cur.dur || 0, a = cur.el;
     if (cur.kind === "audio" && a && isFinite(a.duration) && a.duration > 20) dur = a.duration;
+    if (cur.kind === "external" && cur.d && cur.d.duration > 20) dur = cur.d.duration;
     if (!dur) return 10;
     var rounds = Math.max(1, Math.round(dur / (n * 10))); return Math.max(7, Math.min(14, dur / (n * rounds)));
   }
   function tick() {
     if (!cur) return;
+    if (root && !root.hidden && !root.classList.contains("is-on")) root.classList.add("is-on");   // onglet en arrière-plan : pas de requestAnimationFrame
     if (root && window.innerWidth <= 700 && !root.classList.contains("is-full")) { var pb = playerBox(); if (pb ? root.nextSibling !== pb : root.classList.contains("is-inline")) place(); }
     var a = cur.el;
+    if (cur.kind === "external") { var x = cur.d; if (!x || x.done || (window.__edenSongNow || {}) !== x) { hide(); cur = null; return; } show(Math.floor((x.start + (Date.now() - x.t0) / 1000) / interval())); return; }
+    if (cur.over) { hide(); cur = null; return; }
     if (cur.kind === "embed") { if (!a || !a.isConnected) { hide(); cur = null; return; } show(Math.floor((Date.now() - shownAt) / 1000 / interval())); return; }
-    if (!a || a.ended || !a.getAttribute("src")) { hide(); cur = null; return; }
+    if (!a || a.ended || !(a.getAttribute("src") || a.currentSrc)) { hide(); cur = null; return; }
     if (a.paused) { root.classList.add("is-paused"); return; }
     root.classList.remove("is-paused");
     show(Math.floor((a.currentTime || 0) / interval()));
@@ -135,16 +140,21 @@
   function start(d) {
     var t = trackOf(d.id), imgs = imagesFor(d.id);
     if (!imgs.length) return;
-    if (cur && cur.id === d.id && cur.el === d.el) { if (cur.closed) return; if (root.hidden) reveal(); return; }
-    cur = { id: d.id, el: d.el, kind: d.kind, imgs: imgs, dur: t && t.duration ? +t.duration : 0, closed: false };
+    /* même chanson, même lecteur, toujours en cours (reprise après pause, nouvel extrait) : on garde la fenêtre et son état
+       (fermée = fermée pour CETTE chanson) ; toute autre chanson, ou la même relancée après sa fin, repart de zéro */
+    if (cur && cur.id === d.id && (cur.el === d.el || d.kind === "external") && cur.kind === d.kind && !cur.over) { cur.d = d; cur.el = d.el; if (cur.closed) return; if (root.hidden || !root.classList.contains("is-on")) reveal(); return; }
+    cur = { id: d.id, el: d.el, kind: d.kind, d: d, imgs: imgs, dur: t && t.duration ? +t.duration : 0, closed: false, over: false };
     build(); slide = -1; shownAt = Date.now();
+    root.classList.remove("is-paused");
+    layers.forEach(function (im) { im.onload = null; });   // une image encore en route de l'ancienne chanson ne s'affichera pas
+    var pimg = root.querySelector(".sv-pill-img"); if (pimg) pimg.src = srcOf(imgs[0]);   // la bulle réduite montre tout de suite la nouvelle chanson
     root.querySelector(".sv-title").textContent = "♪ " + ((t && t.title) || (data.songs[d.id] && data.songs[d.id].title) || "");
     var dots = root.querySelector(".sv-dots"); dots.innerHTML = ""; imgs.forEach(function () { dots.appendChild(document.createElement("i")); });
     root.classList.toggle("is-still", reduced());
     reveal();
   }
   function reveal() {
-    root.hidden = false; apply(getMode()); show(0);
+    gen++; root.hidden = false; apply(getMode()); show(slide < 0 ? 0 : slide);
     requestAnimationFrame(function () { root.classList.add("is-on"); place(); });
     clearInterval(timer); timer = setInterval(tick, 1000);
   }
@@ -156,7 +166,8 @@
       var a = d.el;
       if (d.kind === "audio" && a) {
         var go = function () { if (!a.paused && !a.muted && (window.__edenSongNow || {}).el === a) start(d); };
-        if (!a.__svBound) { a.__svBound = true; a.addEventListener("playing", function () { var n = window.__edenSongNow; if (n && n.el === a) song(n); }); a.addEventListener("volumechange", function () { var n = window.__edenSongNow; if (n && n.el === a && !a.muted && !a.paused) song(n); }); }
+        if (!a.__svBound) { a.__svBound = true; a.addEventListener("playing", function () { var n = window.__edenSongNow; if (n && n.el === a) song(n); }); a.addEventListener("volumechange", function () { var n = window.__edenSongNow; if (n && n.el === a && !a.muted && !a.paused) song(n); });
+          a.addEventListener("ended", function () { if (cur && cur.el === a && a.ended) cur.over = true; }); }   // finie : la rejouer = la rouvrir
         if (!a.paused && !a.muted) go();
         return;
       }
