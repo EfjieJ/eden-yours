@@ -1,0 +1,46 @@
+/* Eden Yours — « Images des paroles » : fenêtre d'images liée à la chanson en cours (js/song-visuals.js) */
+.sv { position: fixed; right: 16px; bottom: 16px; z-index: 9000; width: min(460px, 40vw); border-radius: 18px; overflow: hidden; background: #0b0820;
+  box-shadow: 0 0 0 1px rgba(246, 212, 143, 0.35), 0 18px 50px rgba(0, 0, 0, 0.55), 0 0 40px rgba(246, 212, 143, 0.15);
+  opacity: 0; transform: translateY(14px) scale(0.98); transition: opacity 0.9s ease, transform 0.9s ease, top 0.4s ease, bottom 0.4s ease; }
+.sv[hidden] { display: none; }
+.sv.is-on { opacity: 1; transform: none; }
+.sv.at-top { bottom: auto; top: 78px; }
+.sv-stage { position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: #0b0820; }
+.sv-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0; transition: opacity 2.6s ease; will-change: transform, opacity; }
+.sv-img.is-on { opacity: 1; }
+.sv-img.zoom-a { animation: sv-zoom-a 18s ease-out forwards; }
+.sv-img.zoom-b { animation: sv-zoom-b 18s ease-out forwards; }
+@keyframes sv-zoom-a { from { transform: scale(1.02) translate(0, 0); } to { transform: scale(1.14) translate(-2%, -1.5%); } }
+@keyframes sv-zoom-b { from { transform: scale(1.14) translate(2%, 1%); } to { transform: scale(1.03) translate(0, 0); } }
+.sv.is-paused .sv-img { animation-play-state: paused; }
+.sv.is-still .sv-img { animation: none !important; transition-duration: 1.2s; }
+.sv-glow { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse at 50% 40%, rgba(255, 236, 200, 0.10), rgba(0, 0, 0, 0) 55%), linear-gradient(to top, rgba(8, 6, 24, 0.75), rgba(8, 6, 24, 0) 38%); }
+.sv-bar { position: absolute; left: 0; right: 0; bottom: 0; display: flex; align-items: center; gap: 0.5rem; padding: 0.45rem 0.55rem 0.5rem 0.85rem; }
+.sv-title { flex: 1; min-width: 0; margin: 0; font-size: 0.82rem; font-weight: 600; color: #fdf3dc; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-shadow: 0 1px 6px rgba(0, 0, 0, 0.7); }
+.sv-dots { display: flex; gap: 4px; }
+.sv-dots i { width: 6px; height: 6px; border-radius: 50%; background: rgba(255, 255, 255, 0.35); transition: background 0.6s, transform 0.6s; }
+.sv-dots i.is-on { background: #f6d48f; transform: scale(1.25); }
+.sv-tools { display: flex; gap: 4px; }
+.sv-btn { width: 32px; height: 32px; border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.25); background: rgba(10, 8, 30, 0.55); color: #fff; font-size: 1rem; line-height: 1; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; padding: 0; backdrop-filter: blur(4px); }
+.sv-btn:hover, .sv-btn:focus-visible { background: rgba(246, 212, 143, 0.3); outline: none; }
+.sv-pill { display: none; }
+/* réduit : une petite bulle ronde avec l'image en cours */
+.sv.is-min { width: 62px; border-radius: 50%; }
+.sv.is-min .sv-stage, .sv.is-min .sv-bar { display: none; }
+.sv.is-min .sv-pill { display: block; position: relative; width: 62px; height: 62px; border-radius: 50%; overflow: hidden; border: 0; }
+.sv-pill-img { width: 100%; height: 100%; object-fit: cover; display: block; animation: sv-breathe 5s ease-in-out infinite; }
+.sv-pill-note { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1.3rem; text-shadow: 0 1px 8px rgba(0, 0, 0, 0.8); background: rgba(8, 6, 24, 0.25); }
+@keyframes sv-breathe { 50% { transform: scale(1.12); } }
+/* agrandi : plein écran */
+.sv.is-full { z-index: 2147483000; inset: 0; width: auto; border-radius: 0; transform: none; }
+.sv.is-full .sv-stage { aspect-ratio: auto; height: 100%; cursor: zoom-out; }
+.sv.is-full .sv-bar { padding: 0.8rem 1.2rem 1rem; }
+.sv.is-full .sv-title { font-size: 1rem; }
+@media (max-width: 700px) {
+  .sv { left: 10px; right: 10px; bottom: 10px; width: auto; border-radius: 16px; }
+  .sv.at-top { top: 72px; }
+  .sv.is-min { left: auto; width: 56px; }
+  .sv.is-min .sv-pill { width: 56px; height: 56px; }
+  .sv-btn { width: 34px; height: 34px; }
+}
+@media (prefers-reduced-motion: reduce) { .sv-img { animation: none !important; } .sv-pill-img { animation: none; } }

@@ -12,6 +12,23 @@
      Avant qu'une chanson démarre (<audio> de assets/audio, même hors DOM, ou embed Suno), on met en pause toutes les autres
      et on retire les iframes Suno existantes (impossible de les mettre en pause d'une autre origine). */
   var songs = [];
+  /* ——— Images des paroles (js/song-visuals.js) : chargé seulement quand une chanson démarre ——— */
+  var selfSrc = (document.currentScript && document.currentScript.src) || "";
+  var verQ = (selfSrc.match(/\?v=[^&#]*/) || [""])[0], baseU = selfSrc ? selfSrc.replace(/js\/play-full-song\.js.*$/, "") : "";
+  var visLoading = false;
+  function songIdOf(u) { var m = String(u || "").match(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i); return m ? m[0].toLowerCase() : ""; }
+  function announce(el, kind) {
+    try {
+      var id = songIdOf(kind === "embed" ? el.src : (el.getAttribute("src") || el.currentSrc || el.src)) || (el.getAttribute && el.getAttribute("data-id")) || "";
+      if (!id) return;
+      var d = { id: id, el: el, kind: kind };
+      window.__edenSongNow = d;
+      if (window.EdenSongVisuals) { window.EdenSongVisuals.song(d); return; }
+      if (visLoading || !document.head) return; visLoading = true;
+      var l = document.createElement("link"); l.rel = "stylesheet"; l.href = baseU + "css/song-visuals.css" + verQ; document.head.appendChild(l);
+      var sc = document.createElement("script"); sc.src = baseU + "js/song-visuals.js" + verQ; sc.async = true; sc.setAttribute("data-base", baseU); document.head.appendChild(sc);
+    } catch (e) {}
+  }
   function isSong(m) { var u = (m && (m.currentSrc || m.getAttribute && m.getAttribute("src") || m.src)) || ""; return /assets\/audio\/|\.(mp3|m4a)(\?|$)/i.test(u) && u.indexOf("data:") !== 0; }
   function killEmbeds(keep) {
     var fr = document.querySelectorAll('iframe[src*="suno.com"]');
@@ -28,16 +45,16 @@
   }
   var nativePlay = HTMLMediaElement.prototype.play;
   HTMLMediaElement.prototype.play = function () {
-    try { if (isSong(this)) { if (songs.indexOf(this) === -1) songs.push(this); stopOthers(this); } } catch (e) {}
+    try { if (isSong(this)) { if (songs.indexOf(this) === -1) songs.push(this); stopOthers(this); announce(this, "audio"); } } catch (e) {}
     return nativePlay.apply(this, arguments);
   };
-  document.addEventListener("play", function (e) { var m = e.target; if (isSong(m)) stopOthers(m); }, true);
+  document.addEventListener("play", function (e) { var m = e.target; if (isSong(m)) { stopOthers(m); announce(m, "audio"); } }, true);
   try {
     new MutationObserver(function (muts) {
       muts.forEach(function (mu) { [].forEach.call(mu.addedNodes, function (n) {
         if (n.nodeType !== 1) return;
         var f = n.tagName === "IFRAME" ? n : n.querySelector && n.querySelector('iframe[src*="suno.com"]');
-        if (f && /suno\.com/.test(f.src || "")) stopOthers(null, f);
+        if (f && /suno\.com/.test(f.src || "")) { stopOthers(null, f); announce(f, "embed"); }
       }); });
     }).observe(document.documentElement, { childList: true, subtree: true });
   } catch (e) {}
