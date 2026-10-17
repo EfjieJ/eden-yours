@@ -606,6 +606,21 @@
       "featured": false,
       "audio_url_aac": null,
       "lang": "fr"
+    },
+    {
+      "id": "4db8bded-179a-4e2c-9870-097fbfb39d38",
+      "title": "Le Vrai Cycle",
+      "artist": "Eden Yours",
+      "sunoArtist": "efjie8008",
+      "sunoTitle": "Le Vrai Cycle",
+      "audio_url": null,
+      "embed_url": "https://suno.com/embed/4db8bded-179a-4e2c-9870-097fbfb39d38",
+      "cover_url": "assets/covers/4db8bded-179a-4e2c-9870-097fbfb39d38.jpeg",
+      "suno_share": "https://suno.com/s/V8dz0pWMzTP0rS24",
+      "duration": 311.28,
+      "featured": false,
+      "audio_url_aac": null,
+      "lang": "fr"
     }
   ]
 }

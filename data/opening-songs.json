@@ -4,7 +4,13 @@
  "criteria": [
   "Étiquettes de style Suno (API publique des clips) : joyful / upbeat / rhythmic / cha-cha / gospel / pop-rock / BPM annoncé ; exclus : art song, ballade, « unhurried », 60 BPM, valse lente",
   "Mesure audio sur les MP3 locaux (librosa) : tempo estimé, énergie RMS, densité d'attaques (onset strength) ; les titres uniquement en embed Suno sont jugés sur leurs étiquettes",
-  "Titres et paroles : refrains rythmés / chœurs ; popularité Suno comme départage"
+  "Titres et paroles : refrains rythmés / chœurs ; popularité Suno comme départage",
+  {
+   "id": "4db8bded-179a-4e2c-9870-097fbfb39d38",
+   "lang": "fr",
+   "title": "Le Vrai Cycle",
+   "why": "Disco orchestral, 124 BPM, upbeat singing (tags Suno)."
+  }
  ],
  "excluded": {
   "fr": [
