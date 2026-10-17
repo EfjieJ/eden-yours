@@ -6,6 +6,15 @@
 
   var dict = {
     fr: {
+      "talk.title": "Parler aux êtres de lumière — Eden Yours",
+      "talk.metaDesc": "Converse avec les êtres de lumière d’Eden Yours : Braise, Astrée, Lumière, Vent et Sève te répondent et t’offrent une chanson.",
+      "talk.eyebrow": "Conversation · êtres de lumière",
+      "talk.h1": "Parler aux êtres de lumière",
+      "talk.lead": "Choisis un être de lumière et écris-lui (ou parle-lui avec le micro). Il te répond, se souvient de ton prénom et peut t’offrir une chanson, en entier.",
+      "talk.navLabel": "Parler",
+      "games.talkLine": "Écris à Braise, Astrée, Lumière, Vent ou Sève : ils te répondent, se souviennent de toi et t’offrent une chanson.",
+      "games.talkCta": "💬 Parler",
+      "games.playTalk": "Parler aux êtres de lumière",
       "common.tagline": "Écoute en continu. Ça régénère.",
       "common.ogAlt": "Eden Yours — Écoute en continu. Ça régénère. 29 chansons · Casse-tête · Blind test",
       "common.menu": "Menu",
@@ -1115,6 +1124,15 @@
     },
 
     en: {
+      "talk.title": "Talk with the beings of light — Eden Yours",
+      "talk.metaDesc": "Converse with the beings of light of Eden Yours: Ember, Astra, Light, Wind and Sap answer you and offer you a song.",
+      "talk.eyebrow": "Conversation · beings of light",
+      "talk.h1": "Talk with the beings of light",
+      "talk.lead": "Choose a being of light and write to it (or speak with the mic). It answers, remembers your name and can offer you a song, in full.",
+      "talk.navLabel": "Talk",
+      "games.talkLine": "Write to Ember, Astra, Light, Wind or Sap: they answer, remember you and offer you a song.",
+      "games.talkCta": "💬 Talk",
+      "games.playTalk": "Talk with the beings of light",
       "common.tagline": "Listen continuously. It regenerates.",
       "common.ogAlt": "Eden Yours — Listen continuously. It regenerates. 29 songs · Puzzle · Blind test",
       "common.menu": "Menu",
