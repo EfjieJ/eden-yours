@@ -313,9 +313,9 @@
     if (theme === "trois") {
       var tt = (i === 0 && VOICE[k] ? rnd(VOICE[k][lang]).replace(/\s*:$/, ".") + "\n\n" : "") + steps[i];
       var last = i + 1 >= steps.length;
-      if (last) { MEM.deep[theme] = 0; MEM.lastDeep = null; memSave(); tt += lang === "fr" ? "\n\nVeux-tu une chanson pour finir ?" : "\n\nWould you like a song to close?"; }
+      if (last) { MEM.deep[theme] = 0; MEM.lastDeep = null; memSave(); tt += lang === "fr" ? "\n\nPour finir, écoute « {song} ». Touche le bouton ci-dessous pour l'entendre en entier." : "\n\nTo close, listen to “{song}”. Tap the button below to hear it in full."; }
       else tt += lang === "fr" ? "\n\n(Dis « c'est fait » ou « encore », ou touche ▶ Suivant.)" : "\n\n(Say “done” or “more”, or tap ▶ Next.)";
-      return { text: tt, theme: theme, next: !last, offer: last };
+      return { text: tt, theme: theme, next: !last, song: last };
     }
     var v = VOICE[k] ? rnd(VOICE[k][lang]) + " " : "";
     var body = steps[i];
