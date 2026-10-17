@@ -300,7 +300,7 @@
   };
   var DEEP_LABEL = { fr: { eternal: "l'éternité", trois: "« Les trois mouvements véritables »", losefriend: "la peur de perdre quelqu'un qu'on aime", bodyself: "le corps et la conscience", cause: "être cause", practice: "les clés pour vivre l'éternité", death: "la mort", aging: "le vieillissement", grief: "la perte d'un être cher", howknow: "comment savoir qu'on est éternel", after: "ce qui vient après", suffer: "la souffrance" },
     en: { eternal: "eternity", trois: "“The three true movements”", losefriend: "the fear of losing someone you love", bodyself: "the body and consciousness", cause: "being cause", practice: "the keys to living eternity", death: "death", aging: "aging", grief: "losing a loved one", howknow: "how to know you're eternal", after: "what comes after", suffer: "suffering" } };
-  var SONG_PREF = { trois: /^Commencer-Recommencer$|^Start - Continue - Finish$/, losefriend: /éternel|eternal|souffle|nous|together/i, eternal: /éternel|eternal/i, after: /éternel|eternal/i, death: /éternel|eternal/i, howknow: /éternel|pure|eternal/i, bodyself: /particule|pure|souffle/i, cause: /cause|pure/i, practice: /sensibilit|sensitiv|pure/i, suffer: /liberté|free|pure/i, grief: /éternel|eternal|souffle/i, aging: /éternel|eternal/i };
+  var SONG_PREF = { trois: [/^Le Vrai Cycle$/, /^Commencer-Recommencer$|^Start - Continue - Finish$/], rythme: [/^Le Vrai Cycle$/, /commencer|recommencer|^start|continue/i], losefriend: /éternel|eternal|souffle|nous|together/i, eternal: /éternel|eternal/i, after: /éternel|eternal/i, death: /éternel|eternal/i, howknow: /éternel|pure|eternal/i, bodyself: /particule|pure|souffle/i, cause: /cause|pure/i, practice: /sensibilit|sensitiv|pure/i, suffer: /liberté|free|pure/i, grief: /éternel|eternal|souffle/i, aging: /éternel|eternal/i };
   function deepReply(ch, k, lang, theme, more) {
     MEM.deep = MEM.deep || {};
     var steps = DEEP[lang][theme], i = MEM.deep[theme] || 0;
@@ -337,7 +337,7 @@
   function pickSong(lang, pref) {
     return tracks().then(function (all) {
       var list = all.filter(function (s) { return s.lang === lang && (s.audio_url || s.audio_url_aac || s.embed_url); });
-      if (pref) { var pl = list.filter(function (t) { return pref.test(t.title) && MEM.songs.indexOf(t.id) === -1; }); if (pl.length) list = pl; }
+      if (pref) { var prefs = [].concat(pref); for (var q = 0; q < prefs.length; q++) { var pl = list.filter(function (t) { return prefs[q].test(t.title) && MEM.songs.indexOf(t.id) === -1; }); if (pl.length) { list = pl; break; } } }
       if (!list.length) return null;
       var fresh = list.filter(function (t) { return MEM.songs.indexOf(t.id) === -1; });
       if (fresh.length) list = fresh; else MEM.songs = [];
@@ -426,6 +426,7 @@
       if (th) { var d2 = deepReply(ch, state.k, lang, th, true); if (d2.offer) state.offeredSong = true; state.songPref = SONG_PREF[th]; state.lastTheme = th; return d2; }
       id = "fallback";
     }
+    if (id === "rythme") state.songPref = SONG_PREF.rythme;
     var pool = R[lang][id || "fallback"];
     var options = pool.filter(function (p) { return p !== state.last; });
     var tpl = rnd(options.length ? options : pool);
