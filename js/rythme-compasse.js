@@ -804,6 +804,7 @@
 
     gainNode.connect(audioCtx.destination);
     currentSource = src;
+    try { if (window.EdenFullSong && window.EdenFullSong.claim) window.EdenFullSong.claim(stopPlayback); } catch (_) {}
 
     const start = Math.max(0, startSec || 0);
     const end = Math.min(endSec || audioBuffer.duration, audioBuffer.duration);

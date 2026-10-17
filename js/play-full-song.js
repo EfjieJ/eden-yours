@@ -17,7 +17,11 @@
     var fr = document.querySelectorAll('iframe[src*="suno.com"]');
     for (var i = 0; i < fr.length; i++) { var f = fr[i]; if (f === keep) continue; try { f.src = "about:blank"; } catch (e) {} if (f.parentNode) { var box = f.parentNode; box.removeChild(f); if (box.classList && /embed/.test(box.className)) box.hidden = true; } }
   }
-  function stopOthers(except, keepFrame) {
+  /* Lecteurs hors <audio> (ex. Web Audio de Rythme-Compasse) : claim(stopFn) avant de jouer ; stopFn est appelée quand une autre chanson démarre. */
+  var external = [];
+  function claim(stopFn) { stopOthers(null, null, stopFn); if (stopFn && external.indexOf(stopFn) === -1) external.push(stopFn); }
+  function stopOthers(except, keepFrame, keepFn) {
+    for (var j = 0; j < external.length; j++) if (external[j] !== keepFn) { try { external[j](); } catch (e) {} }
     var all = songs.concat([].slice.call(document.querySelectorAll("audio, video")));
     for (var i = 0; i < all.length; i++) { var m = all[i]; if (m === except || !isSong(m)) continue; try { if (!m.paused) m.pause(); } catch (e) {} }
     killEmbeds(keepFrame);
@@ -79,5 +83,5 @@
     try { if (window.EdenSongPick && song.id) window.EdenSongPick.record(song.id); } catch (e) {}
     return true;
   }
-  window.EdenFullSong = { play: play, stop: stop, embed: embed, busy: busy, stopOthers: stopOthers };
+  window.EdenFullSong = { play: play, stop: stop, embed: embed, busy: busy, stopOthers: stopOthers, claim: claim };
 })();
