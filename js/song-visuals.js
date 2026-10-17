@@ -18,8 +18,12 @@
   function tx(k) { return (TXT[lang()] || TXT.fr)[k]; }
   function reduced() { try { return window.matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) { return false; } }
   function small() { return Math.min(window.innerWidth, window.innerHeight) < 700 || (navigator.connection && navigator.connection.saveData); }
-  function getMode() { try { return localStorage.getItem(MODE_KEY) === "min" ? "min" : "win"; } catch (e) { return "win"; } }
-  function setMode(m) { try { localStorage.setItem(MODE_KEY, m === "min" ? "min" : "win"); } catch (e) {} }
+  /* « réduit » ne vaut que pour la chanson en cours : chaque nouvelle chanson ouvre la fenêtre (avant, un « – » touché une
+     fois restait enregistré pour toujours et les chansons suivantes ne montraient plus qu'une petite bulle). Nettoyage unique
+     des anciens états enregistrés (clé de version). */
+  try { if (localStorage.getItem("eden-visuals-v") !== "2") { localStorage.removeItem(MODE_KEY); localStorage.setItem("eden-visuals-v", "2"); } } catch (e) {}
+  function getMode() { return cur && cur.mode === "min" ? "min" : "win"; }
+  function setMode(m) { if (cur) cur.mode = m === "min" ? "min" : "win"; }
   var dataP = null;
   function load() {
     if (!dataP) dataP = Promise.all([
@@ -40,7 +44,7 @@
     var title = document.createElement("p"); title.className = "sv-title";
     var dots = document.createElement("div"); dots.className = "sv-dots"; dots.setAttribute("aria-hidden", "true");
     var tools = document.createElement("div"); tools.className = "sv-tools";
-    tools.appendChild(btn("sv-max", tx("max"), "⤢", function () { root.classList.toggle("is-full"); paintLabels(); place(); }));
+    tools.appendChild(btn("sv-max", tx("max"), "⤢", function () { setFull(!root.classList.contains("is-full")); }));
     tools.appendChild(btn("sv-min", tx("min"), "–", function () { setMode("min"); apply("min"); }));
     tools.appendChild(btn("sv-close", tx("close"), "×", function () { if (cur) cur.closed = true; hide(); }));
     bar.appendChild(title); bar.appendChild(dots); bar.appendChild(tools);
@@ -48,11 +52,19 @@
     var pimg = document.createElement("img"); pimg.alt = ""; pimg.className = "sv-pill-img"; pill.appendChild(pimg);
     var note = document.createElement("span"); note.className = "sv-pill-note"; note.textContent = "♪"; pill.appendChild(note);
     root.appendChild(stage); root.appendChild(bar); root.appendChild(pill);
-    stage.addEventListener("click", function () { if (root.classList.contains("is-full")) { root.classList.remove("is-full"); paintLabels(); place(); } });
+    stage.addEventListener("click", function () { if (root.classList.contains("is-full")) setFull(false); });
     document.body.appendChild(root);
     window.addEventListener("resize", place); window.addEventListener("scroll", throttlePlace, { passive: true });
-    document.addEventListener("keydown", function (e) { if (e.key === "Escape" && root && root.classList.contains("is-full")) { root.classList.remove("is-full"); paintLabels(); place(); } });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape" && root && root.classList.contains("is-full")) setFull(false); });
     if (window.EdenI18n && window.EdenI18n.onChange) window.EdenI18n.onChange(function () { paintLabels(); });
+  }
+  /* « Agrandir » = plein écran en CSS (pas de requestFullscreen : non pris en charge sur iPhone pour une image) ; la fenêtre
+     sort du lecteur (un parent avec transform/backdrop-filter enfermerait le position:fixed) puis y revient */
+  function setFull(on) {
+    if (!root) return;
+    if (on) { inlineOut(); root.classList.remove("is-min", "at-top"); root.classList.add("is-full"); if (cur) cur.mode = "win"; }
+    else root.classList.remove("is-full");
+    paintLabels(); place();
   }
   function paintLabels() {
     if (!root) return; root.setAttribute("aria-label", tx("label"));
@@ -152,6 +164,16 @@
     var dots = root.querySelector(".sv-dots"); dots.innerHTML = ""; imgs.forEach(function () { dots.appendChild(document.createElement("i")); });
     root.classList.toggle("is-still", reduced());
     reveal();
+    setTimeout(bringIntoView, 120);
+  }
+  /* téléphone : la fenêtre se glisse au-dessus du lecteur ; si cet endroit est hors de l'écran (ex. lecteur Suno plus bas
+     dans la page), on y fait défiler doucement au démarrage de la chanson pour qu'on la voie s'ouvrir, avec le lecteur dessous */
+  function bringIntoView() {
+    if (!root || root.hidden || !root.classList.contains("is-inline") || root.classList.contains("is-full")) return;
+    var r = root.getBoundingClientRect(), vh = window.innerHeight || document.documentElement.clientHeight;
+    if (r.top >= 56 && r.bottom <= vh - 8) return;
+    var y = r.top + (window.pageYOffset || 0) - 72;
+    try { window.scrollTo({ top: Math.max(0, y), behavior: reduced() ? "auto" : "smooth" }); } catch (e) { window.scrollTo(0, Math.max(0, y)); }
   }
   function reveal() {
     gen++; root.hidden = false; apply(getMode()); show(slide < 0 ? 0 : slide);
