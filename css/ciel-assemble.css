@@ -1,0 +1,80 @@
+/* Eden Yours — Le Ciel assemblé : casse-tête de ciel étoilé + étoiles à relier. Palette nuit / or doux. */
+.page-ciel-assemble .ca-shell { max-width: 920px; }
+.ca-card {
+  position: relative; border-radius: 22px; padding: 0.9rem 0.9rem 1.1rem;
+  background: linear-gradient(160deg, rgba(20, 22, 60, 0.8), rgba(8, 8, 24, 0.9));
+  border: 1px solid rgba(246, 212, 143, 0.3); box-shadow: 0 14px 44px rgba(3, 2, 12, 0.5), 0 0 40px rgba(150, 170, 255, 0.12);
+}
+.ca-bar { display: flex; justify-content: space-between; align-items: center; gap: 0.6rem; flex-wrap: wrap; }
+.ca-levels, .ca-tools { display: flex; gap: 0.45rem; }
+.ca-level, .ca-tool {
+  min-height: 46px; min-width: 46px; padding: 0.4rem 0.9rem; border-radius: 999px; font: inherit; font-weight: 700; font-size: 1rem; cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.45rem;
+  color: rgba(244, 240, 255, 0.92); background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(246, 212, 143, 0.32);
+  transition: background 0.2s, box-shadow 0.2s, transform 0.15s; -webkit-tap-highlight-color: transparent;
+}
+.ca-tool { padding: 0.4rem; font-size: 1.15rem; }
+.ca-level:hover, .ca-tool:hover { background: rgba(255, 255, 255, 0.12); }
+.ca-tool:active, .ca-level:active { transform: scale(0.95); }
+.ca-level[aria-pressed="true"] { color: #1c1230; background: linear-gradient(120deg, #fff1cf, #f6d48f 55%, #c9b8ff); border-color: rgba(253, 230, 138, 0.9); box-shadow: 0 0 18px rgba(246, 212, 143, 0.4); }
+.ca-level:focus-visible, .ca-tool:focus-visible { outline: 2px solid #67e8f9; outline-offset: 2px; }
+.ca-level-ico { width: 16px; height: 16px; border-radius: 3px; background:
+  linear-gradient(currentColor, currentColor) 0 33%/100% 1.5px no-repeat, linear-gradient(currentColor, currentColor) 0 66%/100% 1.5px no-repeat,
+  linear-gradient(90deg, currentColor, currentColor) 33% 0/1.5px 100% no-repeat, linear-gradient(90deg, currentColor, currentColor) 66% 0/1.5px 100% no-repeat; border: 1.5px solid currentColor; opacity: 0.85; }
+.ca-level-ico.is-hard { background:
+  linear-gradient(currentColor, currentColor) 0 20%/100% 1px no-repeat, linear-gradient(currentColor, currentColor) 0 40%/100% 1px no-repeat, linear-gradient(currentColor, currentColor) 0 60%/100% 1px no-repeat, linear-gradient(currentColor, currentColor) 0 80%/100% 1px no-repeat,
+  linear-gradient(90deg, currentColor, currentColor) 20% 0/1px 100% no-repeat, linear-gradient(90deg, currentColor, currentColor) 40% 0/1px 100% no-repeat, linear-gradient(90deg, currentColor, currentColor) 60% 0/1px 100% no-repeat, linear-gradient(90deg, currentColor, currentColor) 80% 0/1px 100% no-repeat; }
+.ca-progress { height: 4px; margin: 0.7rem 0 0.8rem; border-radius: 99px; background: rgba(255, 255, 255, 0.08); overflow: hidden; }
+.ca-progress span { display: block; height: 100%; width: 0; border-radius: inherit; background: linear-gradient(90deg, #c9b8ff, #f6d48f); box-shadow: 0 0 10px rgba(246, 212, 143, 0.6); transition: width 0.4s ease; }
+
+.ca-stage { position: relative; width: 100%; min-height: 240px; transition: height 0.6s ease; user-select: none; -webkit-user-select: none; }
+.ca-board { position: absolute; border-radius: 12px; overflow: hidden; background: #05061a; box-shadow: 0 0 0 1.5px rgba(246, 212, 143, 0.4), 0 0 30px rgba(150, 170, 255, 0.18); }
+.ca-board canvas { position: absolute; left: 0; top: 0; display: block; }
+.ca-ghost { transition: opacity 0.4s; }
+.ca-board.is-peek .ca-ghost { opacity: 0; }
+.ca-final { opacity: 0; transition: opacity 0.4s; }
+.ca-board.is-peek .ca-final { opacity: 0.9; }
+.ca-board.is-whole .ca-final { opacity: 1; transition: opacity 0.9s ease; }
+.ca-stars { z-index: 3; pointer-events: none; touch-action: manipulation; }
+.ca-board.is-whole .ca-stars { pointer-events: auto; cursor: pointer; }
+.ca-board.is-whole { z-index: 30; box-shadow: 0 0 0 1.5px rgba(246, 212, 143, 0.6), 0 0 50px rgba(246, 212, 143, 0.25); }
+.ca-board.is-won { animation: ca-breathe 4s ease-in-out infinite; }
+@keyframes ca-breathe { 50% { box-shadow: 0 0 0 1.5px rgba(246, 212, 143, 0.8), 0 0 70px rgba(246, 212, 143, 0.4); } }
+.ca-tap {
+  position: absolute; left: 50%; bottom: 10px; transform: translateX(-50%); z-index: 4; margin: 0; padding: 0.35rem 0.85rem; border-radius: 999px; white-space: nowrap;
+  font-size: 0.85rem; font-weight: 600; color: #fff6e2 !important; background: rgba(8, 8, 24, 0.6); border: 1px solid rgba(246, 212, 143, 0.35); pointer-events: none;
+  animation: ca-fade 2.4s ease-in-out infinite;
+}
+@keyframes ca-fade { 50% { opacity: 0.6; } }
+.ca-tray { position: absolute; left: 0; right: 0; border-radius: 14px; border: 1px dashed rgba(201, 184, 255, 0.28); background: rgba(255, 255, 255, 0.025); }
+.ca-tray[hidden] { display: none; }
+.ca-pieces { position: absolute; inset: 0; pointer-events: none; z-index: 10; transition: opacity 0.8s ease 0.3s; }
+.ca-pieces.is-done { opacity: 0; }
+.ca-piece { position: absolute; display: block; pointer-events: auto; touch-action: none; cursor: grab; transform-origin: 50% 50%; filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.6)); transition: transform 0.18s ease; animation: ca-deal 0.5s cubic-bezier(0.3, 0.7, 0.3, 1) backwards; animation-delay: calc(var(--i, 0) * 25ms); }
+.ca-pieces.is-done .ca-piece { pointer-events: none; }
+.ca-piece.is-drag { cursor: grabbing; transition: none; filter: drop-shadow(0 12px 14px rgba(0, 0, 0, 0.65)) drop-shadow(0 0 6px rgba(246, 212, 143, 0.5)); }
+.ca-piece.is-locked { pointer-events: none; cursor: default; filter: none; }
+.ca-piece.is-snap { animation: ca-snap 0.55s ease-out; }
+@keyframes ca-deal { from { opacity: 0; } to { opacity: 1; } }
+@keyframes ca-snap { 40% { filter: drop-shadow(0 0 14px rgba(253, 230, 138, 1)); } 100% { filter: none; } }
+.ca-sparkles { position: absolute; inset: 0; pointer-events: none; z-index: 40; overflow: hidden; }
+.ca-sparkles i { position: absolute; left: var(--x); top: var(--y); width: var(--s); height: var(--s); border-radius: 50%; background: #fff6d8; box-shadow: 0 0 10px 3px rgba(255, 220, 150, 0.8); opacity: 0; animation: ca-spark 2.4s ease-out var(--d) forwards; }
+@keyframes ca-spark { 0% { opacity: 0; transform: scale(0.2); } 30% { opacity: 1; transform: scale(1.2); } 100% { opacity: 0; transform: translateY(-40px) scale(0.4); } }
+
+.ca-player { display: flex; gap: 0.8rem; align-items: center; margin-top: 1rem; padding: 0.7rem; border-radius: 16px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(246, 212, 143, 0.3); }
+.ca-player[hidden] { display: none; }
+.ca-cover { width: 72px; height: 72px; border-radius: 12px; object-fit: cover; flex-shrink: 0; box-shadow: 0 0 18px rgba(246, 212, 143, 0.35); }
+.ca-player-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.4rem; }
+.ca-now { margin: 0; font-weight: 700; font-size: 1.05rem; color: #fff1cf !important; }
+.ca-player audio { width: 100%; }
+.ca-embed iframe { border-radius: 12px; }
+.ca-again-row { display: flex; justify-content: center; margin-top: 0.9rem; }
+.ca-again[hidden] { display: none; }
+.ca-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+@media (max-width: 600px) {
+  .ca-card { padding: 0.6rem 0.55rem 0.9rem; border-radius: 18px; }
+  .ca-level { padding: 0.35rem 0.75rem; }
+  .ca-player { flex-direction: column; align-items: stretch; text-align: center; }
+  .ca-cover { align-self: center; }
+}
+@media (prefers-reduced-motion: reduce) { .ca-piece, .ca-board.is-won, .ca-tap { animation: none; } }

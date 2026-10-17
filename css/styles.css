@@ -3245,6 +3245,7 @@ body.home-real .gm-rebuild { background-image: url("../assets/home/cover-e4a2c1d
 body.home-real .gm-carte   { background-image: url("../assets/home/cover-2a9f903f.webp"); }
 body.home-real .gm-scene3d { background-image: url("../assets/home/card-scene3d.webp"); }
 body.home-real .gm-jardin  { background-image: url("../assets/home/card-jardin.webp"); }
+body.home-real .gm-ciel    { background-image: url("../assets/home/card-ciel.webp"); }
 body.home-real .game-visual:not(.gm-mosaic) > * { display: none !important; }
 body.home-real .gm-mosaic { background-image: url("../assets/home/card-pillars.webp"); }
 body.home-real .game-cta {
@@ -3460,14 +3461,14 @@ body.home-real .gm-gesture .gm-ge-dot { display: none; }
 .games-fav-title { font-size: clamp(1.45rem, 3.6vw, 2.1rem); font-weight: 650; margin: 0.2rem 0 0.35rem; }
 .games-fav-lead { max-width: 36rem; margin: 0 auto 1.6rem; color: #d9cdee; }
 .games-fav-grid {
-  display: grid; grid-template-columns: repeat(2, minmax(0, 500px));
-  justify-content: center; gap: 2.6rem;
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 2.4rem 2rem;
 }
+.games-fav-grid > .game-card { flex: 0 1 340px; min-width: 0; }
 .game-card--fav {
   border-color: rgba(246, 212, 143, 0.6) !important;
   box-shadow: 0 0 0 1px rgba(246, 212, 143, 0.25), 0 0 46px rgba(246, 212, 143, 0.22), 0 22px 60px rgba(0, 0, 0, 0.5) !important;
 }
-.game-card--fav .game-visual { height: 300px; }
+.game-card--fav .game-visual { height: 270px; }
 .game-card--fav .game-body h3 { font-size: 1.7rem; }
 .game-card--fav .game-body p { font-size: 1.05rem; }
 .game-fav-badge {
@@ -3485,7 +3486,8 @@ body.home-real .gm-gesture .gm-ge-dot { display: none; }
 @media (max-width: 640px) {
   .games-fav { margin-bottom: 1.8rem; }
   .games-fav-lead { font-size: 0.95rem; margin-bottom: 1.3rem; }
-  .games-fav-grid { grid-template-columns: 1fr; gap: 1.9rem; }
+  .games-fav-grid { gap: 1.9rem; }
+  .games-fav-grid > .game-card { flex-basis: 100%; }
   .game-card--fav .game-visual { height: 230px; }
   .game-card--fav .game-body h3 { font-size: 1.4rem; }
   .game-card--fav .game-body p { font-size: 0.98rem; }
@@ -3501,3 +3503,6 @@ body.home-real .gm-gesture .gm-ge-dot { display: none; }
   .nav-games { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .nav-links .nav-games a { white-space: normal; line-height: 1.2; padding-inline: 0.5rem; min-width: 0; }
 }
+
+/* Le Ciel assemblé — portail (accueil) */
+.gm-ciel { background: #05061a url("../assets/home/card-ciel.webp") center / cover no-repeat; }
