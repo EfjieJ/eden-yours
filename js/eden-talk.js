@@ -298,8 +298,8 @@
       ]
     }
   };
-  var DEEP_LABEL = { fr: { eternal: "l'éternité", trois: "Les trois mouvements véritables", losefriend: "la peur de perdre quelqu'un qu'on aime", bodyself: "le corps et la conscience", cause: "être cause", practice: "les clés pour vivre l'éternité", death: "la mort", aging: "le vieillissement", grief: "la perte d'un être cher", howknow: "comment savoir qu'on est éternel", after: "ce qui vient après", suffer: "la souffrance" },
-    en: { eternal: "eternity", trois: "The three true movements", losefriend: "the fear of losing someone you love", bodyself: "the body and consciousness", cause: "being cause", practice: "the keys to living eternity", death: "death", aging: "aging", grief: "losing a loved one", howknow: "how to know you're eternal", after: "what comes after", suffer: "suffering" } };
+  var DEEP_LABEL = { fr: { eternal: "l'éternité", trois: "« Les trois mouvements véritables »", losefriend: "la peur de perdre quelqu'un qu'on aime", bodyself: "le corps et la conscience", cause: "être cause", practice: "les clés pour vivre l'éternité", death: "la mort", aging: "le vieillissement", grief: "la perte d'un être cher", howknow: "comment savoir qu'on est éternel", after: "ce qui vient après", suffer: "la souffrance" },
+    en: { eternal: "eternity", trois: "“The three true movements”", losefriend: "the fear of losing someone you love", bodyself: "the body and consciousness", cause: "being cause", practice: "the keys to living eternity", death: "death", aging: "aging", grief: "losing a loved one", howknow: "how to know you're eternal", after: "what comes after", suffer: "suffering" } };
   var SONG_PREF = { trois: /^Commencer-Recommencer$|^Start - Continue - Finish$/, losefriend: /éternel|eternal|souffle|nous|together/i, eternal: /éternel|eternal/i, after: /éternel|eternal/i, death: /éternel|eternal/i, howknow: /éternel|pure|eternal/i, bodyself: /particule|pure|souffle/i, cause: /cause|pure/i, practice: /sensibilit|sensitiv|pure/i, suffer: /liberté|free|pure/i, grief: /éternel|eternal|souffle/i, aging: /éternel|eternal/i };
   function deepReply(ch, k, lang, theme, more) {
     MEM.deep = MEM.deep || {};
