@@ -308,7 +308,11 @@
     }
     MEM.deep[theme] = i + 1; MEM.lastDeep = { theme: theme, k: k, at: Date.now() }; memSave();
     var v = VOICE[k] ? rnd(VOICE[k][lang]) + " " : "";
-    var body = steps[i]; if (/:\s$/.test(v)) body = body.charAt(0).toLowerCase() + body.slice(1);
+    var body = steps[i];
+    if (/:\s$/.test(v)) {
+      if (/:/.test(body.split(/[.?!]/)[0])) v = v.replace(/\s*:\s$/, ". ");
+      else body = body.charAt(0).toLowerCase() + body.slice(1);
+    }
     var t = v + body;
     if (i + 1 < steps.length) t += lang === "fr" ? " (Dis « encore » pour aller plus loin.)" : " (Say “more” to go deeper.)";
     return { text: t, theme: theme };
