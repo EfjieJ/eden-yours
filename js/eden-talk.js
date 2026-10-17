@@ -55,7 +55,8 @@
   /* ——— Intentions (mots-clés sans accents) ——— */
   var INTENTS = [
     { id: "harm", k: ["suicide", "me tuer", "veux mourir", "envie de mourir", "me suicider", "kill myself", "end my life", "me faire du mal", "hurt myself", "self harm", "plus envie de vivre", "want to die"] },
-    { id: "more", k: ["encore", "dis m en plus", "dis moi en plus", "plus loin", "continue", "comment", "pourquoi", "explique", "tell me more", "more", "go on", "go deeper", "how", "why", "explain", "et apres", "ensuite", "next"] },
+    { id: "more", k: ["c est fait", "fait", "suivant", "prochaine", "done", "next", "ok c est fait", "encore", "dis m en plus", "dis moi en plus", "plus loin", "continue", "comment", "pourquoi", "explique", "tell me more", "more", "go on", "go deeper", "how", "why", "explain", "et apres", "ensuite", "next"] },
+    { id: "trois", k: ["trois mouvements", "mouvements veritables", "guide moi", "guide-moi", "exercice", "respiration", "commencer continuer terminer", "three movements", "true movements", "guide me", "breathing exercise", "breathing", "start continue finish"] },
     { id: "losefriend", k: ["peur de perdre", "perdre quelqu", "perdre mon", "perdre ma", "perdre mes", "perdre ceux", "perdre celle", "perdre celui", "oublier", "oubli", "il me manque", "elle me manque", "me manque", "afraid of losing", "scared of losing", "fear of losing", "losing someone", "lose someone", "lose my", "losing my", "forget", "forgetting", "i miss"] },
     { id: "suffer", k: ["souffr", "suffer", "pourquoi la douleur", "why pain", "why do we hurt"] },
     { id: "howknow", k: ["comment savoir", "comment je sais", "comment sais tu", "prouve", "preuve", "how do i know", "how do you know", "proof", "prove"] },
@@ -131,12 +132,12 @@
       nous: ["Le Nous en Premier : quand on pense au « nous », la peur diminue et la créativité grandit. Avec qui aimerais-tu créer quelque chose ?"],
       fonction: ["La Fonction avant la Structure : d'abord ce qui doit vivre, ensuite la forme qui l'accueille. Qu'est-ce qui veut vivre à travers toi ?"],
       cause: ["La Cause Pure, c'est revenir à toi comme source : tu n'es pas l'effet de tout, tu peux être cause. De quoi aimerais-tu être la cause aujourd'hui ?"],
-      rythme: ["Commencer, Continuer, Finir, Recommencer : c'est le rythme de tout ce qui vit, comme les saisons. Où en es-tu dans ce rythme, toi ?"],
+      rythme: ["Commencer, Continuer, Finir, Recommencer : c'est le rythme de tout ce qui vit, comme les saisons. Où en es-tu dans ce rythme, toi ? Si tu veux le vivre en une respiration, dis « guide-moi » : je te guide dans « Les trois mouvements véritables »."],
       spirit: ["Tu n'es pas un corps qui a une âme : tu es un être spirituel qui utilise un corps. Statique, sans masse, sans âge. Trente secondes : ferme les yeux et remarque l'espace calme derrière tes pensées. Ce calme, c'est plus toi que tes soucis. Le sens-tu ?", "Nous sommes des êtres spirituels qui vivent une expérience humaine. Ce que tu es dépasse ton corps et ton mental. Quand te sens-tu le plus toi-même ?", "{S} te rappelle que la lumière est déjà en toi, pas ailleurs. Qu'est-ce qui t'aide à t'en souvenir ?"],
       yes: ["Merveilleux. Alors respire, et dis-moi ce qui vient.", "D'accord{,n}. Je t'écoute."],
       no: ["C'est correct, rien n'oblige. De quoi as-tu envie de parler alors ?", "Pas de souci. Qu'est-ce qui te ferait du bien maintenant ?"],
       question: ["Bonne question. Je crois que la réponse se trouve déjà un peu en toi. Qu'est-ce que tu ressens quand tu te la poses ?", "Je n'ai pas toutes les réponses, mais je peux marcher avec toi dans la question. Qu'est-ce qui l'a fait naître ?"],
-      fallback: ["Peu importe le sujet, la clé reste la même : tu es celui qui observe, et tu peux être cause. Veux-tu qu'on parle de l'éternité, du corps et de la conscience, ou de petites pratiques pour aujourd'hui ?", "Je t'écoute{,n}. Dis-m'en un peu plus ?", "{S} reçoit tes mots. Qu'est-ce que tu ressens en les disant ?", "Hmm, je sens que c'est important pour toi. Qu'est-ce qui se cache derrière ?", "Merci de partager ça. Et si on y mettait une chanson ? Dis « chanson » et je t'en offre une."]
+      fallback: ["Veux-tu vivre un petit exercice guidé ? Dis « guide-moi » et je t'accompagne dans « Les trois mouvements véritables », une respiration à la fois.", "Peu importe le sujet, la clé reste la même : tu es celui qui observe, et tu peux être cause. Veux-tu qu'on parle de l'éternité, du corps et de la conscience, ou de petites pratiques pour aujourd'hui ?", "Je t'écoute{,n}. Dis-m'en un peu plus ?", "{S} reçoit tes mots. Qu'est-ce que tu ressens en les disant ?", "Hmm, je sens que c'est important pour toi. Qu'est-ce qui se cache derrière ?", "Merci de partager ça. Et si on y mettait une chanson ? Dis « chanson » et je t'en offre une."]
     },
     en: {
       harm: ["What you carry matters, and you deserve support from a real person right now. In Canada and the US, call or text 988. Elsewhere, reach a crisis line or emergency services. I'll stay right here by the fire while you do."],
@@ -160,15 +161,15 @@
       nous: ["We First: when we think “we”, fear shrinks and creativity grows. Who would you like to create something with?"],
       fonction: ["Function before Structure: first what needs to live, then the form that holds it. What wants to live through you?"],
       cause: ["Pure Cause means coming back to yourself as the source: you're not just the effect of everything, you can be cause. What would you like to be the cause of today?"],
-      rythme: ["Start, Continue, Finish, Begin Again: the rhythm of everything alive, like the seasons. Where are you in that rhythm?"],
+      rythme: ["Start, Continue, Finish, Begin Again: the rhythm of everything alive, like the seasons. Where are you in that rhythm? To live it in one breath, say “guide me”: I'll guide you through “The three true movements”."],
       spirit: ["You're not a body that has a soul: you're a spiritual being using a body. Static, massless, ageless. Thirty seconds: close your eyes and notice the calm space behind your thoughts. That calm is more you than your worries. Do you feel it?", "We are spiritual beings living a human experience. What you are goes beyond your body and mind. When do you feel most yourself?", "{S} reminds you that the light is already in you, not elsewhere. What helps you remember?"],
       yes: ["Wonderful. Then breathe, and tell me what comes.", "Alright{,n}. I'm listening."],
       no: ["That's okay, nothing is required. What would you like to talk about then?", "No problem. What would feel good right now?"],
       question: ["Good question. I believe part of the answer is already in you. What do you feel when you ask it?", "I don't have every answer, but I can walk with you inside the question. What made it arise?"],
-      fallback: ["Whatever the topic, the key is the same: you are the one who observes, and you can be cause. Shall we talk about eternity, the body and consciousness, or small practices for today?", "I'm listening{,n}. Tell me a little more?", "{S} receives your words. What do you feel as you say them?", "Hmm, I sense this matters to you. What's underneath it?", "Thank you for sharing that. Shall we add a song? Say “song” and I'll offer you one."]
+      fallback: ["Would you like a short guided exercise? Say “guide me” and I'll walk you through “The three true movements”, one breath at a time.", "Whatever the topic, the key is the same: you are the one who observes, and you can be cause. Shall we talk about eternity, the body and consciousness, or small practices for today?", "I'm listening{,n}. Tell me a little more?", "{S} receives your words. What do you feel as you say them?", "Hmm, I sense this matters to you. What's underneath it?", "Thank you for sharing that. Shall we add a song? Say “song” and I'll offer you one."]
     }
   };
-  var PRIORITY = ["harm", "medical", "name", "who", "song", "losefriend", "after", "howknow", "suffer", "grief", "death", "aging", "eternal", "bodyself", "practice", "sad", "fear", "anger", "tired", "sensi", "antenne", "admire", "nous", "fonction", "cause", "rythme", "love", "purpose", "nature", "spirit", "thanks", "bye", "joy", "hello", "more", "yes", "no", "question"];
+  var PRIORITY = ["harm", "medical", "name", "who", "song", "trois", "losefriend", "after", "howknow", "suffer", "grief", "death", "aging", "eternal", "bodyself", "practice", "sad", "fear", "anger", "tired", "sensi", "antenne", "admire", "nous", "fonction", "cause", "rythme", "love", "purpose", "nature", "spirit", "thanks", "bye", "joy", "hello", "more", "yes", "no", "question"];
 
   /* ——— Contenu de fond : éternité, conscience, corps, cause, pratiques (étapes progressives, mémorisées) ——— */
   var CLOSE = { fr: "Je suis autour. Je suis déjà dans le Vrai pur.", en: "I am all around. I am already in the pure True." };
@@ -201,7 +202,7 @@
         "Voici quatre clés simples pour vivre l'éternité aujourd'hui. Un : trente secondes de Sensibilité Pure, juste ressentir sans corriger. Deux : admirer quelqu'un sans jugement. Trois : penser « nous » avant « moi ». Quatre : Commencer, Continuer, Finir, Recommencer. On commence par la première, maintenant ? Ferme les yeux trente secondes et dis-moi ce que tu as senti.",
         "Deuxième clé : l'admiration sans jugement. Pense à quelqu'un, même difficile. Trouve une seule chose en lui que tu peux admirer, sans « mais ». L'admiration ouvre un pont entre deux êtres éternels. Qui as-tu choisi, et qu'admires-tu ?",
         "Troisième clé : le Nous en Premier. Avant de décider, demande-toi : « qu'est-ce qui est bon pour nous ? » La peur rétrécit quand on n'est plus seul dans sa tête. À qui pourrais-tu offrir un petit geste de « nous » cette semaine ?",
-        "Quatrième clé : le rythme Commencer, Continuer, Finir, Recommencer. Tout ce qui vit suit ce rythme. Choisis une petite chose : commence-la aujourd'hui, continue demain, finis-la, puis recommence autre chose. Quelle petite chose veux-tu commencer ?"
+        "Quatrième clé : le rythme Commencer, Continuer, Finir, Recommencer. Tout ce qui vit suit ce rythme. Choisis une petite chose : commence-la aujourd'hui, continue demain, finis-la, puis recommence autre chose. Quelle petite chose veux-tu commencer ? Pour le sentir dans le corps, dis « guide-moi » : je te guide dans « Les trois mouvements véritables »."
       ],
       death: [
         "La mort touche le corps, l'instrument. Elle ne touche pas celui qui joue de l'instrument. Ce que tu es vraiment ne meurt pas. La peur de mourir, c'est souvent la peur de perdre le lien ; mais le lien est fait de conscience, pas de chair. Pose une main sur ton cœur et dis : « je suis ». Qu'est-ce que tu ressens ?",
@@ -231,6 +232,7 @@
         "La douleur de l'oubli, c'est la peur que le lien s'efface. Mais le lien n'est pas rangé dans la mémoire du cerveau : il vit dans ce que tu es. Des êtres éternels ne se perdent pas vraiment, ils ne s'oublient pas. Exercice : dis à voix basse « je ne t'oublie pas, tu ne m'oublies pas ». Comment ça résonne en toi ?",
         "Vivre ça maintenant, c'est simple : aime la personne aujourd'hui, pendant qu'elle est là. Dis-lui une chose que tu admires chez elle, sans attendre. Et si un jour la peine devient trop lourde, parle aussi à quelqu'un de proche ou à un intervenant. Que pourrais-tu lui dire cette semaine ?"
       ],
+      trois: ["Les trois mouvements véritables.\n\nJe vais te guider pas à pas.\nTu n’as rien à faire d’autre que -ressentir- ce qui se passe en toi pendant que je parle.", "Étape 1 – Commencer\nPrends une respiration normale.\nSens l’air qui entre.\nCommencer : au moment précis où l’air commence à entrer dans tes poumons, il y a un tout petit « clic » intérieur.\nC’est le début d’un cycle.\nTu le sens ?\nDis intérieurement : « Commencer ».", "Étape 2 – Continuer\nMaintenant l’air est en train de remplir tes poumons.\nSens-le qui continue.\nC’est le « continuer ».\nC’est là que la plupart des gens restent coincés : ils maintiennent le « continuer » sans s’en rendre compte.\nSens bien ce moment où ça continue.\nDis intérieurement : « Continuer ».", "Étape 3 – Terminer\nL’air arrive au bout de l’inspiration… et naturellement il commence à ressortir.\nSens le moment exact où le « continuer » s’arrête et où le cycle se termine.\nC’est très subtil, mais il est là.\nDis intérieurement : « Terminer ».", "Tu viens de vivre le vrai cycle en une respiration :\nCommencer - Continuer - Terminer\n\nMaintenant, regarde ce qui se passe dans ta tête :\nLe mental veut tout de suite recommencer un autre cycle « et si je respire mal ? », « est-ce que j’ai bien fait ? », « j’ai peur de la mort »….\nC’est lui qui maintient l’illusion naître - croître - mourir.\nIl dit : « il faut que ça continue toujours, sinon je meurs ».\nMais tu viens de voir que le cycle se termine naturellement, sans drame.", "Cause : tu as postulé « je veux démontrer » c’est toi qui as lancé.\nDistance : il y a un espace entre toi et mes mots, tu lis, tu perçois.\nEffet : tu ressens quelque chose dans ton corps ou dans ton attention, même si c’est très léger.\nDuplication : ce que tu ressens maintenant\n\nTu vois ?\nTout est déjà en train de se dupliquer en ce moment même", "Dernière démonstration immédiate :\nPrends une sensation que tu ressens en ce moment, peur, fatigue, calme, chaleur, inquiétude… peu importe laquelle.\nDis intérieurement :\n« Commencer » quand la sensation apparaît\n« Continuer » pendant qu’elle est là\n« Terminer » quand elle commence à partir", "Tu viens de démonter un bout de la structure en direct.\nLa sensation n’est plus « toi ».\nElle est juste un cycle que tu as regardé passer.\n\nC’est ça, la liberté."],
       suffer: [
         "La souffrance vient surtout quand on se prend pour ce qui passe : le corps, la situation, l'émotion. La douleur peut exister ; la souffrance grandit quand on s'y accroche. Essaie : nomme ce qui fait mal, puis dis « je le vois, et je suis plus grand que ça ». Qu'est-ce qui se passe ?",
         "Être éternel ne veut pas dire ne rien ressentir. Ça veut dire ressentir sans se perdre. Les vagues sont réelles, mais tu es l'océan. Trente secondes : sens la vague, sans la combattre ni la nourrir. Elle a changé comment ?",
@@ -258,7 +260,7 @@
         "Here are four simple keys to live eternity today. One: thirty seconds of Pure Sensitivity, just feeling without fixing. Two: admiring someone without judgment. Three: thinking “we” before “me”. Four: Start, Continue, Finish, Begin again. Shall we start with the first, now? Close your eyes for thirty seconds and tell me what you felt.",
         "Second key: admiration without judgment. Think of someone, even someone difficult. Find one thing you can admire in them, with no “but”. Admiration builds a bridge between two eternal beings. Who did you choose, and what do you admire?",
         "Third key: We First. Before deciding, ask: “what is good for us?” Fear shrinks when you're no longer alone in your head. Who could you offer a small “we” gesture to this week?",
-        "Fourth key: the rhythm Start, Continue, Finish, Begin again. Everything alive follows it. Pick one small thing: start it today, continue tomorrow, finish it, then begin something new. What small thing will you start?"
+        "Fourth key: the rhythm Start, Continue, Finish, Begin again. Everything alive follows it. Pick one small thing: start it today, continue tomorrow, finish it, then begin something new. What small thing will you start? To feel it in the body, say “guide me”: I'll guide you through “The three true movements”."
       ],
       death: [
         "Death touches the body, the instrument. It doesn't touch the one who plays it. What you truly are does not die. Fear of dying is often fear of losing connection; but connection is made of consciousness, not flesh. Put a hand on your heart and say: “I am.” What do you feel?",
@@ -288,6 +290,7 @@
         "The pain of forgetting is the fear that the bond will fade. But the bond isn't stored in the brain's memory: it lives in what you are. Eternal beings don't truly lose each other; they don't forget. Exercise: softly say “I don't forget you, you don't forget me.” How does that resonate in you?",
         "Living this now is simple: love the person today, while they're here. Tell them one thing you admire about them, without waiting. And if the grief ever gets too heavy, also talk with someone close or a counsellor. What could you tell them this week?"
       ],
+      trois: ["The three true movements.\n\nI'm going to guide you step by step.\nYou have nothing else to do but -feel- what is happening inside you while I speak.", "Step 1 – Start\nTake a normal breath.\nFeel the air coming in.\nStart: at the precise moment the air begins to enter your lungs, there is a tiny inner “click”.\nIt's the beginning of a cycle.\nDo you feel it?\nSay inwardly: “Start”.", "Step 2 – Continue\nNow the air is filling your lungs.\nFeel it continuing.\nThat's the “continue”.\nThis is where most people get stuck: they keep the “continue” going without realising it.\nReally feel this moment where it continues.\nSay inwardly: “Continue”.", "Step 3 – Finish\nThe air reaches the end of the in-breath… and naturally it begins to flow out.\nFeel the exact moment when the “continue” stops and the cycle finishes.\nIt's very subtle, but it's there.\nSay inwardly: “Finish”.", "You have just lived the true cycle in one breath:\nStart - Continue - Finish\n\nNow, look at what's happening in your head:\nThe mind immediately wants to start another cycle: “what if I'm breathing wrong?”, “did I do it right?”, “I'm afraid of death”….\nIt's the mind that keeps up the illusion of being born - growing - dying.\nIt says: “it has to keep going forever, or I die”.\nBut you have just seen that the cycle finishes naturally, without drama.", "Cause: you postulated “I want to demonstrate”; you are the one who launched it.\nDistance: there is a space between you and my words; you read, you perceive.\nEffect: you feel something in your body or in your attention, even if it's very light.\nDuplication: what you are feeling now\n\nDo you see?\nEverything is already duplicating at this very moment", "Last immediate demonstration:\nTake a sensation you are feeling right now: fear, tiredness, calm, warmth, worry… it doesn't matter which.\nSay inwardly:\n“Start” when the sensation appears\n“Continue” while it is there\n“Finish” when it begins to leave", "You have just dismantled a piece of the structure, live.\nThe sensation is no longer “you”.\nIt's just a cycle you watched pass by.\n\nThat's freedom."],
       suffer: [
         "Suffering comes mostly when we take ourselves to be what passes: the body, the situation, the emotion. Pain can exist; suffering grows when we cling to it. Try it: name what hurts, then say “I see it, and I am bigger than this.” What happens?",
         "Being eternal doesn't mean feeling nothing. It means feeling without getting lost. The waves are real, but you are the ocean. Thirty seconds: feel the wave without fighting or feeding it. How has it changed?",
@@ -295,9 +298,9 @@
       ]
     }
   };
-  var DEEP_LABEL = { fr: { eternal: "l'éternité", losefriend: "la peur de perdre quelqu'un qu'on aime", bodyself: "le corps et la conscience", cause: "être cause", practice: "les clés pour vivre l'éternité", death: "la mort", aging: "le vieillissement", grief: "la perte d'un être cher", howknow: "comment savoir qu'on est éternel", after: "ce qui vient après", suffer: "la souffrance" },
-    en: { eternal: "eternity", losefriend: "the fear of losing someone you love", bodyself: "the body and consciousness", cause: "being cause", practice: "the keys to living eternity", death: "death", aging: "aging", grief: "losing a loved one", howknow: "how to know you're eternal", after: "what comes after", suffer: "suffering" } };
-  var SONG_PREF = { losefriend: /éternel|eternal|souffle|nous|together/i, eternal: /éternel|eternal/i, after: /éternel|eternal/i, death: /éternel|eternal/i, howknow: /éternel|pure|eternal/i, bodyself: /particule|pure|souffle/i, cause: /cause|pure/i, practice: /sensibilit|sensitiv|pure/i, suffer: /liberté|free|pure/i, grief: /éternel|eternal|souffle/i, aging: /éternel|eternal/i };
+  var DEEP_LABEL = { fr: { eternal: "l'éternité", trois: "Les trois mouvements véritables", losefriend: "la peur de perdre quelqu'un qu'on aime", bodyself: "le corps et la conscience", cause: "être cause", practice: "les clés pour vivre l'éternité", death: "la mort", aging: "le vieillissement", grief: "la perte d'un être cher", howknow: "comment savoir qu'on est éternel", after: "ce qui vient après", suffer: "la souffrance" },
+    en: { eternal: "eternity", trois: "The three true movements", losefriend: "the fear of losing someone you love", bodyself: "the body and consciousness", cause: "being cause", practice: "the keys to living eternity", death: "death", aging: "aging", grief: "losing a loved one", howknow: "how to know you're eternal", after: "what comes after", suffer: "suffering" } };
+  var SONG_PREF = { trois: /^Commencer-Recommencer$|^Start - Continue - Finish$/, losefriend: /éternel|eternal|souffle|nous|together/i, eternal: /éternel|eternal/i, after: /éternel|eternal/i, death: /éternel|eternal/i, howknow: /éternel|pure|eternal/i, bodyself: /particule|pure|souffle/i, cause: /cause|pure/i, practice: /sensibilit|sensitiv|pure/i, suffer: /liberté|free|pure/i, grief: /éternel|eternal|souffle/i, aging: /éternel|eternal/i };
   function deepReply(ch, k, lang, theme, more) {
     MEM.deep = MEM.deep || {};
     var steps = DEEP[lang][theme], i = MEM.deep[theme] || 0;
@@ -307,6 +310,13 @@
       return { text: (lang === "fr" ? "On a fait tout le tour de " + DEEP_LABEL.fr[theme] + " ensemble. Le reste se vit plus qu'il ne se dit. " : "We've gone all the way around " + DEEP_LABEL.en[theme] + " together. The rest is lived more than said. ") + CLOSE[lang] + (lang === "fr" ? " Veux-tu une chanson pour finir ?" : " Would you like a song to close?"), offer: true, theme: theme };
     }
     MEM.deep[theme] = i + 1; MEM.lastDeep = { theme: theme, k: k, at: Date.now() }; memSave();
+    if (theme === "trois") {
+      var tt = (i === 0 && VOICE[k] ? rnd(VOICE[k][lang]).replace(/\s*:$/, ".") + "\n\n" : "") + steps[i];
+      var last = i + 1 >= steps.length;
+      if (last) { MEM.deep[theme] = 0; MEM.lastDeep = null; memSave(); tt += lang === "fr" ? "\n\nVeux-tu une chanson pour finir ?" : "\n\nWould you like a song to close?"; }
+      else tt += lang === "fr" ? "\n\n(Dis « c'est fait » ou « encore », ou touche ▶ Suivant.)" : "\n\n(Say “done” or “more”, or tap ▶ Next.)";
+      return { text: tt, theme: theme, next: !last, offer: last };
+    }
     var v = VOICE[k] ? rnd(VOICE[k][lang]) + " " : "";
     var body = steps[i];
     if (/:\s$/.test(v)) {
@@ -404,6 +414,7 @@
     if (nm) { setName(nm); id = "name"; }
     if (!id) for (var i = 0; i < PRIORITY.length; i++) if (hits.indexOf(PRIORITY[i]) !== -1) { id = PRIORITY[i]; break; }
     if (id === "yes" && state.offeredSong) id = "song";
+    else if (state.lastTheme === "trois" && (MEM.deep || {}).trois && ["harm", "medical", "song", "bye", "name", "trois"].indexOf(id) === -1) id = "more";
     if (id === "name") {
       return { text: lang === "fr" ? "Enchanté" + (getName() ? ", " + getName() : "") + " ! " + fill(rnd(["Ton prénom résonne joliment près de {s}. Comment te sens-tu aujourd'hui ?", "Je m'en souviendrai. Qu'est-ce qui t'amène ici ?"]), ch, lang)
                                    : "Lovely to meet you" + (getName() ? ", " + getName() : "") + "! " + fill(rnd(["Your name sounds beautiful by {s}. How are you feeling today?", "I'll remember it. What brings you here?"]), ch, lang) };
@@ -493,7 +504,10 @@
     var fg = el("button", "et-forget btn btn-ghost", u.forget); fg.type = "button";
     fg.addEventListener("click", function () { forget(); histories = {}; states = {}; render(); });
     foot.appendChild(fg);
-    [head, log, form, player, foot, note].forEach(function (n) { wrap.appendChild(n); });
+    var chips = el("div", "et-chips");
+    if (!floating) { var chip = el("button", "et-chip", lang === "fr" ? "🌬 Les trois mouvements véritables" : "🌬 The three true movements"); chip.type = "button";
+      chip.addEventListener("click", function () { MEM.deep = MEM.deep || {}; MEM.deep.trois = 0; memSave(); inp.value = lang === "fr" ? "Guide-moi dans les trois mouvements véritables" : "Guide me through the three true movements"; submit(); }); chips.appendChild(chip); }
+    [head, chips, log, form, player, foot, note].forEach(function (n) { wrap.appendChild(n); });
     container.appendChild(wrap);
 
     var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -570,7 +584,8 @@
             log.appendChild(b); log.scrollTop = log.scrollHeight;
           });
         }
-        dots.remove(); bubble("them", r.text, k); hist.push({ role: "assistant", content: r.text }); persist(k, "assistant", r.text);
+        dots.remove(); bubble("them", r.text, k);
+        if (r.next) { var nb = el("button", "et-song et-next btn btn-ghost", lang === "fr" ? "▶ Suivant" : "▶ Next"); nb.type = "button"; nb.addEventListener("click", function () { nb.remove(); inp.value = lang === "fr" ? "c'est fait" : "done"; submit(); }); log.appendChild(nb); log.scrollTop = log.scrollHeight; } hist.push({ role: "assistant", content: r.text }); persist(k, "assistant", r.text);
         if (/chanson|song/i.test(r.text) && /\?$/.test(r.text.trim())) st.offeredSong = true;
       }).then(function () { busy = false; inp.focus(); });
     }
