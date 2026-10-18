@@ -62,7 +62,7 @@
      sort du lecteur (un parent avec transform/backdrop-filter enfermerait le position:fixed) puis y revient */
   function setFull(on) {
     if (!root) return;
-    if (on) { inlineOut(); root.classList.remove("is-min", "at-top"); root.classList.add("is-full"); if (cur) cur.mode = "win"; }
+    if (on) { inlineOut(); undock(); root.classList.remove("is-min", "at-top"); root.classList.add("is-full"); if (cur) cur.mode = "win"; }
     else root.classList.remove("is-full");
     paintLabels(); place();
   }
@@ -82,18 +82,28 @@
     var box = (el.closest && el.closest(".win-embed, .ca-player, [class*='player'], [class*='embed']")) || el;
     var r = box.getBoundingClientRect(); return r.width > 0 && r.height > 0 && box.parentNode ? box : null;
   }
+  /* lecteur dans une barre fixe (ex. barre du bas de l'accueil avec le lecteur Suno) : y glisser la fenêtre la ferait grandir
+     jusqu'à couvrir la liste (les touchers tombaient sur les images au lieu des chansons) → bande compacte posée au-dessus */
+  function fixedAnc(el) { for (var n = el; n && n !== document.body && n.nodeType === 1; n = n.parentNode) { try { if (getComputedStyle(n).position === "fixed") return n; } catch (e) { return null; } } return null; }
+  function undock() { if (root) { root.classList.remove("is-dock"); root.style.bottom = ""; } }
   function inlineOut() { if (root && root.classList.contains("is-inline")) { root.classList.remove("is-inline"); document.body.appendChild(root); } }
   function place() {
-    if (!root || root.hidden || root.classList.contains("is-full")) { if (root) root.classList.remove("at-top"); return; }
+    if (!root || root.hidden || root.classList.contains("is-full")) { if (root) { root.classList.remove("at-top"); undock(); } return; }
     var box = playerBox(), top = false;
     if (window.innerWidth <= 700) {
+      var fx = box && fixedAnc(box);
+      if (fx && fx !== root) {
+        inlineOut(); root.classList.remove("at-top"); root.classList.add("is-dock");
+        root.style.bottom = Math.max(8, Math.round(window.innerHeight - fx.getBoundingClientRect().top + 8)) + "px"; return;
+      }
+      undock();
       if (box) {
         if (root.nextSibling !== box || !root.classList.contains("is-inline")) { box.parentNode.insertBefore(root, box); root.classList.add("is-inline"); }
         root.classList.remove("at-top"); return;
       }
       inlineOut(); root.classList.add("at-top"); return;   // pas de lecteur visible : petite bande en haut
     }
-    inlineOut();
+    inlineOut(); undock();
     if (box) {
       var r = box.getBoundingClientRect(), vh = window.innerHeight, h = root.getBoundingClientRect().height || 200;
       var ovB = Math.max(0, Math.min(r.bottom, vh) - Math.max(r.top, vh - h - 20));
@@ -139,7 +149,7 @@
   function tick() {
     if (!cur) return;
     if (root && !root.hidden && !root.classList.contains("is-on")) root.classList.add("is-on");   // onglet en arrière-plan : pas de requestAnimationFrame
-    if (root && window.innerWidth <= 700 && !root.classList.contains("is-full")) { var pb = playerBox(); if (pb ? root.nextSibling !== pb : root.classList.contains("is-inline")) place(); }
+    if (root && window.innerWidth <= 700 && !root.classList.contains("is-full")) { var pb = playerBox(); if (root.classList.contains("is-dock") || (pb ? root.nextSibling !== pb : root.classList.contains("is-inline"))) place(); }
     var a = cur.el;
     if (cur.kind === "external") { var x = cur.d; if (!x || x.done || (window.__edenSongNow || {}) !== x) { hide(); cur = null; return; } show(Math.floor((x.start + (Date.now() - x.t0) / 1000) / interval())); return; }
     if (cur.over) { hide(); cur = null; return; }

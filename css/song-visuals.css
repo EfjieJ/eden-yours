@@ -43,6 +43,8 @@
   .sv.is-inline { position: relative; inset: auto; width: 100%; margin: 0.6rem 0 0.9rem; z-index: 1; transform: none; box-sizing: border-box; }
   .sv.is-inline.is-min { width: 56px; margin-left: auto; }
   .sv.is-inline.is-full { inset: 0; width: auto; }
+  .sv.is-dock { top: auto; }   /* bande compacte juste au-dessus d'une barre de lecteur fixe (bottom calculé) */
+  .sv.is-dock:not(.is-min) .sv-stage { aspect-ratio: auto; height: 104px; }
   .sv.is-min { left: auto; width: 56px; }
   .sv.is-min .sv-pill { width: 56px; height: 56px; }
   .sv-btn { width: 34px; height: 34px; }
