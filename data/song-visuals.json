@@ -1,5 +1,5 @@
 {
- "about": "Images liées aux paroles (data/lyrics-sources.json) : pour chaque chanson, 3 à 6 images et le mot des paroles qui les justifie (kw). Sans paroles : images de sa catégorie (data/categories.json). Généré par build-visuals.py — les mots-clés sont vérifiés présents dans les paroles.",
+ "about": "Images liées aux paroles (data/lyrics-sources.json) : pour chaque chanson, 3 à 6 images et le mot des paroles qui les justifie (kw). 1re image = la plus propre à la chanson ; au plus une image générique par chanson. Chanson inconnue : images d’une catégorie. Généré par build-visuals.py — les mots-clés sont vérifiés présents dans les paroles.",
  "images": {
   "atelier": {
    "src": "assets/visuels/atelier.webp",
@@ -8,6 +8,18 @@
   "aube": {
    "src": "assets/visuels/aube.webp",
    "sm": "assets/visuels/sm/aube.webp"
+  },
+  "boussole-mousse": {
+   "src": "assets/visuels/boussole-mousse.webp",
+   "sm": "assets/visuels/sm/boussole-mousse.webp"
+  },
+  "bulle-hydrogene": {
+   "src": "assets/visuels/bulle-hydrogene.webp",
+   "sm": "assets/visuels/sm/bulle-hydrogene.webp"
+  },
+  "centre-pierres": {
+   "src": "assets/visuels/centre-pierres.webp",
+   "sm": "assets/visuels/sm/centre-pierres.webp"
   },
   "cercle": {
    "src": "assets/visuels/cercle.webp",
@@ -20,6 +32,10 @@
   "chemin-lumiere": {
    "src": "assets/visuels/chemin-lumiere.webp",
    "sm": "assets/visuels/sm/chemin-lumiere.webp"
+  },
+  "chien-balle": {
+   "src": "assets/visuels/chien-balle.webp",
+   "sm": "assets/visuels/sm/chien-balle.webp"
   },
   "coeur": {
    "src": "assets/visuels/coeur.webp",
@@ -41,6 +57,14 @@
    "src": "assets/visuels/desert-puits.webp",
    "sm": "assets/visuels/sm/desert-puits.webp"
   },
+  "doigt-eau": {
+   "src": "assets/visuels/doigt-eau.webp",
+   "sm": "assets/visuels/sm/doigt-eau.webp"
+  },
+  "enfant-champ": {
+   "src": "assets/visuels/enfant-champ.webp",
+   "sm": "assets/visuels/sm/enfant-champ.webp"
+  },
   "etoiles": {
    "src": "assets/visuels/etoiles.webp",
    "sm": "assets/visuels/sm/etoiles.webp"
@@ -53,9 +77,25 @@
    "src": "assets/visuels/flamme.webp",
    "sm": "assets/visuels/sm/flamme.webp"
   },
+  "fleche-vent": {
+   "src": "assets/visuels/fleche-vent.webp",
+   "sm": "assets/visuels/sm/fleche-vent.webp"
+  },
+  "fleur-bleue": {
+   "src": "assets/visuels/fleur-bleue.webp",
+   "sm": "assets/visuels/sm/fleur-bleue.webp"
+  },
   "foret-marche": {
    "src": "assets/visuels/foret-marche.webp",
    "sm": "assets/visuels/sm/foret-marche.webp"
+  },
+  "galaxie": {
+   "src": "assets/visuels/galaxie.webp",
+   "sm": "assets/visuels/sm/galaxie.webp"
+  },
+  "gong": {
+   "src": "assets/visuels/gong.webp",
+   "sm": "assets/visuels/sm/gong.webp"
   },
   "graine": {
    "src": "assets/visuels/graine.webp",
@@ -77,9 +117,17 @@
    "src": "assets/visuels/mains-terre.webp",
    "sm": "assets/visuels/sm/mains-terre.webp"
   },
+  "montagnes-brume": {
+   "src": "assets/visuels/montagnes-brume.webp",
+   "sm": "assets/visuels/sm/montagnes-brume.webp"
+  },
   "motif-fleurs": {
    "src": "assets/visuels/motif-fleurs.webp",
    "sm": "assets/visuels/sm/motif-fleurs.webp"
+  },
+  "neige-marcheur": {
+   "src": "assets/visuels/neige-marcheur.webp",
+   "sm": "assets/visuels/sm/neige-marcheur.webp"
   },
   "oiseau-vol": {
    "src": "assets/visuels/oiseau-vol.webp",
@@ -97,13 +145,25 @@
    "src": "assets/visuels/petale.webp",
    "sm": "assets/visuels/sm/petale.webp"
   },
+  "pieds-mousse": {
+   "src": "assets/visuels/pieds-mousse.webp",
+   "sm": "assets/visuels/sm/pieds-mousse.webp"
+  },
   "pilier-lumiere": {
    "src": "assets/visuels/pilier-lumiere.webp",
    "sm": "assets/visuels/sm/pilier-lumiere.webp"
   },
+  "pion-mousse": {
+   "src": "assets/visuels/pion-mousse.webp",
+   "sm": "assets/visuels/sm/pion-mousse.webp"
+  },
   "planetes-jumelles": {
    "src": "assets/visuels/planetes-jumelles.webp",
    "sm": "assets/visuels/sm/planetes-jumelles.webp"
+  },
+  "plante-lumiere": {
+   "src": "assets/visuels/plante-lumiere.webp",
+   "sm": "assets/visuels/sm/plante-lumiere.webp"
   },
   "plume": {
    "src": "assets/visuels/plume.webp",
@@ -125,9 +185,17 @@
    "src": "assets/visuels/pyramide.webp",
    "sm": "assets/visuels/sm/pyramide.webp"
   },
+  "racines": {
+   "src": "assets/visuels/racines.webp",
+   "sm": "assets/visuels/sm/racines.webp"
+  },
   "renard": {
    "src": "assets/visuels/renard.webp",
    "sm": "assets/visuels/sm/renard.webp"
+  },
+  "rocher-ocean": {
+   "src": "assets/visuels/rocher-ocean.webp",
+   "sm": "assets/visuels/sm/rocher-ocean.webp"
   },
   "rose-planete": {
    "src": "assets/visuels/rose-planete.webp",
@@ -157,6 +225,10 @@
    "src": "assets/visuels/tisserand.webp",
    "sm": "assets/visuels/sm/tisserand.webp"
   },
+  "vague-couleurs": {
+   "src": "assets/visuels/vague-couleurs.webp",
+   "sm": "assets/visuels/sm/vague-couleurs.webp"
+  },
   "vague": {
    "src": "assets/visuels/vague.webp",
    "sm": "assets/visuels/sm/vague.webp"
@@ -164,6 +236,10 @@
   "vent": {
    "src": "assets/visuels/vent.webp",
    "sm": "assets/visuels/sm/vent.webp"
+  },
+  "verre-eau": {
+   "src": "assets/visuels/verre-eau.webp",
+   "sm": "assets/visuels/sm/verre-eau.webp"
   },
   "visages": {
    "src": "assets/visuels/visages.webp",
@@ -289,44 +365,39 @@
    "by": "lyrics",
    "images": [
     {
-     "img": "souffle",
-     "kw": "le souffle"
-    },
-    {
      "img": "mv-hiver-cerf",
      "kw": "l'hiver"
     },
     {
-     "img": "silence-lac",
-     "kw": "Le Témoin immobile"
+     "img": "gong",
+     "kw": "gong"
     },
     {
-     "img": "onde",
-     "kw": "vibration"
+     "img": "fils-lumiere",
+     "kw": "tissu originel"
     },
     {
-     "img": "soleil",
-     "kw": "éclat des cieux"
+     "img": "souffle",
+     "kw": "le souffle"
     }
    ]
   },
   "dead13bb-42bc-492e-83a1-87609f224734": {
    "title": "Particule Pure",
    "lang": "fr",
-   "by": "category",
-   "category": "axiomes",
+   "by": "lyrics",
    "images": [
     {
-     "img": "particule"
+     "img": "bulle-hydrogene",
+     "kw": "bulle d'hydrogène"
     },
     {
-     "img": "silence-lac"
+     "img": "foret-marche",
+     "kw": "se promène"
     },
     {
-     "img": "etoiles"
-    },
-    {
-     "img": "aube"
+     "img": "particule",
+     "kw": "Particule Pure"
     }
    ]
   },
@@ -336,10 +407,6 @@
    "by": "lyrics",
    "images": [
     {
-     "img": "foret-marche",
-     "kw": "Je marche en forêt"
-    },
-    {
      "img": "mains-terre",
      "kw": "mes mains dans la terre"
     },
@@ -348,12 +415,16 @@
      "kw": "ruisseau"
     },
     {
+     "img": "foret-marche",
+     "kw": "Je marche en forêt"
+    },
+    {
      "img": "champ",
      "kw": "champ"
     },
     {
      "img": "mv-arbre-lumiere",
-     "kw": "l’arbre"
+     "kw": "l'arbre"
     },
     {
      "img": "danse",
@@ -367,84 +438,85 @@
    "by": "lyrics",
    "images": [
     {
-     "img": "particule",
-     "kw": "Particule Pure"
-    },
-    {
-     "img": "silence-lac",
-     "kw": "silencieux"
-    },
-    {
-     "img": "aube",
-     "kw": "Lumière éternelle"
+     "img": "joie-eau",
+     "kw": "la joie pure coule"
     },
     {
      "img": "corps-regen",
      "kw": "le corps se répare"
     },
     {
-     "img": "joie-eau",
-     "kw": "la joie pure coule"
+     "img": "particule",
+     "kw": "Particule Pure"
     }
    ]
   },
   "ad12c762-07a4-4a0e-8c7e-a411b2419008": {
    "title": "La pensée",
    "lang": "fr",
-   "by": "category",
-   "category": "axiomes",
+   "by": "lyrics",
    "images": [
     {
-     "img": "particule"
+     "img": "doigt-eau",
+     "kw": "le doigt"
     },
     {
-     "img": "silence-lac"
+     "img": "fleche-vent",
+     "kw": "la flèche"
     },
     {
-     "img": "etoiles"
+     "img": "verre-eau",
+     "kw": "bois de l'eau"
     },
     {
-     "img": "aube"
+     "img": "souffle",
+     "kw": "Respirer"
     }
    ]
   },
   "5535b9e6-78f1-4a96-bfed-f0c5666a75c3": {
    "title": "La Mécanique du Jeu",
    "lang": "fr",
-   "by": "category",
-   "category": "axiomes",
+   "by": "lyrics",
    "images": [
     {
-     "img": "particule"
+     "img": "enfant-champ",
+     "kw": "L'enfant"
     },
     {
-     "img": "silence-lac"
+     "img": "instruments",
+     "kw": "Le corps est un instrument"
     },
     {
-     "img": "etoiles"
+     "img": "cycle-saisons",
+     "kw": "Naître, croître, mourir"
     },
     {
-     "img": "aube"
+     "img": "souffle",
+     "kw": "le souffle"
     }
    ]
   },
   "a0b2b33d-66f6-4c6a-b933-cdb5977d920e": {
    "title": "Le Léger Futur",
    "lang": "fr",
-   "by": "category",
-   "category": "jeu",
+   "by": "lyrics",
    "images": [
     {
-     "img": "danse"
+     "img": "boussole-mousse",
+     "kw": "boussole"
     },
     {
-     "img": "champ"
+     "img": "galaxie",
+     "kw": "les galaxies"
     },
     {
-     "img": "mv-collines-arcenciel"
+     "img": "fils-lumiere",
+     "kw": "le fil"
     },
     {
-     "img": "tambourin"
+     "img": "silence-lac",
+     "kw": "Trente secondes de silence"
     }
    ]
   },
@@ -454,16 +526,12 @@
    "by": "lyrics",
    "images": [
     {
-     "img": "souffle",
-     "kw": "respiration"
+     "img": "vague",
+     "kw": "cycle"
     },
     {
      "img": "graine",
      "kw": "Commencer"
-    },
-    {
-     "img": "vague",
-     "kw": "cycle"
     },
     {
      "img": "cercle",
@@ -472,6 +540,10 @@
     {
      "img": "oiseau-vol",
      "kw": "liberté"
+    },
+    {
+     "img": "souffle",
+     "kw": "respiration"
     }
    ]
   },
@@ -481,16 +553,12 @@
    "by": "lyrics",
    "images": [
     {
-     "img": "souffle",
-     "kw": "breathing"
+     "img": "vague",
+     "kw": "cycle"
     },
     {
      "img": "graine",
      "kw": "Start"
-    },
-    {
-     "img": "vague",
-     "kw": "cycle"
     },
     {
      "img": "cercle",
@@ -499,6 +567,10 @@
     {
      "img": "oiseau-vol",
      "kw": "freedom"
+    },
+    {
+     "img": "souffle",
+     "kw": "breathing"
     }
    ]
   },
@@ -512,10 +584,6 @@
      "kw": "pillar of light"
     },
     {
-     "img": "onde",
-     "kw": "wave"
-    },
-    {
      "img": "vent",
      "kw": "wind"
     },
@@ -524,8 +592,8 @@
      "kw": "walk mindfully"
     },
     {
-     "img": "soleil",
-     "kw": "brightness of the heavens"
+     "img": "onde",
+     "kw": "wave"
     }
    ]
   },
@@ -543,116 +611,127 @@
      "kw": "tisserands"
     },
     {
-     "img": "aube",
-     "kw": "Terre"
-    },
-    {
      "img": "danse",
      "kw": "je danse"
     },
     {
-     "img": "soleil",
-     "kw": "la Lumière qui crée"
+     "img": "aube",
+     "kw": "Terre"
     }
    ]
   },
   "2c1321b1-378d-47f3-be06-1ba9437edd30": {
    "title": "La Vraie Liberté",
    "lang": "fr",
-   "by": "category",
-   "category": "sensibilite",
+   "by": "lyrics",
    "images": [
     {
-     "img": "onde"
+     "img": "montagnes-brume",
+     "kw": "les montagnes"
     },
     {
-     "img": "souffle"
+     "img": "mv-foret-doree",
+     "kw": "les arbres"
     },
     {
-     "img": "mv-lac-cerisiers"
+     "img": "cercle",
+     "kw": "micro-cycles"
     },
     {
-     "img": "plume"
+     "img": "souffle",
+     "kw": "Respire calmement"
     }
    ]
   },
   "e9a0dfac-1925-49e4-aa3a-a2b8c20bc06c": {
    "title": "Commencer",
    "lang": "fr",
-   "by": "category",
-   "category": "sensibilite",
+   "by": "lyrics",
    "images": [
     {
-     "img": "onde"
+     "img": "mv-foret-doree",
+     "kw": "les arbres"
     },
     {
-     "img": "souffle"
+     "img": "montagnes-brume",
+     "kw": "les montagnes"
     },
     {
-     "img": "mv-lac-cerisiers"
+     "img": "corps-regen",
+     "kw": "régénération"
     },
     {
-     "img": "plume"
+     "img": "cercle",
+     "kw": "micro-cycles"
     }
    ]
   },
   "18a2266c-70b1-4e80-94e5-144a5ccd29fc": {
    "title": "Start",
    "lang": "en",
-   "by": "category",
-   "category": "sensibilite",
+   "by": "lyrics",
    "images": [
     {
-     "img": "onde"
+     "img": "montagnes-brume",
+     "kw": "mountains"
     },
     {
-     "img": "souffle"
+     "img": "mv-foret-doree",
+     "kw": "trees"
     },
     {
-     "img": "mv-lac-cerisiers"
+     "img": "cercle",
+     "kw": "micro-cycles"
     },
     {
-     "img": "plume"
+     "img": "souffle",
+     "kw": "Breathe calmly"
     }
    ]
   },
   "04441f4e-8d4b-4831-a038-c5a602e09e25": {
    "title": "Le postulat",
    "lang": "fr",
-   "by": "category",
-   "category": "axiomes",
+   "by": "lyrics",
    "images": [
     {
-     "img": "particule"
+     "img": "chien-balle",
+     "kw": "chien"
     },
     {
-     "img": "silence-lac"
+     "img": "pieds-mousse",
+     "kw": "tes pieds touchent le sol"
     },
     {
-     "img": "etoiles"
+     "img": "mv-cascade-lumiere",
+     "kw": "la source de vie"
     },
     {
-     "img": "aube"
+     "img": "souffle",
+     "kw": "le souffle"
     }
    ]
   },
   "d2d61703-a205-41ac-a670-6e5cf7c22911": {
    "title": "The Postulate",
    "lang": "en",
-   "by": "category",
-   "category": "axiomes",
+   "by": "lyrics",
    "images": [
     {
-     "img": "particule"
+     "img": "chien-balle",
+     "kw": "dog"
     },
     {
-     "img": "silence-lac"
+     "img": "pieds-mousse",
+     "kw": "feet touch the ground"
     },
     {
-     "img": "etoiles"
+     "img": "mv-cascade-lumiere",
+     "kw": "source of life"
     },
     {
-     "img": "aube"
+     "img": "souffle",
+     "kw": "the breath"
     }
    ]
   },
@@ -662,84 +741,89 @@
    "by": "lyrics",
    "images": [
     {
-     "img": "souffle",
-     "kw": "the breath"
-    },
-    {
      "img": "mv-hiver-cerf",
      "kw": "winter"
     },
     {
-     "img": "silence-lac",
-     "kw": "motionless Witness"
+     "img": "gong",
+     "kw": "gong"
     },
     {
-     "img": "onde",
-     "kw": "vibration"
+     "img": "fils-lumiere",
+     "kw": "fabric"
     },
     {
-     "img": "soleil",
-     "kw": "brightness of the heavens"
+     "img": "souffle",
+     "kw": "the breath"
     }
    ]
   },
   "bd31373d-709e-4a64-a7dd-7baed7ec7bb7": {
    "title": "the postulat",
    "lang": "en",
-   "by": "category",
-   "category": "axiomes",
+   "by": "lyrics",
    "images": [
     {
-     "img": "particule"
+     "img": "pieds-mousse",
+     "kw": "feet touch the ground"
     },
     {
-     "img": "silence-lac"
+     "img": "chien-balle",
+     "kw": "dog"
     },
     {
-     "img": "etoiles"
+     "img": "mv-cascade-lumiere",
+     "kw": "source of life"
     },
     {
-     "img": "aube"
+     "img": "souffle",
+     "kw": "the breath"
     }
    ]
   },
   "b0eb0f76-f2d8-4e16-85a9-037fc3f32b01": {
    "title": "The slight future",
    "lang": "en",
-   "by": "category",
-   "category": "jeu",
+   "by": "lyrics",
    "images": [
     {
-     "img": "danse"
+     "img": "boussole-mousse",
+     "kw": "compass"
     },
     {
-     "img": "champ"
+     "img": "galaxie",
+     "kw": "galaxies"
     },
     {
-     "img": "mv-collines-arcenciel"
+     "img": "fils-lumiere",
+     "kw": "The Thread"
     },
     {
-     "img": "tambourin"
+     "img": "silence-lac",
+     "kw": "seconds of silence"
     }
    ]
   },
   "3fa852e8-50d1-4b6f-a02d-84a7d3a0575a": {
    "title": "Accompagner la régénération",
    "lang": "fr",
-   "by": "category",
-   "category": "regeneration",
+   "by": "lyrics",
    "images": [
     {
-     "img": "corps-regen"
+     "img": "plante-lumiere",
+     "kw": "une plante"
     },
     {
-     "img": "mv-cascade-lumiere"
+     "img": "oiseau-vol",
+     "kw": "un oiseau"
     },
     {
-     "img": "graine"
+     "img": "mv-arbre-lumiere",
+     "kw": "un arbre"
     },
     {
-     "img": "joie-eau"
+     "img": "corps-regen",
+     "kw": "régénération"
     }
    ]
   },
@@ -748,10 +832,6 @@
    "lang": "fr",
    "by": "lyrics",
    "images": [
-    {
-     "img": "soleil",
-     "kw": "Soleil"
-    },
     {
      "img": "planetes-jumelles",
      "kw": "planète jumelle"
@@ -763,6 +843,10 @@
     {
      "img": "coeur",
      "kw": "battement double"
+    },
+    {
+     "img": "soleil",
+     "kw": "Soleil"
     }
    ]
   },
@@ -780,32 +864,35 @@
      "kw": "pétale"
     },
     {
-     "img": "souffle",
-     "kw": "respirer"
-    },
-    {
      "img": "mv-lavande",
      "kw": "parfum"
+    },
+    {
+     "img": "souffle",
+     "kw": "respirer"
     }
    ]
   },
   "2a9f903f-cc96-4649-922b-4e8ec1339c5c": {
    "title": "Le souffle et la main",
    "lang": "fr",
-   "by": "category",
-   "category": "corps-antenne",
+   "by": "lyrics",
    "images": [
     {
-     "img": "pilier-lumiere"
+     "img": "neige-marcheur",
+     "kw": "marche dans la neige"
     },
     {
-     "img": "foret-marche"
+     "img": "fleur-bleue",
+     "kw": "une pétale bleu"
     },
     {
-     "img": "vent"
+     "img": "mv-lavande",
+     "kw": "parfum"
     },
     {
-     "img": "mv-arbre-lumiere"
+     "img": "main-fleur",
+     "kw": "Il lève la main"
     }
    ]
   },
@@ -815,16 +902,16 @@
    "by": "lyrics",
    "images": [
     {
+     "img": "pyramide",
+     "kw": "la pyramide"
+    },
+    {
      "img": "visages",
      "kw": "visages"
     },
     {
      "img": "souffle",
      "kw": "le souffle"
-    },
-    {
-     "img": "pyramide",
-     "kw": "la pyramide"
     },
     {
      "img": "coeur",
@@ -846,10 +933,6 @@
      "kw": "sa rose unique"
     },
     {
-     "img": "etoiles",
-     "kw": "les étoiles"
-    },
-    {
      "img": "renard",
      "kw": "renard"
     },
@@ -860,6 +943,10 @@
     {
      "img": "pont-lumiere",
      "kw": "le pont"
+    },
+    {
+     "img": "etoiles",
+     "kw": "les étoiles"
     }
    ]
   },
@@ -869,16 +956,16 @@
    "by": "lyrics",
    "images": [
     {
-     "img": "foret-marche",
-     "kw": "tu marches"
+     "img": "mv-jardin-cosmique",
+     "kw": "l'univers entier"
     },
     {
      "img": "main-fleur",
      "kw": "prendre soin"
     },
     {
-     "img": "mv-jardin-cosmique",
-     "kw": "l’univers entier"
+     "img": "foret-marche",
+     "kw": "tu marches"
     },
     {
      "img": "corps-regen",
@@ -896,44 +983,43 @@
    "by": "lyrics",
    "images": [
     {
-     "img": "particule",
-     "kw": "particle"
-    },
-    {
      "img": "plume",
      "kw": "weighs nothing"
     },
     {
-     "img": "onde",
-     "kw": "vibration"
+     "img": "instruments",
+     "kw": "music"
     },
     {
      "img": "coeur",
      "kw": "Love"
     },
     {
-     "img": "instruments",
-     "kw": "music"
+     "img": "particule",
+     "kw": "particle"
     }
    ]
   },
   "6d91a0bb-d51e-4dd7-b69e-19be51580fc6": {
    "title": "Présence au centre",
    "lang": "fr",
-   "by": "category",
-   "category": "regeneration",
+   "by": "lyrics",
    "images": [
     {
-     "img": "corps-regen"
+     "img": "centre-pierres",
+     "kw": "au centre"
     },
     {
-     "img": "mv-cascade-lumiere"
+     "img": "atelier",
+     "kw": "artisan de la vie"
     },
     {
-     "img": "graine"
+     "img": "corps-regen",
+     "kw": "Mes tissus se régénèrent"
     },
     {
-     "img": "joie-eau"
+     "img": "visages",
+     "kw": "reconnaître celle des autres"
     }
    ]
   },
@@ -942,6 +1028,10 @@
    "lang": "fr",
    "by": "lyrics",
    "images": [
+    {
+     "img": "mv-lotus-etre",
+     "kw": "Source de Vie"
+    },
     {
      "img": "danse",
      "kw": "danse libre"
@@ -957,110 +1047,121 @@
     {
      "img": "corps-regen",
      "kw": "se régénère"
-    },
-    {
-     "img": "mv-lotus-etre",
-     "kw": "Source de Vie"
     }
    ]
   },
   "4f9514ec-7ad0-4d80-9f7e-120179145eab": {
    "title": "The Sacredness of Emotions",
    "lang": "en",
-   "by": "category",
-   "category": "sensibilite",
+   "by": "lyrics",
    "images": [
     {
-     "img": "onde"
+     "img": "vague-couleurs",
+     "kw": "color"
     },
     {
-     "img": "souffle"
+     "img": "vague",
+     "kw": "like waves"
     },
     {
-     "img": "mv-lac-cerisiers"
+     "img": "atelier",
+     "kw": "craftsmen"
     },
     {
-     "img": "plume"
+     "img": "danse",
+     "kw": "sacred dances"
     }
    ]
   },
   "c188685c-c903-4d4a-a47f-15a4a1a9a599": {
    "title": "The Sacredness of Emotions",
    "lang": "en",
-   "by": "category",
-   "category": "sensibilite",
+   "by": "lyrics",
    "images": [
     {
-     "img": "onde"
+     "img": "atelier",
+     "kw": "craftsmen"
     },
     {
-     "img": "souffle"
+     "img": "vague-couleurs",
+     "kw": "color"
     },
     {
-     "img": "mv-lac-cerisiers"
+     "img": "danse",
+     "kw": "Sacred Dance"
     },
     {
-     "img": "plume"
+     "img": "vague",
+     "kw": "like waves"
     }
    ]
   },
   "a4b34a64-99f0-4c63-8ab0-df1431649e79": {
    "title": "Le Rêveur",
    "lang": "fr",
-   "by": "category",
-   "category": "jeu",
+   "by": "lyrics",
    "images": [
     {
-     "img": "danse"
+     "img": "rocher-ocean",
+     "kw": "l'océan"
     },
     {
-     "img": "champ"
+     "img": "pion-mousse",
+     "kw": "pas le pion"
     },
     {
-     "img": "mv-collines-arcenciel"
+     "img": "pont-lumiere",
+     "kw": "Le pont apparaît"
     },
     {
-     "img": "tambourin"
+     "img": "aube",
+     "kw": "Éternel sur la Terre"
     }
    ]
   },
   "7599f004-7393-4e31-883c-70a3cfc3acfc": {
    "title": "Le Reset du Jeu",
    "lang": "fr",
-   "by": "category",
-   "category": "axiomes",
+   "by": "lyrics",
    "images": [
     {
-     "img": "particule"
+     "img": "racines",
+     "kw": "la racine"
     },
     {
-     "img": "silence-lac"
+     "img": "galaxie",
+     "kw": "les galaxies"
     },
     {
-     "img": "etoiles"
+     "img": "tisserand",
+     "kw": "le tisserand"
     },
     {
-     "img": "aube"
+     "img": "soleil",
+     "kw": "l'éclat des cieux"
     }
    ]
   },
   "e2f896d7-cdbe-470b-b414-3cb5988695a7": {
    "title": "Le Oui",
    "lang": "fr",
-   "by": "category",
-   "category": "corps-antenne",
+   "by": "lyrics",
    "images": [
     {
-     "img": "pilier-lumiere"
+     "img": "mv-foret-bleue",
+     "kw": "la forêt entière"
     },
     {
-     "img": "foret-marche"
+     "img": "pilier-lumiere",
+     "kw": "une antenne"
     },
     {
-     "img": "vent"
+     "img": "fleur-bleue",
+     "kw": "Avant la fleur"
     },
     {
-     "img": "mv-arbre-lumiere"
+     "img": "souffle",
+     "kw": "un souffle qui danse"
     }
    ]
   },
@@ -1074,20 +1175,12 @@
      "kw": "grand poumon"
     },
     {
-     "img": "souffle",
-     "kw": "souffle"
-    },
-    {
      "img": "cercle",
      "kw": "cercle sans fin"
     },
     {
-     "img": "etoiles",
-     "kw": "étoiles"
-    },
-    {
-     "img": "mv-etres-bulles",
-     "kw": "être de lumière"
+     "img": "souffle",
+     "kw": "souffle"
     }
    ]
   },
@@ -1097,12 +1190,12 @@
    "by": "lyrics",
    "images": [
     {
-     "img": "cycle-saisons",
-     "kw": "Recommencer"
-    },
-    {
      "img": "atelier",
      "kw": "atelier"
+    },
+    {
+     "img": "cycle-saisons",
+     "kw": "Recommencer"
     },
     {
      "img": "foret-marche",
@@ -1136,12 +1229,12 @@
      "kw": "On naît, on grandit"
     },
     {
-     "img": "mv-etres-bulles",
-     "kw": "lumières en mouvement"
-    },
-    {
      "img": "main-fleur",
      "kw": "geste"
+    },
+    {
+     "img": "mv-etres-bulles",
+     "kw": "lumières en mouvement"
     }
    ]
   },
@@ -1163,12 +1256,12 @@
      "kw": "we grow"
     },
     {
-     "img": "mv-etres-bulles",
-     "kw": "moving lights"
-    },
-    {
      "img": "main-fleur",
      "kw": "gesture"
+    },
+    {
+     "img": "mv-etres-bulles",
+     "kw": "moving lights"
     }
    ]
   },
@@ -1192,10 +1285,6 @@
     {
      "img": "champ",
      "kw": "le champ"
-    },
-    {
-     "img": "silence-lac",
-     "kw": "silence"
     }
    ]
   },
@@ -1244,19 +1333,19 @@
    "images": [
     {
      "img": "oiseau-vol",
-     "kw": "L’oiseau"
+     "kw": "L'oiseau"
     },
     {
      "img": "tisserand",
      "kw": "tisserand"
     },
     {
-     "img": "silence-lac",
-     "kw": "silence"
-    },
-    {
      "img": "cycle-saisons",
      "kw": "naît, croît et meurt"
+    },
+    {
+     "img": "silence-lac",
+     "kw": "silence"
     }
    ]
   },
@@ -1281,10 +1370,6 @@
     {
      "img": "flamme",
      "kw": "ma flamme"
-    },
-    {
-     "img": "soleil",
-     "kw": "lumière"
     }
    ]
   },
