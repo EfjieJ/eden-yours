@@ -657,6 +657,30 @@
       "lang": "fr",
       "new": true,
       "added": "2026-10-18T23:48"
+    },
+    {
+      "id": "ec618190-1ef7-478b-9d11-0ecec58147c6",
+      "title": "Le Petit Chaperon Rouge et la Lumière",
+      "artist": "Eden Yours",
+      "sunoArtist": "efjie8008",
+      "sunoTitle": "Le Petit Chaperon Rouge et la Lumière ",
+      "audio_url": null,
+      "embed_url": "https://suno.com/embed/ec618190-1ef7-478b-9d11-0ecec58147c6",
+      "cover_url": "assets/covers/ec618190-1ef7-478b-9d11-0ecec58147c6.jpeg",
+      "suno_share": "https://suno.com/s/Bp90mYQfEXt8pDv2",
+      "duration": 370.32,
+      "featured": false,
+      "audio_url_aac": null,
+      "lang": "fr",
+      "new": true,
+      "added": "2026-10-19T00:30",
+      "paid": {
+        "key": "chaperon-rouge",
+        "amount": "10.00",
+        "currency": "CAD",
+        "label": "10 $",
+        "page": "conte-chaperon-rouge.html"
+      }
     }
   ]
 }

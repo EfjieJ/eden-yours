@@ -9,7 +9,7 @@
   var sid = document.body.getAttribute("data-conte-song"), stitle = document.body.getAttribute("data-conte-song-title");
   var SONG = sid ? { id: sid, title: stitle || document.title, embed_url: "https://suno.com/embed/" + sid }
     : { id: "4ec00297-cac3-40f7-8e48-9f12f59ac0d4", title: "La Septième Chèvre de Monsieur Seguin et la Lumière", embed_url: "https://suno.com/embed/4ec00297-cac3-40f7-8e48-9f12f59ac0d4" };
-  var scenes = [].slice.call(document.querySelectorAll(".conte-scene"));
+  var scenes = [];
   var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
   document.documentElement.classList.add("conte-js");
 
@@ -26,20 +26,13 @@
     s.classList.add("is-in");
     s.querySelectorAll(".conte-img").forEach(function (m) { m.loading = "eager"; });
   }
-  scenes.forEach(function (s) { var b = s.querySelector(".beat"); if (b) setBeat(s, b.getAttribute("data-beat")); });
-
-  if (reduce || !("IntersectionObserver" in window)) scenes.forEach(show);
-  else {
-    var io = new IntersectionObserver(function (es) {
-      es.forEach(function (e) { if (e.isIntersecting) { show(e.target); io.unobserve(e.target); } });
-    }, { rootMargin: "0px 0px -10% 0px", threshold: 0.12 });
-    scenes.forEach(function (s) { io.observe(s); });
-  }
+  var io = (reduce || !("IntersectionObserver" in window)) ? null : new IntersectionObserver(function (es) {
+    es.forEach(function (e) { if (e.isIntersecting) { show(e.target); io.unobserve(e.target); } });
+  }, { rootMargin: "0px 0px -10% 0px", threshold: 0.12 });
 
   // Phrase en cours = selon l'avancée dans la scène pendant que l'image reste fixée en haut :
   // chaque phrase reçoit une part égale du défilement (la scène a un espace de défilement par phrase).
   var manual = 0;
-  scenes.forEach(function (s) { s.style.setProperty("--extra", Math.max(0, s.querySelectorAll(".beat").length - 1)); });
   function onScroll() {
     if (Date.now() < manual) return;
     scenes.forEach(function (s) {
@@ -57,11 +50,16 @@
   window.addEventListener("scroll", function () { if (!tick) { tick = true; requestAnimationFrame(function () { tick = false; onScroll(); }); } }, { passive: true });
   window.addEventListener("resize", onScroll);
 
-  // « Suite » : phrase suivante de la scène (fondu d'image), puis scène suivante.
-  scenes.forEach(function (s, si) {
+  // Mise en place d'une scène (au chargement, ou plus tard pour la suite d'un conte payant chargée après déblocage : EdenConte.add).
+  function setup(s) {
+    if (s.__conte) return; s.__conte = 1;
+    scenes.push(s);
+    var b0 = s.querySelector(".beat"); if (b0) setBeat(s, b0.getAttribute("data-beat"));
+    if (io) io.observe(s); else show(s);
+    s.style.setProperty("--extra", Math.max(0, s.querySelectorAll(".beat").length - 1));
+    // « Suite » : phrase suivante de la scène (fondu d'image), puis scène suivante.
     var btn = s.querySelector(".conte-next");
-    if (!btn) return;
-    btn.addEventListener("click", function () {
+    if (btn) btn.addEventListener("click", function () {
       var beats = [].slice.call(s.querySelectorAll(".beat"));
       var i = beats.findIndex(function (b) { return b.getAttribute("data-beat") === s.getAttribute("data-on"); });
       if (i < beats.length - 1) {
@@ -74,22 +72,24 @@
         window.scrollTo({ top: y, behavior: reduce ? "auto" : "smooth" });
         return;
       }
-      var n = scenes[si + 1]; if (!n) return;
-      show(n);
+      var n = scenes[scenes.indexOf(s) + 1];
+      // conte payant verrouillé : après la dernière scène offerte, « Suite » mène à la carte de déblocage
+      var target = n || document.querySelector(".paid-lock") || document.querySelector(".conte-end"); if (!target) return;
+      if (n) show(n);
       manual = Date.now() + 1200;
-      n.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+      target.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
     });
-  });
-  // Toucher l'image = image suivante de la scène (comme « Suite », sans changer de scène)
-  scenes.forEach(function (s) {
+    // Toucher l'image = image suivante de la scène (comme « Suite », sans changer de scène)
     var fig = s.querySelector(".conte-fig"), beats = [].slice.call(s.querySelectorAll(".beat"));
-    if (!fig || beats.length < 2) return;
-    fig.addEventListener("click", function () {
+    if (fig && beats.length > 1) fig.addEventListener("click", function () {
       var i = beats.findIndex(function (b) { return b.getAttribute("data-beat") === s.getAttribute("data-on"); });
       manual = Date.now() + 1500;
       setBeat(s, beats[(i + 1) % beats.length].getAttribute("data-beat"));
     });
-  });
+  }
+  function add(list) { [].forEach.call(list || [], setup); onScroll(); }
+  add(document.querySelectorAll(".conte-scene"));
+  window.EdenConte = { add: add };
 
   document.querySelectorAll(".conte-play").forEach(function (b) {
     b.addEventListener("click", function () {

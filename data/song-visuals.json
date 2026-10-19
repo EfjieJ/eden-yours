@@ -29,6 +29,10 @@
    "src": "assets/visuels/champ.webp",
    "sm": "assets/visuels/sm/champ.webp"
   },
+  "chaperon-rouge": {
+   "src": "assets/visuels/chaperon-rouge.webp",
+   "sm": "assets/visuels/sm/chaperon-rouge.webp"
+  },
   "chemin-lumiere": {
    "src": "assets/visuels/chemin-lumiere.webp",
    "sm": "assets/visuels/sm/chemin-lumiere.webp"
@@ -77,6 +81,10 @@
    "src": "assets/visuels/fils-lumiere.webp",
    "sm": "assets/visuels/sm/fils-lumiere.webp"
   },
+  "fiole-eau": {
+   "src": "assets/visuels/fiole-eau.webp",
+   "sm": "assets/visuels/sm/fiole-eau.webp"
+  },
   "flamme": {
    "src": "assets/visuels/flamme.webp",
    "sm": "assets/visuels/sm/flamme.webp"
@@ -105,6 +113,10 @@
    "src": "assets/visuels/graine.webp",
    "sm": "assets/visuels/sm/graine.webp"
   },
+  "grand-mere-lumiere": {
+   "src": "assets/visuels/grand-mere-lumiere.webp",
+   "sm": "assets/visuels/sm/grand-mere-lumiere.webp"
+  },
   "instruments": {
    "src": "assets/visuels/instruments.webp",
    "sm": "assets/visuels/sm/instruments.webp"
@@ -112,6 +124,10 @@
   "joie-eau": {
    "src": "assets/visuels/joie-eau.webp",
    "sm": "assets/visuels/sm/joie-eau.webp"
+  },
+  "loup-doux": {
+   "src": "assets/visuels/loup-doux.webp",
+   "sm": "assets/visuels/sm/loup-doux.webp"
   },
   "loup-lune": {
    "src": "assets/visuels/loup-lune.webp",
@@ -1471,6 +1487,33 @@
     {
      "img": "etoiles",
      "kw": "Les étoiles rient"
+    }
+   ]
+  },
+  "ec618190-1ef7-478b-9d11-0ecec58147c6": {
+   "title": "Le Petit Chaperon Rouge et la Lumière",
+   "lang": "fr",
+   "by": "lyrics",
+   "images": [
+    {
+     "img": "chaperon-rouge",
+     "kw": "chaperon écarlate"
+    },
+    {
+     "img": "loup-doux",
+     "kw": "le loup"
+    },
+    {
+     "img": "fiole-eau",
+     "kw": "fiole"
+    },
+    {
+     "img": "grand-mere-lumiere",
+     "kw": "grand-mère"
+    },
+    {
+     "img": "etoiles",
+     "kw": "sous les étoiles"
     }
    ]
   }
