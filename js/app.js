@@ -240,7 +240,7 @@
     const lang = siteLang();
     tracks = window.EdenSongPick ? window.EdenSongPick.forLang(allTracks, lang) : allTracks.filter((t) => t && t.lang === lang);
     // Nouveautés (drapeau new: true dans tracks.json) en tête de liste, le reste dans l'ordre habituel.
-    tracks = tracks.filter((t) => t.new).concat(tracks.filter((t) => !t.new));
+    tracks = tracks.filter((t) => t.new).sort((a, b) => String(b.added || "").localeCompare(String(a.added || ""))).concat(tracks.filter((t) => !t.new));
     if (currentId && tracks.some((t) => t.id === currentId)) {
       currentIndex = tracks.findIndex((t) => t.id === currentId);
       return;
