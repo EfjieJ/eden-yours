@@ -40,3 +40,7 @@
   .conte-text p { font-size: 1.05rem; line-height: 1.7; }
   .conte-fig { border-radius: 16px; }
 }
+
+/* Conte au texte en lignes (conte-petit-prince.html) : les retours à la ligne et lignes vides de François sont gardés tels quels */
+.conte-text--lignes p { white-space: pre-line; }
+.conte-scene:first-child .conte-text--lignes p:first-child::first-letter { float: none; font-size: inherit; line-height: inherit; margin: 0; color: inherit; font-family: inherit; }

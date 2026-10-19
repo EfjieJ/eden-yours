@@ -1,11 +1,14 @@
-/* Eden Yours — Conte illustré (conte-blanchette.html).
+/* Eden Yours — Conte illustré (conte-blanchette.html, conte-petit-prince.html).
    Chaque scène a plusieurs images, chacune liée à une phrase (span.beat[data-beat]).
    En lisant (défilement) ou avec « Suite », l'image de la phrase en cours apparaît en fondu.
    La 1re image de chaque scène se « construit » doucement quand la scène entre à l'écran.
    ▶ en haut (lire en écoutant) et à la fin : la chanson du conte, via EdenFullSong (lecteur Suno). */
 (function () {
   "use strict";
-  var SONG = { id: "4ec00297-cac3-40f7-8e48-9f12f59ac0d4", title: "La Septième Chèvre de Monsieur Seguin et la Lumière", embed_url: "https://suno.com/embed/4ec00297-cac3-40f7-8e48-9f12f59ac0d4" };
+  // Chanson du conte : <body data-conte-song="<id du clip Suno>" data-conte-song-title="…"> ; sans attribut = Blanchette.
+  var sid = document.body.getAttribute("data-conte-song"), stitle = document.body.getAttribute("data-conte-song-title");
+  var SONG = sid ? { id: sid, title: stitle || document.title, embed_url: "https://suno.com/embed/" + sid }
+    : { id: "4ec00297-cac3-40f7-8e48-9f12f59ac0d4", title: "La Septième Chèvre de Monsieur Seguin et la Lumière", embed_url: "https://suno.com/embed/4ec00297-cac3-40f7-8e48-9f12f59ac0d4" };
   var scenes = [].slice.call(document.querySelectorAll(".conte-scene"));
   var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
   document.documentElement.classList.add("conte-js");
