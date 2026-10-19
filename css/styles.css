@@ -3508,4 +3508,8 @@ body.home-real .gm-gesture .gm-ge-dot { display: none; }
 .gm-ciel { background: #05061a url("../assets/home/card-ciel.webp") center / cover no-repeat; }
 
 /* Carte de l'accueil */
-.game-card--conte .game-visual { background: url("../assets/contes/blanchette/sm/b13b.webp") center / cover no-repeat; }
+.game-card--conte .game-visual, body.home-real .game-card--conte .game-visual { background: url("../assets/contes/blanchette/sm/b13b.webp") center / cover no-repeat; }
+
+/* Pages en français seulement (séparation stricte FR/EN) : cachées quand le site est en anglais */
+html[lang="en"] .fr-only { display: none !important; }
+.game-card--poumon .game-visual, body.home-real .game-card--poumon .game-visual { background: url("../assets/chansons/grand-poumon/sm/g13.webp") center / cover no-repeat; }
