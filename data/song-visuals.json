@@ -33,6 +33,10 @@
    "src": "assets/visuels/chemin-lumiere.webp",
    "sm": "assets/visuels/sm/chemin-lumiere.webp"
   },
+  "chevre-rocher": {
+   "src": "assets/visuels/chevre-rocher.webp",
+   "sm": "assets/visuels/sm/chevre-rocher.webp"
+  },
   "chien-balle": {
    "src": "assets/visuels/chien-balle.webp",
    "sm": "assets/visuels/sm/chien-balle.webp"
@@ -109,6 +113,10 @@
    "src": "assets/visuels/joie-eau.webp",
    "sm": "assets/visuels/sm/joie-eau.webp"
   },
+  "loup-lune": {
+   "src": "assets/visuels/loup-lune.webp",
+   "sm": "assets/visuels/sm/loup-lune.webp"
+  },
   "main-fleur": {
    "src": "assets/visuels/main-fleur.webp",
    "sm": "assets/visuels/sm/main-fleur.webp"
@@ -136,6 +144,10 @@
   "onde": {
    "src": "assets/visuels/onde.webp",
    "sm": "assets/visuels/sm/onde.webp"
+  },
+  "paquerette": {
+   "src": "assets/visuels/paquerette.webp",
+   "sm": "assets/visuels/sm/paquerette.webp"
   },
   "particule": {
    "src": "assets/visuels/particule.webp",
@@ -1397,6 +1409,33 @@
     {
      "img": "oiseau-vol",
      "kw": "liberté"
+    }
+   ]
+  },
+  "4ec00297-cac3-40f7-8e48-9f12f59ac0d4": {
+   "title": "La Septième Chèvre de Monsieur Seguin et la Lumière",
+   "lang": "fr",
+   "by": "lyrics",
+   "images": [
+    {
+     "img": "chevre-rocher",
+     "kw": "Blanchette"
+    },
+    {
+     "img": "loup-lune",
+     "kw": "le loup"
+    },
+    {
+     "img": "paquerette",
+     "kw": "une pâquerette"
+    },
+    {
+     "img": "flamme",
+     "kw": "un feu de camp invisible"
+    },
+    {
+     "img": "etoiles",
+     "kw": "sous les étoiles"
     }
    ]
   }

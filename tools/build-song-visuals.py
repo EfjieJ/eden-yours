@@ -55,6 +55,7 @@ S={
  'c188685c':[('atelier','craftsmen'),('vague-couleurs','color'),('danse','Sacred Dance'),('vague','like waves')],
  'a4b34a64':[('rocher-ocean',"l'océan"),('pion-mousse','pas le pion'),('pont-lumiere','Le pont apparaît'),('aube','Éternel sur la Terre')],
  '7599f004':[('racines','la racine'),('galaxie','les galaxies'),('tisserand','le tisserand'),('soleil',"l'éclat des cieux")],
+ '4ec00297':[('chevre-rocher','Blanchette'),('loup-lune','le loup'),('paquerette','une pâquerette'),('flamme','un feu de camp invisible'),('etoiles','sous les étoiles')],
  'e2f896d7':[('mv-foret-bleue','la forêt entière'),('pilier-lumiere','une antenne'),('fleur-bleue','Avant la fleur'),('souffle','un souffle qui danse')],
 }
 GEN={'souffle','silence-lac','onde','particule','etoiles','aube','soleil','mv-etres-bulles'}
