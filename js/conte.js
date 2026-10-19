@@ -50,7 +50,7 @@
   window.addEventListener("scroll", function () { if (!tick) { tick = true; requestAnimationFrame(function () { tick = false; onScroll(); }); } }, { passive: true });
   window.addEventListener("resize", onScroll);
 
-  // Mise en place d'une scène (au chargement, ou plus tard pour la suite d'un conte payant chargée après déblocage : EdenConte.add).
+  // Mise en place d'une scène (au chargement, ou plus tard pour des scènes ajoutées : EdenConte.add).
   function setup(s) {
     if (s.__conte) return; s.__conte = 1;
     scenes.push(s);
@@ -73,8 +73,7 @@
         return;
       }
       var n = scenes[scenes.indexOf(s) + 1];
-      // conte payant verrouillé : après la dernière scène offerte, « Suite » mène à la carte de déblocage
-      var target = n || document.querySelector(".paid-lock") || document.querySelector(".conte-end"); if (!target) return;
+      var target = n || document.querySelector(".conte-end"); if (!target) return;
       if (n) show(n);
       manual = Date.now() + 1200;
       target.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });

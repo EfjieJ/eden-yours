@@ -1,12 +1,11 @@
-# Construit conte-chaperon-rouge.html (scènes 1–3, offertes) + data/contes/chaperon-rouge-suite.json (scènes 4–15, payantes)
+# Construit conte-chaperon-rouge.html (les 15 scènes, conte gratuit)
 # à partir du texte de François (contes/chaperon-rouge-lumiere.txt), tel quel — espaces particuliers et retours à la ligne compris.
 # REFUSE de construire si le texte source n'est pas exactement le texte vérifié (empreinte SHA-256) ou si le découpage ne le redonne pas à l'identique.
-# Vérification : textContent des .conte-text des 15 scènes (après déblocage), joints sans séparateur == texte source (sans le \n final).
+# Vérification : textContent des .conte-text des 15 scènes, joints sans séparateur == texte source (sans le \n final).
 import html, sys, json, hashlib
 SRC = sys.argv[1] if len(sys.argv) > 1 else '/workspace/contes/chaperon-rouge-lumiere.txt'
-V = sys.argv[2] if len(sys.argv) > 2 else '20261019e'
+V = sys.argv[2] if len(sys.argv) > 2 else '20261019f'
 EXPECT = '4c1d1f66e6188b2e211538dfb885273bd2a73a080e9345a4c889b6cdea5dfdf8'
-FREE = 3
 raw = open(SRC, encoding='utf-8').read()
 h = hashlib.sha256(raw.encode('utf-8')).hexdigest()
 if h != EXPECT:
@@ -94,15 +93,13 @@ def scene(n, s):
         <div class="conte-text conte-text--lignes"><p>{text}{sep}</p></div>{nxt}
       </section>'''
 out = [scene(n, s) for n, s in enumerate(SC, 1)]
-free, paid = out[:FREE], out[FREE:]
 tpl = open('tools/chaperon-rouge.tpl.html', encoding='utf-8').read()
-page = tpl.replace('{{SCENES}}', '\n'.join(free)).replace('{{V}}', V).replace('{{NIMG}}', str(len(flat))).replace('{{NPAID}}', str(len(SC) - FREE))
-# aucune phrase payante ne doit se retrouver dans la page
-for s in SC[FREE:]:
-    for b, m, a in s:
-        assert esc(chunks[b][:40]) not in page, ('texte payant dans la page', b)
+page = tpl.replace('{{SCENES}}', '\n'.join(out)).replace('{{V}}', V).replace('{{NIMG}}', str(len(flat)))
+# tout le texte est dans la page, tel quel (chaque passage échappé, dans l'ordre)
+pos = 0
+for b, m, a in flat:
+    k = page.find(esc(chunks[b]), pos)
+    if k < 0: sys.exit(f'REFUS : passage {b} absent de la page.')
+    pos = k
 open('conte-chaperon-rouge.html', 'w', encoding='utf-8').write(page)
-json.dump({"about": "Suite du conte (scènes %d–15), chargée par js/eden-paid.js seulement après déblocage. Générée par tools/build-chaperon-rouge.py." % (FREE + 1),
-           "key": "chaperon-rouge", "first": FREE + 1, "scenes": paid},
-          open('data/contes/chaperon-rouge-suite.json', 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
-json.dump({"scenes": len(SC), "free": FREE, "images": len(flat), "sha256": h}, sys.stdout, ensure_ascii=False); print()
+json.dump({"scenes": len(SC), "images": len(flat), "sha256": h}, sys.stdout, ensure_ascii=False); print()

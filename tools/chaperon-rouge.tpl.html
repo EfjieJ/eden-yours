@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Le Petit Chaperon Rouge et la Lumière Éternelle — Conte — Eden Yours</title>
-  <meta name="description" content="Un conte illustré de François : Rouge, au chaperon écarlate, se nourrit de lumière ; elle adoucit le loup et éveille sa grand-mère. En 40 images, avec sa chanson. Les 3 premières scènes sont offertes.">
+  <meta name="description" content="Un conte illustré de François : Rouge, au chaperon écarlate, se nourrit de lumière ; elle adoucit le loup et éveille sa grand-mère. En 40 images, avec sa chanson.">
   <link rel="canonical" href="https://efjiej.github.io/eden-yours/conte-chaperon-rouge.html">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="fr_CA">
@@ -12,7 +12,7 @@
   <meta property="og:site_name" content="Eden Yours">
   <meta property="og:url" content="https://efjiej.github.io/eden-yours/conte-chaperon-rouge.html">
   <meta property="og:title" content="Le Petit Chaperon Rouge et la Lumière Éternelle — Conte — Eden Yours">
-  <meta property="og:description" content="Un conte illustré de François : Rouge, au chaperon écarlate, se nourrit de lumière ; elle adoucit le loup et éveille sa grand-mère. En 40 images, avec sa chanson. Les 3 premières scènes sont offertes.">
+  <meta property="og:description" content="Un conte illustré de François : Rouge, au chaperon écarlate, se nourrit de lumière ; elle adoucit le loup et éveille sa grand-mère. En 40 images, avec sa chanson.">
   <meta property="og:image" content="https://efjiej.github.io/eden-yours/assets/contes/chaperon-rouge/c01b.webp">
   <meta property="og:image:secure_url" content="https://efjiej.github.io/eden-yours/assets/contes/chaperon-rouge/c01b.webp">
   <meta property="og:image:type" content="image/webp">
@@ -21,7 +21,7 @@
   <meta property="og:image:alt" data-i18n-content="common.ogAlt" content="Eden Yours — Écoute en continu. Ça régénère. 29 chansons · Casse-tête · Blind test">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Le Petit Chaperon Rouge et la Lumière Éternelle — Conte — Eden Yours">
-  <meta name="twitter:description" content="Un conte illustré de François : Rouge, au chaperon écarlate, se nourrit de lumière ; elle adoucit le loup et éveille sa grand-mère. En 40 images, avec sa chanson. Les 3 premières scènes sont offertes.">
+  <meta name="twitter:description" content="Un conte illustré de François : Rouge, au chaperon écarlate, se nourrit de lumière ; elle adoucit le loup et éveille sa grand-mère. En 40 images, avec sa chanson.">
   <meta name="twitter:image" content="https://efjiej.github.io/eden-yours/assets/contes/chaperon-rouge/c01b.webp">
   <meta name="twitter:image:alt" data-i18n-content="common.ogAlt" content="Eden Yours — Écoute en continu. Ça régénère. 29 chansons · Casse-tête · Blind test">
   <link rel="stylesheet" href="css/styles.css?v={{V}}">
@@ -32,7 +32,7 @@
   <link rel="stylesheet" href="css/ciel.css?v={{V}}">
   <script src="js/ciel.js?v={{V}}" defer></script>
 </head>
-<body class="page-conte" data-no-song-visuals data-conte-song="ec618190-1ef7-478b-9d11-0ecec58147c6" data-conte-song-title="Le Petit Chaperon Rouge et la Lumière" data-paid="chaperon-rouge" data-paid-suite="data/contes/chaperon-rouge-suite.json?v={{V}}">
+<body class="page-conte" data-no-song-visuals data-conte-song="ec618190-1ef7-478b-9d11-0ecec58147c6" data-conte-song-title="Le Petit Chaperon Rouge et la Lumière">
   <header class="site-nav">
     <div class="container">
       <a class="logo" href="index.html">
@@ -92,7 +92,6 @@
         <p class="eyebrow" data-i18n="conte.eyebrow">Conte illustré · Eden Yours</p>
         <h1>Le Petit Chaperon Rouge et la Lumière Éternelle</h1>
         <p class="conte-lead">Un conte de François, en {{NIMG}} images. Fais défiler ou touche « Suite » : les images suivent chaque passage et apparaissent doucement. Tu peux lancer la chanson et lire en l’écoutant.</p>
-        <p class="conte-paid-note" data-paid-note><span class="paid-badge">10 $</span> Les 3 premières scènes sont offertes. La suite du conte ({{NPAID}} scènes) et sa chanson en entier se débloquent pour 10 $ CAD.</p>
         <p class="conte-fr-note" data-i18n="conte.frNote" hidden></p>
         <div class="conte-player">
           <button type="button" class="btn btn-primary conte-play" data-i18n="conte.playTop">▶ Écouter la chanson en lisant</button>
@@ -102,8 +101,7 @@
     </section>
     <div class="container conte-narrow conte-scenes">
 {{SCENES}}
-      <div class="paid-slot" data-paid-slot></div>
-      <section class="conte-end" data-paid-after>
+      <section class="conte-end">
         <p class="conte-fin">Fin</p>
         <p>Ce conte est aussi une chanson. Écoute-la en entier.</p>
         <button type="button" class="btn btn-primary conte-play">▶ Écouter « Le Petit Chaperon Rouge et la Lumière »</button>
@@ -112,6 +110,15 @@
       </section>
     </div>
   </main>
+
+  <aside class="gift" aria-labelledby="gift-title">
+    <div class="container gift-inner">
+      <p class="gift-title" id="gift-title" data-i18n="gift.title">Offrir un cadeau</p>
+      <p class="gift-body" data-i18n="gift.body">Tout ici est gratuit, offert avec amour. Si une chanson t’a touché, tu peux offrir un café via PayPal — c’est ton geste, librement choisi, sans aucune attente.</p>
+      <a class="btn btn-paypal gift-btn" href="https://paypal.me/Francjul" target="_blank" rel="noopener noreferrer" data-i18n="gift.btn">☕ Offrir un café via PayPal</a>
+      <p class="gift-note" data-i18n="gift.note">Tu choisis le montant, ou rien du tout : ta présence est déjà un cadeau.</p>
+    </div>
+  </aside>
 
   <footer class="site-footer">
     <div class="container">
@@ -123,7 +130,6 @@
 
   <script src="js/eden-autoplay.js?v={{V}}"></script>
   <script src="js/song-pick.js?v={{V}}"></script>
-  <script src="js/eden-paid.js?v={{V}}"></script>
   <script src="js/play-full-song.js?v={{V}}"></script>
   <script src="js/lang-pill.js?v={{V}}"></script>
   <script src="js/i18n.js?v={{V}}"></script>

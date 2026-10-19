@@ -32,8 +32,6 @@
       var sc = document.createElement("script"); sc.src = baseU + "js/song-visuals.js" + verQ; sc.async = true; sc.setAttribute("data-base", baseU); document.head.appendChild(sc);
     } catch (e) {}
   }
-  /* Chanson payante (js/eden-paid.js) : extrait de 30 s puis carte de déblocage, tant qu'elle n'est pas débloquée sur l'appareil. */
-  function paidGate(f) { try { if (window.EdenPaid) window.EdenPaid.gate(f); } catch (e) {} }
   function isSong(m) { var u = (m && (m.currentSrc || m.getAttribute && m.getAttribute("src") || m.src)) || ""; return /assets\/audio\/|\.(mp3|m4a)(\?|$)/i.test(u) && u.indexOf("data:") !== 0; }
   function killEmbeds(keep) {
     var fr = document.querySelectorAll('iframe[src*="suno.com"]');
@@ -64,11 +62,11 @@
     new MutationObserver(function (muts) {
       muts.forEach(function (mu) {
         /* iframe Suno réutilisée : on lui change seulement src → c'est une nouvelle chanson */
-        if (mu.type === "attributes") { var t = mu.target; if (t.tagName === "IFRAME" && t.isConnected && /suno\.com/.test(t.src || "") && songIdOf(t.src) !== songIdOf(mu.oldValue)) { stopOthers(null, t); announce(t, "embed"); paidGate(t); } return; }
+        if (mu.type === "attributes") { var t = mu.target; if (t.tagName === "IFRAME" && t.isConnected && /suno\.com/.test(t.src || "") && songIdOf(t.src) !== songIdOf(mu.oldValue)) { stopOthers(null, t); announce(t, "embed"); } return; }
         [].forEach.call(mu.addedNodes, function (n) {
         if (n.nodeType !== 1) return;
         var f = n.tagName === "IFRAME" ? n : n.querySelector && n.querySelector('iframe[src*="suno.com"]');
-        if (f && /suno\.com/.test(f.src || "")) { stopOthers(null, f); announce(f, "embed"); paidGate(f); }
+        if (f && /suno\.com/.test(f.src || "")) { stopOthers(null, f); announce(f, "embed"); }
       }); });
     }).observe(document.documentElement, { childList: true, subtree: true, attributes: true, attributeFilter: ["src"], attributeOldValue: true });
   } catch (e) {}

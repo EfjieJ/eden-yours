@@ -29,8 +29,6 @@
   function pick(list, opts) {
     opts = opts || {};
     if (!list || !list.length) return null;
-    /* Chanson payante pas encore débloquée (js/eden-paid.js) : jamais tirée au hasard. */
-    if (window.EdenPaid) { var free = list.filter(function (t) { return !(t && window.EdenPaid.lockedTrack(t.id)); }); if (free.length) list = free; }
     var n = list.length, chosen;
     if (n === 1) chosen = list[0];
     else {

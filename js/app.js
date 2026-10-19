@@ -690,17 +690,6 @@
     ensureUnlockModal();
   }
 
-  // Chanson payante débloquée : le badge « 10 $ » devient « ✓ 10 $ » partout dans la page.
-  document.addEventListener("eden:paid-unlock", (e) => {
-    const k = e.detail && e.detail.key;
-    document.querySelectorAll(".paid-badge[data-paid-badge]").forEach((el) => {
-      if (el.getAttribute("data-paid-badge") !== k) return;
-      el.classList.add("paid-badge--ok");
-      if (!/^✓/.test(el.textContent)) el.textContent = "✓ " + el.textContent;
-      el.title = "Débloqué sur cet appareil";
-    });
-  });
-
   // ---------- Render track list ----------
   function renderTrackList(container) {
     if (!container) return;
@@ -709,11 +698,7 @@
     let html = "";
     tracks.forEach((t, i) => {
       const embed = isEmbedTrack(t);
-      const paid = t.paid && t.paid.key ? t.paid : null; // chanson payante (js/eden-paid.js) : badge « 10 $ » tant qu'elle n'est pas débloquée
-      const paidOpen = paid && window.EdenPaid && window.EdenPaid.isUnlocked(paid.key);
-      const badge = paid
-        ? `<span class="track-badge paid-badge${paidOpen ? " paid-badge--ok" : ""}" data-paid-badge="${escapeAttr(paid.key)}" title="${escapeAttr(paidOpen ? "Débloqué sur cet appareil" : "Extrait de 30 s — chanson entière avec le conte : " + (paid.label || "10 $"))}">${escapeHtml(paidOpen ? "✓ " + (paid.label || "10 $") : (paid.label || "10 $"))}</span>`
-        : embed
+      const badge = embed
         ? `<span class="track-badge suno-embed-badge">Suno</span>`
         : `<span class="track-badge${isUnlocked() ? "" : " preview"}">${escapeHtml(isUnlocked() ? i18n("player.available") : i18n("unlock.previewBadge"))}</span>`;
       html += `

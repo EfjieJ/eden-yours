@@ -3514,36 +3514,14 @@ body.home-real .gm-gesture .gm-ge-dot { display: none; }
 html[lang="en"] .fr-only { display: none !important; }
 .game-card--poumon .game-visual, body.home-real .game-card--poumon .game-visual { background: url("../assets/chansons/grand-poumon/sm/g13.webp") center / cover no-repeat; }
 .game-card--petitprince .game-visual, body.home-real .game-card--petitprince .game-visual { background: url("../assets/contes/petit-prince/sm/p02a.webp") center / cover no-repeat; }
-/* Conte payant : Le Petit Chaperon Rouge et la Lumière Éternelle (js/eden-paid.js) */
-.game-card--chaperon .game-visual, body.home-real .game-card--chaperon .game-visual { position: relative; background: url("../assets/contes/chaperon-rouge/sm/c01b.webp") center / cover no-repeat; }
-.paid-badge { display: inline-flex; align-items: center; justify-content: center; gap: .2em; padding: .12em .55em; border-radius: 999px; font-size: .78em; font-weight: 700; letter-spacing: .02em; line-height: 1.5; white-space: nowrap; color: #2a1405; background: linear-gradient(135deg, #fde68a, #f6c96a 55%, #f59e0b); box-shadow: 0 0 14px rgba(246, 201, 106, .45); vertical-align: middle; }
-.paid-badge--ok { color: #052e1f; background: linear-gradient(135deg, #a7f3d0, #34d399); box-shadow: 0 0 14px rgba(52, 211, 153, .4); }
-.paid-badge--card, body.home-real .game-card--chaperon .game-visual > .paid-badge--card { display: inline-flex !important; position: absolute; top: 10px; right: 10px; z-index: 2; font-size: .9rem; }
-.track-badge.paid-badge { font-size: .72rem; }
-.conte-paid-note { margin: .6rem 0 0; color: var(--text-muted); font-size: .95rem; }
-.conte-paid-note .paid-badge { margin-right: .35em; }
-.paid-slot:empty { display: none; }
-[data-paid-after][hidden], .paid-lock[hidden] { display: none !important; }
-.paid-lock { position: relative; margin: 2.2rem 0 3rem; padding: 1.6rem 1.4rem 1.3rem; border-radius: var(--radius); text-align: center; color: var(--text);
-  background: radial-gradient(120% 90% at 50% 0%, rgba(239, 68, 68, .22), transparent 60%), radial-gradient(90% 80% at 50% 100%, rgba(246, 201, 106, .18), transparent 65%), rgba(24, 14, 40, .92);
-  border: 1px solid rgba(246, 201, 106, .45); box-shadow: 0 0 0 1px rgba(239, 68, 68, .15) inset, 0 18px 50px rgba(0, 0, 0, .45), 0 0 46px rgba(246, 120, 80, .22); }
-.paid-lock::before { content: "🔒"; display: block; font-size: 1.7rem; margin-bottom: .2rem; filter: drop-shadow(0 0 10px rgba(246, 201, 106, .6)); }
-.paid-lock-eyebrow { margin: 0 0 .35rem; font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; color: #f6c96a; }
-.paid-lock-title { margin: 0 0 .6rem; font-size: clamp(1.25rem, 4.6vw, 1.6rem); line-height: 1.25; }
-.paid-lock-body { margin: 0 auto 1.1rem; max-width: 34em; color: var(--text-muted); line-height: 1.55; }
-.paid-lock-actions { display: flex; flex-wrap: wrap; gap: .7rem; justify-content: center; }
-.paid-lock-paypal { color: #111 !important; background: linear-gradient(180deg, #ffd74a, #ffc439); border: 0; font-weight: 700; box-shadow: 0 6px 20px rgba(255, 196, 57, .3); text-decoration: none; }
-.paid-lock-paypal:hover { filter: brightness(1.05); }
-.paid-lock-done { min-height: 44px; }
-.paid-lock-fine { margin: .9rem auto 0; max-width: 34em; font-size: .82rem; color: var(--text-dim); line-height: 1.5; }
-.paid-lock-fine a { color: #f6c96a; }
-.paid-lock--compact { margin: .4rem 0; padding: 1rem .9rem .8rem; }
-.paid-lock--compact::before { font-size: 1.2rem; }
-.paid-lock--compact .paid-lock-title { font-size: 1.05rem; }
-.paid-lock--compact .paid-lock-body { margin-bottom: .7rem; font-size: .88rem; }
-.paid-lock--compact .paid-lock-fine { font-size: .75rem; margin-top: .55rem; }
-.player-embed .paid-lock { text-align: center; }
-.paid-preview-note { margin: .2rem 0 .35rem; font-size: .82rem; color: var(--text-muted); text-align: center; }
-.paid-loading { text-align: center; color: var(--text-muted); padding: 2rem 0; }
-@media (max-width: 520px) { .paid-lock { padding: 1.3rem 1rem 1.1rem; } .paid-lock-actions .btn { width: 100%; justify-content: center; } }
+/* Conte : Le Petit Chaperon Rouge et la Lumière Éternelle */
+.game-card--chaperon .game-visual, body.home-real .game-card--chaperon .game-visual { background: url("../assets/contes/chaperon-rouge/sm/c01b.webp") center / cover no-repeat; }
 
+/* « Offrir un cadeau » : don libre et discret (paypal.me/Francjul, montant au choix) */
+.gift { padding: 2.4rem 0 1.6rem; text-align: center; }
+.gift-inner { max-width: 36rem; border-top: 1px solid var(--border); padding-top: 1.6rem; }
+.gift-title { margin: 0 0 .45rem; font-size: .8rem; letter-spacing: .16em; text-transform: uppercase; color: var(--gold, #f6c96a); }
+.gift-body { margin: 0 auto .9rem; color: var(--text-muted); font-size: .95rem; line-height: 1.6; }
+.gift-btn { font-size: .92rem; padding: .55rem 1.1rem; min-height: 40px; opacity: .92; }
+.gift-btn:hover { opacity: 1; }
+.gift-note { margin: .7rem 0 0; font-size: .8rem; color: var(--text-dim); }

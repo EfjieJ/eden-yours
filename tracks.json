@@ -673,14 +673,7 @@
       "audio_url_aac": null,
       "lang": "fr",
       "new": true,
-      "added": "2026-10-19T00:30",
-      "paid": {
-        "key": "chaperon-rouge",
-        "amount": "10.00",
-        "currency": "CAD",
-        "label": "10 $",
-        "page": "conte-chaperon-rouge.html"
-      }
+      "added": "2026-10-19T00:30"
     },
     {
       "id": "2d3b8f95-1114-4012-be6a-47fe033ce1dc",
