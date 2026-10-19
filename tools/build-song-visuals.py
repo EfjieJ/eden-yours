@@ -59,8 +59,33 @@ S={
  '50647605':[('prince-pierre','Petit Prince'),('rose-planete','Ma rose'),('perles-lumiere','Je segmente ma vie'),('desert-puits','désert'),('etoiles','Les étoiles rient')],
  'ec618190':[('chaperon-rouge','chaperon écarlate'),('loup-doux','le loup'),('fiole-eau','fiole'),('grand-mere-lumiere','grand-mère'),('etoiles','sous les étoiles')],
  '2d3b8f95':[('danse-sans-costume','On danse sans costume'),('chaise-assise','je m’assois dessus'),('lumiere-voir','je vois'),('costume-tombe','le costume tombe'),('point-de-vue','points de vue')],
- '031de4f9':[('jambe-avance','la jambe avance'),('bouche-sons','en sons'),('yeux-images','en images'),('oreilles-vibrations','vibrations'),('etre-amont','en amont')],
  'e2f896d7':[('mv-foret-bleue','la forêt entière'),('pilier-lumiere','une antenne'),('fleur-bleue','Avant la fleur'),('souffle','un souffle qui danse')],
+}
+# Mode « en ordre, réparti sur la chanson » : une image par passage des paroles, dans l'ordre, chacune à partir de son repère
+# exact (texte des paroles Suno). Le moment « at » (secondes) est estimé : intro + (position du repère dans les paroles /
+# longueur des paroles) × (durée − intro − fin). js/song-visuals.js suit ces moments au lieu de faire tourner les images.
+SEQ={
+ '031de4f9':{'intro':6,'outro':8,'items':[
+  ('app-appendices','Les appendices du corps'),
+  ('app-structures','Ce sont des "structures de perception"'),
+  ('app-postule','En d’autres termes'),
+  ('app-outils','- Les appendices "les bras'),
+  ('app-repondent','- Ils ne créent pas le mouvement'),
+  ('app-marche','C’est pour ça que quand tu marches'),
+  ('app-jambe','Tu postules « la jambe avance »'),
+  ('app-zero','Tu utilises presque zéro énergie'),
+  ('app-corps','C’est la même chose pour tout le corps'),
+  ('app-bouche','- La bouche n’est pas faite'),
+  ('app-yeux','- Les yeux ne « voient » pas'),
+  ('app-oreilles','- Les oreilles'),
+  ('app-amont','L’être spirituel est toujours en amont.'),
+  ('app-jouer','Le corps "et tous ses appendices" est en aval'),
+  ('app-postule','C’est pour ça que quand tu es vraiment dans la cause'),
+  ('app-marche','- Marcher avec très peu d’énergie'),
+  ('app-parole','- Parler avec beaucoup de précision'),
+  ('app-agir','- Agir sans effort inutile'),
+  ('app-servir','Parce que tu n’es plus en train de « forcer »'),
+ ]},
 }
 GEN={'souffle','silence-lac','onde','particule','etoiles','aube','soleil','mv-etres-bulles'}
 CAT={
@@ -76,6 +101,17 @@ def norm(s): return unicodedata.normalize('NFC',s).replace('’',"'").lower()
 songs={}; nl=0; nc=0
 for t in T:
     i=t['id']; p=i[:8]; ly=(L.get(i) or {}).get('lyrics') or ''
+    if p in SEQ:
+        q=SEQ[p]; assert ly, (t['title'],'no lyrics'); dur=float(t.get('duration') or 0); assert dur>30, t['title']
+        body=ly.strip(); lead=len(ly)-len(ly.lstrip()); pos=0; out=[]
+        for im,mk in q['items']:
+            assert im in imgs, im
+            i=ly.find(mk,pos); assert i>=0,(t['title'],'repère introuvable',mk); pos=i+1
+            at=q['intro']+(i-lead)/len(body)*(dur-q['intro']-q['outro'])
+            out.append({"img":im,"kw":mk,"at":round(at,1)})
+        assert out[0]['at']<=q['intro']+0.1
+        songs[t['id']]={"title":t['title'],"lang":t['lang'],"by":"lyrics","order":"timed","images":out}; nl+=1
+        continue
     if p in S:
         assert ly, (t['title'],'no lyrics')
         out=[]

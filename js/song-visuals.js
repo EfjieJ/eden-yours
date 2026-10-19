@@ -146,18 +146,24 @@
     if (!dur) return 10;
     var rounds = Math.max(1, Math.round(dur / (n * 10))); return Math.max(7, Math.min(14, dur / (n * rounds)));
   }
+  /* image à montrer au temps t (s) : chanson en mode « en ordre » (data/song-visuals.json : order "timed", chaque image a son
+     moment « at ») → l'image du passage en cours, dans l'ordre des paroles, sans revenir au début ; sinon cycle ~10 s */
+  function slideAt(t) {
+    if (cur.at) { var i = 0; while (i + 1 < cur.at.length && t >= cur.at[i + 1]) i++; return i; }
+    return Math.floor(t / interval());
+  }
   function tick() {
     if (!cur) return;
     if (root && !root.hidden && !root.classList.contains("is-on")) root.classList.add("is-on");   // onglet en arrière-plan : pas de requestAnimationFrame
     if (root && window.innerWidth <= 700 && !root.classList.contains("is-full")) { var pb = playerBox(); if (root.classList.contains("is-dock") || (pb ? root.nextSibling !== pb : root.classList.contains("is-inline"))) place(); }
     var a = cur.el;
-    if (cur.kind === "external") { var x = cur.d; if (!x || x.done || (window.__edenSongNow || {}) !== x) { hide(); cur = null; return; } show(Math.floor((x.start + (Date.now() - x.t0) / 1000) / interval())); return; }
+    if (cur.kind === "external") { var x = cur.d; if (!x || x.done || (window.__edenSongNow || {}) !== x) { hide(); cur = null; return; } show(slideAt(x.start + (Date.now() - x.t0) / 1000)); return; }
     if (cur.over) { hide(); cur = null; return; }
-    if (cur.kind === "embed") { if (!a || !a.isConnected) { hide(); cur = null; return; } show(Math.floor((Date.now() - shownAt) / 1000 / interval())); return; }
+    if (cur.kind === "embed") { if (!a || !a.isConnected) { hide(); cur = null; return; } show(slideAt((Date.now() - shownAt) / 1000)); return; }
     if (!a || a.ended || !(a.getAttribute("src") || a.currentSrc)) { hide(); cur = null; return; }
     if (a.paused) { root.classList.add("is-paused"); return; }
     root.classList.remove("is-paused");
-    show(Math.floor((a.currentTime || 0) / interval()));
+    show(slideAt(a.currentTime || 0));
   }
   function start(d) {
     var t = trackOf(d.id), imgs = imagesFor(d.id);
@@ -165,13 +171,15 @@
     /* même chanson, même lecteur, toujours en cours (reprise après pause, nouvel extrait) : on garde la fenêtre et son état
        (fermée = fermée pour CETTE chanson) ; toute autre chanson, ou la même relancée après sa fin, repart de zéro */
     if (cur && cur.id === d.id && (cur.el === d.el || d.kind === "external") && cur.kind === d.kind && !cur.over) { cur.d = d; cur.el = d.el; if (cur.closed) return; if (root.hidden || !root.classList.contains("is-on")) reveal(); return; }
-    cur = { id: d.id, el: d.el, kind: d.kind, d: d, imgs: imgs, dur: t && t.duration ? +t.duration : 0, closed: false, over: false };
+    var sd = data && data.songs && data.songs[d.id];
+    cur = { id: d.id, el: d.el, kind: d.kind, d: d, imgs: imgs, dur: t && t.duration ? +t.duration : 0, closed: false, over: false,
+      at: sd && sd.order === "timed" && sd.images ? sd.images.map(function (x) { return +x.at || 0; }) : null };
     build(); slide = -1; shownAt = Date.now();
     root.classList.remove("is-paused");
     layers.forEach(function (im) { im.onload = null; });   // une image encore en route de l'ancienne chanson ne s'affichera pas
     var pimg = root.querySelector(".sv-pill-img"); if (pimg) pimg.src = srcOf(imgs[0]);   // la bulle réduite montre tout de suite la nouvelle chanson
     root.querySelector(".sv-title").textContent = "♪ " + ((t && t.title) || (data.songs[d.id] && data.songs[d.id].title) || "");
-    var dots = root.querySelector(".sv-dots"); dots.innerHTML = ""; imgs.forEach(function () { dots.appendChild(document.createElement("i")); });
+    var dots = root.querySelector(".sv-dots"); dots.innerHTML = ""; dots.classList.toggle("is-many", imgs.length > 10); imgs.forEach(function () { dots.appendChild(document.createElement("i")); });
     root.classList.toggle("is-still", reduced());
     reveal();
     setTimeout(bringIntoView, 120);

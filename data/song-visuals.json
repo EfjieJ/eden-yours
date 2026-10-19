@@ -1,6 +1,74 @@
 {
  "about": "Images liées aux paroles (data/lyrics-sources.json) : pour chaque chanson, 3 à 6 images et le mot des paroles qui les justifie (kw). 1re image = la plus propre à la chanson ; au plus une image générique par chanson. Chanson inconnue : images d’une catégorie. Généré par build-visuals.py — les mots-clés sont vérifiés présents dans les paroles.",
  "images": {
+  "app-agir": {
+   "src": "assets/visuels/app-agir.webp",
+   "sm": "assets/visuels/sm/app-agir.webp"
+  },
+  "app-amont": {
+   "src": "assets/visuels/app-amont.webp",
+   "sm": "assets/visuels/sm/app-amont.webp"
+  },
+  "app-appendices": {
+   "src": "assets/visuels/app-appendices.webp",
+   "sm": "assets/visuels/sm/app-appendices.webp"
+  },
+  "app-bouche": {
+   "src": "assets/visuels/app-bouche.webp",
+   "sm": "assets/visuels/sm/app-bouche.webp"
+  },
+  "app-corps": {
+   "src": "assets/visuels/app-corps.webp",
+   "sm": "assets/visuels/sm/app-corps.webp"
+  },
+  "app-jambe": {
+   "src": "assets/visuels/app-jambe.webp",
+   "sm": "assets/visuels/sm/app-jambe.webp"
+  },
+  "app-jouer": {
+   "src": "assets/visuels/app-jouer.webp",
+   "sm": "assets/visuels/sm/app-jouer.webp"
+  },
+  "app-marche": {
+   "src": "assets/visuels/app-marche.webp",
+   "sm": "assets/visuels/sm/app-marche.webp"
+  },
+  "app-oreilles": {
+   "src": "assets/visuels/app-oreilles.webp",
+   "sm": "assets/visuels/sm/app-oreilles.webp"
+  },
+  "app-outils": {
+   "src": "assets/visuels/app-outils.webp",
+   "sm": "assets/visuels/sm/app-outils.webp"
+  },
+  "app-parole": {
+   "src": "assets/visuels/app-parole.webp",
+   "sm": "assets/visuels/sm/app-parole.webp"
+  },
+  "app-postule": {
+   "src": "assets/visuels/app-postule.webp",
+   "sm": "assets/visuels/sm/app-postule.webp"
+  },
+  "app-repondent": {
+   "src": "assets/visuels/app-repondent.webp",
+   "sm": "assets/visuels/sm/app-repondent.webp"
+  },
+  "app-servir": {
+   "src": "assets/visuels/app-servir.webp",
+   "sm": "assets/visuels/sm/app-servir.webp"
+  },
+  "app-structures": {
+   "src": "assets/visuels/app-structures.webp",
+   "sm": "assets/visuels/sm/app-structures.webp"
+  },
+  "app-yeux": {
+   "src": "assets/visuels/app-yeux.webp",
+   "sm": "assets/visuels/sm/app-yeux.webp"
+  },
+  "app-zero": {
+   "src": "assets/visuels/app-zero.webp",
+   "sm": "assets/visuels/sm/app-zero.webp"
+  },
   "atelier": {
    "src": "assets/visuels/atelier.webp",
    "sm": "assets/visuels/sm/atelier.webp"
@@ -8,10 +76,6 @@
   "aube": {
    "src": "assets/visuels/aube.webp",
    "sm": "assets/visuels/sm/aube.webp"
-  },
-  "bouche-sons": {
-   "src": "assets/visuels/bouche-sons.webp",
-   "sm": "assets/visuels/sm/bouche-sons.webp"
   },
   "boussole-mousse": {
    "src": "assets/visuels/boussole-mousse.webp",
@@ -93,10 +157,6 @@
    "src": "assets/visuels/etoiles.webp",
    "sm": "assets/visuels/sm/etoiles.webp"
   },
-  "etre-amont": {
-   "src": "assets/visuels/etre-amont.webp",
-   "sm": "assets/visuels/sm/etre-amont.webp"
-  },
   "fils-lumiere": {
    "src": "assets/visuels/fils-lumiere.webp",
    "sm": "assets/visuels/sm/fils-lumiere.webp"
@@ -141,10 +201,6 @@
    "src": "assets/visuels/instruments.webp",
    "sm": "assets/visuels/sm/instruments.webp"
   },
-  "jambe-avance": {
-   "src": "assets/visuels/jambe-avance.webp",
-   "sm": "assets/visuels/sm/jambe-avance.webp"
-  },
   "joie-eau": {
    "src": "assets/visuels/joie-eau.webp",
    "sm": "assets/visuels/sm/joie-eau.webp"
@@ -188,10 +244,6 @@
   "onde": {
    "src": "assets/visuels/onde.webp",
    "sm": "assets/visuels/sm/onde.webp"
-  },
-  "oreilles-vibrations": {
-   "src": "assets/visuels/oreilles-vibrations.webp",
-   "sm": "assets/visuels/sm/oreilles-vibrations.webp"
   },
   "paquerette": {
    "src": "assets/visuels/paquerette.webp",
@@ -320,10 +372,6 @@
   "voile-tombe": {
    "src": "assets/visuels/voile-tombe.webp",
    "sm": "assets/visuels/sm/voile-tombe.webp"
-  },
-  "yeux-images": {
-   "src": "assets/visuels/yeux-images.webp",
-   "sm": "assets/visuels/sm/yeux-images.webp"
   },
   "mv-arbre-lumiere": {
    "src": "assets/merveilles/arbre-lumiere.webp",
@@ -1588,26 +1636,102 @@
    "title": "Les appendices du corps",
    "lang": "fr",
    "by": "lyrics",
+   "order": "timed",
    "images": [
     {
-     "img": "jambe-avance",
-     "kw": "la jambe avance"
+     "img": "app-appendices",
+     "kw": "Les appendices du corps",
+     "at": 6.0
     },
     {
-     "img": "bouche-sons",
-     "kw": "en sons"
+     "img": "app-structures",
+     "kw": "Ce sont des \"structures de perception\"",
+     "at": 13.5
     },
     {
-     "img": "yeux-images",
-     "kw": "en images"
+     "img": "app-postule",
+     "kw": "En d’autres termes",
+     "at": 23.2
     },
     {
-     "img": "oreilles-vibrations",
-     "kw": "vibrations"
+     "img": "app-outils",
+     "kw": "- Les appendices \"les bras",
+     "at": 29.6
     },
     {
-     "img": "etre-amont",
-     "kw": "en amont"
+     "img": "app-repondent",
+     "kw": "- Ils ne créent pas le mouvement",
+     "at": 40.8
+    },
+    {
+     "img": "app-marche",
+     "kw": "C’est pour ça que quand tu marches",
+     "at": 45.8
+    },
+    {
+     "img": "app-jambe",
+     "kw": "Tu postules « la jambe avance »",
+     "at": 52.9
+    },
+    {
+     "img": "app-zero",
+     "kw": "Tu utilises presque zéro énergie",
+     "at": 62.4
+    },
+    {
+     "img": "app-corps",
+     "kw": "C’est la même chose pour tout le corps",
+     "at": 70.8
+    },
+    {
+     "img": "app-bouche",
+     "kw": "- La bouche n’est pas faite",
+     "at": 74.1
+    },
+    {
+     "img": "app-yeux",
+     "kw": "- Les yeux ne « voient » pas",
+     "at": 83.2
+    },
+    {
+     "img": "app-oreilles",
+     "kw": "- Les oreilles",
+     "at": 90.7
+    },
+    {
+     "img": "app-amont",
+     "kw": "L’être spirituel est toujours en amont.",
+     "at": 99.0
+    },
+    {
+     "img": "app-jouer",
+     "kw": "Le corps \"et tous ses appendices\" est en aval",
+     "at": 102.2
+    },
+    {
+     "img": "app-postule",
+     "kw": "C’est pour ça que quand tu es vraiment dans la cause",
+     "at": 116.0
+    },
+    {
+     "img": "app-marche",
+     "kw": "- Marcher avec très peu d’énergie",
+     "at": 121.0
+    },
+    {
+     "img": "app-parole",
+     "kw": "- Parler avec beaucoup de précision",
+     "at": 123.8
+    },
+    {
+     "img": "app-agir",
+     "kw": "- Agir sans effort inutile",
+     "at": 127.8
+    },
+    {
+     "img": "app-servir",
+     "kw": "Parce que tu n’es plus en train de « forcer »",
+     "at": 130.0
     }
    ]
   }
