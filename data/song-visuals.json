@@ -25,6 +25,10 @@
    "src": "assets/visuels/cercle.webp",
    "sm": "assets/visuels/sm/cercle.webp"
   },
+  "chaise-assise": {
+   "src": "assets/visuels/chaise-assise.webp",
+   "sm": "assets/visuels/sm/chaise-assise.webp"
+  },
   "champ": {
    "src": "assets/visuels/champ.webp",
    "sm": "assets/visuels/sm/champ.webp"
@@ -53,9 +57,17 @@
    "src": "assets/visuels/corps-regen.webp",
    "sm": "assets/visuels/sm/corps-regen.webp"
   },
+  "costume-tombe": {
+   "src": "assets/visuels/costume-tombe.webp",
+   "sm": "assets/visuels/sm/costume-tombe.webp"
+  },
   "cycle-saisons": {
    "src": "assets/visuels/cycle-saisons.webp",
    "sm": "assets/visuels/sm/cycle-saisons.webp"
+  },
+  "danse-sans-costume": {
+   "src": "assets/visuels/danse-sans-costume.webp",
+   "sm": "assets/visuels/sm/danse-sans-costume.webp"
   },
   "danse": {
    "src": "assets/visuels/danse.webp",
@@ -133,6 +145,10 @@
    "src": "assets/visuels/loup-lune.webp",
    "sm": "assets/visuels/sm/loup-lune.webp"
   },
+  "lumiere-voir": {
+   "src": "assets/visuels/lumiere-voir.webp",
+   "sm": "assets/visuels/sm/lumiere-voir.webp"
+  },
   "main-fleur": {
    "src": "assets/visuels/main-fleur.webp",
    "sm": "assets/visuels/sm/main-fleur.webp"
@@ -200,6 +216,10 @@
   "plume": {
    "src": "assets/visuels/plume.webp",
    "sm": "assets/visuels/sm/plume.webp"
+  },
+  "point-de-vue": {
+   "src": "assets/visuels/point-de-vue.webp",
+   "sm": "assets/visuels/sm/point-de-vue.webp"
   },
   "pomme": {
    "src": "assets/visuels/pomme.webp",
@@ -1514,6 +1534,33 @@
     {
      "img": "etoiles",
      "kw": "sous les étoiles"
+    }
+   ]
+  },
+  "2d3b8f95-1114-4012-be6a-47fe033ce1dc": {
+   "title": "Danse sans costume",
+   "lang": "fr",
+   "by": "lyrics",
+   "images": [
+    {
+     "img": "danse-sans-costume",
+     "kw": "On danse sans costume"
+    },
+    {
+     "img": "chaise-assise",
+     "kw": "je m’assois dessus"
+    },
+    {
+     "img": "lumiere-voir",
+     "kw": "je vois"
+    },
+    {
+     "img": "costume-tombe",
+     "kw": "le costume tombe"
+    },
+    {
+     "img": "point-de-vue",
+     "kw": "points de vue"
     }
    ]
   }

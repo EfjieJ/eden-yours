@@ -58,6 +58,7 @@ S={
  '4ec00297':[('chevre-rocher','Blanchette'),('loup-lune','le loup'),('paquerette','une pâquerette'),('flamme','un feu de camp invisible'),('etoiles','sous les étoiles')],
  '50647605':[('prince-pierre','Petit Prince'),('rose-planete','Ma rose'),('perles-lumiere','Je segmente ma vie'),('desert-puits','désert'),('etoiles','Les étoiles rient')],
  'ec618190':[('chaperon-rouge','chaperon écarlate'),('loup-doux','le loup'),('fiole-eau','fiole'),('grand-mere-lumiere','grand-mère'),('etoiles','sous les étoiles')],
+ '2d3b8f95':[('danse-sans-costume','On danse sans costume'),('chaise-assise','je m’assois dessus'),('lumiere-voir','je vois'),('costume-tombe','le costume tombe'),('point-de-vue','points de vue')],
  'e2f896d7':[('mv-foret-bleue','la forêt entière'),('pilier-lumiere','une antenne'),('fleur-bleue','Avant la fleur'),('souffle','un souffle qui danse')],
 }
 GEN={'souffle','silence-lac','onde','particule','etoiles','aube','soleil','mv-etres-bulles'}

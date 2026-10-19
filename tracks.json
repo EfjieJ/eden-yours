@@ -681,6 +681,23 @@
         "label": "10 $",
         "page": "conte-chaperon-rouge.html"
       }
+    },
+    {
+      "id": "2d3b8f95-1114-4012-be6a-47fe033ce1dc",
+      "title": "Danse sans costume",
+      "artist": "Eden Yours",
+      "sunoArtist": "efjie8008",
+      "sunoTitle": "Danse sans costume ",
+      "audio_url": null,
+      "embed_url": "https://suno.com/embed/2d3b8f95-1114-4012-be6a-47fe033ce1dc",
+      "cover_url": "assets/covers/2d3b8f95-1114-4012-be6a-47fe033ce1dc.jpeg",
+      "suno_share": "https://suno.com/s/mDFTJm4r9zaGkXCO",
+      "duration": 136.76,
+      "featured": false,
+      "audio_url_aac": null,
+      "lang": "fr",
+      "new": true,
+      "added": "2026-10-19T01:30"
     }
   ]
 }
