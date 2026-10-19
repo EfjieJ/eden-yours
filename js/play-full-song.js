@@ -24,6 +24,8 @@
       var d = { id: id, el: el, kind: kind };
       if (extra) for (var k in extra) if (k !== "id") d[k] = extra[k];
       window.__edenSongNow = d;
+      /* Page qui montre déjà ses propres images (ex. conte illustré) : <body data-no-song-visuals> → pas de fenêtre « images des paroles » ; la chanson joue quand même. */
+      if (document.body && document.body.hasAttribute("data-no-song-visuals")) return;
       if (window.EdenSongVisuals) { window.EdenSongVisuals.song(d); return; }
       if (visLoading || !document.head) return; visLoading = true;
       var l = document.createElement("link"); l.rel = "stylesheet"; l.href = baseU + "css/song-visuals.css" + verQ; document.head.appendChild(l);
