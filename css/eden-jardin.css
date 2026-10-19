@@ -186,14 +186,6 @@
 .s3d-embed[hidden] { display: none; }
 .s3d-suno-embed { display: block; width: 100%; border: 0; border-radius: 12px; min-height: 180px; }
 
-.s3d-preview-note {
-  margin: 0.7rem 0 0;
-  font-size: 0.9rem;
-  color: rgba(255, 244, 214, 0.88);
-}
-.s3d-preview-note[hidden] { display: none; }
-.s3d-preview-note a { color: #F6C66A; margin-left: 0.35rem; font-weight: 650; }
-
 .s3d-hint { text-align: center; margin-top: 0.6rem; }
 
 @media (max-width: 640px) {

@@ -41,132 +41,6 @@
   }
 
 
-  // ---------- Freemium unlock ----------
-  function previewLimit() {
-    const n = Number(cfg.FREE_PREVIEW_SECONDS != null ? cfg.FREE_PREVIEW_SECONDS : cfg.previewSeconds);
-    return Number.isFinite(n) && n > 0 ? n : Infinity; // 0 = chanson entière
-  }
-
-  function unlockKey() {
-    return cfg.unlockStorageKey || "eden-yours-unlocked";
-  }
-
-  function isUnlocked() {
-    if (previewLimit() === Infinity) return true;
-    try {
-      return localStorage.getItem(unlockKey()) === "1";
-    } catch {
-      return false;
-    }
-  }
-
-  function setUnlocked(on) {
-    try {
-      if (on) localStorage.setItem(unlockKey(), "1");
-      else localStorage.removeItem(unlockKey());
-    } catch (_) {}
-  }
-
-  function unlockPaypalHref() {
-    return (cfg.unlockPaypalUrl || cfg.paypalUrl || "https://paypal.me/Francjul").trim();
-  }
-
-  let unlockModalEl = null;
-
-  function refreshUnlockModalCopy() {
-    if (!unlockModalEl) return;
-    const title = unlockModalEl.querySelector("[data-unlock-title]");
-    const body = unlockModalEl.querySelector("[data-unlock-body]");
-    const pay = unlockModalEl.querySelector("[data-unlock-pay]");
-    const paid = unlockModalEl.querySelector("[data-unlock-paid]");
-    if (title) title.textContent = i18n("unlock.title");
-    if (body) body.textContent = i18n("unlock.body");
-    if (pay) pay.textContent = i18n("unlock.payCta");
-    if (paid) paid.textContent = i18n("unlock.alreadyPaid");
-  }
-
-  function ensureUnlockModal() {
-    if (unlockModalEl) return unlockModalEl;
-    const el = document.createElement("div");
-    el.id = "unlock-modal";
-    el.className = "unlock-modal";
-    el.setAttribute("role", "dialog");
-    el.setAttribute("aria-modal", "true");
-    el.hidden = true;
-    el.innerHTML = `
-      <div class="unlock-modal-backdrop" data-unlock-close tabindex="-1"></div>
-      <div class="unlock-modal-card">
-        <p class="unlock-modal-eyebrow">Eden Yours</p>
-        <h2 class="unlock-modal-title" data-unlock-title></h2>
-        <p class="unlock-modal-body" data-unlock-body></p>
-        <div class="unlock-modal-actions">
-          <button type="button" class="btn btn-primary" data-unlock-pay></button>
-          <button type="button" class="btn btn-ghost" data-unlock-paid></button>
-        </div>
-      </div>`;
-    document.body.appendChild(el);
-
-    el.querySelector("[data-unlock-pay]").addEventListener("click", () => {
-      const url = unlockPaypalHref();
-      if (url) window.open(url, "_blank", "noopener,noreferrer");
-    });
-    el.querySelector("[data-unlock-paid]").addEventListener("click", () => {
-      setUnlocked(true);
-      hideUnlockModal();
-      updatePreviewBadges();
-      if (isEmbedTrack(tracks[currentIndex])) return;
-      const a = ensureAudio();
-      const limit = previewLimit();
-      if (a.currentTime >= limit - 0.35) a.currentTime = 0;
-      a.play().catch(() => {});
-    });
-    el.querySelector("[data-unlock-close]").addEventListener("click", () => {
-      hideUnlockModal();
-    });
-
-    unlockModalEl = el;
-    refreshUnlockModalCopy();
-    return el;
-  }
-
-  function showUnlockModal() {
-    const el = ensureUnlockModal();
-    refreshUnlockModalCopy();
-    el.hidden = false;
-    el.classList.add("is-open");
-    document.body.classList.add("unlock-modal-open");
-  }
-
-  function hideUnlockModal() {
-    if (!unlockModalEl) return;
-    unlockModalEl.hidden = true;
-    unlockModalEl.classList.remove("is-open");
-    document.body.classList.remove("unlock-modal-open");
-  }
-
-  function enforcePreviewGate() {
-    if (isUnlocked()) return;
-    const a = audio;
-    if (!a) return;
-    const limit = previewLimit();
-    if (a.currentTime >= limit) {
-      try { a.currentTime = limit; } catch (_) {}
-      if (!a.paused) a.pause();
-      showUnlockModal();
-    }
-  }
-
-  function updatePreviewBadges() {
-    const unlocked = isUnlocked();
-    $$(".track-row:not(.is-soon):not(.is-embed) .track-badge").forEach((badge) => {
-      if (badge.classList.contains("soon")) return;
-      badge.classList.toggle("preview", !unlocked);
-      badge.textContent = unlocked
-        ? i18n("player.available")
-        : i18n("unlock.previewBadge");
-    });
-  }
-
   // ---------- Config bind ----------
   function applyConfig() {
     $$("[data-site-name]").forEach((el) => {
@@ -281,14 +155,8 @@
     audio = new Audio();
     audio.preload = "metadata";
 
-    audio.addEventListener("timeupdate", () => {
-      enforcePreviewGate();
-      syncProgress();
-    });
-    audio.addEventListener("seeking", enforcePreviewGate);
-    audio.addEventListener("seeked", enforcePreviewGate);
+    audio.addEventListener("timeupdate", syncProgress);
     audio.addEventListener("loadedmetadata", syncProgress);
-    // Locked: still allow playNext so each track gets its own 30s preview
     audio.addEventListener("ended", () => playNext());
     audio.addEventListener("play", () => updatePlayButtons(true));
     audio.addEventListener("pause", () => updatePlayButtons(false));
@@ -301,7 +169,7 @@
   }
 
   // ---------- Suno embed tracks (embed_url, no local audio) ----------
-  // Suno's own player handles playback: no 30 s freemium gate, no <audio>.
+  // Suno's own player handles playback (no <audio>).
   function isEmbedTrack(t) {
     return !!(t && t.embed_url && !t.audio_url);
   }
@@ -356,7 +224,6 @@
         audio.load();
       } catch (_) {}
     }
-    hideUnlockModal();
     currentIndex = index;
     currentId = t.id;
     showPlayerBar(t);
@@ -530,7 +397,6 @@
     const clientX = e.clientX != null ? e.clientX : (e.touches && e.touches[0] ? e.touches[0].clientX : 0);
     const ratio = Math.min(1, Math.max(0, (clientX - rect.left) / rect.width));
     let t = ratio * a.duration;
-    if (!isUnlocked()) t = Math.min(t, previewLimit());
     a.currentTime = t;
   }
 
@@ -687,7 +553,6 @@
       progress.addEventListener("pointerup", endDrag);
       progress.addEventListener("pointercancel", endDrag);
     }
-    ensureUnlockModal();
   }
 
   // ---------- Render track list ----------
@@ -700,7 +565,7 @@
       const embed = isEmbedTrack(t);
       const badge = embed
         ? `<span class="track-badge suno-embed-badge">Suno</span>`
-        : `<span class="track-badge${isUnlocked() ? "" : " preview"}">${escapeHtml(isUnlocked() ? i18n("player.available") : i18n("unlock.previewBadge"))}</span>`;
+        : `<span class="track-badge">${escapeHtml(i18n("player.available"))}</span>`;
       html += `
         <article class="track-row${embed ? " is-embed" : ""}" data-index="${i}" role="button" tabindex="0" aria-label="${escapeAttr(i18n("player.playTrack", { title: t.title }))}">
           <span class="track-num">${String(i + 1).padStart(2, "0")}</span>
@@ -925,196 +790,6 @@
   }
 
 
-  // ---------- Song request (Demander une chanson) ----------
-  function initSongRequest() {
-    const form = $("#song-request-form");
-    if (!form) return;
-
-    const nameEl = $("#req-name");
-    const emailEl = $("#req-email");
-    const sunoEl = $("#req-suno");
-    const descEl = $("#req-desc");
-    const validation = $("#req-validation");
-    const after = $("#request-after");
-    const summaryBox = $(".js-request-summary");
-    const mailtoBtn = $(".js-mailto-request");
-    const paypalAgain = $(".js-paypal-again");
-    const payBtn = $(".js-request-paypal", form);
-
-    const contact = (cfg.contactEmail || "efjie8008@gmail.com").trim();
-    const paypalBase = (cfg.paypalUrl || "https://paypal.me/Francjul").replace(/\/$/, "");
-
-    function selectedCurrency() {
-      const checked = form.querySelector('input[name="currency"]:checked');
-      return checked ? checked.value : "EUR";
-    }
-
-    function amountLabel(cur) {
-      return cur === "USD" ? i18n("request.amountUsd") : i18n("request.amountEur");
-    }
-
-    function paypalAmountUrl(cur) {
-      // paypal.me/<handle>/<amount><CURRENCY> — verified working
-      return cur === "USD"
-        ? paypalBase + "/10USD"
-        : paypalBase + "/10EUR";
-    }
-
-    function buildSummary() {
-      const name = (nameEl?.value || "").trim();
-      const email = (emailEl?.value || "").trim();
-      const suno = (sunoEl?.value || "").trim();
-      const desc = (descEl?.value || "").trim();
-      const cur = selectedCurrency();
-      const lines = [
-        i18n("request.summaryTitle"),
-        "",
-        i18n("request.summaryName") + name,
-        i18n("request.summaryEmail") + email,
-        i18n("request.summaryCurrency") + amountLabel(cur) + " (" + cur + ")",
-        i18n("request.summaryPaypal") + paypalAmountUrl(cur),
-      ];
-      if (suno) lines.push(i18n("request.summarySuno") + suno);
-      if (desc) {
-        lines.push("");
-        lines.push(i18n("request.summaryDesc"));
-        lines.push(desc);
-      }
-      lines.push("");
-      lines.push(i18n("request.summaryFooter"));
-      return lines.join("\n");
-    }
-
-    function validate() {
-      const name = (nameEl?.value || "").trim();
-      const email = (emailEl?.value || "").trim();
-      const suno = (sunoEl?.value || "").trim();
-      const desc = (descEl?.value || "").trim();
-      if (!name) return i18n("request.errName");
-      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        return i18n("request.errEmail");
-      }
-      if (!suno && !desc) {
-        return i18n("request.errContent");
-      }
-      if (suno) {
-        try {
-          const u = new URL(suno);
-          if (!/^https?:$/.test(u.protocol)) return i18n("request.errSunoProto");
-        } catch {
-          return i18n("request.errSunoUrl");
-        }
-      }
-      return "";
-    }
-
-    function showValidation(msg) {
-      if (!validation) return;
-      if (msg) {
-        validation.hidden = false;
-        validation.textContent = msg;
-      } else {
-        validation.hidden = true;
-        validation.textContent = "";
-      }
-    }
-
-    function updatePayLabel() {
-      if (!payBtn) return;
-      const cur = selectedCurrency();
-      payBtn.textContent = cur === "USD"
-        ? i18n("request.payUsd")
-        : i18n("request.payEur");
-    }
-
-    async function copySummary(text) {
-      try {
-        await navigator.clipboard.writeText(text);
-        toast(i18n("request.copied"));
-        return true;
-      } catch {
-        if (summaryBox) {
-          const range = document.createRange();
-          range.selectNodeContents(summaryBox);
-          const sel = window.getSelection();
-          sel.removeAllRanges();
-          sel.addRange(range);
-        }
-        toast(i18n("request.selectCopy"));
-        return false;
-      }
-    }
-
-    function revealAfter(summary, cur) {
-      if (summaryBox) summaryBox.textContent = summary;
-      if (mailtoBtn) {
-        const subject = encodeURIComponent(i18n("request.summaryTitle"));
-        const body = encodeURIComponent(summary);
-        mailtoBtn.href = `mailto:${contact}?subject=${subject}&body=${body}`;
-      }
-      if (paypalAgain) {
-        paypalAgain.href = paypalAmountUrl(cur);
-      }
-      if (after) {
-        after.hidden = false;
-        after.scrollIntoView({ behavior: "smooth", block: "nearest" });
-      }
-    }
-
-    if (!form.dataset.edenBound) {
-      form.dataset.edenBound = "1";
-      form.querySelectorAll('input[name="currency"]').forEach((radio) => {
-        radio.addEventListener("change", updatePayLabel);
-      });
-
-      form.addEventListener("submit", async (e) => {
-        e.preventDefault();
-        const err = validate();
-        if (err) {
-          showValidation(err);
-          toast(err);
-          return;
-        }
-        showValidation("");
-        const cur = selectedCurrency();
-        const summary = buildSummary();
-        await copySummary(summary);
-        revealAfter(summary, cur);
-        const url = paypalAmountUrl(cur);
-        window.open(url, "_blank", "noopener,noreferrer");
-      });
-
-      $$(".js-copy-request").forEach((btn) => {
-        btn.addEventListener("click", async () => {
-          const err = validate();
-          if (err) {
-            showValidation(err);
-            toast(err);
-            return;
-          }
-          showValidation("");
-          const summary = buildSummary();
-          if (summaryBox) summaryBox.textContent = summary;
-          await copySummary(summary);
-        });
-      });
-
-      $$(".js-copy-request-again").forEach((btn) => {
-        btn.addEventListener("click", async () => {
-          const textVal = summaryBox?.textContent || buildSummary();
-          await copySummary(textVal);
-        });
-      });
-    }
-
-    // Bind contact email display from config
-    $$("[data-contact-email]").forEach((el) => {
-      el.textContent = contact;
-      if (el.tagName === "A") el.href = "mailto:" + contact;
-    });
-    updatePayLabel();
-  }
-
   // ---------- Public API for inline handlers ----------
   window.EdenPlayer = {
     play: playTrack,
@@ -1122,8 +797,6 @@
     next: playNext,
     prev: playPrev,
     getTracks: () => tracks.slice(),
-    isUnlocked,
-    unlock: () => { setUnlocked(true); hideUnlockModal(); updatePreviewBadges(); },
   };
 
   // ---------- Boot ----------
@@ -1150,11 +823,8 @@
     updatePlayerCard(currentIndex >= 0 ? tracks[currentIndex] : head);
     highlightActiveRow();
     updatePlayButtons(audio && !audio.paused && currentIndex >= 0);
-    refreshUnlockModalCopy();
-    updatePreviewBadges();
     initPayPal();
     initInvitations();
-    initSongRequest();
     if (window.EdenShuffle) window.EdenShuffle.refresh();
     // Re-apply static i18n after dynamic HTML rebuilds if needed
     if (window.EdenI18n && window.EdenI18n.apply) {
@@ -1178,7 +848,6 @@
     updatePlayerCard(headTrack());
     initPayPal();
     initInvitations();
-    initSongRequest();
 
     // Page-level play buttons that reference first track
     $$(".js-play-first").forEach((btn) => {

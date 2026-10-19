@@ -2,7 +2,7 @@
    - Une chanson au hasard dans la langue du site (tracks.json), sans répéter la dernière (sessionStorage).
    - Un décor par chanson (data/scene-3d-themes.json) : un personnage principal, une paire chaud/froid,
      lumière dorée de lever/coucher de soleil, mouvements lents, petits gestes, fondus doux.
-   - MP3 : intensité pilotée par un AnalyserNode Web Audio (règle freemium 30 s si la bibliothèque est verrouillée).
+   - MP3 : intensité pilotée par un AnalyserNode Web Audio.
      Embed Suno : rythme doux minuté.
    - Mobile : low poly, pixel ratio ≤ 2, rendu en pause si l'onglet est caché ou la scène hors écran.
    - prefers-reduced-motion : mouvements plus doux ; repli si WebGL indisponible. */
@@ -19,7 +19,7 @@ const el = {
   dragHint: $("s3d-drag-hint"), chip: $("s3d-theme-chip"), launch: $("s3d-launch"), next: $("s3d-next"),
   player: $("s3d-player"), cover: $("s3d-cover"), title: $("s3d-now-title"), songLink: $("s3d-song-link"),
   excerpt: $("s3d-excerpt"), excerptText: $("s3d-excerpt-text"), audio: $("s3d-audio"), embed: $("s3d-embed"),
-  previewNote: $("s3d-preview-note"), hint: $("s3d-hint"), empty: $("s3d-empty")
+  hint: $("s3d-hint"), empty: $("s3d-empty")
 };
 
 function t(key, vars) {
@@ -98,21 +98,13 @@ function pickTrack() {
   return tr;
 }
 
-/* ———————————————————— Audio (freemium + analyseur) ———————————————————— */
+/* ———————————————————— Audio (analyseur) ———————————————————— */
 let audioCtx = null, analyser = null, srcNode = null, freq = null;
 let mode = "idle"; // idle | audio | embed
 let modeStart = 0;
 let triedAac = false;
 const lvl = { level: 0.15, pulse: 0, beat: false, progress: 0, bassAvg: 0.1, lastBeat: 0, smooth: 0.15 };
 
-function previewLimit() {
-  const n = Number(cfg.FREE_PREVIEW_SECONDS != null ? cfg.FREE_PREVIEW_SECONDS : cfg.previewSeconds);
-  return Number.isFinite(n) && n > 0 ? n : Infinity;
-}
-function isUnlocked() {
-  if (previewLimit() === Infinity) return true;
-  try { return localStorage.getItem(cfg.unlockStorageKey || "eden-yours-unlocked") === "1"; } catch (e) { return false; }
-}
 
 function ensureAnalyser() {
   try {
@@ -149,8 +141,7 @@ function sampleLevel(now) {
       lvl.lastBeat = now; lvl.beat = true; lvl.pulse = 1;
     }
     const dur = el.audio.duration;
-    const cap = isUnlocked() ? dur : Math.min(dur || previewLimit(), previewLimit());
-    lvl.progress = cap ? Math.min(1, el.audio.currentTime / cap) : 0;
+    lvl.progress = dur ? Math.min(1, el.audio.currentTime / dur) : 0;
   } else if (mode === "audio" && el.audio && !el.audio.paused) {
     target = 0.55; // lecture sans analyseur : rythme minuté
     timedBeat(now, tsec);
@@ -180,7 +171,6 @@ function stopPlayback() {
     el.audio.hidden = true;
   }
   if (el.embed) { el.embed.innerHTML = ""; el.embed.hidden = true; }
-  if (el.previewNote) el.previewNote.hidden = true;
 }
 
 function showEmbed(tr) {
@@ -260,10 +250,9 @@ function playTrack(tr) {
     try { el.audio.currentTime = 0; } catch (e) {}
     mode = "audio";
     modeStart = performance.now();
-    setHint(isUnlocked() ? "scene.hintAudio" : "scene.hintAudioPreview");
+    setHint("scene.hintAudio");
     const p = el.audio.play();
     if (p && p.catch) p.catch(() => setHint("scene.hintBlocked"));
-    if (el.previewNote && previewLimit() === Infinity) el.previewNote.hidden = false; // mention douce, non bloquante
     return;
   }
   if (!showEmbed(tr)) setHint("scene.empty");
@@ -283,20 +272,8 @@ function launch() {
 function bindAudio() {
   const a = el.audio;
   if (!a) return;
-  a.addEventListener("timeupdate", () => {
-    if (mode !== "audio" || isUnlocked()) return;
-    const lim = previewLimit();
-    if (a.currentTime >= lim) {
-      try { a.pause(); a.currentTime = lim; } catch (e) {}
-      if (el.previewNote) el.previewNote.hidden = false;
-      setHint("scene.hintPreview");
-    }
-  });
   a.addEventListener("play", () => {
     if (audioCtx && audioCtx.state === "suspended") audioCtx.resume();
-    if (mode === "audio" && !isUnlocked() && a.currentTime >= previewLimit() - 0.05) {
-      try { a.pause(); } catch (e) {}
-    }
   });
   a.addEventListener("ended", () => {
     if (mode !== "audio") return;
@@ -390,7 +367,7 @@ async function boot() {
     return;
   }
   try {
-    const [{ createRealScene }] = await Promise.all([import("./eden-real.js?v=20261019f"), dataP]);
+    const [{ createRealScene }] = await Promise.all([import("./eden-real.js?v=20261019g"), dataP]);
     scene = await createRealScene(el.canvas, el.stage, { isReduced, sampleLevel, dragHint: el.dragHint });
     const th = current ? themeFor(current) : themeFor(null);
     scene.build(th.id, th.def);

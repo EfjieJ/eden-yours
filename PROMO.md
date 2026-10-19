@@ -23,7 +23,6 @@ Version courte, humble — à adapter au ton du groupe :
 > Si ça résonne avec ta pratique (prana, lumière, respiration consciente), tu peux venir écouter ici — sans pression :  
 > https://efjiej.github.io/eden-yours/  
 >  
-> On peut aussi demander une chanson (intention / titre) via la page Demander.  
 > Merci de lire, et à celles et ceux qui passent : bon voyage intérieur.
 
 Version ultra-courte (commentaire / thread) :
@@ -44,8 +43,6 @@ Version ultra-courte (commentaire / thread) :
 > Pas un feed de plus. Un espace pour se poser, respirer, et laisser le son faire son travail.  
 >  
 > 🔗 Lien en bio → https://efjiej.github.io/eden-yours/  
->  
-> Tu peux aussi demander une chanson (10€ / 10$) sur la page Demander.  
 >  
 > Bienvenue chez toi. ✨
 
@@ -107,8 +104,6 @@ Variante encore plus courte :
 >  
 > Tu peux découvrir le site ici :  
 > https://efjiej.github.io/eden-yours/  
->  
-> Si une intention ou un titre te traverse, la page « Demander » permet de proposer une chanson (10€ / 10$).  
 >  
 > Merci de ta présence — et à bientôt, si le lien résonne.  
 >  
