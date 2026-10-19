@@ -9,6 +9,10 @@
    "src": "assets/visuels/aube.webp",
    "sm": "assets/visuels/sm/aube.webp"
   },
+  "bouche-sons": {
+   "src": "assets/visuels/bouche-sons.webp",
+   "sm": "assets/visuels/sm/bouche-sons.webp"
+  },
   "boussole-mousse": {
    "src": "assets/visuels/boussole-mousse.webp",
    "sm": "assets/visuels/sm/boussole-mousse.webp"
@@ -89,6 +93,10 @@
    "src": "assets/visuels/etoiles.webp",
    "sm": "assets/visuels/sm/etoiles.webp"
   },
+  "etre-amont": {
+   "src": "assets/visuels/etre-amont.webp",
+   "sm": "assets/visuels/sm/etre-amont.webp"
+  },
   "fils-lumiere": {
    "src": "assets/visuels/fils-lumiere.webp",
    "sm": "assets/visuels/sm/fils-lumiere.webp"
@@ -133,6 +141,10 @@
    "src": "assets/visuels/instruments.webp",
    "sm": "assets/visuels/sm/instruments.webp"
   },
+  "jambe-avance": {
+   "src": "assets/visuels/jambe-avance.webp",
+   "sm": "assets/visuels/sm/jambe-avance.webp"
+  },
   "joie-eau": {
    "src": "assets/visuels/joie-eau.webp",
    "sm": "assets/visuels/sm/joie-eau.webp"
@@ -176,6 +188,10 @@
   "onde": {
    "src": "assets/visuels/onde.webp",
    "sm": "assets/visuels/sm/onde.webp"
+  },
+  "oreilles-vibrations": {
+   "src": "assets/visuels/oreilles-vibrations.webp",
+   "sm": "assets/visuels/sm/oreilles-vibrations.webp"
   },
   "paquerette": {
    "src": "assets/visuels/paquerette.webp",
@@ -304,6 +320,10 @@
   "voile-tombe": {
    "src": "assets/visuels/voile-tombe.webp",
    "sm": "assets/visuels/sm/voile-tombe.webp"
+  },
+  "yeux-images": {
+   "src": "assets/visuels/yeux-images.webp",
+   "sm": "assets/visuels/sm/yeux-images.webp"
   },
   "mv-arbre-lumiere": {
    "src": "assets/merveilles/arbre-lumiere.webp",
@@ -1561,6 +1581,33 @@
     {
      "img": "point-de-vue",
      "kw": "points de vue"
+    }
+   ]
+  },
+  "031de4f9-acf2-411d-b5fa-0a93ea6cd9aa": {
+   "title": "Les appendices du corps",
+   "lang": "fr",
+   "by": "lyrics",
+   "images": [
+    {
+     "img": "jambe-avance",
+     "kw": "la jambe avance"
+    },
+    {
+     "img": "bouche-sons",
+     "kw": "en sons"
+    },
+    {
+     "img": "yeux-images",
+     "kw": "en images"
+    },
+    {
+     "img": "oreilles-vibrations",
+     "kw": "vibrations"
+    },
+    {
+     "img": "etre-amont",
+     "kw": "en amont"
     }
    ]
   }
