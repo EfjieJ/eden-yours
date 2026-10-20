@@ -1,6 +1,23 @@
 {
   "tracks": [
     {
+      "id": "da1439f7-ea4b-4ba7-9dca-3a1100d5015b",
+      "title": "La Tortue Consciente",
+      "artist": "Eden Yours",
+      "sunoArtist": "efjie8008",
+      "sunoTitle": "La Tortue Consciente",
+      "audio_url": null,
+      "embed_url": "https://suno.com/embed/da1439f7-ea4b-4ba7-9dca-3a1100d5015b",
+      "cover_url": "assets/covers/da1439f7-ea4b-4ba7-9dca-3a1100d5015b.jpeg",
+      "suno_share": "https://suno.com/s/HjE1uxqGDfUmLBpt",
+      "duration": 315.84,
+      "featured": false,
+      "audio_url_aac": null,
+      "lang": "fr",
+      "new": true,
+      "added": "2026-10-20T04:07"
+    },
+    {
       "id": "f5bf8830-85bb-4a9b-9545-081800be485f",
       "title": "La Sensibilité est la Fonction",
       "artist": "Eden Yours",

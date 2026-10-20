@@ -213,6 +213,218 @@
    "src": "assets/visuels/loup-lune.webp",
    "sm": "assets/visuels/sm/loup-lune.webp"
   },
+  "lt-l01a": {
+   "src": "assets/visuels/lt-l01a.webp",
+   "sm": "assets/visuels/sm/lt-l01a.webp"
+  },
+  "lt-l01b": {
+   "src": "assets/visuels/lt-l01b.webp",
+   "sm": "assets/visuels/sm/lt-l01b.webp"
+  },
+  "lt-l01c": {
+   "src": "assets/visuels/lt-l01c.webp",
+   "sm": "assets/visuels/sm/lt-l01c.webp"
+  },
+  "lt-l01d": {
+   "src": "assets/visuels/lt-l01d.webp",
+   "sm": "assets/visuels/sm/lt-l01d.webp"
+  },
+  "lt-l01e": {
+   "src": "assets/visuels/lt-l01e.webp",
+   "sm": "assets/visuels/sm/lt-l01e.webp"
+  },
+  "lt-l01f": {
+   "src": "assets/visuels/lt-l01f.webp",
+   "sm": "assets/visuels/sm/lt-l01f.webp"
+  },
+  "lt-l02a": {
+   "src": "assets/visuels/lt-l02a.webp",
+   "sm": "assets/visuels/sm/lt-l02a.webp"
+  },
+  "lt-l02b": {
+   "src": "assets/visuels/lt-l02b.webp",
+   "sm": "assets/visuels/sm/lt-l02b.webp"
+  },
+  "lt-l02c": {
+   "src": "assets/visuels/lt-l02c.webp",
+   "sm": "assets/visuels/sm/lt-l02c.webp"
+  },
+  "lt-l02d": {
+   "src": "assets/visuels/lt-l02d.webp",
+   "sm": "assets/visuels/sm/lt-l02d.webp"
+  },
+  "lt-l03a": {
+   "src": "assets/visuels/lt-l03a.webp",
+   "sm": "assets/visuels/sm/lt-l03a.webp"
+  },
+  "lt-l03b": {
+   "src": "assets/visuels/lt-l03b.webp",
+   "sm": "assets/visuels/sm/lt-l03b.webp"
+  },
+  "lt-l03c": {
+   "src": "assets/visuels/lt-l03c.webp",
+   "sm": "assets/visuels/sm/lt-l03c.webp"
+  },
+  "lt-l03d": {
+   "src": "assets/visuels/lt-l03d.webp",
+   "sm": "assets/visuels/sm/lt-l03d.webp"
+  },
+  "lt-l04a": {
+   "src": "assets/visuels/lt-l04a.webp",
+   "sm": "assets/visuels/sm/lt-l04a.webp"
+  },
+  "lt-l04b": {
+   "src": "assets/visuels/lt-l04b.webp",
+   "sm": "assets/visuels/sm/lt-l04b.webp"
+  },
+  "lt-l04c": {
+   "src": "assets/visuels/lt-l04c.webp",
+   "sm": "assets/visuels/sm/lt-l04c.webp"
+  },
+  "lt-l04d": {
+   "src": "assets/visuels/lt-l04d.webp",
+   "sm": "assets/visuels/sm/lt-l04d.webp"
+  },
+  "lt-l05a": {
+   "src": "assets/visuels/lt-l05a.webp",
+   "sm": "assets/visuels/sm/lt-l05a.webp"
+  },
+  "lt-l05b": {
+   "src": "assets/visuels/lt-l05b.webp",
+   "sm": "assets/visuels/sm/lt-l05b.webp"
+  },
+  "lt-l05c": {
+   "src": "assets/visuels/lt-l05c.webp",
+   "sm": "assets/visuels/sm/lt-l05c.webp"
+  },
+  "lt-l05d": {
+   "src": "assets/visuels/lt-l05d.webp",
+   "sm": "assets/visuels/sm/lt-l05d.webp"
+  },
+  "lt-l05e": {
+   "src": "assets/visuels/lt-l05e.webp",
+   "sm": "assets/visuels/sm/lt-l05e.webp"
+  },
+  "lt-l06a": {
+   "src": "assets/visuels/lt-l06a.webp",
+   "sm": "assets/visuels/sm/lt-l06a.webp"
+  },
+  "lt-l07a": {
+   "src": "assets/visuels/lt-l07a.webp",
+   "sm": "assets/visuels/sm/lt-l07a.webp"
+  },
+  "lt-l07b": {
+   "src": "assets/visuels/lt-l07b.webp",
+   "sm": "assets/visuels/sm/lt-l07b.webp"
+  },
+  "lt-l07c": {
+   "src": "assets/visuels/lt-l07c.webp",
+   "sm": "assets/visuels/sm/lt-l07c.webp"
+  },
+  "lt-l07d": {
+   "src": "assets/visuels/lt-l07d.webp",
+   "sm": "assets/visuels/sm/lt-l07d.webp"
+  },
+  "lt-l08a": {
+   "src": "assets/visuels/lt-l08a.webp",
+   "sm": "assets/visuels/sm/lt-l08a.webp"
+  },
+  "lt-l08b": {
+   "src": "assets/visuels/lt-l08b.webp",
+   "sm": "assets/visuels/sm/lt-l08b.webp"
+  },
+  "lt-l08c": {
+   "src": "assets/visuels/lt-l08c.webp",
+   "sm": "assets/visuels/sm/lt-l08c.webp"
+  },
+  "lt-l09a": {
+   "src": "assets/visuels/lt-l09a.webp",
+   "sm": "assets/visuels/sm/lt-l09a.webp"
+  },
+  "lt-l09b": {
+   "src": "assets/visuels/lt-l09b.webp",
+   "sm": "assets/visuels/sm/lt-l09b.webp"
+  },
+  "lt-l09c": {
+   "src": "assets/visuels/lt-l09c.webp",
+   "sm": "assets/visuels/sm/lt-l09c.webp"
+  },
+  "lt-l09d": {
+   "src": "assets/visuels/lt-l09d.webp",
+   "sm": "assets/visuels/sm/lt-l09d.webp"
+  },
+  "lt-l10a": {
+   "src": "assets/visuels/lt-l10a.webp",
+   "sm": "assets/visuels/sm/lt-l10a.webp"
+  },
+  "lt-l10b": {
+   "src": "assets/visuels/lt-l10b.webp",
+   "sm": "assets/visuels/sm/lt-l10b.webp"
+  },
+  "lt-l11a": {
+   "src": "assets/visuels/lt-l11a.webp",
+   "sm": "assets/visuels/sm/lt-l11a.webp"
+  },
+  "lt-l11b": {
+   "src": "assets/visuels/lt-l11b.webp",
+   "sm": "assets/visuels/sm/lt-l11b.webp"
+  },
+  "lt-l11c": {
+   "src": "assets/visuels/lt-l11c.webp",
+   "sm": "assets/visuels/sm/lt-l11c.webp"
+  },
+  "lt-l12a": {
+   "src": "assets/visuels/lt-l12a.webp",
+   "sm": "assets/visuels/sm/lt-l12a.webp"
+  },
+  "lt-l12b": {
+   "src": "assets/visuels/lt-l12b.webp",
+   "sm": "assets/visuels/sm/lt-l12b.webp"
+  },
+  "lt-l12c": {
+   "src": "assets/visuels/lt-l12c.webp",
+   "sm": "assets/visuels/sm/lt-l12c.webp"
+  },
+  "lt-l13a": {
+   "src": "assets/visuels/lt-l13a.webp",
+   "sm": "assets/visuels/sm/lt-l13a.webp"
+  },
+  "lt-l13b": {
+   "src": "assets/visuels/lt-l13b.webp",
+   "sm": "assets/visuels/sm/lt-l13b.webp"
+  },
+  "lt-l13c": {
+   "src": "assets/visuels/lt-l13c.webp",
+   "sm": "assets/visuels/sm/lt-l13c.webp"
+  },
+  "lt-l13d": {
+   "src": "assets/visuels/lt-l13d.webp",
+   "sm": "assets/visuels/sm/lt-l13d.webp"
+  },
+  "lt-l13e": {
+   "src": "assets/visuels/lt-l13e.webp",
+   "sm": "assets/visuels/sm/lt-l13e.webp"
+  },
+  "lt-l13f": {
+   "src": "assets/visuels/lt-l13f.webp",
+   "sm": "assets/visuels/sm/lt-l13f.webp"
+  },
+  "lt-l13g": {
+   "src": "assets/visuels/lt-l13g.webp",
+   "sm": "assets/visuels/sm/lt-l13g.webp"
+  },
+  "lt-l14a": {
+   "src": "assets/visuels/lt-l14a.webp",
+   "sm": "assets/visuels/sm/lt-l14a.webp"
+  },
+  "lt-l14b": {
+   "src": "assets/visuels/lt-l14b.webp",
+   "sm": "assets/visuels/sm/lt-l14b.webp"
+  },
+  "lt-l15a": {
+   "src": "assets/visuels/lt-l15a.webp",
+   "sm": "assets/visuels/sm/lt-l15a.webp"
+  },
   "lumiere-voir": {
    "src": "assets/visuels/lumiere-voir.webp",
    "sm": "assets/visuels/sm/lumiere-voir.webp"
@@ -483,6 +695,279 @@
   ]
  },
  "songs": {
+  "da1439f7-ea4b-4ba7-9dca-3a1100d5015b": {
+   "title": "La Tortue Consciente",
+   "lang": "fr",
+   "by": "lyrics",
+   "order": "timed",
+   "images": [
+    {
+     "img": "lt-l01a",
+     "kw": "La Fable du Lièvre",
+     "at": 8.0
+    },
+    {
+     "img": "lt-l01b",
+     "kw": "Le Lièvre Réactif ne tenait pas en place.",
+     "at": 11.9
+    },
+    {
+     "img": "lt-l01c",
+     "kw": "Pour lui, la vie était une course",
+     "at": 15.0
+    },
+    {
+     "img": "lt-l01d",
+     "kw": "Il courait pour ne pas mourir",
+     "at": 25.9
+    },
+    {
+     "img": "lt-l01e",
+     "kw": "Il était entièrement prisonnier du film",
+     "at": 35.3
+    },
+    {
+     "img": "lt-l01f",
+     "kw": "Il croyait que sa valeur",
+     "at": 45.4
+    },
+    {
+     "img": "lt-l02a",
+     "kw": "Un matin",
+     "at": 52.1
+    },
+    {
+     "img": "lt-l02b",
+     "kw": "Elle marchait d'un pas lent",
+     "at": 58.9
+    },
+    {
+     "img": "lt-l02c",
+     "kw": "À vrai dire",
+     "at": 63.6
+    },
+    {
+     "img": "lt-l02d",
+     "kw": "Elle ne subissait pas le mouvement",
+     "at": 72.5
+    },
+    {
+     "img": "lt-l03a",
+     "kw": "Le Lièvre, la voyant si tranquille",
+     "at": 79.9
+    },
+    {
+     "img": "lt-l03b",
+     "kw": "— Où cours-tu",
+     "at": 85.7
+    },
+    {
+     "img": "lt-l03c",
+     "kw": "À ce rythme",
+     "at": 89.0
+    },
+    {
+     "img": "lt-l03d",
+     "kw": "Regarde-moi",
+     "at": 96.1
+    },
+    {
+     "img": "lt-l04a",
+     "kw": "La Tortue s'arrêta.",
+     "at": 103.7
+    },
+    {
+     "img": "lt-l04b",
+     "kw": "car elle appliquait le triptyque",
+     "at": 107.1
+    },
+    {
+     "img": "lt-l04c",
+     "kw": "Elle ferma les yeux",
+     "at": 113.6
+    },
+    {
+     "img": "lt-l04d",
+     "kw": "puis regarda le Lièvre",
+     "at": 122.6
+    },
+    {
+     "img": "lt-l05a",
+     "kw": "— Tu coures dans la sensation",
+     "at": 127.0
+    },
+    {
+     "img": "lt-l05b",
+     "kw": "Tu es dans la structure du film",
+     "at": 131.3
+    },
+    {
+     "img": "lt-l05c",
+     "kw": "Moi, je ne cherche pas",
+     "at": 135.6
+    },
+    {
+     "img": "lt-l05d",
+     "kw": "Mon corps est une antenne",
+     "at": 142.5
+    },
+    {
+     "img": "lt-l05e",
+     "kw": "Faisons un jeu",
+     "at": 148.6
+    },
+    {
+     "img": "lt-l06a",
+     "kw": "Le Lièvre accepta le défi",
+     "at": 154.9
+    },
+    {
+     "img": "lt-l07a",
+     "kw": "Au signal",
+     "at": 163.5
+    },
+    {
+     "img": "lt-l07b",
+     "kw": "Il mit toute son énergie",
+     "at": 165.6
+    },
+    {
+     "img": "lt-l07c",
+     "kw": "Mais à force de courir",
+     "at": 172.2
+    },
+    {
+     "img": "lt-l07d",
+     "kw": "La fatigue arriva.",
+     "at": 177.9
+    },
+    {
+     "img": "lt-l08a",
+     "kw": "Voyant qu'il avait",
+     "at": 179.3
+    },
+    {
+     "img": "lt-l08b",
+     "kw": "il se dit",
+     "at": 182.1
+    },
+    {
+     "img": "lt-l08c",
+     "kw": "Mais en s'asseyant",
+     "at": 187.4
+    },
+    {
+     "img": "lt-l09a",
+     "kw": "Pendant ce temps",
+     "at": 196.2
+    },
+    {
+     "img": "lt-l09b",
+     "kw": "Sans force, par rappel.",
+     "at": 198.9
+    },
+    {
+     "img": "lt-l09c",
+     "kw": "À chaque pas, à chaque souffle",
+     "at": 200.7
+    },
+    {
+     "img": "lt-l09d",
+     "kw": "Elle n'arrachait rien",
+     "at": 204.9
+    },
+    {
+     "img": "lt-l10a",
+     "kw": "Ses muscles se densifiaient",
+     "at": 208.5
+    },
+    {
+     "img": "lt-l10b",
+     "kw": "Elle ne raisonnait pas la route",
+     "at": 217.7
+    },
+    {
+     "img": "lt-l11a",
+     "kw": "Quand le Lièvre se réveilla",
+     "at": 224.2
+    },
+    {
+     "img": "lt-l11b",
+     "kw": "il vit la Tortue",
+     "at": 229.1
+    },
+    {
+     "img": "lt-l11c",
+     "kw": "Elle avait traversé le pont",
+     "at": 234.1
+    },
+    {
+     "img": "lt-l12a",
+     "kw": "Le Lièvre, essoufflé",
+     "at": 239.4
+    },
+    {
+     "img": "lt-l12b",
+     "kw": "— C'est impossible",
+     "at": 244.8
+    },
+    {
+     "img": "lt-l12c",
+     "kw": "Comment as-tu fait",
+     "at": 250.6
+    },
+    {
+     "img": "lt-l13a",
+     "kw": "La Tortue sourit",
+     "at": 253.0
+    },
+    {
+     "img": "lt-l13b",
+     "kw": "— Tu as cru",
+     "at": 255.2
+    },
+    {
+     "img": "lt-l13c",
+     "kw": "Tu as mis ton attention",
+     "at": 261.6
+    },
+    {
+     "img": "lt-l13d",
+     "kw": "Moi, j'ai simplement activé",
+     "at": 267.5
+    },
+    {
+     "img": "lt-l13e",
+     "kw": "Je n'ai jamais commencé",
+     "at": 270.5
+    },
+    {
+     "img": "lt-l13f",
+     "kw": "Je suis autour du mouvement",
+     "at": 274.7
+    },
+    {
+     "img": "lt-l13g",
+     "kw": "Regarder et admirer",
+     "at": 278.1
+    },
+    {
+     "img": "lt-l14a",
+     "kw": "------------------------------",
+     "at": 282.5
+    },
+    {
+     "img": "lt-l14b",
+     "kw": "Mais l'être lucide",
+     "at": 294.7
+    },
+    {
+     "img": "lt-l15a",
+     "kw": "Il ne court pas après la vie",
+     "at": 301.8
+    }
+   ]
+  },
   "f5bf8830-85bb-4a9b-9545-081800be485f": {
    "title": "La Sensibilité est la Fonction",
    "lang": "fr",
