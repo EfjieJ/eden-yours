@@ -6,6 +6,9 @@ M=json.load(open('data/merveilles.json'))
 imgs={}
 for f in sorted(os.listdir('assets/visuels')):
     if f.endswith('.webp'): imgs[f[:-5]]={"src":"assets/visuels/"+f[:-5]+".webp","sm":"assets/visuels/sm/"+f[:-5]+".webp"}
+for k in imgs:
+    if k=='lt-l10b':  # image refaite : adresse versionnée pour contourner les caches
+        imgs[k]={x:v+"?v=20261020b" for x,v in imgs[k].items()}
 for it in M['items']:
     imgs['mv-'+it['id']]={"src":"assets/merveilles/"+it['id']+".webp","sm":"assets/merveilles/sm/"+it['id']+".webp"}
 # song prefix -> [(image, keyword exactly as in lyrics)]

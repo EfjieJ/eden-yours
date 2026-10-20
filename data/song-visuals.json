@@ -358,8 +358,8 @@
    "sm": "assets/visuels/sm/lt-l10a.webp"
   },
   "lt-l10b": {
-   "src": "assets/visuels/lt-l10b.webp",
-   "sm": "assets/visuels/sm/lt-l10b.webp"
+   "src": "assets/visuels/lt-l10b.webp?v=20261020b",
+   "sm": "assets/visuels/sm/lt-l10b.webp?v=20261020b"
   },
   "lt-l11a": {
    "src": "assets/visuels/lt-l11a.webp",

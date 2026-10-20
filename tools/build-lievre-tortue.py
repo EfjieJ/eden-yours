@@ -4,7 +4,7 @@
 # Vérification : textContent des .conte-text des 15 scènes, joints sans séparateur == texte source (sans le \n final).
 import html, sys, json, hashlib
 SRC = sys.argv[1] if len(sys.argv) > 1 else '/workspace/contes/lievre-tortue.txt'
-V = sys.argv[2] if len(sys.argv) > 2 else '20261020a'
+V = sys.argv[2] if len(sys.argv) > 2 else '20261020b'
 EXPECT = '4d890824188e8f844a1f4a6ca82364f65b7bd3a8d2020c9619e350306572ee56'
 raw = open(SRC, encoding='utf-8').read()
 h = hashlib.sha256(raw.encode('utf-8')).hexdigest()
@@ -89,8 +89,8 @@ joined = ''.join(''.join(chunks[b[0]] for b in s) + seps[n] for n, s in enumerat
 if joined != body: sys.exit('REFUS : le découpage ne redonne pas le texte à l’identique.')
 esc = lambda s: html.escape(s, quote=False)
 def img(bid, alt, first, eager):
-    return (f'<img class="conte-img{" is-on" if first else ""}" data-beat="{bid}" src="{D}/sm/{bid}.webp" '
-            f'srcset="{D}/sm/{bid}.webp 640w, {D}/{bid}.webp 1280w" sizes="(max-width: 760px) 100vw, 760px" '
+    return (f'<img class="conte-img{" is-on" if first else ""}" data-beat="{bid}" src="{D}/sm/{bid}.webp?v={V}" '
+            f'srcset="{D}/sm/{bid}.webp?v={V} 640w, {D}/{bid}.webp?v={V} 1280w" sizes="(max-width: 760px) 100vw, 760px" '
             f'width="1280" height="720" alt="{html.escape(alt)}" loading="{"eager" if eager else "lazy"}" decoding="async">')
 def scene(n, s):
     imgs = '\n            '.join(img(b, a, i == 0, n == 1) for i, (b, m, a) in enumerate(s))
