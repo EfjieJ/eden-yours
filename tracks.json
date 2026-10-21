@@ -1,6 +1,23 @@
 {
   "tracks": [
     {
+      "id": "2d4eafe4-dced-451e-a7bb-3025b14b1bca",
+      "title": "Ni le grain, ni le chant",
+      "artist": "Eden Yours",
+      "sunoArtist": "efjie8008",
+      "sunoTitle": "Ni le grain, ni le chant",
+      "audio_url": null,
+      "embed_url": "https://suno.com/embed/2d4eafe4-dced-451e-a7bb-3025b14b1bca",
+      "cover_url": "assets/covers/2d4eafe4-dced-451e-a7bb-3025b14b1bca.jpeg",
+      "suno_share": "https://suno.com/s/sGkcVXGVwCQ575mE",
+      "duration": 185.96,
+      "featured": false,
+      "audio_url_aac": null,
+      "lang": "fr",
+      "new": true,
+      "added": "2026-10-21T19:20"
+    },
+    {
       "id": "da1439f7-ea4b-4ba7-9dca-3a1100d5015b",
       "title": "La Tortue Consciente",
       "artist": "Eden Yours",

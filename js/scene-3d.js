@@ -367,7 +367,7 @@ async function boot() {
     return;
   }
   try {
-    const [{ createRealScene }] = await Promise.all([import("./eden-real.js?v=20261020b"), dataP]);
+    const [{ createRealScene }] = await Promise.all([import("./eden-real.js?v=20261021a"), dataP]);
     scene = await createRealScene(el.canvas, el.stage, { isReduced, sampleLevel, dragHint: el.dragHint });
     const th = current ? themeFor(current) : themeFor(null);
     scene.build(th.id, th.def);

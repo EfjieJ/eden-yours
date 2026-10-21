@@ -8,7 +8,7 @@ for f in sorted(os.listdir('assets/visuels')):
     if f.endswith('.webp'): imgs[f[:-5]]={"src":"assets/visuels/"+f[:-5]+".webp","sm":"assets/visuels/sm/"+f[:-5]+".webp"}
 for k in imgs:
     if k=='lt-l10b':  # image refaite : adresse versionnée pour contourner les caches
-        imgs[k]={x:v+"?v=20261020b" for x,v in imgs[k].items()}
+        imgs[k]={x:v+"?v=20261021a" for x,v in imgs[k].items()}
 for it in M['items']:
     imgs['mv-'+it['id']]={"src":"assets/merveilles/"+it['id']+".webp","sm":"assets/merveilles/sm/"+it['id']+".webp"}
 # song prefix -> [(image, keyword exactly as in lyrics)]
@@ -144,6 +144,34 @@ SEQ={
   ('app-parole','- Parler avec beaucoup de précision'),
   ('app-agir','- Agir sans effort inutile'),
   ('app-servir','Parce que tu n’es plus en train de « forcer »'),
+ ]},
+ '2d4eafe4':{'intro':8,'outro':8,'items':[
+  ('gc-ete','Ni le grain, ni le chant'),
+  ('gc-fourmi','La fourmi, elle, comptait'),
+  ('gc-une',"L'une disait"),
+  ('gc-autre',"L'autre disait"),
+  ('gc-continuer',"La fourmi n'a pas tort"),
+  ('gc-sac',"La cigale n'a pas tort"),
+  ('gc-refrain1',"Mais le grain n'est pas toi"),
+  ('gc-pensee','Le corps fait son travail'),
+  ('gc-regarde','Toi, tu es celui'),
+  ('gc-avant','Avant le premier mot'),
+  ('gc-hiver',"L'hiver est arrivé"),
+  ('gc-donne','Donne-moi de ton grain'),
+  ('gc-danse','La fourmi a répondu'),
+  ('gc-bug','Le bug est là'),
+  ('gc-oubli','Chacune a oublié'),
+  ('gc-refrain2','Refrain\nCouplet 5'),
+  ('gc-forme','Le grain nourrit la forme'),
+  ('gc-traverse',"Le chant traverse l'air"),
+  ('gc-hivercorps',"L'hiver peut prendre le corps"),
+  ('gc-deja','quand la fourmi comptait'),
+  ('gc-mots','On est bloqué dans les mots'),
+  ('gc-phrase','Une seconde suffit'),
+  ('gc-final','Ni le grain, ni le chant.\nNi'),
+  ('gc-bio','La vie biologique'),
+  ('gc-pas','Toi, pose encore un pas'),
+  ('gc-la','La fonction continue'),
  ]},
 }
 GEN={'souffle','silence-lac','onde','particule','etoiles','aube','soleil','mv-etres-bulles'}

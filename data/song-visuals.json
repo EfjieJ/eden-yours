@@ -185,6 +185,110 @@
    "src": "assets/visuels/galaxie.webp",
    "sm": "assets/visuels/sm/galaxie.webp"
   },
+  "gc-autre": {
+   "src": "assets/visuels/gc-autre.webp",
+   "sm": "assets/visuels/sm/gc-autre.webp"
+  },
+  "gc-avant": {
+   "src": "assets/visuels/gc-avant.webp",
+   "sm": "assets/visuels/sm/gc-avant.webp"
+  },
+  "gc-bio": {
+   "src": "assets/visuels/gc-bio.webp",
+   "sm": "assets/visuels/sm/gc-bio.webp"
+  },
+  "gc-bug": {
+   "src": "assets/visuels/gc-bug.webp",
+   "sm": "assets/visuels/sm/gc-bug.webp"
+  },
+  "gc-continuer": {
+   "src": "assets/visuels/gc-continuer.webp",
+   "sm": "assets/visuels/sm/gc-continuer.webp"
+  },
+  "gc-danse": {
+   "src": "assets/visuels/gc-danse.webp",
+   "sm": "assets/visuels/sm/gc-danse.webp"
+  },
+  "gc-deja": {
+   "src": "assets/visuels/gc-deja.webp",
+   "sm": "assets/visuels/sm/gc-deja.webp"
+  },
+  "gc-donne": {
+   "src": "assets/visuels/gc-donne.webp",
+   "sm": "assets/visuels/sm/gc-donne.webp"
+  },
+  "gc-ete": {
+   "src": "assets/visuels/gc-ete.webp",
+   "sm": "assets/visuels/sm/gc-ete.webp"
+  },
+  "gc-final": {
+   "src": "assets/visuels/gc-final.webp",
+   "sm": "assets/visuels/sm/gc-final.webp"
+  },
+  "gc-forme": {
+   "src": "assets/visuels/gc-forme.webp",
+   "sm": "assets/visuels/sm/gc-forme.webp"
+  },
+  "gc-fourmi": {
+   "src": "assets/visuels/gc-fourmi.webp",
+   "sm": "assets/visuels/sm/gc-fourmi.webp"
+  },
+  "gc-hiver": {
+   "src": "assets/visuels/gc-hiver.webp",
+   "sm": "assets/visuels/sm/gc-hiver.webp"
+  },
+  "gc-hivercorps": {
+   "src": "assets/visuels/gc-hivercorps.webp",
+   "sm": "assets/visuels/sm/gc-hivercorps.webp"
+  },
+  "gc-la": {
+   "src": "assets/visuels/gc-la.webp",
+   "sm": "assets/visuels/sm/gc-la.webp"
+  },
+  "gc-mots": {
+   "src": "assets/visuels/gc-mots.webp",
+   "sm": "assets/visuels/sm/gc-mots.webp"
+  },
+  "gc-oubli": {
+   "src": "assets/visuels/gc-oubli.webp",
+   "sm": "assets/visuels/sm/gc-oubli.webp"
+  },
+  "gc-pas": {
+   "src": "assets/visuels/gc-pas.webp",
+   "sm": "assets/visuels/sm/gc-pas.webp"
+  },
+  "gc-pensee": {
+   "src": "assets/visuels/gc-pensee.webp",
+   "sm": "assets/visuels/sm/gc-pensee.webp"
+  },
+  "gc-phrase": {
+   "src": "assets/visuels/gc-phrase.webp",
+   "sm": "assets/visuels/sm/gc-phrase.webp"
+  },
+  "gc-refrain1": {
+   "src": "assets/visuels/gc-refrain1.webp",
+   "sm": "assets/visuels/sm/gc-refrain1.webp"
+  },
+  "gc-refrain2": {
+   "src": "assets/visuels/gc-refrain2.webp",
+   "sm": "assets/visuels/sm/gc-refrain2.webp"
+  },
+  "gc-regarde": {
+   "src": "assets/visuels/gc-regarde.webp",
+   "sm": "assets/visuels/sm/gc-regarde.webp"
+  },
+  "gc-sac": {
+   "src": "assets/visuels/gc-sac.webp",
+   "sm": "assets/visuels/sm/gc-sac.webp"
+  },
+  "gc-traverse": {
+   "src": "assets/visuels/gc-traverse.webp",
+   "sm": "assets/visuels/sm/gc-traverse.webp"
+  },
+  "gc-une": {
+   "src": "assets/visuels/gc-une.webp",
+   "sm": "assets/visuels/sm/gc-une.webp"
+  },
   "gong": {
    "src": "assets/visuels/gong.webp",
    "sm": "assets/visuels/sm/gong.webp"
@@ -358,8 +462,8 @@
    "sm": "assets/visuels/sm/lt-l10a.webp"
   },
   "lt-l10b": {
-   "src": "assets/visuels/lt-l10b.webp?v=20261020b",
-   "sm": "assets/visuels/sm/lt-l10b.webp?v=20261020b"
+   "src": "assets/visuels/lt-l10b.webp?v=20261021a",
+   "sm": "assets/visuels/sm/lt-l10b.webp?v=20261021a"
   },
   "lt-l11a": {
    "src": "assets/visuels/lt-l11a.webp",
@@ -695,6 +799,144 @@
   ]
  },
  "songs": {
+  "2d4eafe4-dced-451e-a7bb-3025b14b1bca": {
+   "title": "Ni le grain, ni le chant",
+   "lang": "fr",
+   "by": "lyrics",
+   "order": "timed",
+   "images": [
+    {
+     "img": "gc-ete",
+     "kw": "Ni le grain, ni le chant",
+     "at": 8.0
+    },
+    {
+     "img": "gc-fourmi",
+     "kw": "La fourmi, elle, comptait",
+     "at": 16.0
+    },
+    {
+     "img": "gc-une",
+     "kw": "L'une disait",
+     "at": 21.0
+    },
+    {
+     "img": "gc-autre",
+     "kw": "L'autre disait",
+     "at": 26.0
+    },
+    {
+     "img": "gc-continuer",
+     "kw": "La fourmi n'a pas tort",
+     "at": 32.7
+    },
+    {
+     "img": "gc-sac",
+     "kw": "La cigale n'a pas tort",
+     "at": 43.6
+    },
+    {
+     "img": "gc-refrain1",
+     "kw": "Mais le grain n'est pas toi",
+     "at": 54.5
+    },
+    {
+     "img": "gc-pensee",
+     "kw": "Le corps fait son travail",
+     "at": 60.2
+    },
+    {
+     "img": "gc-regarde",
+     "kw": "Toi, tu es celui",
+     "at": 65.5
+    },
+    {
+     "img": "gc-avant",
+     "kw": "Avant le premier mot",
+     "at": 69.3
+    },
+    {
+     "img": "gc-hiver",
+     "kw": "L'hiver est arrivé",
+     "at": 74.8
+    },
+    {
+     "img": "gc-donne",
+     "kw": "Donne-moi de ton grain",
+     "at": 78.9
+    },
+    {
+     "img": "gc-danse",
+     "kw": "La fourmi a répondu",
+     "at": 83.8
+    },
+    {
+     "img": "gc-bug",
+     "kw": "Le bug est là",
+     "at": 94.3
+    },
+    {
+     "img": "gc-oubli",
+     "kw": "Chacune a oublié",
+     "at": 107.2
+    },
+    {
+     "img": "gc-refrain2",
+     "kw": "Refrain\nCouplet 5",
+     "at": 111.3
+    },
+    {
+     "img": "gc-forme",
+     "kw": "Le grain nourrit la forme",
+     "at": 113.2
+    },
+    {
+     "img": "gc-traverse",
+     "kw": "Le chant traverse l'air",
+     "at": 118.9
+    },
+    {
+     "img": "gc-hivercorps",
+     "kw": "L'hiver peut prendre le corps",
+     "at": 124.6
+    },
+    {
+     "img": "gc-deja",
+     "kw": "quand la fourmi comptait",
+     "at": 131.8
+    },
+    {
+     "img": "gc-mots",
+     "kw": "On est bloqué dans les mots",
+     "at": 137.6
+    },
+    {
+     "img": "gc-phrase",
+     "kw": "Une seconde suffit",
+     "at": 149.1
+    },
+    {
+     "img": "gc-final",
+     "kw": "Ni le grain, ni le chant.\nNi",
+     "at": 159.6
+    },
+    {
+     "img": "gc-bio",
+     "kw": "La vie biologique",
+     "at": 164.5
+    },
+    {
+     "img": "gc-pas",
+     "kw": "Toi, pose encore un pas",
+     "at": 169.2
+    },
+    {
+     "img": "gc-la",
+     "kw": "La fonction continue",
+     "at": 173.8
+    }
+   ]
+  },
   "da1439f7-ea4b-4ba7-9dca-3a1100d5015b": {
    "title": "La Tortue Consciente",
    "lang": "fr",
