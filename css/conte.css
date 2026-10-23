@@ -44,3 +44,12 @@
 /* Conte au texte en lignes (conte-petit-prince.html) : les retours à la ligne et lignes vides de François sont gardés tels quels */
 .conte-text--lignes p { white-space: pre-line; }
 .conte-scene:first-child .conte-text--lignes p:first-child::first-letter { float: none; font-size: inherit; line-height: inherit; margin: 0; color: inherit; font-family: inherit; }
+/* Lysa et l'Actuel : vidéo muette, images carrées, section chanson */
+.conte-video { margin: 1.2rem auto 0; max-width: 420px; text-align: center; }
+.conte-video video { width: 100%; height: auto; aspect-ratio: 9 / 16; border-radius: 14px; background: #111; display: block; }
+.conte-video figcaption { font-size: .85rem; opacity: .75; margin-top: .4rem; }
+.conte-fig--carre .conte-img { aspect-ratio: 1 / 1; }
+.conte-chanson { padding: 1.4rem 0 .6rem; text-align: center; }
+.conte-chanson h2 { margin: 0 0 .6rem; }
+.conte-chanson-slot { border: 1px dashed rgba(255,255,255,.28); border-radius: 14px; padding: 1rem; }
+.conte-bientot { margin: 0; font-style: italic; opacity: .7; }

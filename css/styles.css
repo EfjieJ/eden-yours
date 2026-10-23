@@ -3309,3 +3309,4 @@ html:not([lang="en"]) .en-only { display: none !important; }
 .gift-btn { font-size: .92rem; padding: .55rem 1.1rem; min-height: 40px; opacity: .92; }
 .gift-btn:hover { opacity: 1; }
 .gift-note { margin: .7rem 0 0; font-size: .8rem; color: var(--text-dim); }
+.game-card--lysa .game-visual, body.home-real .game-card--lysa .game-visual { background: url("../assets/contes/lysa-actuel/sm/la13.webp") center / cover no-repeat; }
