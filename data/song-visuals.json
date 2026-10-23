@@ -646,8 +646,8 @@
    "sm": "assets/visuels/sm/lt-l10a.webp"
   },
   "lt-l10b": {
-   "src": "assets/visuels/lt-l10b.webp?v=20261023a",
-   "sm": "assets/visuels/sm/lt-l10b.webp?v=20261023a"
+   "src": "assets/visuels/lt-l10b.webp?v=20261023b",
+   "sm": "assets/visuels/sm/lt-l10b.webp?v=20261023b"
   },
   "lt-l11a": {
    "src": "assets/visuels/lt-l11a.webp",
@@ -983,6 +983,244 @@
   ]
  },
  "songs": {
+  "33a4c7d5-9d82-455f-81ad-9024555f7b2e": {
+   "title": "Eternal Rhythm",
+   "lang": "en",
+   "by": "lyrics",
+   "order": "timed",
+   "images": [
+    {
+     "img": "cq-v01a",
+     "kw": "\"What is life?\"",
+     "at": 8.0
+    },
+    {
+     "img": "cq-v01b",
+     "kw": "Life is an \"eternal",
+     "at": 10.0
+    },
+    {
+     "img": "cq-v01c",
+     "kw": "This rhythm repeats",
+     "at": 17.7
+    },
+    {
+     "img": "cq-v02a",
+     "kw": "There is only one emotion",
+     "at": 28.9
+    },
+    {
+     "img": "cq-v02b",
+     "kw": "All other emotions",
+     "at": 35.0
+    },
+    {
+     "img": "cq-v03a",
+     "kw": "Everything is a \"game",
+     "at": 42.7
+    },
+    {
+     "img": "cq-v03b",
+     "kw": "Each person plays",
+     "at": 46.4
+    },
+    {
+     "img": "cq-v03c",
+     "kw": "The goal of the game",
+     "at": 50.3
+    },
+    {
+     "img": "cq-v04a",
+     "kw": "Emotions are simply",
+     "at": 64.5
+    },
+    {
+     "img": "cq-v04b",
+     "kw": "until we have acquired",
+     "at": 72.3
+    },
+    {
+     "img": "cq-v05a",
+     "kw": "\"Here are some",
+     "at": 77.1
+    },
+    {
+     "img": "cq-v05b",
+     "kw": "A person plays the game of learning to play",
+     "at": 84.3
+    },
+    {
+     "img": "cq-v05c",
+     "kw": "She acquires the data \"I am",
+     "at": 90.8
+    },
+    {
+     "img": "cq-v05d",
+     "kw": "A person plays the game of raising",
+     "at": 96.7
+    },
+    {
+     "img": "cq-v05e",
+     "kw": "It acquires the gift",
+     "at": 102.3
+    },
+    {
+     "img": "cq-v05f",
+     "kw": "A person plays the game of building",
+     "at": 108.9
+    },
+    {
+     "img": "cq-v05g",
+     "kw": "It acquires the data of perseverance",
+     "at": 114.7
+    },
+    {
+     "img": "cq-v05h",
+     "kw": "A person plays the game of healing",
+     "at": 121.3
+    },
+    {
+     "img": "cq-v05i",
+     "kw": "She acquires the data of controlling",
+     "at": 126.5
+    },
+    {
+     "img": "cq-v05j",
+     "kw": "A person plays the game of learning to really",
+     "at": 134.1
+    },
+    {
+     "img": "cq-v05k",
+     "kw": "It acquires the data of the true",
+     "at": 141.5
+    },
+    {
+     "img": "cq-v06a",
+     "kw": "Every tree",
+     "at": 147.5
+    },
+    {
+     "img": "cq-v07a",
+     "kw": "That's what life is",
+     "at": 162.2
+    },
+    {
+     "img": "cq-v07b",
+     "kw": "And the more you play",
+     "at": 173.3
+    },
+    {
+     "img": "cq-v08a",
+     "kw": "Eternity is not",
+     "at": 189.2
+    },
+    {
+     "img": "cq-v08b",
+     "kw": "It's already available",
+     "at": 193.5
+    },
+    {
+     "img": "cq-v09a",
+     "kw": "Life is a \"game,\"",
+     "at": 201.5
+    },
+    {
+     "img": "cq-v09b",
+     "kw": "It's a game because",
+     "at": 208.1
+    },
+    {
+     "img": "cq-v10a",
+     "kw": "These laws are simple",
+     "at": 222.5
+    },
+    {
+     "img": "cq-v10b",
+     "kw": "- \"Push\"",
+     "at": 227.5
+    },
+    {
+     "img": "cq-v10c",
+     "kw": "- \"Continue\"",
+     "at": 229.5
+    },
+    {
+     "img": "cq-v10d",
+     "kw": "- \"Finish\"",
+     "at": 231.0
+    },
+    {
+     "img": "cq-v10e",
+     "kw": "- \"Restart\"",
+     "at": 233.3
+    },
+    {
+     "img": "cq-v11a",
+     "kw": "Everything that exists",
+     "at": 234.8
+    },
+    {
+     "img": "cq-v11b",
+     "kw": "For something to exist",
+     "at": 240.8
+    },
+    {
+     "img": "cq-v11c",
+     "kw": "Once pushed",
+     "at": 247.3
+    },
+    {
+     "img": "cq-v12a",
+     "kw": "The great trap",
+     "at": 257.5
+    },
+    {
+     "img": "cq-v12b",
+     "kw": "True understanding",
+     "at": 268.2
+    },
+    {
+     "img": "cq-v12c",
+     "kw": "When we stop paying",
+     "at": 274.8
+    },
+    {
+     "img": "cq-v13a",
+     "kw": "That's when we discover",
+     "at": 287.9
+    },
+    {
+     "img": "cq-v14a",
+     "kw": "When we really understand",
+     "at": 296.3
+    },
+    {
+     "img": "cq-v14b",
+     "kw": "we become able",
+     "at": 313.1
+    },
+    {
+     "img": "cq-v15a",
+     "kw": "Language itself",
+     "at": 322.5
+    },
+    {
+     "img": "cq-v15b",
+     "kw": "We're moving",
+     "at": 325.8
+    },
+    {
+     "img": "cq-v16a",
+     "kw": "So life is learning",
+     "at": 338.1
+    },
+    {
+     "img": "cq-v16b",
+     "kw": "The more we understand",
+     "at": 346.9
+    }
+   ]
+  },
   "2e5898a7-a29d-464d-985f-4bba1628e01b": {
    "title": "Rythme éternel",
    "lang": "fr",

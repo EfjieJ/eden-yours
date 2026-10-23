@@ -8,7 +8,7 @@ for f in sorted(os.listdir('assets/visuels')):
     if f.endswith('.webp'): imgs[f[:-5]]={"src":"assets/visuels/"+f[:-5]+".webp","sm":"assets/visuels/sm/"+f[:-5]+".webp"}
 for k in imgs:
     if k=='lt-l10b':  # image refaite : adresse versionnée pour contourner les caches
-        imgs[k]={x:v+"?v=20261023a" for x,v in imgs[k].items()}
+        imgs[k]={x:v+"?v=20261023b" for x,v in imgs[k].items()}
 for it in M['items']:
     imgs['mv-'+it['id']]={"src":"assets/merveilles/"+it['id']+".webp","sm":"assets/merveilles/sm/"+it['id']+".webp"}
 # song prefix -> [(image, keyword exactly as in lyrics)]
@@ -220,6 +220,54 @@ SEQ={
   ('cq-v15b','On passe du langage'),
   ('cq-v16a','La vie, c’est donc'),
   ('cq-v16b','Plus on comprend'),
+ ]},
+ '33a4c7d5':{'intro':8,'outro':8,'items':[
+  ('cq-v01a','"What is life?"'),
+  ('cq-v01b','Life is an "eternal'),
+  ('cq-v01c','This rhythm repeats'),
+  ('cq-v02a','There is only one emotion'),
+  ('cq-v02b','All other emotions'),
+  ('cq-v03a','Everything is a "game'),
+  ('cq-v03b','Each person plays'),
+  ('cq-v03c','The goal of the game'),
+  ('cq-v04a','Emotions are simply'),
+  ('cq-v04b','until we have acquired'),
+  ('cq-v05a','"Here are some'),
+  ('cq-v05b','A person plays the game of learning to play'),
+  ('cq-v05c','She acquires the data "I am'),
+  ('cq-v05d','A person plays the game of raising'),
+  ('cq-v05e','It acquires the gift'),
+  ('cq-v05f','A person plays the game of building'),
+  ('cq-v05g','It acquires the data of perseverance'),
+  ('cq-v05h','A person plays the game of healing'),
+  ('cq-v05i','She acquires the data of controlling'),
+  ('cq-v05j','A person plays the game of learning to really'),
+  ('cq-v05k','It acquires the data of the true'),
+  ('cq-v06a','Every tree'),
+  ('cq-v07a',"That's what life is"),
+  ('cq-v07b','And the more you play'),
+  ('cq-v08a','Eternity is not'),
+  ('cq-v08b',"It's already available"),
+  ('cq-v09a','Life is a "game,"'),
+  ('cq-v09b',"It's a game because"),
+  ('cq-v10a','These laws are simple'),
+  ('cq-v10b','- "Push"'),
+  ('cq-v10c','- "Continue"'),
+  ('cq-v10d','- "Finish"'),
+  ('cq-v10e','- "Restart"'),
+  ('cq-v11a','Everything that exists'),
+  ('cq-v11b','For something to exist'),
+  ('cq-v11c','Once pushed'),
+  ('cq-v12a','The great trap'),
+  ('cq-v12b','True understanding'),
+  ('cq-v12c','When we stop paying'),
+  ('cq-v13a',"That's when we discover"),
+  ('cq-v14a','When we really understand'),
+  ('cq-v14b','we become able'),
+  ('cq-v15a','Language itself'),
+  ('cq-v15b',"We're moving"),
+  ('cq-v16a','So life is learning'),
+  ('cq-v16b','The more we understand'),
  ]},
 }
 GEN={'souffle','silence-lac','onde','particule','etoiles','aube','soleil','mv-etres-bulles'}

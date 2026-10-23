@@ -1,6 +1,23 @@
 {
   "tracks": [
     {
+      "id": "33a4c7d5-9d82-455f-81ad-9024555f7b2e",
+      "title": "Eternal Rhythm",
+      "artist": "Eden Yours",
+      "sunoArtist": "efjie8008",
+      "sunoTitle": "Eternal Rhythm",
+      "audio_url": null,
+      "embed_url": "https://suno.com/embed/33a4c7d5-9d82-455f-81ad-9024555f7b2e",
+      "cover_url": "assets/covers/33a4c7d5-9d82-455f-81ad-9024555f7b2e.jpeg",
+      "suno_share": "https://suno.com/s/N2GQQ48DxTxhA5Vy",
+      "duration": 364.36,
+      "featured": false,
+      "audio_url_aac": null,
+      "lang": "en",
+      "new": true,
+      "added": "2026-10-23T11:20"
+    },
+    {
       "id": "2e5898a7-a29d-464d-985f-4bba1628e01b",
       "title": "Rythme éternel",
       "artist": "Eden Yours",
