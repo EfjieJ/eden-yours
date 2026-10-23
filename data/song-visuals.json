@@ -917,6 +917,202 @@
    "src": "assets/visuels/mains-terre.webp",
    "sm": "assets/visuels/sm/mains-terre.webp"
   },
+  "mc-mc01": {
+   "src": "assets/visuels/mc-mc01.webp",
+   "sm": "assets/visuels/sm/mc-mc01.webp"
+  },
+  "mc-mc02": {
+   "src": "assets/visuels/mc-mc02.webp",
+   "sm": "assets/visuels/sm/mc-mc02.webp"
+  },
+  "mc-mc03": {
+   "src": "assets/visuels/mc-mc03.webp",
+   "sm": "assets/visuels/sm/mc-mc03.webp"
+  },
+  "mc-mc04": {
+   "src": "assets/visuels/mc-mc04.webp",
+   "sm": "assets/visuels/sm/mc-mc04.webp"
+  },
+  "mc-mc05": {
+   "src": "assets/visuels/mc-mc05.webp",
+   "sm": "assets/visuels/sm/mc-mc05.webp"
+  },
+  "mc-mc06": {
+   "src": "assets/visuels/mc-mc06.webp",
+   "sm": "assets/visuels/sm/mc-mc06.webp"
+  },
+  "mc-mc07": {
+   "src": "assets/visuels/mc-mc07.webp",
+   "sm": "assets/visuels/sm/mc-mc07.webp"
+  },
+  "mc-mc08": {
+   "src": "assets/visuels/mc-mc08.webp",
+   "sm": "assets/visuels/sm/mc-mc08.webp"
+  },
+  "mc-mc09": {
+   "src": "assets/visuels/mc-mc09.webp",
+   "sm": "assets/visuels/sm/mc-mc09.webp"
+  },
+  "mc-mc10": {
+   "src": "assets/visuels/mc-mc10.webp",
+   "sm": "assets/visuels/sm/mc-mc10.webp"
+  },
+  "mc-mc11": {
+   "src": "assets/visuels/mc-mc11.webp",
+   "sm": "assets/visuels/sm/mc-mc11.webp"
+  },
+  "mc-mc12": {
+   "src": "assets/visuels/mc-mc12.webp",
+   "sm": "assets/visuels/sm/mc-mc12.webp"
+  },
+  "mc-mc13": {
+   "src": "assets/visuels/mc-mc13.webp",
+   "sm": "assets/visuels/sm/mc-mc13.webp"
+  },
+  "mc-mc14": {
+   "src": "assets/visuels/mc-mc14.webp",
+   "sm": "assets/visuels/sm/mc-mc14.webp"
+  },
+  "mc-mc15": {
+   "src": "assets/visuels/mc-mc15.webp",
+   "sm": "assets/visuels/sm/mc-mc15.webp"
+  },
+  "mc-mc16": {
+   "src": "assets/visuels/mc-mc16.webp",
+   "sm": "assets/visuels/sm/mc-mc16.webp"
+  },
+  "mc-mc17": {
+   "src": "assets/visuels/mc-mc17.webp",
+   "sm": "assets/visuels/sm/mc-mc17.webp"
+  },
+  "mc-mc18": {
+   "src": "assets/visuels/mc-mc18.webp",
+   "sm": "assets/visuels/sm/mc-mc18.webp"
+  },
+  "mc-mc19": {
+   "src": "assets/visuels/mc-mc19.webp",
+   "sm": "assets/visuels/sm/mc-mc19.webp"
+  },
+  "mc-mc20": {
+   "src": "assets/visuels/mc-mc20.webp",
+   "sm": "assets/visuels/sm/mc-mc20.webp"
+  },
+  "mc-mc21": {
+   "src": "assets/visuels/mc-mc21.webp",
+   "sm": "assets/visuels/sm/mc-mc21.webp"
+  },
+  "mc-mc22": {
+   "src": "assets/visuels/mc-mc22.webp",
+   "sm": "assets/visuels/sm/mc-mc22.webp"
+  },
+  "mc-mc23": {
+   "src": "assets/visuels/mc-mc23.webp",
+   "sm": "assets/visuels/sm/mc-mc23.webp"
+  },
+  "mc-mc24": {
+   "src": "assets/visuels/mc-mc24.webp",
+   "sm": "assets/visuels/sm/mc-mc24.webp"
+  },
+  "mc-mc25": {
+   "src": "assets/visuels/mc-mc25.webp",
+   "sm": "assets/visuels/sm/mc-mc25.webp"
+  },
+  "mc-mc26": {
+   "src": "assets/visuels/mc-mc26.webp",
+   "sm": "assets/visuels/sm/mc-mc26.webp"
+  },
+  "mc-mc27": {
+   "src": "assets/visuels/mc-mc27.webp",
+   "sm": "assets/visuels/sm/mc-mc27.webp"
+  },
+  "mc-mc28": {
+   "src": "assets/visuels/mc-mc28.webp",
+   "sm": "assets/visuels/sm/mc-mc28.webp"
+  },
+  "mc-mc29": {
+   "src": "assets/visuels/mc-mc29.webp",
+   "sm": "assets/visuels/sm/mc-mc29.webp"
+  },
+  "mc-mc30": {
+   "src": "assets/visuels/mc-mc30.webp",
+   "sm": "assets/visuels/sm/mc-mc30.webp"
+  },
+  "mc-mc31": {
+   "src": "assets/visuels/mc-mc31.webp",
+   "sm": "assets/visuels/sm/mc-mc31.webp"
+  },
+  "mc-mc32": {
+   "src": "assets/visuels/mc-mc32.webp",
+   "sm": "assets/visuels/sm/mc-mc32.webp"
+  },
+  "mc-mc33": {
+   "src": "assets/visuels/mc-mc33.webp",
+   "sm": "assets/visuels/sm/mc-mc33.webp"
+  },
+  "mc-mc34": {
+   "src": "assets/visuels/mc-mc34.webp",
+   "sm": "assets/visuels/sm/mc-mc34.webp"
+  },
+  "mc-mc35": {
+   "src": "assets/visuels/mc-mc35.webp",
+   "sm": "assets/visuels/sm/mc-mc35.webp"
+  },
+  "mc-mc36": {
+   "src": "assets/visuels/mc-mc36.webp",
+   "sm": "assets/visuels/sm/mc-mc36.webp"
+  },
+  "mc-mc37": {
+   "src": "assets/visuels/mc-mc37.webp",
+   "sm": "assets/visuels/sm/mc-mc37.webp"
+  },
+  "mc-mc38": {
+   "src": "assets/visuels/mc-mc38.webp",
+   "sm": "assets/visuels/sm/mc-mc38.webp"
+  },
+  "mc-mc39": {
+   "src": "assets/visuels/mc-mc39.webp",
+   "sm": "assets/visuels/sm/mc-mc39.webp"
+  },
+  "mc-mc40": {
+   "src": "assets/visuels/mc-mc40.webp",
+   "sm": "assets/visuels/sm/mc-mc40.webp"
+  },
+  "mc-mc41": {
+   "src": "assets/visuels/mc-mc41.webp",
+   "sm": "assets/visuels/sm/mc-mc41.webp"
+  },
+  "mc-mc42": {
+   "src": "assets/visuels/mc-mc42.webp",
+   "sm": "assets/visuels/sm/mc-mc42.webp"
+  },
+  "mc-mc43": {
+   "src": "assets/visuels/mc-mc43.webp",
+   "sm": "assets/visuels/sm/mc-mc43.webp"
+  },
+  "mc-mc44": {
+   "src": "assets/visuels/mc-mc44.webp",
+   "sm": "assets/visuels/sm/mc-mc44.webp"
+  },
+  "mc-mc45": {
+   "src": "assets/visuels/mc-mc45.webp",
+   "sm": "assets/visuels/sm/mc-mc45.webp"
+  },
+  "mc-mc46": {
+   "src": "assets/visuels/mc-mc46.webp",
+   "sm": "assets/visuels/sm/mc-mc46.webp"
+  },
+  "mc-mc47": {
+   "src": "assets/visuels/mc-mc47.webp",
+   "sm": "assets/visuels/sm/mc-mc47.webp"
+  },
+  "mc-mc48": {
+   "src": "assets/visuels/mc-mc48.webp",
+   "sm": "assets/visuels/sm/mc-mc48.webp"
+  },
+  "mc-mc49": {
+   "src": "assets/visuels/mc-mc49.webp",
+   "sm": "assets/visuels/sm/mc-mc49.webp"
+  },
   "montagnes-brume": {
    "src": "assets/visuels/montagnes-brume.webp",
    "sm": "assets/visuels/sm/montagnes-brume.webp"
@@ -1175,6 +1371,259 @@
   ]
  },
  "songs": {
+  "9602d495-d04b-43c1-9687-3bb1aadce56f": {
+   "title": "La chaîne alimentaire s'est",
+   "lang": "fr",
+   "by": "lyrics",
+   "order": "timed",
+   "images": [
+    {
+     "img": "mc-mc01",
+     "kw": "Il était une fois un monde o",
+     "at": 8.0
+    },
+    {
+     "img": "mc-mc02",
+     "kw": "Les plantes nourrissaient le",
+     "at": 13.3
+    },
+    {
+     "img": "mc-mc03",
+     "kw": "Les herbivores nourrissaient",
+     "at": 16.3
+    },
+    {
+     "img": "mc-mc04",
+     "kw": "Les humains se tenaient au-d",
+     "at": 19.5
+    },
+    {
+     "img": "mc-mc05",
+     "kw": "On disait que c’était la nat",
+     "at": 23.7
+    },
+    {
+     "img": "mc-mc06",
+     "kw": "Un jour, une femme qui s’app",
+     "at": 30.0
+    },
+    {
+     "img": "mc-mc07",
+     "kw": "Non par dégoût, mais parce q",
+     "at": 35.0
+    },
+    {
+     "img": "mc-mc08",
+     "kw": "Elle planta un jardin.",
+     "at": 41.4
+    },
+    {
+     "img": "mc-mc09",
+     "kw": "Elle ne tua plus rien pour s",
+     "at": 43.0
+    },
+    {
+     "img": "mc-mc10",
+     "kw": "Les premiers mois, elle eut ",
+     "at": 45.7
+    },
+    {
+     "img": "mc-mc11",
+     "kw": "Puis la faim changea de form",
+     "at": 48.0
+    },
+    {
+     "img": "mc-mc12",
+     "kw": "Elle mangeait moins, mais el",
+     "at": 50.2
+    },
+    {
+     "img": "mc-mc13",
+     "kw": "Elle dit à ses voisins :",
+     "at": 54.0
+    },
+    {
+     "img": "mc-mc14",
+     "kw": "Les voisins se moquèrent d’a",
+     "at": 61.2
+    },
+    {
+     "img": "mc-mc15",
+     "kw": "Puis l’un d’eux essaya, just",
+     "at": 63.6
+    },
+    {
+     "img": "mc-mc16",
+     "kw": "Il découvrit que son corps s",
+     "at": 66.6
+    },
+    {
+     "img": "mc-mc17",
+     "kw": "Il continua.",
+     "at": 72.9
+    },
+    {
+     "img": "mc-mc18",
+     "kw": "D’autres suivirent, non par ",
+     "at": 73.9
+    },
+    {
+     "img": "mc-mc19",
+     "kw": "Les marchés se vidèrent de v",
+     "at": 78.5
+    },
+    {
+     "img": "mc-mc20",
+     "kw": "Les abattoirs fermèrent, non",
+     "at": 80.9
+    },
+    {
+     "img": "mc-mc21",
+     "kw": "Les animaux qui avaient été ",
+     "at": 87.2
+    },
+    {
+     "img": "mc-mc22",
+     "kw": "Certains restèrent près des ",
+     "at": 91.9
+    },
+    {
+     "img": "mc-mc23",
+     "kw": "D’autres partirent.",
+     "at": 94.5
+    },
+    {
+     "img": "mc-mc24",
+     "kw": "Aucun ne fut poursuivi.",
+     "at": 95.9
+    },
+    {
+     "img": "mc-mc25",
+     "kw": "La chaîne alimentaire se bri",
+     "at": 97.6
+    },
+    {
+     "img": "mc-mc26",
+     "kw": "Puis elle se brisa plus bas.",
+     "at": 101.7
+    },
+    {
+     "img": "mc-mc27",
+     "kw": "Les oiseaux qui mangeaient d",
+     "at": 103.8
+    },
+    {
+     "img": "mc-mc28",
+     "kw": "On les regardait.",
+     "at": 109.2
+    },
+    {
+     "img": "mc-mc29",
+     "kw": "Les chats qui chassaient les",
+     "at": 111.4
+    },
+    {
+     "img": "mc-mc30",
+     "kw": "Ils regardaient la souris.",
+     "at": 116.2
+    },
+    {
+     "img": "mc-mc31",
+     "kw": "Les deux restaient là, un mo",
+     "at": 119.9
+    },
+    {
+     "img": "mc-mc32",
+     "kw": "Les plantes, qui avaient dév",
+     "at": 125.8
+    },
+    {
+     "img": "mc-mc33",
+     "kw": "Personne ne les arrachait pl",
+     "at": 132.0
+    },
+    {
+     "img": "mc-mc34",
+     "kw": "On les cultivait encore, mai",
+     "at": 136.3
+    },
+    {
+     "img": "mc-mc35",
+     "kw": "Les océans se calmèrent.",
+     "at": 145.0
+    },
+    {
+     "img": "mc-mc36",
+     "kw": "Les grands poissons cessèren",
+     "at": 146.8
+    },
+    {
+     "img": "mc-mc37",
+     "kw": "Les petits cessèrent de se c",
+     "at": 150.7
+    },
+    {
+     "img": "mc-mc38",
+     "kw": "La mer n’était plus un lieu ",
+     "at": 153.1
+    },
+    {
+     "img": "mc-mc39",
+     "kw": "Personne n’avait décrété la ",
+     "at": 158.3
+    },
+    {
+     "img": "mc-mc40",
+     "kw": "Elle s’était défaite progres",
+     "at": 162.4
+    },
+    {
+     "img": "mc-mc41",
+     "kw": "Ceux qui avaient faim mangea",
+     "at": 172.8
+    },
+    {
+     "img": "mc-mc42",
+     "kw": "Et peu à peu, même cette fai",
+     "at": 180.0
+    },
+    {
+     "img": "mc-mc43",
+     "kw": "Le corps se nourrissait autr",
+     "at": 182.7
+    },
+    {
+     "img": "mc-mc44",
+     "kw": "De l’attention.",
+     "at": 189.0
+    },
+    {
+     "img": "mc-mc45",
+     "kw": "De la respiration large qui ",
+     "at": 190.6
+    },
+    {
+     "img": "mc-mc46",
+     "kw": "Un jour, un enfant demanda à",
+     "at": 195.2
+    },
+    {
+     "img": "mc-mc47",
+     "kw": "Elle répondit :",
+     "at": 202.0
+    },
+    {
+     "img": "mc-mc48",
+     "kw": "La chaîne alimentaire n’avai",
+     "at": 207.9
+    },
+    {
+     "img": "mc-mc49",
+     "kw": "Elle avait simplement cessé ",
+     "at": 211.2
+    }
+   ]
+  },
   "91726557-c8e1-44f2-bc6c-85b3bc0f2845": {
    "title": "Lysa et l'Actuel",
    "lang": "fr",

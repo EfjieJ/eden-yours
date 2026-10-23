@@ -1,6 +1,23 @@
 {
   "tracks": [
     {
+      "id": "9602d495-d04b-43c1-9687-3bb1aadce56f",
+      "title": "La chaîne alimentaire s'est",
+      "artist": "Eden Yours",
+      "sunoArtist": "efjie8008",
+      "sunoTitle": "La chaîne alimentaire s'est",
+      "audio_url": null,
+      "embed_url": "https://suno.com/embed/9602d495-d04b-43c1-9687-3bb1aadce56f",
+      "cover_url": "assets/covers/9602d495-d04b-43c1-9687-3bb1aadce56f.jpeg",
+      "suno_share": "https://suno.com/s/9Jm9VFOm7gc69emK",
+      "duration": 222.4,
+      "featured": false,
+      "audio_url_aac": null,
+      "lang": "fr",
+      "new": true,
+      "added": "2026-10-23T18:42"
+    },
+    {
       "id": "91726557-c8e1-44f2-bc6c-85b3bc0f2845",
       "title": "Lysa et l'Actuel",
       "artist": "Eden Yours",
