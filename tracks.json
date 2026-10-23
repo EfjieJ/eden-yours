@@ -1,6 +1,23 @@
 {
   "tracks": [
     {
+      "id": "2e5898a7-a29d-464d-985f-4bba1628e01b",
+      "title": "Rythme éternel",
+      "artist": "Eden Yours",
+      "sunoArtist": "efjie8008",
+      "sunoTitle": "Rythme éternel",
+      "audio_url": null,
+      "embed_url": "https://suno.com/embed/2e5898a7-a29d-464d-985f-4bba1628e01b",
+      "cover_url": "assets/covers/2e5898a7-a29d-464d-985f-4bba1628e01b.jpeg",
+      "suno_share": "https://suno.com/s/EHDuZw9H7wd0FDHA",
+      "duration": 301.64,
+      "featured": false,
+      "audio_url_aac": null,
+      "lang": "fr",
+      "new": true,
+      "added": "2026-10-23T10:45"
+    },
+    {
       "id": "2d4eafe4-dced-451e-a7bb-3025b14b1bca",
       "title": "Ni le grain, ni le chant",
       "artist": "Eden Yours",

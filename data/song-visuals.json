@@ -129,6 +129,190 @@
    "src": "assets/visuels/costume-tombe.webp",
    "sm": "assets/visuels/sm/costume-tombe.webp"
   },
+  "cq-v01a": {
+   "src": "assets/visuels/cq-v01a.webp",
+   "sm": "assets/visuels/sm/cq-v01a.webp"
+  },
+  "cq-v01b": {
+   "src": "assets/visuels/cq-v01b.webp",
+   "sm": "assets/visuels/sm/cq-v01b.webp"
+  },
+  "cq-v01c": {
+   "src": "assets/visuels/cq-v01c.webp",
+   "sm": "assets/visuels/sm/cq-v01c.webp"
+  },
+  "cq-v02a": {
+   "src": "assets/visuels/cq-v02a.webp",
+   "sm": "assets/visuels/sm/cq-v02a.webp"
+  },
+  "cq-v02b": {
+   "src": "assets/visuels/cq-v02b.webp",
+   "sm": "assets/visuels/sm/cq-v02b.webp"
+  },
+  "cq-v03a": {
+   "src": "assets/visuels/cq-v03a.webp",
+   "sm": "assets/visuels/sm/cq-v03a.webp"
+  },
+  "cq-v03b": {
+   "src": "assets/visuels/cq-v03b.webp",
+   "sm": "assets/visuels/sm/cq-v03b.webp"
+  },
+  "cq-v03c": {
+   "src": "assets/visuels/cq-v03c.webp",
+   "sm": "assets/visuels/sm/cq-v03c.webp"
+  },
+  "cq-v04a": {
+   "src": "assets/visuels/cq-v04a.webp",
+   "sm": "assets/visuels/sm/cq-v04a.webp"
+  },
+  "cq-v04b": {
+   "src": "assets/visuels/cq-v04b.webp",
+   "sm": "assets/visuels/sm/cq-v04b.webp"
+  },
+  "cq-v05a": {
+   "src": "assets/visuels/cq-v05a.webp",
+   "sm": "assets/visuels/sm/cq-v05a.webp"
+  },
+  "cq-v05b": {
+   "src": "assets/visuels/cq-v05b.webp",
+   "sm": "assets/visuels/sm/cq-v05b.webp"
+  },
+  "cq-v05c": {
+   "src": "assets/visuels/cq-v05c.webp",
+   "sm": "assets/visuels/sm/cq-v05c.webp"
+  },
+  "cq-v05d": {
+   "src": "assets/visuels/cq-v05d.webp",
+   "sm": "assets/visuels/sm/cq-v05d.webp"
+  },
+  "cq-v05e": {
+   "src": "assets/visuels/cq-v05e.webp",
+   "sm": "assets/visuels/sm/cq-v05e.webp"
+  },
+  "cq-v05f": {
+   "src": "assets/visuels/cq-v05f.webp",
+   "sm": "assets/visuels/sm/cq-v05f.webp"
+  },
+  "cq-v05g": {
+   "src": "assets/visuels/cq-v05g.webp",
+   "sm": "assets/visuels/sm/cq-v05g.webp"
+  },
+  "cq-v05h": {
+   "src": "assets/visuels/cq-v05h.webp",
+   "sm": "assets/visuels/sm/cq-v05h.webp"
+  },
+  "cq-v05i": {
+   "src": "assets/visuels/cq-v05i.webp",
+   "sm": "assets/visuels/sm/cq-v05i.webp"
+  },
+  "cq-v05j": {
+   "src": "assets/visuels/cq-v05j.webp",
+   "sm": "assets/visuels/sm/cq-v05j.webp"
+  },
+  "cq-v05k": {
+   "src": "assets/visuels/cq-v05k.webp",
+   "sm": "assets/visuels/sm/cq-v05k.webp"
+  },
+  "cq-v06a": {
+   "src": "assets/visuels/cq-v06a.webp",
+   "sm": "assets/visuels/sm/cq-v06a.webp"
+  },
+  "cq-v07a": {
+   "src": "assets/visuels/cq-v07a.webp",
+   "sm": "assets/visuels/sm/cq-v07a.webp"
+  },
+  "cq-v07b": {
+   "src": "assets/visuels/cq-v07b.webp",
+   "sm": "assets/visuels/sm/cq-v07b.webp"
+  },
+  "cq-v08a": {
+   "src": "assets/visuels/cq-v08a.webp",
+   "sm": "assets/visuels/sm/cq-v08a.webp"
+  },
+  "cq-v08b": {
+   "src": "assets/visuels/cq-v08b.webp",
+   "sm": "assets/visuels/sm/cq-v08b.webp"
+  },
+  "cq-v09a": {
+   "src": "assets/visuels/cq-v09a.webp",
+   "sm": "assets/visuels/sm/cq-v09a.webp"
+  },
+  "cq-v09b": {
+   "src": "assets/visuels/cq-v09b.webp",
+   "sm": "assets/visuels/sm/cq-v09b.webp"
+  },
+  "cq-v10a": {
+   "src": "assets/visuels/cq-v10a.webp",
+   "sm": "assets/visuels/sm/cq-v10a.webp"
+  },
+  "cq-v10b": {
+   "src": "assets/visuels/cq-v10b.webp",
+   "sm": "assets/visuels/sm/cq-v10b.webp"
+  },
+  "cq-v10c": {
+   "src": "assets/visuels/cq-v10c.webp",
+   "sm": "assets/visuels/sm/cq-v10c.webp"
+  },
+  "cq-v10d": {
+   "src": "assets/visuels/cq-v10d.webp",
+   "sm": "assets/visuels/sm/cq-v10d.webp"
+  },
+  "cq-v10e": {
+   "src": "assets/visuels/cq-v10e.webp",
+   "sm": "assets/visuels/sm/cq-v10e.webp"
+  },
+  "cq-v11a": {
+   "src": "assets/visuels/cq-v11a.webp",
+   "sm": "assets/visuels/sm/cq-v11a.webp"
+  },
+  "cq-v11b": {
+   "src": "assets/visuels/cq-v11b.webp",
+   "sm": "assets/visuels/sm/cq-v11b.webp"
+  },
+  "cq-v11c": {
+   "src": "assets/visuels/cq-v11c.webp",
+   "sm": "assets/visuels/sm/cq-v11c.webp"
+  },
+  "cq-v12a": {
+   "src": "assets/visuels/cq-v12a.webp",
+   "sm": "assets/visuels/sm/cq-v12a.webp"
+  },
+  "cq-v12b": {
+   "src": "assets/visuels/cq-v12b.webp",
+   "sm": "assets/visuels/sm/cq-v12b.webp"
+  },
+  "cq-v12c": {
+   "src": "assets/visuels/cq-v12c.webp",
+   "sm": "assets/visuels/sm/cq-v12c.webp"
+  },
+  "cq-v13a": {
+   "src": "assets/visuels/cq-v13a.webp",
+   "sm": "assets/visuels/sm/cq-v13a.webp"
+  },
+  "cq-v14a": {
+   "src": "assets/visuels/cq-v14a.webp",
+   "sm": "assets/visuels/sm/cq-v14a.webp"
+  },
+  "cq-v14b": {
+   "src": "assets/visuels/cq-v14b.webp",
+   "sm": "assets/visuels/sm/cq-v14b.webp"
+  },
+  "cq-v15a": {
+   "src": "assets/visuels/cq-v15a.webp",
+   "sm": "assets/visuels/sm/cq-v15a.webp"
+  },
+  "cq-v15b": {
+   "src": "assets/visuels/cq-v15b.webp",
+   "sm": "assets/visuels/sm/cq-v15b.webp"
+  },
+  "cq-v16a": {
+   "src": "assets/visuels/cq-v16a.webp",
+   "sm": "assets/visuels/sm/cq-v16a.webp"
+  },
+  "cq-v16b": {
+   "src": "assets/visuels/cq-v16b.webp",
+   "sm": "assets/visuels/sm/cq-v16b.webp"
+  },
   "cycle-saisons": {
    "src": "assets/visuels/cycle-saisons.webp",
    "sm": "assets/visuels/sm/cycle-saisons.webp"
@@ -462,8 +646,8 @@
    "sm": "assets/visuels/sm/lt-l10a.webp"
   },
   "lt-l10b": {
-   "src": "assets/visuels/lt-l10b.webp?v=20261021a",
-   "sm": "assets/visuels/sm/lt-l10b.webp?v=20261021a"
+   "src": "assets/visuels/lt-l10b.webp?v=20261023a",
+   "sm": "assets/visuels/sm/lt-l10b.webp?v=20261023a"
   },
   "lt-l11a": {
    "src": "assets/visuels/lt-l11a.webp",
@@ -799,6 +983,244 @@
   ]
  },
  "songs": {
+  "2e5898a7-a29d-464d-985f-4bba1628e01b": {
+   "title": "Rythme éternel",
+   "lang": "fr",
+   "by": "lyrics",
+   "order": "timed",
+   "images": [
+    {
+     "img": "cq-v01a",
+     "kw": "\"C’est quoi la vie ?\"",
+     "at": 8.0
+    },
+    {
+     "img": "cq-v01b",
+     "kw": "La vie est un \"rythme",
+     "at": 10.0
+    },
+    {
+     "img": "cq-v01c",
+     "kw": "Ce rythme se répète",
+     "at": 16.7
+    },
+    {
+     "img": "cq-v02a",
+     "kw": "Au fond, il n’existe",
+     "at": 24.4
+    },
+    {
+     "img": "cq-v02b",
+     "kw": "Toutes les autres émotions",
+     "at": 29.6
+    },
+    {
+     "img": "cq-v03a",
+     "kw": "Tout est un \"segment",
+     "at": 36.4
+    },
+    {
+     "img": "cq-v03b",
+     "kw": "Chaque personne joue",
+     "at": 39.0
+    },
+    {
+     "img": "cq-v03c",
+     "kw": "Le but du jeu",
+     "at": 42.2
+    },
+    {
+     "img": "cq-v04a",
+     "kw": "Les émotions servent",
+     "at": 53.9
+    },
+    {
+     "img": "cq-v04b",
+     "kw": "jusqu’à ce qu’on ait acquis",
+     "at": 61.9
+    },
+    {
+     "img": "cq-v05a",
+     "kw": "\"Voici des exemples",
+     "at": 67.0
+    },
+    {
+     "img": "cq-v05b",
+     "kw": "- Une personne joue le jeu d’apprendre à jouer",
+     "at": 72.2
+    },
+    {
+     "img": "cq-v05c",
+     "kw": "Elle acquiert la donnée « je suis",
+     "at": 77.6
+    },
+    {
+     "img": "cq-v05d",
+     "kw": "- Une personne joue le jeu d’élever",
+     "at": 83.4
+    },
+    {
+     "img": "cq-v05e",
+     "kw": "Elle acquiert la donnée de l’amour",
+     "at": 87.6
+    },
+    {
+     "img": "cq-v05f",
+     "kw": "- Une personne joue le jeu de construire",
+     "at": 93.5
+    },
+    {
+     "img": "cq-v05g",
+     "kw": "Elle acquiert la donnée de la persévérance",
+     "at": 98.4
+    },
+    {
+     "img": "cq-v05h",
+     "kw": "- Une personne joue le jeu de guérir",
+     "at": 104.6
+    },
+    {
+     "img": "cq-v05i",
+     "kw": "Elle acquiert la donnée de la maîtrise",
+     "at": 108.7
+    },
+    {
+     "img": "cq-v05j",
+     "kw": "- Une personne joue le jeu d’apprendre à écouter",
+     "at": 114.8
+    },
+    {
+     "img": "cq-v05k",
+     "kw": "Elle acquiert la donnée de la vraie",
+     "at": 120.8
+    },
+    {
+     "img": "cq-v06a",
+     "kw": "Chaque arbre",
+     "at": 125.7
+    },
+    {
+     "img": "cq-v07a",
+     "kw": "La vie, c’est ça",
+     "at": 137.2
+    },
+    {
+     "img": "cq-v07b",
+     "kw": "Et plus on joue",
+     "at": 145.8
+    },
+    {
+     "img": "cq-v08a",
+     "kw": "L’éternité n’est pas",
+     "at": 156.9
+    },
+    {
+     "img": "cq-v08b",
+     "kw": "Elle est déjà disponible",
+     "at": 161.1
+    },
+    {
+     "img": "cq-v09a",
+     "kw": "La vie est un \"jeu\", mais",
+     "at": 167.9
+    },
+    {
+     "img": "cq-v09b",
+     "kw": "C’est un jeu parce",
+     "at": 173.0
+    },
+    {
+     "img": "cq-v10a",
+     "kw": "Ces lois sont simples",
+     "at": 184.7
+    },
+    {
+     "img": "cq-v10b",
+     "kw": "- \"Pousser\"",
+     "at": 188.8
+    },
+    {
+     "img": "cq-v10c",
+     "kw": "- \"Continuer\"",
+     "at": 190.8
+    },
+    {
+     "img": "cq-v10d",
+     "kw": "- \"Terminer\"",
+     "at": 192.0
+    },
+    {
+     "img": "cq-v10e",
+     "kw": "- \"Recommencer\"",
+     "at": 194.5
+    },
+    {
+     "img": "cq-v11a",
+     "kw": "Tout ce qui existe",
+     "at": 196.0
+    },
+    {
+     "img": "cq-v11b",
+     "kw": "Pour qu’une chose existe",
+     "at": 199.7
+    },
+    {
+     "img": "cq-v11c",
+     "kw": "Une fois poussée",
+     "at": 205.3
+    },
+    {
+     "img": "cq-v12a",
+     "kw": "Le grand piège",
+     "at": 214.7
+    },
+    {
+     "img": "cq-v12b",
+     "kw": "La vraie compréhension",
+     "at": 222.8
+    },
+    {
+     "img": "cq-v12c",
+     "kw": "Quand on arrête",
+     "at": 228.1
+    },
+    {
+     "img": "cq-v13a",
+     "kw": "C’est là qu’on découvre",
+     "at": 239.6
+    },
+    {
+     "img": "cq-v14a",
+     "kw": "Quand on comprend vraiment",
+     "at": 246.5
+    },
+    {
+     "img": "cq-v14b",
+     "kw": "on devient capable",
+     "at": 260.8
+    },
+    {
+     "img": "cq-v15a",
+     "kw": "Le langage lui-même",
+     "at": 268.5
+    },
+    {
+     "img": "cq-v15b",
+     "kw": "On passe du langage",
+     "at": 270.9
+    },
+    {
+     "img": "cq-v16a",
+     "kw": "La vie, c’est donc",
+     "at": 279.9
+    },
+    {
+     "img": "cq-v16b",
+     "kw": "Plus on comprend",
+     "at": 287.4
+    }
+   ]
+  },
   "2d4eafe4-dced-451e-a7bb-3025b14b1bca": {
    "title": "Ni le grain, ni le chant",
    "lang": "fr",

@@ -3298,6 +3298,7 @@ html[lang="en"] .fr-only { display: none !important; }
 /* Conte : Le Petit Chaperon Rouge et la Lumière Éternelle */
 .game-card--chaperon .game-visual, body.home-real .game-card--chaperon .game-visual { background: url("../assets/contes/chaperon-rouge/sm/c01b.webp") center / cover no-repeat; }
 .game-card--lievre .game-visual, body.home-real .game-card--lievre .game-visual { background: url("../assets/contes/lievre-tortue/sm/l01a.webp") center / cover no-repeat; }
+.game-card--cqlv .game-visual, body.home-real .game-card--cqlv .game-visual { background: url("../assets/contes/cest-quoi-la-vie/sm/v01a.webp") center / cover no-repeat; }
 
 /* « Offrir un cadeau » : don libre et discret (paypal.me/Francjul, montant au choix) */
 .gift { padding: 2.4rem 0 1.6rem; text-align: center; }

@@ -8,7 +8,7 @@ for f in sorted(os.listdir('assets/visuels')):
     if f.endswith('.webp'): imgs[f[:-5]]={"src":"assets/visuels/"+f[:-5]+".webp","sm":"assets/visuels/sm/"+f[:-5]+".webp"}
 for k in imgs:
     if k=='lt-l10b':  # image refaite : adresse versionnée pour contourner les caches
-        imgs[k]={x:v+"?v=20261021a" for x,v in imgs[k].items()}
+        imgs[k]={x:v+"?v=20261023a" for x,v in imgs[k].items()}
 for it in M['items']:
     imgs['mv-'+it['id']]={"src":"assets/merveilles/"+it['id']+".webp","sm":"assets/merveilles/sm/"+it['id']+".webp"}
 # song prefix -> [(image, keyword exactly as in lyrics)]
@@ -172,6 +172,54 @@ SEQ={
   ('gc-bio','La vie biologique'),
   ('gc-pas','Toi, pose encore un pas'),
   ('gc-la','La fonction continue'),
+ ]},
+ '2e5898a7':{'intro':8,'outro':8,'items':[
+  ('cq-v01a','"C’est quoi la vie ?"'),
+  ('cq-v01b','La vie est un "rythme'),
+  ('cq-v01c','Ce rythme se répète'),
+  ('cq-v02a','Au fond, il n’existe'),
+  ('cq-v02b','Toutes les autres émotions'),
+  ('cq-v03a','Tout est un "segment'),
+  ('cq-v03b','Chaque personne joue'),
+  ('cq-v03c','Le but du jeu'),
+  ('cq-v04a','Les émotions servent'),
+  ('cq-v04b','jusqu’à ce qu’on ait acquis'),
+  ('cq-v05a','"Voici des exemples'),
+  ('cq-v05b','- Une personne joue le jeu d’apprendre à jouer'),
+  ('cq-v05c','Elle acquiert la donnée « je suis'),
+  ('cq-v05d','- Une personne joue le jeu d’élever'),
+  ('cq-v05e','Elle acquiert la donnée de l’amour'),
+  ('cq-v05f','- Une personne joue le jeu de construire'),
+  ('cq-v05g','Elle acquiert la donnée de la persévérance'),
+  ('cq-v05h','- Une personne joue le jeu de guérir'),
+  ('cq-v05i','Elle acquiert la donnée de la maîtrise'),
+  ('cq-v05j','- Une personne joue le jeu d’apprendre à écouter'),
+  ('cq-v05k','Elle acquiert la donnée de la vraie'),
+  ('cq-v06a','Chaque arbre'),
+  ('cq-v07a','La vie, c’est ça'),
+  ('cq-v07b','Et plus on joue'),
+  ('cq-v08a','L’éternité n’est pas'),
+  ('cq-v08b','Elle est déjà disponible'),
+  ('cq-v09a','La vie est un "jeu", mais'),
+  ('cq-v09b','C’est un jeu parce'),
+  ('cq-v10a','Ces lois sont simples'),
+  ('cq-v10b','- "Pousser"'),
+  ('cq-v10c','- "Continuer"'),
+  ('cq-v10d','- "Terminer"'),
+  ('cq-v10e','- "Recommencer"'),
+  ('cq-v11a','Tout ce qui existe'),
+  ('cq-v11b','Pour qu’une chose existe'),
+  ('cq-v11c','Une fois poussée'),
+  ('cq-v12a','Le grand piège'),
+  ('cq-v12b','La vraie compréhension'),
+  ('cq-v12c','Quand on arrête'),
+  ('cq-v13a','C’est là qu’on découvre'),
+  ('cq-v14a','Quand on comprend vraiment'),
+  ('cq-v14b','on devient capable'),
+  ('cq-v15a','Le langage lui-même'),
+  ('cq-v15b','On passe du langage'),
+  ('cq-v16a','La vie, c’est donc'),
+  ('cq-v16b','Plus on comprend'),
  ]},
 }
 GEN={'souffle','silence-lac','onde','particule','etoiles','aube','soleil','mv-etres-bulles'}
