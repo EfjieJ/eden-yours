@@ -717,6 +717,198 @@
    "src": "assets/visuels/lumiere-voir.webp",
    "sm": "assets/visuels/sm/lumiere-voir.webp"
   },
+  "ly-la01": {
+   "src": "assets/visuels/ly-la01.webp",
+   "sm": "assets/visuels/sm/ly-la01.webp"
+  },
+  "ly-la02": {
+   "src": "assets/visuels/ly-la02.webp",
+   "sm": "assets/visuels/sm/ly-la02.webp"
+  },
+  "ly-la03": {
+   "src": "assets/visuels/ly-la03.webp",
+   "sm": "assets/visuels/sm/ly-la03.webp"
+  },
+  "ly-la04": {
+   "src": "assets/visuels/ly-la04.webp",
+   "sm": "assets/visuels/sm/ly-la04.webp"
+  },
+  "ly-la05": {
+   "src": "assets/visuels/ly-la05.webp",
+   "sm": "assets/visuels/sm/ly-la05.webp"
+  },
+  "ly-la06": {
+   "src": "assets/visuels/ly-la06.webp",
+   "sm": "assets/visuels/sm/ly-la06.webp"
+  },
+  "ly-la07": {
+   "src": "assets/visuels/ly-la07.webp",
+   "sm": "assets/visuels/sm/ly-la07.webp"
+  },
+  "ly-la08": {
+   "src": "assets/visuels/ly-la08.webp",
+   "sm": "assets/visuels/sm/ly-la08.webp"
+  },
+  "ly-la09": {
+   "src": "assets/visuels/ly-la09.webp",
+   "sm": "assets/visuels/sm/ly-la09.webp"
+  },
+  "ly-la10": {
+   "src": "assets/visuels/ly-la10.webp",
+   "sm": "assets/visuels/sm/ly-la10.webp"
+  },
+  "ly-la11": {
+   "src": "assets/visuels/ly-la11.webp",
+   "sm": "assets/visuels/sm/ly-la11.webp"
+  },
+  "ly-la12": {
+   "src": "assets/visuels/ly-la12.webp",
+   "sm": "assets/visuels/sm/ly-la12.webp"
+  },
+  "ly-la13": {
+   "src": "assets/visuels/ly-la13.webp",
+   "sm": "assets/visuels/sm/ly-la13.webp"
+  },
+  "ly-la14": {
+   "src": "assets/visuels/ly-la14.webp",
+   "sm": "assets/visuels/sm/ly-la14.webp"
+  },
+  "ly-la15": {
+   "src": "assets/visuels/ly-la15.webp",
+   "sm": "assets/visuels/sm/ly-la15.webp"
+  },
+  "ly-la16": {
+   "src": "assets/visuels/ly-la16.webp",
+   "sm": "assets/visuels/sm/ly-la16.webp"
+  },
+  "ly-la17": {
+   "src": "assets/visuels/ly-la17.webp",
+   "sm": "assets/visuels/sm/ly-la17.webp"
+  },
+  "ly-la18": {
+   "src": "assets/visuels/ly-la18.webp",
+   "sm": "assets/visuels/sm/ly-la18.webp"
+  },
+  "ly-la19": {
+   "src": "assets/visuels/ly-la19.webp",
+   "sm": "assets/visuels/sm/ly-la19.webp"
+  },
+  "ly-la20": {
+   "src": "assets/visuels/ly-la20.webp",
+   "sm": "assets/visuels/sm/ly-la20.webp"
+  },
+  "ly-la21": {
+   "src": "assets/visuels/ly-la21.webp",
+   "sm": "assets/visuels/sm/ly-la21.webp"
+  },
+  "ly-la22": {
+   "src": "assets/visuels/ly-la22.webp",
+   "sm": "assets/visuels/sm/ly-la22.webp"
+  },
+  "ly-la23": {
+   "src": "assets/visuels/ly-la23.webp",
+   "sm": "assets/visuels/sm/ly-la23.webp"
+  },
+  "ly-la24": {
+   "src": "assets/visuels/ly-la24.webp",
+   "sm": "assets/visuels/sm/ly-la24.webp"
+  },
+  "ly-la25": {
+   "src": "assets/visuels/ly-la25.webp",
+   "sm": "assets/visuels/sm/ly-la25.webp"
+  },
+  "ly-la26": {
+   "src": "assets/visuels/ly-la26.webp",
+   "sm": "assets/visuels/sm/ly-la26.webp"
+  },
+  "ly-la27": {
+   "src": "assets/visuels/ly-la27.webp",
+   "sm": "assets/visuels/sm/ly-la27.webp"
+  },
+  "ly-la28": {
+   "src": "assets/visuels/ly-la28.webp",
+   "sm": "assets/visuels/sm/ly-la28.webp"
+  },
+  "ly-la29": {
+   "src": "assets/visuels/ly-la29.webp",
+   "sm": "assets/visuels/sm/ly-la29.webp"
+  },
+  "ly-la30": {
+   "src": "assets/visuels/ly-la30.webp",
+   "sm": "assets/visuels/sm/ly-la30.webp"
+  },
+  "ly-la31": {
+   "src": "assets/visuels/ly-la31.webp",
+   "sm": "assets/visuels/sm/ly-la31.webp"
+  },
+  "ly-la32": {
+   "src": "assets/visuels/ly-la32.webp",
+   "sm": "assets/visuels/sm/ly-la32.webp"
+  },
+  "ly-la33": {
+   "src": "assets/visuels/ly-la33.webp",
+   "sm": "assets/visuels/sm/ly-la33.webp"
+  },
+  "ly-la34": {
+   "src": "assets/visuels/ly-la34.webp",
+   "sm": "assets/visuels/sm/ly-la34.webp"
+  },
+  "ly-la35": {
+   "src": "assets/visuels/ly-la35.webp",
+   "sm": "assets/visuels/sm/ly-la35.webp"
+  },
+  "ly-la36": {
+   "src": "assets/visuels/ly-la36.webp",
+   "sm": "assets/visuels/sm/ly-la36.webp"
+  },
+  "ly-la37": {
+   "src": "assets/visuels/ly-la37.webp",
+   "sm": "assets/visuels/sm/ly-la37.webp"
+  },
+  "ly-la38": {
+   "src": "assets/visuels/ly-la38.webp",
+   "sm": "assets/visuels/sm/ly-la38.webp"
+  },
+  "ly-la39": {
+   "src": "assets/visuels/ly-la39.webp",
+   "sm": "assets/visuels/sm/ly-la39.webp"
+  },
+  "ly-la40": {
+   "src": "assets/visuels/ly-la40.webp",
+   "sm": "assets/visuels/sm/ly-la40.webp"
+  },
+  "ly-la41": {
+   "src": "assets/visuels/ly-la41.webp",
+   "sm": "assets/visuels/sm/ly-la41.webp"
+  },
+  "ly-la42": {
+   "src": "assets/visuels/ly-la42.webp",
+   "sm": "assets/visuels/sm/ly-la42.webp"
+  },
+  "ly-la43": {
+   "src": "assets/visuels/ly-la43.webp",
+   "sm": "assets/visuels/sm/ly-la43.webp"
+  },
+  "ly-la44": {
+   "src": "assets/visuels/ly-la44.webp",
+   "sm": "assets/visuels/sm/ly-la44.webp"
+  },
+  "ly-la45": {
+   "src": "assets/visuels/ly-la45.webp",
+   "sm": "assets/visuels/sm/ly-la45.webp"
+  },
+  "ly-la46": {
+   "src": "assets/visuels/ly-la46.webp",
+   "sm": "assets/visuels/sm/ly-la46.webp"
+  },
+  "ly-la47": {
+   "src": "assets/visuels/ly-la47.webp",
+   "sm": "assets/visuels/sm/ly-la47.webp"
+  },
+  "ly-la48": {
+   "src": "assets/visuels/ly-la48.webp",
+   "sm": "assets/visuels/sm/ly-la48.webp"
+  },
   "main-fleur": {
    "src": "assets/visuels/main-fleur.webp",
    "sm": "assets/visuels/sm/main-fleur.webp"
@@ -983,6 +1175,254 @@
   ]
  },
  "songs": {
+  "91726557-c8e1-44f2-bc6c-85b3bc0f2845": {
+   "title": "Lysa et l'Actuel",
+   "lang": "fr",
+   "by": "lyrics",
+   "order": "timed",
+   "images": [
+    {
+     "img": "ly-la01",
+     "kw": "Il était une fois, dans un m",
+     "at": 8.0
+    },
+    {
+     "img": "ly-la02",
+     "kw": "Les gens naissaient, grandis",
+     "at": 18.1
+    },
+    {
+     "img": "ly-la03",
+     "kw": "Ils mangeaient pour ne pas m",
+     "at": 22.8
+    },
+    {
+     "img": "ly-la04",
+     "kw": "Ils tuaient pour ne pas être",
+     "at": 25.5
+    },
+    {
+     "img": "ly-la05",
+     "kw": "Ils appelaient cela la chaîn",
+     "at": 28.3
+    },
+    {
+     "img": "ly-la06",
+     "kw": "Un jour, une petite fille qu",
+     "at": 38.2
+    },
+    {
+     "img": "ly-la07",
+     "kw": "Elle regarda un oiseau qui v",
+     "at": 43.8
+    },
+    {
+     "img": "ly-la08",
+     "kw": "Elle dit, très bas :",
+     "at": 48.3
+    },
+    {
+     "img": "ly-la09",
+     "kw": "Personne ne répondit.",
+     "at": 53.0
+    },
+    {
+     "img": "ly-la10",
+     "kw": "Alors elle resta là, trente ",
+     "at": 54.6
+    },
+    {
+     "img": "ly-la11",
+     "kw": "Et dans ce silence, elle sen",
+     "at": 60.1
+    },
+    {
+     "img": "ly-la12",
+     "kw": "Quelque chose qui regardait ",
+     "at": 65.4
+    },
+    {
+     "img": "ly-la13",
+     "kw": "Elle appela cela l’Actuel.",
+     "at": 71.8
+    },
+    {
+     "img": "ly-la14",
+     "kw": "Les années passèrent.",
+     "at": 73.9
+    },
+    {
+     "img": "ly-la15",
+     "kw": "Elle parla à ceux qui voulai",
+     "at": 78.2
+    },
+    {
+     "img": "ly-la16",
+     "kw": "« Tu n’es pas la jambe.",
+     "at": 82.2
+    },
+    {
+     "img": "ly-la17",
+     "kw": "Tu n’es pas le corps.",
+     "at": 86.2
+    },
+    {
+     "img": "ly-la18",
+     "kw": "Tu n’es pas celui qui mange ",
+     "at": 90.6
+    },
+    {
+     "img": "ly-la19",
+     "kw": "Au début, on se moqua d’elle",
+     "at": 96.9
+    },
+    {
+     "img": "ly-la20",
+     "kw": "Mais certains commencèrent à",
+     "at": 100.7
+    },
+    {
+     "img": "ly-la21",
+     "kw": "Ils s’arrêtaient trente seco",
+     "at": 103.5
+    },
+    {
+     "img": "ly-la22",
+     "kw": "Ils disaient « oui » sans do",
+     "at": 105.9
+    },
+    {
+     "img": "ly-la23",
+     "kw": "Ils regardaient leur corps n",
+     "at": 108.3
+    },
+    {
+     "img": "ly-la24",
+     "kw": "Et le tissu se régénérait.",
+     "at": 116.7
+    },
+    {
+     "img": "ly-la25",
+     "kw": "Les blessures se refermaient",
+     "at": 118.7
+    },
+    {
+     "img": "ly-la26",
+     "kw": "Les rides s’effaçaient quand",
+     "at": 121.9
+    },
+    {
+     "img": "ly-la27",
+     "kw": "Les gens qui avaient cru dev",
+     "at": 126.1
+    },
+    {
+     "img": "ly-la28",
+     "kw": "Pas par magie.",
+     "at": 129.9
+    },
+    {
+     "img": "ly-la29",
+     "kw": "Parce qu’ils avaient compris",
+     "at": 132.0
+    },
+    {
+     "img": "ly-la30",
+     "kw": "Alors la chaîne alimentaire ",
+     "at": 136.9
+    },
+    {
+     "img": "ly-la31",
+     "kw": "Ceux qui n’avaient plus peur",
+     "at": 140.7
+    },
+    {
+     "img": "ly-la32",
+     "kw": "L’énergie ne venait plus de ",
+     "at": 146.6
+    },
+    {
+     "img": "ly-la33",
+     "kw": "Elle venait du geste même : ",
+     "at": 149.6
+    },
+    {
+     "img": "ly-la34",
+     "kw": "Comme la respiration, mais p",
+     "at": 154.4
+    },
+    {
+     "img": "ly-la35",
+     "kw": "Les animaux cessèrent de fui",
+     "at": 161.4
+    },
+    {
+     "img": "ly-la36",
+     "kw": "Les plantes n’avaient plus à",
+     "at": 163.6
+    },
+    {
+     "img": "ly-la37",
+     "kw": "On ne cultivait plus pour su",
+     "at": 166.7
+    },
+    {
+     "img": "ly-la38",
+     "kw": "On créait parce que c’était ",
+     "at": 169.3
+    },
+    {
+     "img": "ly-la39",
+     "kw": "On mangeait encore, parfois,",
+     "at": 171.7
+    },
+    {
+     "img": "ly-la40",
+     "kw": "La prédation devint un vieux",
+     "at": 177.2
+    },
+    {
+     "img": "ly-la41",
+     "kw": "Les gens vécurent longtemps.",
+     "at": 185.6
+    },
+    {
+     "img": "ly-la42",
+     "kw": "Certains choisirent de parti",
+     "at": 188.9
+    },
+    {
+     "img": "ly-la43",
+     "kw": "D’autres restèrent.",
+     "at": 197.6
+    },
+    {
+     "img": "ly-la44",
+     "kw": "L’âge n’était plus une priso",
+     "at": 204.9
+    },
+    {
+     "img": "ly-la45",
+     "kw": "La civilisation n’avait pas ",
+     "at": 210.2
+    },
+    {
+     "img": "ly-la46",
+     "kw": "Et chaque matin, quelque par",
+     "at": 219.3
+    },
+    {
+     "img": "ly-la47",
+     "kw": "Il dit oui.",
+     "at": 224.8
+    },
+    {
+     "img": "ly-la48",
+     "kw": "Et le monde continue, non pl",
+     "at": 225.8
+    }
+   ]
+  },
   "33a4c7d5-9d82-455f-81ad-9024555f7b2e": {
    "title": "Eternal Rhythm",
    "lang": "en",

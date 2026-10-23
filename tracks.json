@@ -1,6 +1,23 @@
 {
   "tracks": [
     {
+      "id": "91726557-c8e1-44f2-bc6c-85b3bc0f2845",
+      "title": "Lysa et l'Actuel",
+      "artist": "Eden Yours",
+      "sunoArtist": "efjie8008",
+      "sunoTitle": "Lysa et l'Actuel",
+      "audio_url": null,
+      "embed_url": "https://suno.com/embed/91726557-c8e1-44f2-bc6c-85b3bc0f2845",
+      "cover_url": "assets/covers/91726557-c8e1-44f2-bc6c-85b3bc0f2845.jpeg",
+      "suno_share": "https://suno.com/s/4IIuupQG9qC9bMjq",
+      "duration": 239.16,
+      "featured": false,
+      "audio_url_aac": null,
+      "lang": "fr",
+      "new": true,
+      "added": "2026-10-23T16:55"
+    },
+    {
       "id": "33a4c7d5-9d82-455f-81ad-9024555f7b2e",
       "title": "Eternal Rhythm",
       "artist": "Eden Yours",

@@ -53,3 +53,6 @@
 .conte-chanson h2 { margin: 0 0 .6rem; }
 .conte-chanson-slot { border: 1px dashed rgba(255,255,255,.28); border-radius: 14px; padding: 1rem; }
 .conte-bientot { margin: 0; font-style: italic; opacity: .7; }
+.conte-chanson-titre { margin: 0 0 .7rem; font-weight: 600; }
+.conte-chanson-titre span { font-weight: 400; opacity: .7; }
+.conte-chanson-slot .conte-embed { margin-top: .8rem; }
