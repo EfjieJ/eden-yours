@@ -3,7 +3,7 @@
 # Vérifie ensuite que le texte de la page (textContent des .conte-text, scènes jointes par une ligne vide) == texte source.
 import html, re, sys, json
 SRC = sys.argv[1] if len(sys.argv) > 1 else '/workspace/contes/petit-prince-jeu-infini.txt'
-V = sys.argv[2] if len(sys.argv) > 2 else '20261023f'
+V = sys.argv[2] if len(sys.argv) > 2 else '20261023g'
 raw = open(SRC, encoding='utf-8').read()
 title_line, body = raw.split('\n\n', 1)
 assert title_line == '"Le Petit Prince du Jeu Infini"'

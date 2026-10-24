@@ -56,3 +56,11 @@
 .conte-chanson-titre { margin: 0 0 .7rem; font-weight: 600; }
 .conte-chanson-titre span { font-weight: 400; opacity: .7; }
 .conte-chanson-slot .conte-embed { margin-top: .8rem; }
+/* Texte au balisage rendu (La chaîne alimentaire ne sera plus) */
+.conte-text--md .conte-h { font-size: 1.22rem; line-height: 1.4; margin: 0 0 .6rem; color: #fde68a; font-family: Georgia, serif; }
+.conte-text--md ul { margin: 0 0 .7rem; padding-left: 1.3rem; }
+.conte-text--md li { font-size: 1.08rem; line-height: 1.7; color: #f6efff; margin: 0 0 .35rem; }
+.conte-text--md strong { color: #fff3c4; }
+.conte-text--md .conte-hr { border: 0; border-top: 1px solid rgba(255, 230, 170, .35); margin: .2rem 0 .9rem; }
+.conte-text--md > :last-child { margin-bottom: 0; }
+.conte-scene:first-child .conte-text--md p:first-child::first-letter { float: none; font-size: inherit; line-height: inherit; margin: 0; color: inherit; font-family: inherit; }
