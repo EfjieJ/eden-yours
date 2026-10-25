@@ -1,6 +1,40 @@
 {
   "tracks": [
     {
+      "id": "81afce14-cb33-44aa-9b15-7b19c248d01c",
+      "title": "The Big Yes and the Wheel",
+      "artist": "Eden Yours",
+      "sunoArtist": "efjie8008",
+      "sunoTitle": "The Big Yes and the Wheel",
+      "audio_url": null,
+      "embed_url": "https://suno.com/embed/81afce14-cb33-44aa-9b15-7b19c248d01c",
+      "cover_url": "assets/covers/81afce14-cb33-44aa-9b15-7b19c248d01c.jpeg",
+      "suno_share": "https://suno.com/s/kmMy0Ax7ZxQ7rdLW",
+      "duration": 322.36,
+      "featured": false,
+      "audio_url_aac": null,
+      "lang": "en",
+      "new": true,
+      "added": "2026-10-25T01:21"
+    },
+    {
+      "id": "8d8ef5eb-0929-43f6-8cdb-71a873f97369",
+      "title": "Le Grand Oui et la Roue",
+      "artist": "Eden Yours",
+      "sunoArtist": "efjie8008",
+      "sunoTitle": "Le Grand Oui et la Roue",
+      "audio_url": null,
+      "embed_url": "https://suno.com/embed/8d8ef5eb-0929-43f6-8cdb-71a873f97369",
+      "cover_url": "assets/covers/8d8ef5eb-0929-43f6-8cdb-71a873f97369.jpeg",
+      "suno_share": "https://suno.com/s/mZGXKZ87jqlgGcJ3",
+      "duration": 317.6,
+      "featured": false,
+      "audio_url_aac": null,
+      "lang": "fr",
+      "new": true,
+      "added": "2026-10-25T01:20"
+    },
+    {
       "id": "eff423d4-5bd8-4293-a357-d978c7e7bd49",
       "title": "The Gaze Is Creation",
       "artist": "Eden Yours",
