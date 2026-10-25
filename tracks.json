@@ -1,6 +1,23 @@
 {
   "tracks": [
     {
+      "id": "eff423d4-5bd8-4293-a357-d978c7e7bd49",
+      "title": "The Gaze Is Creation",
+      "artist": "Eden Yours",
+      "sunoArtist": "efjie8008",
+      "sunoTitle": "The Gaze Is Creation",
+      "audio_url": null,
+      "embed_url": "https://suno.com/embed/eff423d4-5bd8-4293-a357-d978c7e7bd49",
+      "cover_url": "assets/covers/eff423d4-5bd8-4293-a357-d978c7e7bd49.jpeg",
+      "suno_share": "https://suno.com/s/KnsMFbxacPZhrDTL",
+      "duration": 319.2,
+      "featured": false,
+      "audio_url_aac": null,
+      "lang": "en",
+      "new": true,
+      "added": "2026-10-24T23:30"
+    },
+    {
       "id": "cc8219fb-6301-4fa8-9d26-f83b16f9a3b5",
       "title": "Le regard est une création",
       "artist": "Eden Yours",
