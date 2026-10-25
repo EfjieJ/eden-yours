@@ -3,7 +3,7 @@
 # ou si le découpage ne redonne pas le texte à l'identique.
 import html, sys, json, hashlib
 SRC = sys.argv[1] if len(sys.argv) > 1 else '/workspace/contes/wheel-gaze-en.txt'
-V = sys.argv[2] if len(sys.argv) > 2 else '20261023k'
+V = sys.argv[2] if len(sys.argv) > 2 else '20261023l'
 SEGS = sys.argv[3] if len(sys.argv) > 3 else '/workspace/contes/wg-segs.json'
 EXPECT = 'ff7e9fdcc454db5f7ccf2606900e5c70e4dceb9fbc20615c827b17d609c3df4a'
 raw = open(SRC, encoding='utf-8').read()

@@ -4,7 +4,7 @@
 # ou si le texte visible de la page ne redonne pas le texte source (balises retirées) à l'identique.
 import html, sys, json, hashlib, re
 SRC = sys.argv[1] if len(sys.argv) > 1 else '/workspace/contes/chaine-ne-sera-plus.txt'
-V = sys.argv[2] if len(sys.argv) > 2 else '20261023k'
+V = sys.argv[2] if len(sys.argv) > 2 else '20261023l'
 EXPECT = '99a664c4fe82783b30eb734ddedb7358a60b9bf73941ec883a979f9e26365e37'
 raw = open(SRC, encoding='utf-8').read()
 h = hashlib.sha256(raw.encode('utf-8')).hexdigest()
