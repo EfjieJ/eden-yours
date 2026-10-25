@@ -1213,6 +1213,174 @@
    "src": "assets/visuels/rose-planete.webp",
    "sm": "assets/visuels/sm/rose-planete.webp"
   },
+  "rr-rr01": {
+   "src": "assets/visuels/rr-rr01.webp",
+   "sm": "assets/visuels/sm/rr-rr01.webp"
+  },
+  "rr-rr02": {
+   "src": "assets/visuels/rr-rr02.webp",
+   "sm": "assets/visuels/sm/rr-rr02.webp"
+  },
+  "rr-rr03": {
+   "src": "assets/visuels/rr-rr03.webp",
+   "sm": "assets/visuels/sm/rr-rr03.webp"
+  },
+  "rr-rr04": {
+   "src": "assets/visuels/rr-rr04.webp",
+   "sm": "assets/visuels/sm/rr-rr04.webp"
+  },
+  "rr-rr05": {
+   "src": "assets/visuels/rr-rr05.webp",
+   "sm": "assets/visuels/sm/rr-rr05.webp"
+  },
+  "rr-rr06": {
+   "src": "assets/visuels/rr-rr06.webp",
+   "sm": "assets/visuels/sm/rr-rr06.webp"
+  },
+  "rr-rr07": {
+   "src": "assets/visuels/rr-rr07.webp",
+   "sm": "assets/visuels/sm/rr-rr07.webp"
+  },
+  "rr-rr08": {
+   "src": "assets/visuels/rr-rr08.webp",
+   "sm": "assets/visuels/sm/rr-rr08.webp"
+  },
+  "rr-rr09": {
+   "src": "assets/visuels/rr-rr09.webp",
+   "sm": "assets/visuels/sm/rr-rr09.webp"
+  },
+  "rr-rr10": {
+   "src": "assets/visuels/rr-rr10.webp",
+   "sm": "assets/visuels/sm/rr-rr10.webp"
+  },
+  "rr-rr11": {
+   "src": "assets/visuels/rr-rr11.webp",
+   "sm": "assets/visuels/sm/rr-rr11.webp"
+  },
+  "rr-rr12": {
+   "src": "assets/visuels/rr-rr12.webp",
+   "sm": "assets/visuels/sm/rr-rr12.webp"
+  },
+  "rr-rr13": {
+   "src": "assets/visuels/rr-rr13.webp",
+   "sm": "assets/visuels/sm/rr-rr13.webp"
+  },
+  "rr-rr14": {
+   "src": "assets/visuels/rr-rr14.webp",
+   "sm": "assets/visuels/sm/rr-rr14.webp"
+  },
+  "rr-rr15": {
+   "src": "assets/visuels/rr-rr15.webp",
+   "sm": "assets/visuels/sm/rr-rr15.webp"
+  },
+  "rr-rr16": {
+   "src": "assets/visuels/rr-rr16.webp",
+   "sm": "assets/visuels/sm/rr-rr16.webp"
+  },
+  "rr-rr17": {
+   "src": "assets/visuels/rr-rr17.webp",
+   "sm": "assets/visuels/sm/rr-rr17.webp"
+  },
+  "rr-rr18": {
+   "src": "assets/visuels/rr-rr18.webp",
+   "sm": "assets/visuels/sm/rr-rr18.webp"
+  },
+  "rr-rr19": {
+   "src": "assets/visuels/rr-rr19.webp",
+   "sm": "assets/visuels/sm/rr-rr19.webp"
+  },
+  "rr-rr20": {
+   "src": "assets/visuels/rr-rr20.webp",
+   "sm": "assets/visuels/sm/rr-rr20.webp"
+  },
+  "rr-rr21": {
+   "src": "assets/visuels/rr-rr21.webp",
+   "sm": "assets/visuels/sm/rr-rr21.webp"
+  },
+  "rr-rr22": {
+   "src": "assets/visuels/rr-rr22.webp",
+   "sm": "assets/visuels/sm/rr-rr22.webp"
+  },
+  "rr-rr23": {
+   "src": "assets/visuels/rr-rr23.webp",
+   "sm": "assets/visuels/sm/rr-rr23.webp"
+  },
+  "rr-rr24": {
+   "src": "assets/visuels/rr-rr24.webp",
+   "sm": "assets/visuels/sm/rr-rr24.webp"
+  },
+  "rr-rr25": {
+   "src": "assets/visuels/rr-rr25.webp",
+   "sm": "assets/visuels/sm/rr-rr25.webp"
+  },
+  "rr-rr26": {
+   "src": "assets/visuels/rr-rr26.webp",
+   "sm": "assets/visuels/sm/rr-rr26.webp"
+  },
+  "rr-rr27": {
+   "src": "assets/visuels/rr-rr27.webp",
+   "sm": "assets/visuels/sm/rr-rr27.webp"
+  },
+  "rr-rr28": {
+   "src": "assets/visuels/rr-rr28.webp",
+   "sm": "assets/visuels/sm/rr-rr28.webp"
+  },
+  "rr-rr29": {
+   "src": "assets/visuels/rr-rr29.webp",
+   "sm": "assets/visuels/sm/rr-rr29.webp"
+  },
+  "rr-rr30": {
+   "src": "assets/visuels/rr-rr30.webp",
+   "sm": "assets/visuels/sm/rr-rr30.webp"
+  },
+  "rr-rr31": {
+   "src": "assets/visuels/rr-rr31.webp",
+   "sm": "assets/visuels/sm/rr-rr31.webp"
+  },
+  "rr-rr32": {
+   "src": "assets/visuels/rr-rr32.webp",
+   "sm": "assets/visuels/sm/rr-rr32.webp"
+  },
+  "rr-rr33": {
+   "src": "assets/visuels/rr-rr33.webp",
+   "sm": "assets/visuels/sm/rr-rr33.webp"
+  },
+  "rr-rr34": {
+   "src": "assets/visuels/rr-rr34.webp",
+   "sm": "assets/visuels/sm/rr-rr34.webp"
+  },
+  "rr-rr35": {
+   "src": "assets/visuels/rr-rr35.webp",
+   "sm": "assets/visuels/sm/rr-rr35.webp"
+  },
+  "rr-rr36": {
+   "src": "assets/visuels/rr-rr36.webp",
+   "sm": "assets/visuels/sm/rr-rr36.webp"
+  },
+  "rr-rr37": {
+   "src": "assets/visuels/rr-rr37.webp",
+   "sm": "assets/visuels/sm/rr-rr37.webp"
+  },
+  "rr-rr38": {
+   "src": "assets/visuels/rr-rr38.webp",
+   "sm": "assets/visuels/sm/rr-rr38.webp"
+  },
+  "rr-rr39": {
+   "src": "assets/visuels/rr-rr39.webp",
+   "sm": "assets/visuels/sm/rr-rr39.webp"
+  },
+  "rr-rr40": {
+   "src": "assets/visuels/rr-rr40.webp",
+   "sm": "assets/visuels/sm/rr-rr40.webp"
+  },
+  "rr-rr41": {
+   "src": "assets/visuels/rr-rr41.webp",
+   "sm": "assets/visuels/sm/rr-rr41.webp"
+  },
+  "rr-rr42": {
+   "src": "assets/visuels/rr-rr42.webp",
+   "sm": "assets/visuels/sm/rr-rr42.webp"
+  },
   "ruisseau": {
    "src": "assets/visuels/ruisseau.webp",
    "sm": "assets/visuels/sm/ruisseau.webp"
@@ -1371,6 +1539,224 @@
   ]
  },
  "songs": {
+  "cc8219fb-6301-4fa8-9d26-f83b16f9a3b5": {
+   "title": "Le regard est une création",
+   "lang": "fr",
+   "by": "lyrics",
+   "order": "timed",
+   "images": [
+    {
+     "img": "rr-rr01",
+     "kw": "Il était une fois un homme q",
+     "at": 8.0
+    },
+    {
+     "img": "rr-rr02",
+     "kw": "Il la poussa du bout du doig",
+     "at": 14.6
+    },
+    {
+     "img": "rr-rr03",
+     "kw": "Il comprit que le mouvement ",
+     "at": 20.2
+    },
+    {
+     "img": "rr-rr04",
+     "kw": "La pierre n'était que le ter",
+     "at": 27.2
+    },
+    {
+     "img": "rr-rr05",
+     "kw": "Il coupa un tronc en rondell",
+     "at": 30.3
+    },
+    {
+     "img": "rr-rr06",
+     "kw": "La charge avança.",
+     "at": 37.4
+    },
+    {
+     "img": "rr-rr07",
+     "kw": "On l'appela la roue.",
+     "at": 39.0
+    },
+    {
+     "img": "rr-rr08",
+     "kw": "Mais lui savait : ce n'était",
+     "at": 40.9
+    },
+    {
+     "img": "rr-rr09",
+     "kw": "C'était lui qui avait dit ou",
+     "at": 45.9
+    },
+    {
+     "img": "rr-rr10",
+     "kw": "Les siècles passèrent.",
+     "at": 48.8
+    },
+    {
+     "img": "rr-rr11",
+     "kw": "De la roue naquirent le char",
+     "at": 50.9
+    },
+    {
+     "img": "rr-rr12",
+     "kw": "De l'horloge, la mesure.",
+     "at": 55.7
+    },
+    {
+     "img": "rr-rr13",
+     "kw": "Le feu, l'électricité, le mo",
+     "at": 60.2
+    },
+    {
+     "img": "rr-rr14",
+     "kw": "Puis les machines pensèrent.",
+     "at": 71.2
+    },
+    {
+     "img": "rr-rr15",
+     "kw": "L'intelligence artificielle ",
+     "at": 73.9
+    },
+    {
+     "img": "rr-rr16",
+     "kw": "Les robots marchèrent, const",
+     "at": 80.6
+    },
+    {
+     "img": "rr-rr17",
+     "kw": "On crut que la main avait lâ",
+     "at": 85.3
+    },
+    {
+     "img": "rr-rr18",
+     "kw": "Mais derrière chaque algorit",
+     "at": 88.3
+    },
+    {
+     "img": "rr-rr19",
+     "kw": "La machine exécute.",
+     "at": 97.1
+    },
+    {
+     "img": "rr-rr20",
+     "kw": "Et pendant tout ce temps, il",
+     "at": 100.2
+    },
+    {
+     "img": "rr-rr21",
+     "kw": "Le respect.",
+     "at": 110.3
+    },
+    {
+     "img": "rr-rr22",
+     "kw": "Reconnaître ce que l'autre a",
+     "at": 111.4
+    },
+    {
+     "img": "rr-rr23",
+     "kw": "Ne pas effacer son geste sou",
+     "at": 114.9
+    },
+    {
+     "img": "rr-rr24",
+     "kw": "Parce qu'un monde où chacun ",
+     "at": 118.5
+    },
+    {
+     "img": "rr-rr25",
+     "kw": "Et un monde où l'on oublie, ",
+     "at": 126.3
+    },
+    {
+     "img": "rr-rr26",
+     "kw": "Alors les êtres apprirent un",
+     "at": 131.4
+    },
+    {
+     "img": "rr-rr27",
+     "kw": "Ce qu'on crée, on le tient.",
+     "at": 139.8
+    },
+    {
+     "img": "rr-rr28",
+     "kw": "On ne le laisse pas tomber d",
+     "at": 144.2
+    },
+    {
+     "img": "rr-rr29",
+     "kw": "Le créateur qui abandonne sa",
+     "at": 148.2
+    },
+    {
+     "img": "rr-rr30",
+     "kw": "Le créateur qui reste, c'est",
+     "at": 155.8
+    },
+    {
+     "img": "rr-rr31",
+     "kw": "Un jour, une femme s'arrêta ",
+     "at": 160.8
+    },
+    {
+     "img": "rr-rr32",
+     "kw": "Elle ne l'avait pas planté.",
+     "at": 168.7
+    },
+    {
+     "img": "rr-rr33",
+     "kw": "Mais elle le regarda comme s",
+     "at": 171.3
+    },
+    {
+     "img": "rr-rr34",
+     "kw": "Elle dit : « Merci. »",
+     "at": 180.7
+    },
+    {
+     "img": "rr-rr35",
+     "kw": "Et l'arbre resta.",
+     "at": 182.7
+    },
+    {
+     "img": "rr-rr36",
+     "kw": "Parce qu'elle avait cessé de",
+     "at": 187.4
+    },
+    {
+     "img": "rr-rr37",
+     "kw": "Depuis ce jour, la civilisat",
+     "at": 192.3
+    },
+    {
+     "img": "rr-rr38",
+     "kw": "Elle venait de deux gestes s",
+     "at": 205.8
+    },
+    {
+     "img": "rr-rr39",
+     "kw": "Le respect empêche l'oubli d",
+     "at": 217.1
+    },
+    {
+     "img": "rr-rr40",
+     "kw": "Ensemble, ils forment le seu",
+     "at": 224.5
+    },
+    {
+     "img": "rr-rr41",
+     "kw": "On n'est pas éternels parce ",
+     "at": 230.2
+    },
+    {
+     "img": "rr-rr42",
+     "kw": "Tant qu'il y a un regard qui",
+     "at": 244.6
+    }
+   ]
+  },
   "9602d495-d04b-43c1-9687-3bb1aadce56f": {
    "title": "La chaîne alimentaire s'est",
    "lang": "fr",

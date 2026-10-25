@@ -4,7 +4,7 @@
 # Vérification : textContent des .conte-text des 16 scènes, joints sans séparateur == texte source (sans le \n final).
 import html, sys, json, hashlib
 SRC = sys.argv[1] if len(sys.argv) > 1 else '/workspace/contes/cest-quoi-la-vie.txt'
-V = sys.argv[2] if len(sys.argv) > 2 else '20261023i'
+V = sys.argv[2] if len(sys.argv) > 2 else '20261023j'
 EXPECT = '920c22ba67a328f4b6b103c09bcbc12bb477ec944a1dcea86603118e086ab647'
 raw = open(SRC, encoding='utf-8').read()
 h = hashlib.sha256(raw.encode('utf-8')).hexdigest()

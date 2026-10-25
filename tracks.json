@@ -1,6 +1,23 @@
 {
   "tracks": [
     {
+      "id": "cc8219fb-6301-4fa8-9d26-f83b16f9a3b5",
+      "title": "Le regard est une création",
+      "artist": "Eden Yours",
+      "sunoArtist": "efjie8008",
+      "sunoTitle": "Le regard est une création",
+      "audio_url": null,
+      "embed_url": "https://suno.com/embed/cc8219fb-6301-4fa8-9d26-f83b16f9a3b5",
+      "cover_url": "assets/covers/cc8219fb-6301-4fa8-9d26-f83b16f9a3b5.jpeg",
+      "suno_share": "https://suno.com/s/9V87yfYARroyHKgA",
+      "duration": 257.56,
+      "featured": false,
+      "audio_url_aac": null,
+      "lang": "fr",
+      "new": true,
+      "added": "2026-10-24T23:25"
+    },
+    {
       "id": "9602d495-d04b-43c1-9687-3bb1aadce56f",
       "title": "La chaîne alimentaire s'est",
       "artist": "Eden Yours",
