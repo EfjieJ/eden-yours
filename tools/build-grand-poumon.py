@@ -5,7 +5,7 @@ import json, html, re, pathlib
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SID = "0d719cb9-cd9e-4bf8-bc1e-3ee90dbe2345"
 lyr = json.load(open(ROOT / "data/lyrics-sources.json"))[SID]["lyrics"]
-V = "20261023h"
+V = "20261023i"
 # image + texte alternatif pour chaque ligne (ordre des paroles ; les reprises réutilisent la même image)
 IMG = {
  "Inspire...": ("g01", "Une forêt en forme de poumons, à l’aube, inspire un ruisseau de lumière dorée"),

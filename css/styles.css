@@ -3313,3 +3313,4 @@ html:not([lang="en"]) .en-only { display: none !important; }
 .game-card--maelle .game-visual, body.home-real .game-card--maelle .game-visual { background: url("../assets/contes/maelle-chaine/sm/mc22.webp") center / cover no-repeat; }
 .game-card--cnp .game-visual, body.home-real .game-card--cnp .game-visual { background: url("../assets/contes/chaine-ne-sera-plus/sm/np13.webp") center / cover no-repeat; }
 .game-card--rr .game-visual, body.home-real .game-card--rr .game-visual { background: url("../assets/contes/roue-regard/sm/rr01.webp") center / cover no-repeat; }
+.game-card--wg .game-visual, body.home-real .game-card--wg .game-visual { background: url("../assets/contes/roue-regard/sm/rr01.webp") center / cover no-repeat; }
