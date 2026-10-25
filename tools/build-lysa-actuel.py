@@ -3,7 +3,7 @@
 # ou si le découpage ne redonne pas le texte à l'identique.
 import html, sys, json, hashlib
 SRC = sys.argv[1] if len(sys.argv) > 1 else '/workspace/contes/lysa-actuel.txt'
-V = sys.argv[2] if len(sys.argv) > 2 else '20261023j'
+V = sys.argv[2] if len(sys.argv) > 2 else '20261023k'
 SEGS = sys.argv[3] if len(sys.argv) > 3 else '/workspace/contes/lysa-segs.json'
 EXPECT = '39744069b9cad7c7ecaab13f0d607324dbe23dcfe635e8fb0cde10bc3bf7252c'
 raw = open(SRC, encoding='utf-8').read()

@@ -4,7 +4,7 @@
 # Vérification : textContent des .conte-text des 15 scènes, joints sans séparateur == texte source (sans le \n final).
 import html, sys, json, hashlib
 SRC = sys.argv[1] if len(sys.argv) > 1 else '/workspace/contes/lievre-tortue.txt'
-V = sys.argv[2] if len(sys.argv) > 2 else '20261023j'
+V = sys.argv[2] if len(sys.argv) > 2 else '20261023k'
 EXPECT = '4d890824188e8f844a1f4a6ca82364f65b7bd3a8d2020c9619e350306572ee56'
 raw = open(SRC, encoding='utf-8').read()
 h = hashlib.sha256(raw.encode('utf-8')).hexdigest()
