@@ -20,6 +20,13 @@
     location.replace(PAIR + "?lang=" + l + location.hash); return true;
   }
   if (toPair()) return;
+  // Sélecteur FR / EN du conte : le lien garde SA langue (le site réécrit sinon ?lang= avec la langue courante).
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest && e.target.closest(".conte-lang-pick a[hreflang]"); if (!a) return;
+    var l = a.getAttribute("hreflang"); e.preventDefault(); e.stopPropagation();
+    try { localStorage.setItem("eden-lang", l); } catch (x) {}
+    location.href = a.getAttribute("href").split("?")[0] + "?lang=" + l;
+  }, true);
   document.addEventListener("click", function (e) { if (e.target.closest && e.target.closest(".lang-btn, [data-set-lang], [data-pill-lang]")) setTimeout(toPair, 60); });
   var scenes = [];
   var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
