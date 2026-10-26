@@ -4,7 +4,7 @@
 # Vérification : textContent des .conte-text des 15 scènes, joints sans séparateur == texte source (sans le \n final).
 import html, sys, json, hashlib
 SRC = sys.argv[1] if len(sys.argv) > 1 else '/workspace/contes/chaperon-rouge-lumiere.txt'
-V = sys.argv[2] if len(sys.argv) > 2 else '20261023n'
+V = sys.argv[2] if len(sys.argv) > 2 else '20261023o'
 EXPECT = '4c1d1f66e6188b2e211538dfb885273bd2a73a080e9345a4c889b6cdea5dfdf8'
 raw = open(SRC, encoding='utf-8').read()
 h = hashlib.sha256(raw.encode('utf-8')).hexdigest()

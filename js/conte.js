@@ -20,7 +20,7 @@
     location.replace(PAIR + "?lang=" + l + location.hash); return true;
   }
   if (toPair()) return;
-  document.addEventListener("click", function (e) { if (e.target.closest && e.target.closest(".lang-btn, [data-lang], [data-set-lang]")) setTimeout(toPair, 60); });
+  document.addEventListener("click", function (e) { if (e.target.closest && e.target.closest(".lang-btn, [data-set-lang], [data-pill-lang]")) setTimeout(toPair, 60); });
   var scenes = [];
   var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
   document.documentElement.classList.add("conte-js");
