@@ -3,7 +3,7 @@
 # ou si le découpage ne redonne pas le texte à l'identique.
 import html, sys, json, hashlib
 SRC = sys.argv[1] if len(sys.argv) > 1 else '/workspace/contes/big-yes-wheel-en.txt'
-V = sys.argv[2] if len(sys.argv) > 2 else '20261023t'
+V = sys.argv[2] if len(sys.argv) > 2 else '20261023u'
 SEGS = sys.argv[3] if len(sys.argv) > 3 else '/workspace/contes/byw-segs.json'
 EXPECT = 'f18e1c3de3eccabfd46923c350dd0eb91b49ab7e1b769a8e357bc369d021bea0'
 raw = open(SRC, encoding='utf-8').read()
