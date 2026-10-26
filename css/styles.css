@@ -3322,3 +3322,7 @@ html:not([lang="en"]) .en-only { display: none !important; }
 .conte-lang-pick a { padding: .45rem 1rem; border-radius: 999px; border: 1px solid rgba(255,255,255,.25); color: inherit; text-decoration: none; font-weight: 600; background: rgba(255,255,255,.06); }
 .conte-lang-pick a[aria-current="page"] { background: linear-gradient(135deg,#ffd9a8,#f6c1d6); color: #2a1838; border-color: transparent; }
 .conte-lang-pick a:hover { border-color: rgba(255,255,255,.6); }
+
+.conte-invite { margin: 1.2rem auto 0; max-width: 32rem; text-align: center; font-size: .95rem; font-style: italic; opacity: .85; }
+.conte-invite a { color: inherit; text-decoration: underline; text-decoration-color: rgba(255,217,168,.5); text-underline-offset: 3px; }
+.conte-invite a:hover { text-decoration-color: currentColor; }

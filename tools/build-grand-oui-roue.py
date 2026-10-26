@@ -3,7 +3,7 @@
 # ou si le découpage ne redonne pas le texte à l'identique.
 import html, sys, json, hashlib
 SRC = sys.argv[1] if len(sys.argv) > 1 else '/workspace/contes/grand-oui-roue.txt'
-V = sys.argv[2] if len(sys.argv) > 2 else '20261023p'
+V = sys.argv[2] if len(sys.argv) > 2 else '20261023q'
 SEGS = sys.argv[3] if len(sys.argv) > 3 else '/workspace/contes/gor-segs.json'
 EXPECT = 'c31fa96b20ee5e4758ab086c8661028329a030061109beda03e793ce28625e6d'
 raw = open(SRC, encoding='utf-8').read()
