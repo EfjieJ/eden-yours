@@ -3315,6 +3315,7 @@ html:not([lang="en"]) .en-only { display: none !important; }
 .game-card--byw .game-visual, body.home-real .game-card--byw .game-visual { background: url("../assets/contes/grand-oui-roue/sm/gor09.webp") center / cover no-repeat; }
 .game-card--gor .game-visual, body.home-real .game-card--gor .game-visual { background: url("../assets/contes/grand-oui-roue/sm/gor09.webp") center / cover no-repeat; }
 .game-card--gopa .game-visual, body.home-real .game-card--gopa .game-visual { background: url("../assets/contes/grand-oui-premier-appui/sm/gopa04.webp") center / cover no-repeat; }
+.game-card--bysf .game-visual, body.home-real .game-card--bysf .game-visual { background: url("../assets/contes/grand-oui-premier-appui/sm/gopa04.webp") center / cover no-repeat; }
 .game-card--rr .game-visual, body.home-real .game-card--rr .game-visual { background: url("../assets/contes/roue-regard/sm/rr01.webp") center / cover no-repeat; }
 .game-card--wg .game-visual, body.home-real .game-card--wg .game-visual { background: url("../assets/contes/roue-regard/sm/rr01.webp") center / cover no-repeat; }
 
