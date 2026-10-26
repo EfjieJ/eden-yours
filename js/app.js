@@ -814,7 +814,12 @@
   function refreshLangUI() {
     refreshPlayerLabels();
     const wasActive = currentIndex >= 0;
+    const prevId = currentId;
     applyLangFilter();
+    // Chanson jumelle dans la nouvelle langue (ex. Le Grand Oui ↔ The Big Yes) : on la lance à la place.
+    const wasPlaying = window.__edenLangStopWasPlaying !== false;
+    const twin = wasActive && wasPlaying && currentIndex < 0 && window.EdenSongPick && window.EdenSongPick.counterpart ? window.EdenSongPick.counterpart(prevId, tracks) : null;
+    if (twin) { const ti = tracks.findIndex((t) => t.id === twin.id); if (ti >= 0) { playTrack(ti); } }
     // Mode aléatoire : la chanson est arrêtée au changement de langue, puis ça continue dans la nouvelle langue.
     if (wasActive && currentIndex < 0 && window.EdenShuffle && window.EdenShuffle.on()) shuffleKick();
     renderFeatured();

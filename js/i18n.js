@@ -2281,6 +2281,17 @@
     });
   }
 
+  /* Arrête toute chanson : <audio>/<video> (même hors DOM, via EdenFullSong), lecteurs Web Audio, iframes Suno. */
+  function stopAllSongs() {
+    var was = false;
+    try { was = !!document.querySelector('iframe[src*="suno.com"]') || [].some.call(document.querySelectorAll("audio, video"), function (m) { return !m.paused && !m.muted; }); } catch (e) {}
+    try { var n = window.__edenSongNow; if (n && n.el && n.kind === "audio" && !n.el.paused) was = true; } catch (e) {}
+    window.__edenLangStopWasPlaying = was;
+    try { if (window.EdenFullSong && window.EdenFullSong.stopOthers) window.EdenFullSong.stopOthers(); } catch (e) {}
+    try { document.querySelectorAll("audio, video").forEach(function (m) { if (!m.paused && !m.muted) m.pause(); }); } catch (e) {}
+    try { document.querySelectorAll('iframe[src*="suno.com"]').forEach(function (f) { f.src = "about:blank"; var box = f.parentNode; if (box) { box.removeChild(f); if (box.classList && /embed/.test(box.className)) box.hidden = true; } }); } catch (e) {}
+  }
+
   function setLang(next) {
     if (next !== "fr" && next !== "en") return;
     if (next === lang) {
@@ -2289,6 +2300,7 @@
     }
     lang = next;
     try { localStorage.setItem(STORAGE_KEY, lang); } catch (e) {}
+    stopAllSongs();   // changement de langue : la chanson en cours (autre langue) s'arrête tout de suite, partout
     apply();
   }
 
@@ -2308,6 +2320,7 @@
     t: t,
     apply: apply,
     setLang: setLang,
+    stopAllSongs: stopAllSongs,
     getLang: function () { return lang; },
     onChange: onChange,
     dict: dict

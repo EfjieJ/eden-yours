@@ -83,5 +83,25 @@
     return pick(sub.length ? sub : list);
   }
 
-  window.EdenSongPick = { lang: lang, forLang: forLang, sameLang: sameLang, ready: ready, openingIds: openingIds, pickOpening: pickOpening, pick: pick, record: record, lastStarted: function () { return read("localStorage", LOCAL_KEY); }, recent: function () { return read("sessionStorage", SESSION_KEY); } };
+  /* ——— chansons jumelles FR ↔ EN (même chanson dans l'autre langue) ——— */
+  var PAIRS = [
+    ["8d8ef5eb-0929-43f6-8cdb-71a873f97369", "81afce14"], // Le Grand Oui et la Roue ↔ The Big Yes and the Wheel
+    ["cc8219fb", "eff423d4"], // Le regard est une création ↔ The Gaze Is Creation
+    ["2e5898a7", "33a4c7d5"], // Rythme éternel ↔ Eternal Rhythm
+    ["04441f4e", "d2d61703"], // Le postulat ↔ The Postulate
+    ["f5bf8830", "b495fcd7"], // La Sensibilité est la Fonction ↔ Sensitivity is Pure Function
+    ["a0b2b33d", "b0eb0f76"], // Le Léger Futur ↔ The slight future
+    ["e4a2c1d5", "4d1bff83"]  // La vie, c'est un geste ↔ Life is a gesture
+  ];
+  /* counterpart(id, list) → la chanson jumelle trouvée dans list (déjà filtrée sur la nouvelle langue), sinon null */
+  function counterpart(id, list) {
+    id = String(id || "").toLowerCase(); if (!id) return null;
+    for (var i = 0; i < PAIRS.length; i++) {
+      var a = PAIRS[i][0].slice(0, 8), b = PAIRS[i][1].slice(0, 8), other = id.indexOf(a) === 0 ? b : id.indexOf(b) === 0 ? a : "";
+      if (!other) continue;
+      for (var j = 0; j < (list || []).length; j++) if (list[j] && String(list[j].id).indexOf(other) === 0) return list[j];
+    }
+    return null;
+  }
+  window.EdenSongPick = { counterpart: counterpart, lang: lang, forLang: forLang, sameLang: sameLang, ready: ready, openingIds: openingIds, pickOpening: pickOpening, pick: pick, record: record, lastStarted: function () { return read("localStorage", LOCAL_KEY); }, recent: function () { return read("sessionStorage", SESSION_KEY); } };
 })();
