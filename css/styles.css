@@ -3316,3 +3316,9 @@ html:not([lang="en"]) .en-only { display: none !important; }
 .game-card--gor .game-visual, body.home-real .game-card--gor .game-visual { background: url("../assets/contes/grand-oui-roue/sm/gor09.webp") center / cover no-repeat; }
 .game-card--rr .game-visual, body.home-real .game-card--rr .game-visual { background: url("../assets/contes/roue-regard/sm/rr01.webp") center / cover no-repeat; }
 .game-card--wg .game-visual, body.home-real .game-card--wg .game-visual { background: url("../assets/contes/roue-regard/sm/rr01.webp") center / cover no-repeat; }
+
+/* Choix de langue d'un conte bilingue (lien vers la version traduite) */
+.conte-lang-pick { display: flex; justify-content: center; gap: .5rem; margin: 0 0 1rem; flex-wrap: wrap; }
+.conte-lang-pick a { padding: .45rem 1rem; border-radius: 999px; border: 1px solid rgba(255,255,255,.25); color: inherit; text-decoration: none; font-weight: 600; background: rgba(255,255,255,.06); }
+.conte-lang-pick a[aria-current="page"] { background: linear-gradient(135deg,#ffd9a8,#f6c1d6); color: #2a1838; border-color: transparent; }
+.conte-lang-pick a:hover { border-color: rgba(255,255,255,.6); }

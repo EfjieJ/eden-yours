@@ -9,6 +9,18 @@
   var sid = document.body.getAttribute("data-conte-song"), stitle = document.body.getAttribute("data-conte-song-title");
   var SONG = sid ? { id: sid, title: stitle || document.title, embed_url: "https://suno.com/embed/" + sid }
     : { id: "4ec00297-cac3-40f7-8e48-9f12f59ac0d4", title: "La Septième Chèvre de Monsieur Seguin et la Lumière", embed_url: "https://suno.com/embed/4ec00297-cac3-40f7-8e48-9f12f59ac0d4" };
+  // Conte bilingue : <body data-conte-lang="fr|en" data-conte-pair="page de l'autre langue">.
+  // Si la langue du site n'est pas celle de la page (au chargement ou au clic FR/EN), on va à la version traduite :
+  // la page anglaise ne joue que la chanson anglaise, la française que la française.
+  var PL = document.body.getAttribute("data-conte-lang"), PAIR = document.body.getAttribute("data-conte-pair");
+  function siteLang() { return (window.EdenSongPick && window.EdenSongPick.lang()) || ((document.documentElement.lang || "fr").slice(0, 2) === "en" ? "en" : "fr"); }
+  function toPair() {
+    if (!PL || !PAIR) return false;
+    var l = siteLang(); if (l === PL) return false;
+    location.replace(PAIR + "?lang=" + l + location.hash); return true;
+  }
+  if (toPair()) return;
+  document.addEventListener("click", function (e) { if (e.target.closest && e.target.closest(".lang-btn, [data-lang], [data-set-lang]")) setTimeout(toPair, 60); });
   var scenes = [];
   var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
   document.documentElement.classList.add("conte-js");
