@@ -1917,8 +1917,8 @@
       "nt.hintHome": "Journey complete in {{s}} s. Villages are lighting up on the New Earth. Listen to the song to the end.",
       "home.campfireEntryLabel": "Campfire",
       "home.conteEntryLabel": "Tale: Blanchette",
-      "games.conteTitle": "Tale: Blanchette and the light",
-      "games.conteLine": "Monsieur Seguin’s seventh goat feeds on light and teaches the wolf to do the same. An illustrated tale by François (in French), with his song in full.",
+      "games.conteTitle": "Tale: Monsieur Seguin’s Seventh Goat and the Light",
+      "games.conteLine": "Monsieur Seguin’s seventh goat feeds on light and teaches the wolf to do the same. An illustrated tale by François, in 35 pictures.",
       "games.conteCta": "📖 Read the tale",
       "games.readConte": "Read the tale Blanchette and the light",
       "conte.eyebrow": "Illustrated tale · Eden Yours",
@@ -1927,7 +1927,7 @@
       "conte.next": "Next ▾",
       "conte.playTop": "▶ Listen to the song while reading",
       "conte.endLine": "This tale is also a song. Listen to it in full.",
-      "conte.playEnd": "▶ Listen to “La Septième Chèvre de Monsieur Seguin et la Lumière”",
+      "conte.playEnd": "▶ Listen to the song",
       "games.campfireTitle": "Campfire",
       "games.campfireLine": "Drop an intention into the fire: it becomes an ember and sparks, and the fire answers with a song, in full.",
       "games.playCampfire": "Play Campfire",
@@ -2262,7 +2262,7 @@
 
     // Liens vers les jeux : on garde la langue choisie (?lang=fr|en)
     document.querySelectorAll("[data-lang-href]").forEach(function (el) {
-      var base = el.getAttribute("data-lang-href");
+      var base = (lang === "en" && el.getAttribute("data-lang-href-en")) || el.getAttribute("data-lang-href");
       var hash = "";
       var h = base.indexOf("#");
       if (h !== -1) { hash = base.slice(h); base = base.slice(0, h); }

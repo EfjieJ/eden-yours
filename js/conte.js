@@ -7,7 +7,10 @@
   "use strict";
   // Chanson du conte : <body data-conte-song="<id du clip Suno>" data-conte-song-title="…"> ; sans attribut = Blanchette.
   var sid = document.body.getAttribute("data-conte-song"), stitle = document.body.getAttribute("data-conte-song-title");
+  // Pas de chanson par défaut : sans data-conte-song valide (ou « none »), ou sur une page EN sans id propre, on ne joue rien.
+  if (sid === "none" || sid === "") sid = null;
   var SONG = sid ? { id: sid, title: stitle || document.title, embed_url: "https://suno.com/embed/" + sid }
+    : (document.body.hasAttribute("data-conte-song") || document.body.getAttribute("data-conte-lang") === "en" || (document.documentElement.lang || "").slice(0, 2) === "en") ? null
     : { id: "4ec00297-cac3-40f7-8e48-9f12f59ac0d4", title: "La Septième Chèvre de Monsieur Seguin et la Lumière", embed_url: "https://suno.com/embed/4ec00297-cac3-40f7-8e48-9f12f59ac0d4" };
   // Conte bilingue : <body data-conte-lang="fr|en" data-conte-pair="page de l'autre langue">.
   // Si la langue du site n'est pas celle de la page (au chargement ou au clic FR/EN), on va à la version traduite :
@@ -111,6 +114,7 @@
 
   document.querySelectorAll(".conte-play").forEach(function (b) {
     b.addEventListener("click", function () {
+      if (!SONG) { b.hidden = true; return; }
       var box = b.parentNode.querySelector(".conte-embed");
       document.querySelectorAll(".conte-embed").forEach(function (o) { if (o !== box) { o.innerHTML = ""; o.hidden = true; } });
       if (window.EdenFullSong) window.EdenFullSong.embed(box, SONG);
