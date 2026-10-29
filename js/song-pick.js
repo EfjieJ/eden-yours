@@ -91,7 +91,8 @@
     ["04441f4e", "d2d61703"], // Le postulat ↔ The Postulate
     ["f5bf8830", "b495fcd7"], // La Sensibilité est la Fonction ↔ Sensitivity is Pure Function
     ["a0b2b33d", "b0eb0f76"], // Le Léger Futur ↔ The slight future
-    ["e4a2c1d5", "4d1bff83"]  // La vie, c'est un geste ↔ Life is a gesture
+    ["e4a2c1d5", "4d1bff83"], // La vie, c'est un geste ↔ Life is a gesture
+    ["4ec00297", "04c11b7a"]  // La Septième Chèvre de Monsieur Seguin et la Lumière ↔ Monsieur Seguin’s Seventh Goat and the Light
   ];
   /* counterpart(id, list) → la chanson jumelle trouvée dans list (déjà filtrée sur la nouvelle langue), sinon null */
   function counterpart(id, list) {
