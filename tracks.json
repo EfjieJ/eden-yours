@@ -1,6 +1,21 @@
 {
   "tracks": [
     {
+      "id": "29a0e380-8e73-4054-a7ac-b60b27399c7f",
+      "title": "Quelqu’un a cessé de manger",
+      "artist": "Eden Yours",
+      "sunoArtist": "efjie8008",
+      "audio_url": "assets/audio/29a0e380-8e73-4054-a7ac-b60b27399c7f.mp3",
+      "cover_url": "assets/covers/29a0e380-8e73-4054-a7ac-b60b27399c7f.jpeg",
+      "suno_share": "https://suno.com/s/b0J7NENgY0gNznC5",
+      "duration": 298.0,
+      "featured": false,
+      "audio_url_aac": "assets/audio/29a0e380-8e73-4054-a7ac-b60b27399c7f.m4a",
+      "lang": "fr",
+      "new": true,
+      "added": "2026-11-02T14:15"
+    },
+    {
       "id": "04c11b7a-4a7d-46e5-b62b-c722fbb0334f",
       "title": "Monsieur Seguin’s Seventh Goat and the Light",
       "artist": "Eden Yours",
