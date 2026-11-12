@@ -1,6 +1,21 @@
 {
   "tracks": [
     {
+      "id": "fabf88b1-7984-4242-afe5-e10d81a11867",
+      "title": "Le code de la présence",
+      "artist": "Eden Yours",
+      "sunoArtist": "efjie8008",
+      "audio_url": "assets/audio/fabf88b1-7984-4242-afe5-e10d81a11867.mp3",
+      "cover_url": "assets/covers/fabf88b1-7984-4242-afe5-e10d81a11867.jpeg",
+      "suno_share": "https://suno.com/song/fabf88b1-7984-4242-afe5-e10d81a11867",
+      "duration": 232.36,
+      "featured": false,
+      "audio_url_aac": "assets/audio/fabf88b1-7984-4242-afe5-e10d81a11867.m4a",
+      "lang": "fr",
+      "new": true,
+      "added": "2026-11-12T15:30"
+    },
+    {
       "id": "29a0e380-8e73-4054-a7ac-b60b27399c7f",
       "title": "Quelqu’un a cessé de manger",
       "artist": "Eden Yours",
